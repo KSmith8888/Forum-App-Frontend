@@ -1,0 +1,24 @@
+{
+    "name": "forum-app",
+    "version": "1.0.0",
+    "description": "A forum/social media app made with the MERN stack",
+    "main": "/server/index.js",
+    "private": "true",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/KSmith8888/Forum-App.git"
+    },
+    "author": "Kevyn Smith",
+    "bugs": {
+        "url": "https://github.com/KSmith8888/Forum-App/issues"
+    },
+    "homepage": "https://github.com/KSmith8888/Forum-App#readme",
+    "devDependencies": {
+        "parcel": "^2.8.3",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    }
+}
