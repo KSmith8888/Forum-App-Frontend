@@ -3,9 +3,12 @@
     "version": "1.0.0",
     "description": "A forum/social media app made with the MERN stack",
     "main": "/server/index.js",
+    "source": "./client/src/index.html",
     "private": "true",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "parcel build ./client/src/index.html --public-url ./",
+        "client": "parcel"
     },
     "repository": {
         "type": "git",
@@ -18,7 +21,9 @@
     "homepage": "https://github.com/KSmith8888/Forum-App#readme",
     "devDependencies": {
         "parcel": "^2.8.3",
+        "process": "^0.11.10",
         "react": "^18.2.0",
-        "react-dom": "^18.2.0"
+        "react-dom": "^18.2.0",
+        "react-router-dom": "^6.11.1"
     }
 }
