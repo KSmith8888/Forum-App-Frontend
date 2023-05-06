@@ -1,0 +1,27 @@
+{
+    "name": "forum-app-frontend",
+    "version": "1.0.0",
+    "description": "The frontend of a forum/social media app made with the MERN stack",
+    "private": "true",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/KSmith8888/Forum-App-Frontend.git"
+    },
+    "author": "Kevyn Smith",
+    "bugs": {
+        "url": "https://github.com/KSmith8888/Forum-App-Frontend/issues"
+    },
+    "homepage": "https://github.com/KSmith8888/Forum-App-Frontend#readme",
+    "dependencies": {
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    },
+    "devDependencies": {
+        "vite": "^4.3.5"
+    }
+}
