@@ -6,14 +6,20 @@ import {
     RouterProvider,
 } from "react-router-dom";
 import MainLayout from "./MainLayout";
-import Home from "../pages/Home";
+import Error from "./Error";
+import Home, { homeLoader } from "../pages/Home";
 import NotFound from "../pages/NotFound";
 import "../assets/styles.css";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" element={<MainLayout />}>
-            <Route index element={<Home />} />
+            <Route
+                index
+                element={<Home />}
+                errorElement={<Error />}
+                loader={homeLoader}
+            />
             <Route path="*" element={<NotFound />} />
         </Route>
     )
