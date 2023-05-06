@@ -19,7 +19,8 @@
     "homepage": "https://github.com/KSmith8888/Forum-App-Frontend#readme",
     "dependencies": {
         "react": "^18.2.0",
-        "react-dom": "^18.2.0"
+        "react-dom": "^18.2.0",
+        "react-router-dom": "^6.11.1"
     },
     "devDependencies": {
         "vite": "^4.3.5"
