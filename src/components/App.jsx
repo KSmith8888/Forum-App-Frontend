@@ -5,20 +5,24 @@ import {
     createRoutesFromElements,
     RouterProvider,
 } from "react-router-dom";
+//Components
 import MainLayout from "./MainLayout";
 import Error from "./Error";
+import Results, { resultsLoader } from "./Results";
+//Pages
 import Home, { homeLoader } from "../pages/Home";
+import Search, { searchAction } from "../pages/Search";
 import NotFound from "../pages/NotFound";
-import Results, { resultsLoader, searchAction } from "../pages/Results";
+//Assets
 import "../assets/styles.css";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route element={<MainLayout />} errorElement={<Error />}>
+        <Route element={<MainLayout />}>
             <Route path="/" element={<Home />} loader={homeLoader} />
             <Route
-                path="search/:query"
-                element={<Results />}
+                path="/search"
+                element={<Search />}
                 loader={resultsLoader}
                 action={searchAction}
             />
