@@ -1,5 +1,5 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, redirect } from "react-router-dom";
 
 export async function homeLoader() {
     try {
@@ -7,9 +7,8 @@ export async function homeLoader() {
         const data = await response.json();
         return data;
     } catch (error) {
-        console.log(error);
+        return error;
     }
-    return null;
 }
 
 export default function Home() {
@@ -27,7 +26,11 @@ export default function Home() {
         <>
             <h2>This is the home page</h2>
             <p>See some popular posts below</p>
-            <div>{postElements}</div>
+            {postData ? (
+                <div>{postElements}</div>
+            ) : (
+                <p>Post data is unavailable at this time</p>
+            )}
         </>
     );
 }

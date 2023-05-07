@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Form } from "react-router-dom";
 
 export default function Header() {
     return (
@@ -13,6 +13,11 @@ export default function Header() {
                     Not Found
                 </Link>
             </nav>
+            <Form className="search-form" method="post">
+                <label htmlFor="search-input">Search Posts:</label>
+                <input id="search-input" type="search" name="search" />
+                <button type="submit">Search</button>
+            </Form>
         </header>
     );
 }

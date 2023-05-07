@@ -9,16 +9,18 @@ import MainLayout from "./MainLayout";
 import Error from "./Error";
 import Home, { homeLoader } from "../pages/Home";
 import NotFound from "../pages/NotFound";
+import Results, { resultsLoader, searchAction } from "../pages/Results";
 import "../assets/styles.css";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path="/" element={<MainLayout />}>
+        <Route element={<MainLayout />} errorElement={<Error />}>
+            <Route path="/" element={<Home />} loader={homeLoader} />
             <Route
-                index
-                element={<Home />}
-                errorElement={<Error />}
-                loader={homeLoader}
+                path="search/:query"
+                element={<Results />}
+                loader={resultsLoader}
+                action={searchAction}
             />
             <Route path="*" element={<NotFound />} />
         </Route>
