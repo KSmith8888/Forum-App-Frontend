@@ -1,10 +1,13 @@
 import React, { useRef } from "react";
-import { Link, Form } from "react-router-dom";
+import { Link, Form, useActionData } from "react-router-dom";
+
+import { attemptLogin } from "../utils/login";
 
 import profileImage from "../assets/images/blank-profile-picture.png";
 
 export default function Header() {
     const loginModal = useRef();
+    const loginForm = useRef();
 
     function openLoginModal() {
         loginModal.current.showModal();
@@ -25,6 +28,15 @@ export default function Header() {
                     <Link to="/search" className="link">
                         Search Posts
                     </Link>
+                    <Link to="/posts/books" className="link">
+                        Books
+                    </Link>
+                    <Link to="/posts/games" className="link">
+                        Games
+                    </Link>
+                    <Link to="/posts/movies" className="link">
+                        Movies
+                    </Link>
                     <Link to="/test" className="link">
                         Not Found
                     </Link>
@@ -44,11 +56,21 @@ export default function Header() {
                     Login
                 </button>
                 <dialog className="modal" ref={loginModal}>
-                    <Form className="login-form" method="post">
+                    <Form
+                        className="login-form"
+                        ref={loginForm}
+                        method="post"
+                        onSubmit={(e) => {
+                            attemptLogin(e);
+                            loginForm.current.reset();
+                            closeLoginModal();
+                        }}
+                    >
                         <h3>Enter Credentials</h3>
                         <label htmlFor="username">Username:</label>
                         <input
                             id="username"
+                            className="input"
                             type="text"
                             name="username"
                             required
@@ -56,6 +78,7 @@ export default function Header() {
                         <label htmlFor="password">Password:</label>
                         <input
                             id="password"
+                            className="input"
                             type="text"
                             name="password"
                             required

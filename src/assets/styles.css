@@ -12,6 +12,7 @@ img {
 
 .button {
     cursor: pointer;
+    margin: 0.5em;
 }
 
 #root {
@@ -27,6 +28,7 @@ img {
     padding: 2em;
     display: flex;
     align-items: center;
+    border-bottom: 1px solid black;
 }
 
 .heading-nav-container {
@@ -64,6 +66,8 @@ img {
 }
 
 .main-section {
+    width: 90%;
+    padding: 2em;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -83,4 +87,19 @@ img {
 
 .footer-text {
     font-weight: bold;
+}
+
+.modal[open] {
+    padding: 2em;
+    border: 1px solid black;
+    background-color: lightgray;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    margin: 0.5em;
 }
