@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "description": "The frontend of a forum/social media app made with the MERN stack",
     "private": "true",
+    "type": "module",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "vite",
