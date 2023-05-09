@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { Link, Form, useActionData } from "react-router-dom";
+import React, { useRef, useState } from "react";
+import { Link, Form } from "react-router-dom";
 
 import { attemptLogin } from "../utils/login";
 
@@ -8,6 +8,7 @@ import profileImage from "../assets/images/blank-profile-picture.png";
 export default function Header() {
     const loginModal = useRef();
     const loginForm = useRef();
+    const [loginMessage, setLoginMessage] = useState("");
 
     function openLoginModal() {
         loginModal.current.showModal();
@@ -93,6 +94,7 @@ export default function Header() {
                         >
                             Close
                         </button>
+                        <p>{loginMessage}</p>
                     </Form>
                 </dialog>
             </div>
