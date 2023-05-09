@@ -1,7 +1,7 @@
 import React from "react";
-import { useLoaderData, useParams } from "react-router-dom";
+import { useLoaderData, useParams, Link } from "react-router-dom";
 
-export async function postsLoader({ params }) {
+export async function postsTopicLoader({ params }) {
     try {
         const response = await fetch("/src/assets/test-data.json");
         const data = await response.json();
@@ -12,14 +12,15 @@ export async function postsLoader({ params }) {
     }
 }
 
-export default function Posts() {
+export default function PostsByTopic() {
     const topic = useParams().topic;
     const postData = useLoaderData();
     const postElements = postData.map((post) => {
         return (
             <div key={post._id}>
-                <h3>{post.title}</h3>
-                <p>{post.content}</p>
+                <Link to={`/posts/details/${post._id}`}>
+                    <h3>{post.title}</h3>
+                </Link>
             </div>
         );
     });

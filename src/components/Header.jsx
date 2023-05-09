@@ -9,6 +9,8 @@ export default function Header() {
     const loginModal = useRef();
     const loginForm = useRef();
     const [loginMessage, setLoginMessage] = useState("");
+    const userId = sessionStorage.getItem("user-id");
+    const [isUserLoggedIn, setIsUserLoggedIn] = useState(userId);
 
     function openLoginModal() {
         loginModal.current.showModal();
@@ -38,8 +40,8 @@ export default function Header() {
                     <Link to="/posts/movies" className="link">
                         Movies
                     </Link>
-                    <Link to="/test" className="link">
-                        Not Found
+                    <Link to="/create" className="link">
+                        Create Post
                     </Link>
                 </nav>
             </div>
@@ -49,13 +51,17 @@ export default function Header() {
                     alt="A generic blank avatar image of a mans head"
                     className="profile-image"
                 />
-                <button
-                    type="button"
-                    className="button"
-                    onClick={openLoginModal}
-                >
-                    Login
-                </button>
+                {isUserLoggedIn ? (
+                    <button>Profile</button>
+                ) : (
+                    <button
+                        type="button"
+                        className="button"
+                        onClick={openLoginModal}
+                    >
+                        Login
+                    </button>
+                )}
                 <dialog className="modal" ref={loginModal}>
                     <Form
                         className="login-form"

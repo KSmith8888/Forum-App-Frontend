@@ -12,7 +12,9 @@ import Results, { resultsLoader } from "./Results";
 //Pages
 import Home, { homeLoader } from "../pages/Home";
 import Search, { searchAction } from "../pages/Search";
-import Posts, { postsLoader } from "../pages/Posts";
+import Post, { postLoader } from "../pages/Post";
+import PostsByTopic, { postsTopicLoader } from "../pages/PostsByTopic";
+import CreatePost, { createPostAction } from "../pages/CreatePost";
 import NotFound from "../pages/NotFound";
 //Assets
 import "../assets/styles.css";
@@ -28,8 +30,22 @@ const router = createBrowserRouter(
                 action={searchAction}
             />
             <Route path="/posts">
-                <Route path=":topic" element={<Posts />} loader={postsLoader} />
+                <Route
+                    path=":topic"
+                    element={<PostsByTopic />}
+                    loader={postsTopicLoader}
+                />
+                <Route
+                    path="details/:id"
+                    element={<Post />}
+                    loader={postLoader}
+                />
             </Route>
+            <Route
+                path="/create"
+                element={<CreatePost />}
+                action={createPostAction}
+            />
             <Route path="*" element={<NotFound />} />
         </Route>
     )

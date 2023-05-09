@@ -18,6 +18,7 @@ export async function attemptLogin(e) {
             throw new Error(`Status error ${res.status}`);
         }
         const data = await res.json();
+        sessionStorage.setItem("user-id", "1234");
         console.log(data);
     } catch (error) {
         console.log(`Login Error: ${error}`);
