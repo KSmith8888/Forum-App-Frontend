@@ -8,7 +8,7 @@ export async function createPostAction({ request }) {
         const title = postData.get("title");
         const content = postData.get("content");
         console.log(topic, title, content);
-        const res = await fetch("http://127.0.0.1:3000/api/v1/create", {
+        const res = await fetch("http://127.0.0.1:3000/api/v1/posts/create", {
             method: "POST",
             body: JSON.stringify({ topic, title, content }),
             headers: {
