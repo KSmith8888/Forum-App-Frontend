@@ -20,7 +20,14 @@ export default function Post() {
         return (
             <div className="comment" key={comment._id}>
                 <p className="comment-text">{comment.content}</p>
-                <p>Likes: {comment.likes}</p>
+                <p className="post-info">
+                    <span className="comment-time">
+                        Posted at: {new Date(comment.time)}
+                    </span>
+                    <span className="comment-likes">
+                        Likes: {comment.likes}
+                    </span>
+                </p>
             </div>
         );
     });
@@ -30,6 +37,12 @@ export default function Post() {
             <article className="post-container">
                 <h2 className="post-title">{postData.title}</h2>
                 <p className="post-text">{postData.content}</p>
+                <p className="post-info">
+                    <span className="post-time">
+                        Posted at: {new Date(postData.time)}
+                    </span>
+                    <span className="post-likes">Likes: {postData.likes}</span>
+                </p>
             </article>
             <div className="comments-container">{commentElements}</div>
         </>
