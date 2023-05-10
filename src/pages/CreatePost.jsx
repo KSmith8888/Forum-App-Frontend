@@ -18,7 +18,7 @@ export async function createPostAction({ request }) {
         if (!res.ok) {
             throw new Error(`Response error: ${res.status}`);
         }
-        const data = res.json();
+        const data = await res.json();
         return redirect(`/posts/details/${data._id}`);
     } catch (error) {
         console.log(error);
@@ -32,16 +32,41 @@ export default function CreatePost() {
             <Form action="/create" method="post" className="post-form">
                 <h2>Create a new post</h2>
                 <label htmlFor="topic-input">Topic:</label>
-                <select id="topic-input" name="topic">
-                    <option>Movies</option>
-                    <option>Games</option>
-                    <option>Books</option>
+                <select
+                    id="topic-input"
+                    className="input select"
+                    name="topic"
+                    required
+                >
+                    <option value="">Please select a topic</option>
+                    <option value="Movies">Movies</option>
+                    <option value="Games">Games</option>
+                    <option value="Books">Books</option>
                 </select>
                 <label htmlFor="title-input">Title:</label>
-                <input id="title-input" type="text" name="title" />
+                <input
+                    id="title-input"
+                    className="input"
+                    type="text"
+                    name="title"
+                    minlength="4"
+                    maxlength="60"
+                    required
+                />
                 <label htmlFor="content-input">Content:</label>
-                <textarea id="content-input" name="content"></textarea>
-                <button type="submit">Post</button>
+                <textarea
+                    id="content-input"
+                    className="input textarea"
+                    name="content"
+                    minlength="4"
+                    maxlength="900"
+                    rows="12"
+                    cols="50"
+                    required
+                ></textarea>
+                <button type="submit" className="button post-button">
+                    Post
+                </button>
             </Form>
         </>
     );

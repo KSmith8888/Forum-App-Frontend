@@ -90,16 +90,18 @@ export default function Header() {
                             name="password"
                             required
                         />
-                        <button type="submit" className="button">
-                            Submit
-                        </button>
-                        <button
-                            type="button"
-                            className="button"
-                            onClick={closeLoginModal}
-                        >
-                            Close
-                        </button>
+                        <div className="button-container">
+                            <button type="submit" className="button">
+                                Submit
+                            </button>
+                            <button
+                                type="button"
+                                className="button"
+                                onClick={closeLoginModal}
+                            >
+                                Close
+                            </button>
+                        </div>
                         <p>{loginMessage}</p>
                     </Form>
                 </dialog>

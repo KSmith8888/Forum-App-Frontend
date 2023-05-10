@@ -80,6 +80,7 @@ img {
 }
 
 .footer {
+    padding: 2em;
     display: flex;
     justify-content: center;
     text-align: center;
@@ -100,6 +101,32 @@ img {
     flex-direction: column;
 }
 
+.button-container {
+    display: flex;
+    justify-content: center;
+}
+
 .input {
     margin: 0.5em;
+}
+
+.textarea {
+    resize: none;
+}
+
+.select {
+    align-self: flex-start;
+}
+
+.post-form {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 2em;
+}
+
+.post-button {
+    min-width: 8em;
+    align-self: flex-start;
 }
