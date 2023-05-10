@@ -4,10 +4,9 @@ import { Form, redirect } from "react-router-dom";
 export async function createPostAction({ request }) {
     try {
         const postData = await request.formData();
-        const topic = postData.get("topic");
+        const topic = postData.get("topic").toLowerCase();
         const title = postData.get("title");
         const content = postData.get("content");
-        console.log(topic, title, content);
         const res = await fetch("http://127.0.0.1:3000/api/v1/posts/create", {
             method: "POST",
             body: JSON.stringify({ topic, title, content }),

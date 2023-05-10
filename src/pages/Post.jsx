@@ -16,17 +16,22 @@ export async function postLoader({ params }) {
 
 export default function Post() {
     const postData = useLoaderData();
+    const commentElements = postData.comments.map((comment) => {
+        return (
+            <div className="comment" key={comment._id}>
+                <p className="comment-text">{comment.content}</p>
+                <p>Likes: {comment.likes}</p>
+            </div>
+        );
+    });
 
     return (
         <>
-            {postData ? (
-                <div>
-                    <h2>{postData.title}</h2>
-                    <p>{postData.content}</p>
-                </div>
-            ) : (
-                <p>Post is unavailable, it may have been deleted</p>
-            )}
+            <article className="post-container">
+                <h2 className="post-title">{postData.title}</h2>
+                <p className="post-text">{postData.content}</p>
+            </article>
+            <div className="comments-container">{commentElements}</div>
         </>
     );
 }
