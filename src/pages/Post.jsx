@@ -3,10 +3,12 @@ import { useLoaderData } from "react-router-dom";
 
 export async function postLoader({ params }) {
     try {
-        const response = await fetch("/src/assets/test-data.json");
+        const postId = params.id;
+        const response = await fetch(
+            `http://127.0.0.1:3000/api/v1/posts/details/${postId}`
+        );
         const data = await response.json();
-        //const topic = params.id;
-        return data[0];
+        return data;
     } catch (error) {
         return error;
     }
@@ -23,7 +25,7 @@ export default function Post() {
                     <p>{postData.content}</p>
                 </div>
             ) : (
-                <p>Post data is unavailable at this time</p>
+                <p>Post is unavailable, it may have been deleted</p>
             )}
         </>
     );
