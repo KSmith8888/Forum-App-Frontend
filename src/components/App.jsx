@@ -8,7 +8,7 @@ import {
 //Components
 import MainLayout from "./MainLayout";
 import Error from "./Error";
-import Results, { resultsLoader } from "./Results";
+import { resultsLoader } from "./Results";
 //Pages
 import Home, { homeLoader } from "../pages/Home";
 import Search, { searchAction } from "../pages/Search";
@@ -21,7 +21,7 @@ import "../assets/styles.css";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route element={<MainLayout />}>
+        <Route element={<MainLayout />} errorElement={<Error />}>
             <Route path="/" element={<Home />} loader={homeLoader} />
             <Route
                 path="/search"
