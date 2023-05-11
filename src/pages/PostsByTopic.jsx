@@ -16,7 +16,7 @@ export async function postsTopicLoader({ params }) {
 
 export default function PostsByTopic() {
     const topic = useParams().topic;
-    const postData = useLoaderData();
+    const postData = useLoaderData() || [];
     const postElements = postData.map((post) => {
         return (
             <div key={post._id}>
@@ -30,10 +30,10 @@ export default function PostsByTopic() {
     return (
         <>
             <h2>Posts about {topic}</h2>
-            {postData ? (
+            {postData.length > 0 ? (
                 <div>{postElements}</div>
             ) : (
-                <p>Post data is unavailable at this time</p>
+                <p>No posts exist for that topic</p>
             )}
         </>
     );

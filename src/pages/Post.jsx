@@ -16,6 +16,7 @@ export async function postLoader({ params }) {
 
 export default function Post() {
     const postData = useLoaderData();
+    const postTime = new Date(postData.time);
     const commentElements = postData.comments.map((comment) => {
         return (
             <div className="comment" key={comment._id}>
@@ -38,9 +39,7 @@ export default function Post() {
                 <h2 className="post-title">{postData.title}</h2>
                 <p className="post-text">{postData.content}</p>
                 <p className="post-info">
-                    <span className="post-time">
-                        Posted at: {new Date(postData.time)}
-                    </span>
+                    <span className="post-time">Posted at: {postTime}</span>
                     <span className="post-likes">Likes: {postData.likes}</span>
                 </p>
             </article>
