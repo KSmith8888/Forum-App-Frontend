@@ -16,14 +16,15 @@ export async function postLoader({ params }) {
 
 export default function Post() {
     const postData = useLoaderData();
-    const postTime = new Date(postData.time);
+    const postTime = new Date(String(postData.time)) || "Unknown";
     const commentElements = postData.comments.map((comment) => {
+        const commentTime = new Date(String(comment.time)) || "Unknown";
         return (
             <div className="comment" key={comment._id}>
                 <p className="comment-text">{comment.content}</p>
                 <p className="post-info">
                     <span className="comment-time">
-                        Posted at: {new Date(comment.time)}
+                        Posted at: {commentTime}
                     </span>
                     <span className="comment-likes">
                         Likes: {comment.likes}

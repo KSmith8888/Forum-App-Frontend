@@ -10,13 +10,14 @@ export async function postsTopicLoader({ params }) {
         const data = await response.json();
         return data;
     } catch (error) {
-        return error;
+        console.log(error);
+        return [];
     }
 }
 
 export default function PostsByTopic() {
     const topic = useParams().topic;
-    const postData = useLoaderData() || [];
+    const postData = useLoaderData();
     const postElements = postData.map((post) => {
         return (
             <div key={post._id}>
@@ -33,7 +34,10 @@ export default function PostsByTopic() {
             {postData.length > 0 ? (
                 <div>{postElements}</div>
             ) : (
-                <p>No posts exist for that topic</p>
+                <p>
+                    No posts exist for that topic, or there was a problem
+                    getting the data
+                </p>
             )}
         </>
     );
