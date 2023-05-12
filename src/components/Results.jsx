@@ -31,7 +31,9 @@ export default function Results() {
                 </Link>
                 <p className="post-text">{post.content}</p>
                 <p className="post-info">
-                    <span className="post-time">Posted at: {post.time}</span>
+                    <span className="post-time">
+                        Posted at: {post.createdAt}
+                    </span>
                     <span className="post-likes">Likes: {post.likes}</span>
                 </p>
             </article>
