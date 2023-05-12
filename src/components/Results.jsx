@@ -24,6 +24,9 @@ export async function resultsLoader({ request }) {
 export default function Results() {
     const searchResults = useLoaderData() || [];
     const postElements = searchResults.map((post) => {
+        const postTimestamp = post.createdAt;
+        const postDate = new Date(postTimestamp);
+        const postDateString = postDate.toDateString();
         return (
             <article className="post-container" key={post._id}>
                 <Link to={`/posts/details/${post._id}`}>
@@ -31,9 +34,7 @@ export default function Results() {
                 </Link>
                 <p className="post-text">{post.content}</p>
                 <p className="post-info">
-                    <span className="post-time">
-                        Posted at: {post.createdAt}
-                    </span>
+                    <span className="post-time">Posted: {postDateString}</span>
                     <span className="post-likes">Likes: {post.likes}</span>
                 </p>
             </article>
