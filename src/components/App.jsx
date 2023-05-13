@@ -8,6 +8,7 @@ import {
 //Components
 import MainLayout from "./MainLayout";
 import Error from "./Error";
+import { loginAction } from "./Header";
 import { resultsLoader } from "./Results";
 //Pages
 import Home, { homeLoader } from "../pages/Home";
@@ -21,8 +22,13 @@ import "../assets/styles.css";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route element={<MainLayout />} errorElement={<Error />}>
-            <Route path="/" element={<Home />} loader={homeLoader} />
+        <Route element={<MainLayout />}>
+            <Route
+                path="/"
+                element={<Home />}
+                loader={homeLoader}
+                action={loginAction}
+            />
             <Route
                 path="/search"
                 element={<Search />}

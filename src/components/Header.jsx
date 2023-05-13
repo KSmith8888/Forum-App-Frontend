@@ -1,9 +1,37 @@
-import React, { useRef, useState } from "react";
-import { Link, Form } from "react-router-dom";
-
-import { attemptLogin } from "../utils/login";
+import React, { useRef, useState, useEffect } from "react";
+import { Link, Form, useActionData } from "react-router-dom";
 
 import profileImage from "../assets/images/blank-profile-picture.png";
+
+export async function loginAction({ request }) {
+    try {
+        const loginData = await request.formData();
+        const username = loginData.get("username");
+        const password = loginData.get("password");
+        if (!username || !password) {
+            throw new Error("No username or password present");
+        }
+        const res = await fetch("http://127.0.0.1:3000/api/v1/login", {
+            method: "POST",
+            body: JSON.stringify({ username, password }),
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
+        if (!res.ok) {
+            if (res.status === 401) {
+                throw new Error("Provided credentials do not match");
+            } else {
+                throw new Error(`Status error ${res.status}`);
+            }
+        }
+        const data = await res.json();
+        return data;
+    } catch (error) {
+        const errorMessage = { status: error.message };
+        return errorMessage;
+    }
+}
 
 export default function Header() {
     const loginModal = useRef();
@@ -11,6 +39,19 @@ export default function Header() {
     const [loginMessage, setLoginMessage] = useState("");
     const userId = sessionStorage.getItem("user-id");
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(userId);
+    const loginData = useActionData();
+
+    useEffect(() => {
+        if (loginData) {
+            setLoginMessage(loginData.status);
+            if (loginData.status === "Login successful") {
+                setTimeout(() => {
+                    loginForm.current.reset();
+                    closeLoginModal();
+                }, 1000);
+            }
+        }
+    }, [loginData]);
 
     function openLoginModal() {
         loginModal.current.showModal();
@@ -52,7 +93,7 @@ export default function Header() {
                     className="profile-image"
                 />
                 {isUserLoggedIn ? (
-                    <button>Profile</button>
+                    <button className="button">Profile</button>
                 ) : (
                     <button
                         type="button"
@@ -63,16 +104,7 @@ export default function Header() {
                     </button>
                 )}
                 <dialog className="modal" ref={loginModal}>
-                    <Form
-                        className="login-form"
-                        ref={loginForm}
-                        method="post"
-                        onSubmit={(e) => {
-                            attemptLogin(e);
-                            loginForm.current.reset();
-                            closeLoginModal();
-                        }}
-                    >
+                    <Form className="login-form" ref={loginForm} method="post">
                         <h3>Enter Credentials</h3>
                         <label htmlFor="username">Username:</label>
                         <input
@@ -102,8 +134,12 @@ export default function Header() {
                                 Close
                             </button>
                         </div>
-                        <p>{loginMessage}</p>
+                        <p className="login-form-message">{loginMessage}</p>
                     </Form>
+                    <p className="new-account-text">
+                        Don't have an account?{" "}
+                        <Link to="/register">Create a new account</Link>
+                    </p>
                 </dialog>
             </div>
         </header>
