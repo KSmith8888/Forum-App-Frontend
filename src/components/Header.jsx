@@ -26,6 +26,9 @@ export async function loginAction({ request }) {
             }
         }
         const data = await res.json();
+        sessionStorage.setItem("role", data.role);
+        sessionStorage.setItem("username", data.username);
+        sessionStorage.setItem("_id", data._id);
         return data;
     } catch (error) {
         const errorMessage = { status: error.message };
@@ -37,8 +40,7 @@ export default function Header() {
     const loginModal = useRef();
     const loginForm = useRef();
     const [loginMessage, setLoginMessage] = useState("");
-    const userId = sessionStorage.getItem("user-id");
-    const [isUserLoggedIn, setIsUserLoggedIn] = useState(userId);
+    const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
     const loginData = useActionData();
 
     useEffect(() => {
@@ -50,6 +52,11 @@ export default function Header() {
                     closeLoginModal();
                 }, 1000);
             }
+            if (sessionStorage.getItem("username")) {
+                setIsUserLoggedIn(true);
+            }
+        } else {
+            setIsUserLoggedIn(false);
         }
     }, [loginData]);
 

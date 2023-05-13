@@ -28,31 +28,36 @@ const router = createBrowserRouter(
                 element={<Home />}
                 loader={homeLoader}
                 action={loginAction}
+                errorElement={<Error />}
             />
             <Route
                 path="/search"
                 element={<Search />}
                 loader={resultsLoader}
                 action={searchAction}
+                errorElement={<Error />}
             />
             <Route path="/posts">
                 <Route
                     path=":topic"
                     element={<PostsByTopic />}
                     loader={postsTopicLoader}
+                    errorElement={<Error />}
                 />
                 <Route
                     path="details/:id"
                     element={<Post />}
                     loader={postLoader}
+                    errorElement={<Error />}
                 />
             </Route>
             <Route
                 path="/create"
                 element={<CreatePost />}
                 action={createPostAction}
+                errorElement={<Error />}
             />
-            <Route path="*" element={<NotFound />} />
+            <Route path="*" element={<NotFound />} errorElement={<Error />} />
         </Route>
     )
 );
