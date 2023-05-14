@@ -89,6 +89,9 @@ export default function Header() {
                     <Link to="/posts/movies" className="link">
                         Movies
                     </Link>
+                    <Link to="/register" className="link">
+                        Create Account
+                    </Link>
                     <Link to="/create" className="link">
                         Create Post
                     </Link>

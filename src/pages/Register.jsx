@@ -1,4 +1,5 @@
 import React from "react";
+import { Form, redirect } from "react-router-dom";
 
 export async function registerAction({ request }) {
     try {
@@ -13,7 +14,7 @@ export async function registerAction({ request }) {
         }
         const res = await fetch("http://127.0.0.1:3000/api/v1/users", {
             method: "POST",
-            body: JSON.stringify({ username, password, passwordConfirm }),
+            body: JSON.stringify({ username, password }),
             headers: {
                 "Content-Type": "application/json",
             },
@@ -26,7 +27,7 @@ export async function registerAction({ request }) {
         sessionStorage.setItem("username", data.username);
         sessionStorage.setItem("_id", data._id);
         sessionStorage.setItem("token", data.token);
-        return data;
+        return redirect("/search");
     } catch (error) {
         const errorMessage = { status: error.message };
         return errorMessage;
