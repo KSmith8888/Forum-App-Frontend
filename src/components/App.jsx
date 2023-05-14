@@ -16,6 +16,7 @@ import Search, { searchAction } from "../pages/Search";
 import Post, { postLoader } from "../pages/Post";
 import PostsByTopic, { postsTopicLoader } from "../pages/PostsByTopic";
 import CreatePost, { createPostAction } from "../pages/CreatePost";
+import Register from "../pages/Register";
 import NotFound from "../pages/NotFound";
 //Assets
 import "../assets/styles.css";
@@ -57,6 +58,7 @@ const router = createBrowserRouter(
                 action={createPostAction}
                 errorElement={<Error />}
             />
+            <Route path="/register" element={<Register />} />
             <Route path="*" element={<NotFound />} errorElement={<Error />} />
         </Route>
     )

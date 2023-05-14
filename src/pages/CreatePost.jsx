@@ -7,11 +7,18 @@ export async function createPostAction({ request }) {
         const topic = postData.get("topic").toLowerCase();
         const title = postData.get("title");
         const content = postData.get("content");
+        const token = sessionStorage.getItem("token");
+        const userId = sessionStorage.getItem("_id");
+        if (!token || !userId) {
+            throw new Error("You must log in before creating a post");
+        }
         const res = await fetch("http://127.0.0.1:3000/api/v1/posts/create", {
             method: "POST",
             body: JSON.stringify({ topic, title, content }),
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+                "User-Id": userId,
             },
         });
         if (!res.ok) {
@@ -21,7 +28,7 @@ export async function createPostAction({ request }) {
         return redirect(`/posts/details/${data._id}`);
     } catch (error) {
         console.log(error);
-        return null;
+        return error.message;
     }
 }
 
@@ -50,6 +57,7 @@ export default function CreatePost() {
                     name="title"
                     minlength="4"
                     maxlength="60"
+                    pattern="[a-z0-9! .-]{4,60}"
                     required
                 />
                 <label htmlFor="content-input">Content:</label>
@@ -61,6 +69,7 @@ export default function CreatePost() {
                     maxlength="900"
                     rows="12"
                     cols="50"
+                    pattern="[a-z0-9! .-]{4,900}"
                     required
                 ></textarea>
                 <button type="submit" className="button post-button">

@@ -29,6 +29,7 @@ export async function loginAction({ request }) {
         sessionStorage.setItem("role", data.role);
         sessionStorage.setItem("username", data.username);
         sessionStorage.setItem("_id", data._id);
+        sessionStorage.setItem("token", data.token);
         return data;
     } catch (error) {
         const errorMessage = { status: error.message };
@@ -119,6 +120,8 @@ export default function Header() {
                             className="input"
                             type="text"
                             name="username"
+                            pattern="[a-z0-9]{4,18}"
+                            title="Letters and numbers only, between 4 and 18 characters"
                             required
                         />
                         <label htmlFor="password">Password:</label>
@@ -127,6 +130,8 @@ export default function Header() {
                             className="input"
                             type="text"
                             name="password"
+                            pattern="[a-z0-9]{4,18}"
+                            title="Letters and numbers only, between 4 and 18 characters"
                             required
                         />
                         <div className="button-container">
