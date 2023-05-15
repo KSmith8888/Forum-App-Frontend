@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, redirect, useActionData } from "react-router-dom";
+import { Form, useActionData } from "react-router-dom";
 
 export async function registerAction({ request }) {
     try {
@@ -29,8 +29,7 @@ export async function registerAction({ request }) {
         sessionStorage.setItem("token", data.token);
         return "New account created successfully, please log in";
     } catch (error) {
-        const errorMessage = { status: error.message };
-        return errorMessage;
+        return error.message;
     }
 }
 
