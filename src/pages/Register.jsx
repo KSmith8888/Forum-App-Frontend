@@ -36,8 +36,8 @@ export async function registerAction({ request }) {
 
 export default function Register() {
     return (
-        <Form className="login-form" ref={loginForm} method="post">
-            <h3>Create new account</h3>
+        <Form className="register-form" method="post">
+            <h2>Create new account</h2>
             <label htmlFor="register-username">
                 Username (Letters and numbers only, between 4 and 18 characters)
             </label>
@@ -46,7 +46,7 @@ export default function Register() {
                 className="input"
                 type="text"
                 name="username"
-                pattern="[a-z0-9]{4,18}"
+                pattern="[a-z0-9]+"
                 title="Letters and numbers only, between 4 and 18 characters"
                 required
             />
@@ -56,9 +56,9 @@ export default function Register() {
             <input
                 id="register-password"
                 className="input"
-                type="text"
+                type="password"
                 name="password"
-                pattern="[a-z0-9]{4,18}"
+                pattern="[a-z0-9]+"
                 title="Letters and numbers only, between 4 and 18 characters"
                 required
             />
@@ -68,9 +68,9 @@ export default function Register() {
             <input
                 id="register-password-confirm"
                 className="input"
-                type="text"
+                type="password"
                 name="password-confirm"
-                pattern="[a-z0-9]{4,18}"
+                pattern="[a-z0-9]+"
                 title="Letters and numbers only, between 4 and 18 characters"
                 required
             />

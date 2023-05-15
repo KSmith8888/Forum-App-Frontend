@@ -69,6 +69,13 @@ export default function Header() {
         loginModal.current.close();
     }
 
+    function logoutUser() {
+        sessionStorage.removeItem("role");
+        sessionStorage.removeItem("username");
+        sessionStorage.removeItem("_id");
+        sessionStorage.removeItem("token");
+    }
+
     return (
         <header className="header">
             <div className="heading-nav-container">
@@ -104,7 +111,12 @@ export default function Header() {
                     className="profile-image"
                 />
                 {isUserLoggedIn ? (
-                    <button className="button">Profile</button>
+                    <div className="vertical-button-container">
+                        <button className="button">Profile</button>
+                        <button className="button" onCLick={logoutUser}>
+                            Logout
+                        </button>
+                    </div>
                 ) : (
                     <button
                         type="button"
@@ -123,7 +135,9 @@ export default function Header() {
                             className="input"
                             type="text"
                             name="username"
-                            pattern="[a-z0-9]{4,18}"
+                            minLength="4"
+                            maxLength="18"
+                            pattern="[a-z0-9]+"
                             title="Letters and numbers only, between 4 and 18 characters"
                             required
                         />
@@ -133,7 +147,9 @@ export default function Header() {
                             className="input"
                             type="text"
                             name="password"
-                            pattern="[a-z0-9]{4,18}"
+                            minLength="4"
+                            maxLength="18"
+                            pattern="[a-z0-9]+"
                             title="Letters and numbers only, between 4 and 18 characters"
                             required
                         />
