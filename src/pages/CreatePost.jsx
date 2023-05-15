@@ -18,7 +18,7 @@ export async function createPostAction({ request }) {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,
-                "User-Id": userId,
+                "User_Id": userId,
             },
         });
         if (!res.ok) {
