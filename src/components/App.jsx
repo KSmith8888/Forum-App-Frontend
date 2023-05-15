@@ -17,6 +17,7 @@ import Post, { postLoader } from "../pages/Post";
 import PostsByTopic, { postsTopicLoader } from "../pages/PostsByTopic";
 import CreatePost, { createPostAction } from "../pages/CreatePost";
 import Register, { registerAction } from "../pages/Register";
+import Profile from "../pages/Profile";
 import NotFound from "../pages/NotFound";
 //Assets
 import "../assets/styles.css";
@@ -53,16 +54,21 @@ const router = createBrowserRouter(
                 />
             </Route>
             <Route
-                path="/create"
-                element={<CreatePost />}
-                action={createPostAction}
-                errorElement={<Error />}
-            />
-            <Route
                 path="/register"
                 element={<Register />}
                 action={registerAction}
             />
+            <Route
+                path="/profile"
+                errorElement={<Error />}
+                element={<Profile />}
+            >
+                <Route
+                    path="create"
+                    element={<CreatePost />}
+                    action={createPostAction}
+                />
+            </Route>
             <Route path="*" element={<NotFound />} errorElement={<Error />} />
         </Route>
     )

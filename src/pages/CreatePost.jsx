@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, redirect } from "react-router-dom";
+import { Form, redirect, useActionData } from "react-router-dom";
 
 export async function createPostAction({ request }) {
     try {
@@ -33,6 +33,8 @@ export async function createPostAction({ request }) {
 }
 
 export default function CreatePost() {
+    const errorMessage = useActionData();
+
     return (
         <>
             <Form action="/create" method="post" className="post-form">
@@ -55,8 +57,8 @@ export default function CreatePost() {
                     className="input"
                     type="text"
                     name="title"
-                    minlength="4"
-                    maxlength="60"
+                    minLength="4"
+                    maxLength="60"
                     required
                 />
                 <label htmlFor="content-input">Content:</label>
@@ -64,8 +66,8 @@ export default function CreatePost() {
                     id="content-input"
                     className="input textarea"
                     name="content"
-                    minlength="4"
-                    maxlength="900"
+                    minLength="4"
+                    maxLength="900"
                     rows="12"
                     cols="50"
                     required
@@ -73,6 +75,9 @@ export default function CreatePost() {
                 <button type="submit" className="button post-button">
                     Post
                 </button>
+                <p className="error-message">
+                    {errorMessage ? errorMessage : ""}
+                </p>
             </Form>
         </>
     );

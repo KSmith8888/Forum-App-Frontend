@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, useActionData } from "react-router-dom";
+import { Form, useActionData, redirect } from "react-router-dom";
 
 export async function registerAction({ request }) {
     try {
@@ -22,19 +22,16 @@ export async function registerAction({ request }) {
         if (!res.ok) {
             throw new Error(`Status error ${res.status}`);
         }
-        const data = await res.json();
-        sessionStorage.setItem("role", data.role);
-        sessionStorage.setItem("username", data.username);
-        sessionStorage.setItem("_id", data._id);
-        sessionStorage.setItem("token", data.token);
-        return "New account created successfully, please log in";
+        return redirect(
+            "/?message=New account created successfully, please log in"
+        );
     } catch (error) {
         return error.message;
     }
 }
 
 export default function Register() {
-    const registrationMessage = useActionData() || "";
+    const registrationMessage = useActionData();
 
     return (
         <Form className="register-form" method="post">
@@ -80,7 +77,9 @@ export default function Register() {
                 Submit
             </button>
 
-            <p className="register-form-message">{registrationMessage}</p>
+            <p className="error-message">
+                {registrationMessage ? registrationMessage : ""}
+            </p>
         </Form>
     );
 }

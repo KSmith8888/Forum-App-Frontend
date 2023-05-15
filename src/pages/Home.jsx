@@ -1,5 +1,5 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 
 export async function homeLoader() {
     try {
@@ -18,6 +18,8 @@ export async function homeLoader() {
 }
 
 export default function Home() {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const message = searchParams.get("message");
     const postData = useLoaderData();
     const postElements = postData.map((post) => {
         return (
@@ -30,6 +32,7 @@ export default function Home() {
 
     return (
         <>
+            <p className="user-message">{message ? message : ""}</p>
             <h2>This is the home page</h2>
             <p>See some popular posts below</p>
             {postData ? (

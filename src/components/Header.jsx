@@ -74,7 +74,7 @@ export default function Header() {
         sessionStorage.removeItem("username");
         sessionStorage.removeItem("_id");
         sessionStorage.removeItem("token");
-        return redirect("/");
+        return redirect("/?message=You have logged out successfully");
     }
 
     return (
@@ -100,9 +100,6 @@ export default function Header() {
                     <Link to="/register" className="link">
                         Create Account
                     </Link>
-                    <Link to="/create" className="link">
-                        Create Post
-                    </Link>
                 </nav>
             </div>
             <div className="profile-container">
@@ -113,8 +110,10 @@ export default function Header() {
                 />
                 {isUserLoggedIn ? (
                     <div className="vertical-button-container">
-                        <button className="button">Profile</button>
-                        <button className="button" onCLick={logoutUser}>
+                        <Link to="/profile" className="button-link">
+                            Profile
+                        </Link>
+                        <button className="button" onClick={logoutUser}>
                             Logout
                         </button>
                     </div>
