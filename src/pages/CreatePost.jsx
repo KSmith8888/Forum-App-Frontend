@@ -57,7 +57,6 @@ export default function CreatePost() {
                     name="title"
                     minlength="4"
                     maxlength="60"
-                    pattern="[a-z0-9! .-]{4,60}"
                     required
                 />
                 <label htmlFor="content-input">Content:</label>
@@ -69,7 +68,6 @@ export default function CreatePost() {
                     maxlength="900"
                     rows="12"
                     cols="50"
-                    pattern="[a-z0-9! .-]{4,900}"
                     required
                 ></textarea>
                 <button type="submit" className="button post-button">

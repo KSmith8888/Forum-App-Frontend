@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Link, Form, useActionData } from "react-router-dom";
+import { Link, Form, useActionData, redirect } from "react-router-dom";
 
 import profileImage from "../assets/images/blank-profile-picture.png";
 
@@ -30,7 +30,7 @@ export async function loginAction({ request }) {
         sessionStorage.setItem("username", data.username);
         sessionStorage.setItem("_id", data._id);
         sessionStorage.setItem("token", data.token);
-        return data;
+        return { username: data.username, userId: data._id };
     } catch (error) {
         const errorMessage = { status: error.message };
         return errorMessage;
@@ -74,6 +74,7 @@ export default function Header() {
         sessionStorage.removeItem("username");
         sessionStorage.removeItem("_id");
         sessionStorage.removeItem("token");
+        return redirect("/");
     }
 
     return (
@@ -137,7 +138,7 @@ export default function Header() {
                             name="username"
                             minLength="4"
                             maxLength="18"
-                            pattern="[a-z0-9]+"
+                            pattern="[a-zA-Z0-9]+"
                             title="Letters and numbers only, between 4 and 18 characters"
                             required
                         />
@@ -145,11 +146,11 @@ export default function Header() {
                         <input
                             id="password"
                             className="input"
-                            type="text"
+                            type="password"
                             name="password"
                             minLength="4"
                             maxLength="18"
-                            pattern="[a-z0-9]+"
+                            pattern="[a-zA-Z0-9]+"
                             title="Letters and numbers only, between 4 and 18 characters"
                             required
                         />

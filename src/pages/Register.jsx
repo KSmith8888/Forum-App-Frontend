@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, redirect } from "react-router-dom";
+import { Form, redirect, useActionData } from "react-router-dom";
 
 export async function registerAction({ request }) {
     try {
@@ -27,7 +27,7 @@ export async function registerAction({ request }) {
         sessionStorage.setItem("username", data.username);
         sessionStorage.setItem("_id", data._id);
         sessionStorage.setItem("token", data.token);
-        return redirect("/search");
+        return "New account created successfully, please log in";
     } catch (error) {
         const errorMessage = { status: error.message };
         return errorMessage;
@@ -35,6 +35,8 @@ export async function registerAction({ request }) {
 }
 
 export default function Register() {
+    const registrationMessage = useActionData() || "";
+
     return (
         <Form className="register-form" method="post">
             <h2>Create new account</h2>
@@ -46,7 +48,7 @@ export default function Register() {
                 className="input"
                 type="text"
                 name="username"
-                pattern="[a-z0-9]+"
+                pattern="[a-zA-Z0-9]+"
                 title="Letters and numbers only, between 4 and 18 characters"
                 required
             />
@@ -58,7 +60,7 @@ export default function Register() {
                 className="input"
                 type="password"
                 name="password"
-                pattern="[a-z0-9]+"
+                pattern="[a-zA-Z0-9]+"
                 title="Letters and numbers only, between 4 and 18 characters"
                 required
             />
@@ -70,7 +72,7 @@ export default function Register() {
                 className="input"
                 type="password"
                 name="password-confirm"
-                pattern="[a-z0-9]+"
+                pattern="[a-zA-Z0-9]+"
                 title="Letters and numbers only, between 4 and 18 characters"
                 required
             />
@@ -79,7 +81,7 @@ export default function Register() {
                 Submit
             </button>
 
-            <p className="register-form-message"></p>
+            <p className="register-form-message">{registrationMessage}</p>
         </Form>
     );
 }
