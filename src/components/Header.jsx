@@ -1,17 +1,18 @@
 import React from "react";
-import { Link, redirect } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import profileImage from "../assets/images/blank-profile-picture.png";
 
-export default function Header() {
-    const isUserLoggedIn = sessionStorage.getItem("_id");
+export default function Header({ isUserLoggedIn, setIsUserLoggedIn }) {
+    const navigate = useNavigate();
 
     function logoutUser() {
         sessionStorage.removeItem("role");
         sessionStorage.removeItem("username");
         sessionStorage.removeItem("_id");
         sessionStorage.removeItem("token");
-        return redirect("/?message=You have logged out successfully");
+        setIsUserLoggedIn(false);
+        navigate("/?message=You have logged out successfully");
     }
 
     return (

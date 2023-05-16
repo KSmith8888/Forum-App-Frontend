@@ -1,5 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { Link, Form, useActionData, redirect } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import {
+    Link,
+    Form,
+    useActionData,
+    useNavigate,
+    useOutletContext,
+} from "react-router-dom";
 
 export async function loginAction({ request }) {
     try {
@@ -41,7 +47,10 @@ export async function loginAction({ request }) {
 
 export default function Login() {
     const loginData = useActionData();
+    const loginForm = useRef();
+    const navigate = useNavigate();
     const [loginMessage, setLoginMessage] = useState("");
+    const [isUserLoggedIn, setIsUserLoggedIn] = useOutletContext();
 
     useEffect(() => {
         if (loginData) {
@@ -52,7 +61,8 @@ export default function Login() {
             ) {
                 setTimeout(() => {
                     loginForm.current.reset();
-                    return redirect("/profile");
+                    setIsUserLoggedIn(true);
+                    navigate("/profile");
                 }, 1000);
             }
         }
@@ -60,7 +70,7 @@ export default function Login() {
 
     return (
         <section className="login-section">
-            <Form className="login-form" method="post">
+            <Form className="login-form" method="post" ref={loginForm}>
                 <h3>Enter Credentials</h3>
                 <label htmlFor="username">Username:</label>
                 <input
