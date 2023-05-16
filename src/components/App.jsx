@@ -66,6 +66,7 @@ const router = createBrowserRouter(
             />
             <Route
                 path="/profile"
+                exact
                 errorElement={<Error />}
                 element={<Profile />}
             >
