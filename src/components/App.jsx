@@ -8,7 +8,6 @@ import {
 //Components
 import MainLayout from "./MainLayout";
 import Error from "./Error";
-import { loginAction } from "./Header";
 import { resultsLoader } from "./Results";
 //Pages
 import Home, { homeLoader } from "../pages/Home";
@@ -18,6 +17,7 @@ import PostsByTopic, { postsTopicLoader } from "../pages/PostsByTopic";
 import CreatePost, { createPostAction } from "../pages/CreatePost";
 import Register, { registerAction } from "../pages/Register";
 import Profile from "../pages/Profile";
+import Login, { loginAction } from "../pages/Login";
 import NotFound from "../pages/NotFound";
 //Assets
 import "../assets/styles.css";
@@ -29,7 +29,6 @@ const router = createBrowserRouter(
                 path="/"
                 element={<Home />}
                 loader={homeLoader}
-                action={loginAction}
                 errorElement={<Error />}
             />
             <Route
@@ -57,6 +56,13 @@ const router = createBrowserRouter(
                 path="/register"
                 element={<Register />}
                 action={registerAction}
+                errorElement={<Error />}
+            />
+            <Route
+                path="/login"
+                element={<Login />}
+                action={loginAction}
+                errorElement={<Error />}
             />
             <Route
                 path="/profile"
