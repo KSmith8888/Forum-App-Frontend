@@ -1,5 +1,12 @@
 import React from "react";
-import { useLoaderData, useOutletContext } from "react-router-dom";
+import {
+    useLoaderData,
+    useOutletContext,
+    Form,
+    useActionData,
+} from "react-router-dom";
+
+import { likePost, likeComment } from "../utils/like.js";
 
 export async function postLoader({ params }) {
     try {
@@ -14,6 +21,43 @@ export async function postLoader({ params }) {
     }
 }
 
+export async function commentAction({ request }) {
+    try {
+        const commentData = await request.formData();
+        const comment = commentData.get("comment");
+        const token = sessionStorage.getItem("token");
+        const userId = sessionStorage.getItem("_id");
+        const reg = new RegExp("^[a-zA-Z0-9 .:,!-]+$");
+        if (!reg.test(comment)) {
+            throw new Error(
+                "Please do not include special characters in your message"
+            );
+        }
+        if (!token || !userId) {
+            throw new Error("You must log in before creating a post");
+        }
+        const res = await fetch(
+            "http://127.0.0.1:3000/api/v1/comments/create",
+            {
+                method: "POST",
+                body: JSON.stringify({ content: comment }),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                    "user_id": userId,
+                },
+            }
+        );
+        if (!res.ok) {
+            throw new Error(`Response error: ${res.status}`);
+        }
+        return null;
+    } catch (error) {
+        console.log(error);
+        return error.message;
+    }
+}
+
 export default function Post() {
     const [isUserLoggedIn, setIsUserLoggedIn] = useOutletContext();
     const postData = useLoaderData();
@@ -24,6 +68,7 @@ export default function Post() {
     const postHours = postDate.getHours();
     const postMinutes = postDate.getMinutes();
     const postDateString = postDate.toDateString();
+    const commentErrorMsg = useActionData();
     const commentElements = postData.comments.map((comment) => {
         const commentTimestamp = comment.createdAt;
         const commentHasBeenEdited =
@@ -53,6 +98,14 @@ export default function Post() {
                         {commentHasBeenEdited ? "Edited" : ""}
                     </span>
                 </p>
+                <button
+                    className="like-button"
+                    onClick={() => {
+                        likeComment(comment._id);
+                    }}
+                >
+                    Like
+                </button>
             </div>
         );
     });
@@ -77,9 +130,35 @@ export default function Post() {
                     </span>
                 </p>
                 <p className="post-text">{postData.content}</p>
+                <button
+                    className="like-button"
+                    onClick={() => {
+                        likePost(postData._id);
+                    }}
+                >
+                    Like
+                </button>
             </article>
             <div className="comments-container">{commentElements}</div>
-            {isUserLoggedIn && <div className="comment-form">Comment Form</div>}
+            {isUserLoggedIn && (
+                <Form className="comment-form">
+                    <label htmlFor="comment-input">Leave a comment:</label>
+                    <input
+                        id="comment-input"
+                        className="input"
+                        type="text"
+                        name="comment"
+                        maxLength={300}
+                        minLength={4}
+                    />
+                    <button type="submit" className="button">
+                        Submit
+                    </button>
+                    <p className="error-message">
+                        {commentErrorMsg ? commentErrorMsg : ""}
+                    </p>
+                </Form>
+            )}
         </>
     );
 }
