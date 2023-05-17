@@ -7,18 +7,29 @@ export async function createPostAction({ request }) {
         const topic = postData.get("topic").toLowerCase();
         const title = postData.get("title");
         const content = postData.get("content");
+        const keywords = postData.get("keywords");
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
+        const reg = new RegExp("^[a-zA-Z0-9 .:,!-]+$");
+        if (
+            !reg.test(title) ||
+            !reg.test(content) ||
+            (keywords && !reg.test(keywords))
+        ) {
+            throw new Error(
+                "Please do not include special characters in your message"
+            );
+        }
         if (!token || !userId) {
             throw new Error("You must log in before creating a post");
         }
         const res = await fetch("http://127.0.0.1:3000/api/v1/posts/create", {
             method: "POST",
-            body: JSON.stringify({ topic, title, content }),
+            body: JSON.stringify({ topic, title, content, keywords }),
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,
-                "User_Id": userId,
+                "user_id": userId,
             },
         });
         if (!res.ok) {
@@ -37,7 +48,7 @@ export default function CreatePost() {
 
     return (
         <>
-            <Form action="/create" method="post" className="post-form">
+            <Form action="/profile/create" method="post" className="post-form">
                 <h2>Create a new post</h2>
                 <label htmlFor="topic-input">Topic:</label>
                 <select
@@ -72,6 +83,17 @@ export default function CreatePost() {
                     cols="50"
                     required
                 ></textarea>
+                <label htmlFor="keywords-input">
+                    Keywords (Words that relate to your post to help other users
+                    find it):
+                </label>
+                <input
+                    id="keywords-input"
+                    className="input"
+                    type="text"
+                    name="keywords"
+                    maxLength="60"
+                />
                 <button type="submit" className="button post-button">
                     Post
                 </button>

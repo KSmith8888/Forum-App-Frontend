@@ -4,6 +4,16 @@
 
 body {
     margin: 0;
+    font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+    color: black;
+    background-color: #fff;
+}
+
+button,
+input,
+textarea {
+    font-family: inherit;
+    font-size: 100%;
 }
 
 img {
@@ -12,7 +22,17 @@ img {
 
 .button {
     cursor: pointer;
+    border: 1px solid black;
+    color: #1c1c1c;
+    background-color: rgb(218, 214, 214);
     margin: 0.5em;
+    padding: 0.2em 0.5em;
+    border-radius: 5px;
+}
+
+.button:hover,
+.button:focus {
+    background-color: rgb(199, 192, 192);
 }
 
 #root {
@@ -48,8 +68,8 @@ img {
 }
 
 .profile-image {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
 }
 
 .main-nav {
@@ -62,8 +82,10 @@ img {
 
 .button-link {
     padding: 0.2em 0.5em;
-    margin: 0.5em 0;
-    border: 1px solid grey;
+    margin: 0.5em 0 0 0;
+    border: 1px solid black;
+    background-color: rgb(15, 17, 129);
+    color: #fff;
     border-radius: 5px;
     text-decoration: none;
     font-weight: 700;
@@ -71,7 +93,7 @@ img {
 
 .button-link:hover,
 .button-link:focus {
-    background-color: lightgrey;
+    background-color: rgb(10, 11, 77);
 }
 
 .top-level-container {
@@ -145,4 +167,11 @@ img {
 .post-button {
     min-width: 8em;
     align-self: flex-start;
+}
+
+.post-time,
+.post-likes,
+.comment-time,
+.comment-likes {
+    margin: 0 0.5em;
 }

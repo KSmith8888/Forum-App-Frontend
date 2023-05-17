@@ -1,5 +1,10 @@
 import React from "react";
-import { useLoaderData, useParams, Link } from "react-router-dom";
+import {
+    useLoaderData,
+    useParams,
+    Link,
+    useOutletContext,
+} from "react-router-dom";
 
 export async function postsTopicLoader({ params }) {
     try {
@@ -16,6 +21,7 @@ export async function postsTopicLoader({ params }) {
 }
 
 export default function PostsByTopic() {
+    const [isUserLoggedIn, setIsUserLoggedIn] = useOutletContext();
     const topic = useParams().topic;
     const postData = useLoaderData();
     const postElements = postData.map((post) => {
@@ -30,9 +36,10 @@ export default function PostsByTopic() {
 
     return (
         <>
-            <h2>Posts about {topic}</h2>
+            <h2 className="posts-topic-heading">Posts about {topic}</h2>
+            {isUserLoggedIn && <Link to="/profile/create">Create a post</Link>}
             {postData.length > 0 ? (
-                <div>{postElements}</div>
+                <div className="posts-topic-container">{postElements}</div>
             ) : (
                 <p>
                     No posts exist for that topic, or there was a problem

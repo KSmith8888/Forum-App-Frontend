@@ -64,12 +64,8 @@ const router = createBrowserRouter(
                 action={loginAction}
                 errorElement={<Error />}
             />
-            <Route
-                path="/profile"
-                exact
-                errorElement={<Error />}
-                element={<Profile />}
-            >
+            <Route path="/profile" errorElement={<Error />}>
+                <Route index element={<Profile />} />
                 <Route
                     path="create"
                     element={<CreatePost />}
