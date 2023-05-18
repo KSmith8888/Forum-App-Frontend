@@ -12,11 +12,11 @@ import { resultsLoader } from "./Results";
 //Pages
 import Home, { homeLoader } from "../pages/Home";
 import Search, { searchAction } from "../pages/Search";
-import Post, { postLoader } from "../pages/Post";
+import Post, { postLoader, commentAction } from "../pages/Post";
 import PostsByTopic, { postsTopicLoader } from "../pages/PostsByTopic";
 import CreatePost, { createPostAction } from "../pages/CreatePost";
 import Register, { registerAction } from "../pages/Register";
-import Profile from "../pages/Profile";
+import Profile, { profileLoader } from "../pages/Profile";
 import Login, { loginAction } from "../pages/Login";
 import NotFound from "../pages/NotFound";
 //Assets
@@ -49,6 +49,7 @@ const router = createBrowserRouter(
                     path="details/:id"
                     element={<Post />}
                     loader={postLoader}
+                    action={commentAction}
                     errorElement={<Error />}
                 />
             </Route>
@@ -65,7 +66,7 @@ const router = createBrowserRouter(
                 errorElement={<Error />}
             />
             <Route path="/profile" errorElement={<Error />}>
-                <Route index element={<Profile />} />
+                <Route index element={<Profile />} loader={profileLoader} />
                 <Route
                     path="create"
                     element={<CreatePost />}

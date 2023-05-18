@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     useLoaderData,
     useOutletContext,
@@ -25,6 +25,7 @@ export async function commentAction({ request }) {
     try {
         const commentData = await request.formData();
         const comment = commentData.get("comment");
+        const post = commentData.get("post");
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
         const reg = new RegExp("^[a-zA-Z0-9 .:,!-]+$");
@@ -40,7 +41,7 @@ export async function commentAction({ request }) {
             "http://127.0.0.1:3000/api/v1/comments/create",
             {
                 method: "POST",
-                body: JSON.stringify({ content: comment }),
+                body: JSON.stringify({ content: comment, postId: post }),
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`,
@@ -60,6 +61,7 @@ export async function commentAction({ request }) {
 
 export default function Post() {
     const [isUserLoggedIn, setIsUserLoggedIn] = useOutletContext();
+    const [userLikedPost, setUserLikedPost] = useState(false);
     const postData = useLoaderData();
     const postTimestamp = postData.createdAt;
     const postHasBeenEdited =
@@ -98,14 +100,16 @@ export default function Post() {
                         {commentHasBeenEdited ? "Edited" : ""}
                     </span>
                 </p>
-                <button
-                    className="like-button"
-                    onClick={() => {
-                        likeComment(comment._id);
-                    }}
-                >
-                    Like
-                </button>
+                {isUserLoggedIn && (
+                    <button
+                        className="like-button"
+                        onClick={() => {
+                            likeComment(comment._id);
+                        }}
+                    >
+                        Like
+                    </button>
+                )}
             </div>
         );
     });
@@ -130,18 +134,25 @@ export default function Post() {
                     </span>
                 </p>
                 <p className="post-text">{postData.content}</p>
-                <button
-                    className="like-button"
-                    onClick={() => {
-                        likePost(postData._id);
-                    }}
-                >
-                    Like
-                </button>
+                {isUserLoggedIn && (
+                    <button
+                        className={
+                            userLikedPost
+                                ? "like-button-selected"
+                                : "like-button"
+                        }
+                        onClick={() => {
+                            setUserLikedPost(true);
+                            likePost(postData._id);
+                        }}
+                    >
+                        Like
+                    </button>
+                )}
             </article>
             <div className="comments-container">{commentElements}</div>
             {isUserLoggedIn && (
-                <Form className="comment-form">
+                <Form className="comment-form" method="POST">
                     <label htmlFor="comment-input">Leave a comment:</label>
                     <input
                         id="comment-input"
@@ -151,6 +162,7 @@ export default function Post() {
                         maxLength={300}
                         minLength={4}
                     />
+                    <input type="hidden" value={postData._id} name="post" />
                     <button type="submit" className="button">
                         Submit
                     </button>
