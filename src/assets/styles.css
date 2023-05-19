@@ -20,7 +20,8 @@ img {
     max-width: 100%;
 }
 
-.button {
+.button,
+.like-button {
     cursor: pointer;
     border: 1px solid black;
     color: #1c1c1c;
@@ -31,8 +32,15 @@ img {
 }
 
 .button:hover,
-.button:focus {
+.button:focus,
+.like-button:hover,
+.like-button:focus {
     background-color: rgb(199, 192, 192);
+}
+
+.like-button-selected {
+    background-color: rgb(15, 17, 129);
+    color: #fff;
 }
 
 #root {

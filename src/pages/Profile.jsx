@@ -1,9 +1,12 @@
 import React from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, redirect } from "react-router-dom";
 
 export async function profileLoader() {
     try {
         const userId = sessionStorage.getItem("_id");
+        if (!userId) {
+            return redirect("/?message=Please log in");
+        }
         const response = await fetch(
             `http://127.0.0.1:3000/api/v1/posts/user/${userId}`
         );
@@ -21,9 +24,9 @@ export default function Profile() {
     const userPosts = useLoaderData();
     const postElements = userPosts.map((post) => {
         return (
-            <div key={post}>
-                <Link to={`/posts/details/${post}`} className="post-link">
-                    <h3>{post}</h3>
+            <div key={post.id}>
+                <Link to={`/posts/details/${post.id}`} className="post-link">
+                    <h3>{post.title}</h3>
                 </Link>
             </div>
         );

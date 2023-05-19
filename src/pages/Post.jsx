@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
     useLoaderData,
     useOutletContext,
@@ -52,7 +52,7 @@ export async function commentAction({ request }) {
         if (!res.ok) {
             throw new Error(`Response error: ${res.status}`);
         }
-        return null;
+        return "Comment created successfully";
     } catch (error) {
         console.log(error);
         return error.message;
@@ -60,22 +60,29 @@ export async function commentAction({ request }) {
 }
 
 export default function Post() {
-    const [isUserLoggedIn, setIsUserLoggedIn] = useOutletContext();
-    const [userLikedPost, setUserLikedPost] = useState(false);
     const postData = useLoaderData();
     const postTimestamp = postData.createdAt;
-    const postHasBeenEdited =
-        postData.createdAt !== postData.updatedAt ? true : false;
+    const postHasBeenEdited = postData.hasBeenEdited;
     const postDate = new Date(postTimestamp);
     const postHours = postDate.getHours();
     const postMinutes = postDate.getMinutes();
     const postDateString = postDate.toDateString();
+    const [isUserLoggedIn, setIsUserLoggedIn] = useOutletContext();
+    const [userLikedPost, setUserLikedPost] = useState(false);
+    const [postLikes, setPostLikes] = useState(postData.likes);
     const commentErrorMsg = useActionData();
+    const commentForm = useRef();
+    useEffect(() => {
+        if (commentForm.current) {
+            commentForm.current.reset();
+        }
+    }, [commentErrorMsg]);
     const commentElements = postData.comments.map((comment) => {
         const commentTimestamp = comment.createdAt;
-        const commentHasBeenEdited =
-            comment.createdAt !== comment.updatedAt ? true : false;
+        const commentHasBeenEdited = comment.hasBeenEdited;
         const commentDate = new Date(commentTimestamp);
+        const [commentLikes, setCommentLikes] = useState(comment.likes);
+        const [userLikedComment, setUserLikedComment] = useState(false);
         const commentHours = commentDate.getHours();
         const commentMinutes = commentDate.getMinutes();
         const commentDateString = commentDate.toDateString();
@@ -93,18 +100,26 @@ export default function Post() {
                                 : `0${commentMinutes}`
                         } ${commentDateString}`}
                     </span>
-                    <span className="comment-likes">
-                        Likes: {comment.likes}
-                    </span>
+                    <span className="comment-likes">Likes: {commentLikes}</span>
                     <span className="comment-edited">
                         {commentHasBeenEdited ? "Edited" : ""}
                     </span>
                 </p>
                 {isUserLoggedIn && (
                     <button
-                        className="like-button"
-                        onClick={() => {
-                            likeComment(comment._id);
+                        className={
+                            userLikedComment
+                                ? "like-button-selected"
+                                : "like-button"
+                        }
+                        onClick={async () => {
+                            try {
+                                const likes = await likeComment(comment._id);
+                                setCommentLikes(likes);
+                                setUserLikedComment(true);
+                            } catch (error) {
+                                console.log(error);
+                            }
                         }}
                     >
                         Like
@@ -128,7 +143,7 @@ export default function Post() {
                             postMinutes > 9 ? postMinutes : `0${postMinutes}`
                         } ${postDateString}`}
                     </span>
-                    <span className="post-likes">Likes: {postData.likes}</span>
+                    <span className="post-likes">Likes: {postLikes}</span>
                     <span className="post-edited">
                         {postHasBeenEdited ? "Edited" : ""}
                     </span>
@@ -141,9 +156,14 @@ export default function Post() {
                                 ? "like-button-selected"
                                 : "like-button"
                         }
-                        onClick={() => {
-                            setUserLikedPost(true);
-                            likePost(postData._id);
+                        onClick={async () => {
+                            try {
+                                const likes = await likePost(postData._id);
+                                setPostLikes(likes);
+                                setUserLikedPost(true);
+                            } catch (error) {
+                                console.log(error);
+                            }
                         }}
                     >
                         Like
@@ -152,7 +172,7 @@ export default function Post() {
             </article>
             <div className="comments-container">{commentElements}</div>
             {isUserLoggedIn && (
-                <Form className="comment-form" method="POST">
+                <Form className="comment-form" method="POST" ref={commentForm}>
                     <label htmlFor="comment-input">Leave a comment:</label>
                     <input
                         id="comment-input"

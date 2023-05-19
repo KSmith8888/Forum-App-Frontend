@@ -20,6 +20,8 @@ export async function likePost(id) {
         if (!res.ok) {
             throw new Error(`Response error: ${res.status}`);
         }
+        const data = await res.json();
+        return data.likes;
     } catch (error) {
         console.log(error);
     }
@@ -33,9 +35,9 @@ export async function likeComment(id) {
             throw new Error("You must log in before liking a comment");
         }
         const res = await fetch(
-            `http://127.0.0.1:3000/api/v1/posts/likes/${id}`,
+            `http://127.0.0.1:3000/api/v1/comments/likes/${id}`,
             {
-                method: "POST",
+                method: "PATCH",
                 body: JSON.stringify({ status: "Update like count" }),
                 headers: {
                     "Content-Type": "application/json",
@@ -47,6 +49,8 @@ export async function likeComment(id) {
         if (!res.ok) {
             throw new Error(`Response error: ${res.status}`);
         }
+        const data = await res.json();
+        return data.likes;
     } catch (error) {
         console.log(error);
     }
