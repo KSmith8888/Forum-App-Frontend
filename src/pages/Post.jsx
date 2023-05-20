@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 
 import { likePost, likeComment } from "../utils/like.js";
+import MessageModal from "../components/MessageModal.jsx";
 
 export async function postLoader({ params }) {
     try {
@@ -70,6 +71,7 @@ export default function Post() {
     const [isUserLoggedIn, setIsUserLoggedIn] = useOutletContext();
     const [userLikedPost, setUserLikedPost] = useState(false);
     const [postLikes, setPostLikes] = useState(postData.likes);
+    //const [userMessage, setUserMessage] = useState();
     const commentErrorMsg = useActionData();
     const commentForm = useRef();
     useEffect(() => {
@@ -109,14 +111,16 @@ export default function Post() {
                     <button
                         className={
                             userLikedComment
-                                ? "like-button-selected"
+                                ? "like-button selected"
                                 : "like-button"
                         }
                         onClick={async () => {
                             try {
-                                const likes = await likeComment(comment._id);
-                                setCommentLikes(likes);
-                                setUserLikedComment(true);
+                                const likesData = await likeComment(
+                                    comment._id
+                                );
+                                setCommentLikes(likesData.likes);
+                                setUserLikedComment(likesData.didUserLike);
                             } catch (error) {
                                 console.log(error);
                             }
@@ -153,14 +157,14 @@ export default function Post() {
                     <button
                         className={
                             userLikedPost
-                                ? "like-button-selected"
+                                ? "like-button selected"
                                 : "like-button"
                         }
                         onClick={async () => {
                             try {
-                                const likes = await likePost(postData._id);
-                                setPostLikes(likes);
-                                setUserLikedPost(true);
+                                const likesData = await likePost(postData._id);
+                                setPostLikes(likesData.likes);
+                                setUserLikedPost(likesData.didUserLike);
                             } catch (error) {
                                 console.log(error);
                             }

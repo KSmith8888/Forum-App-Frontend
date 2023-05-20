@@ -21,7 +21,7 @@ export async function likePost(id) {
             throw new Error(`Response error: ${res.status}`);
         }
         const data = await res.json();
-        return data.likes;
+        return data;
     } catch (error) {
         console.log(error);
     }
@@ -50,7 +50,7 @@ export async function likeComment(id) {
             throw new Error(`Response error: ${res.status}`);
         }
         const data = await res.json();
-        return data.likes;
+        return data;
     } catch (error) {
         console.log(error);
     }

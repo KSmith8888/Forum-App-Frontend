@@ -38,9 +38,14 @@ img {
     background-color: rgb(199, 192, 192);
 }
 
-.like-button-selected {
+.selected {
     background-color: rgb(15, 17, 129);
     color: #fff;
+}
+
+.selected:hover,
+.selected:focus {
+    background-color: rgb(10, 11, 77);
 }
 
 #root {
