@@ -3,11 +3,12 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Page not found</title>
+        <title>Page Not Found</title>
     </head>
     <body>
         <script>
-            location.assign("/");
+            const route = location.pathname ? location.pathname : "home";
+            location.assign(`/?route=${route}`);
         </script>
     </body>
 </html>
