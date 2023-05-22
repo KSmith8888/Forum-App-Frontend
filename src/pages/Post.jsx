@@ -61,7 +61,9 @@ export async function commentAction({ request }) {
 }
 
 export default function Post() {
-    const postData = useLoaderData();
+    const loaderData = useLoaderData();
+    const postData = loaderData.post;
+    console.log(postData);
     const postTimestamp = postData.createdAt;
     const postHasBeenEdited = postData.hasBeenEdited;
     const postDate = new Date(postTimestamp);
@@ -74,12 +76,14 @@ export default function Post() {
     //const [userMessage, setUserMessage] = useState();
     const commentErrorMsg = useActionData();
     const commentForm = useRef();
-    useEffect(() => {
+    /*useEffect(() => {
         if (commentForm.current) {
             commentForm.current.reset();
         }
-    }, [commentErrorMsg]);
-    const commentElements = postData.comments.map((comment) => {
+    }, [commentErrorMsg]);*/
+    const commentData = loaderData.comments;
+    console.log(commentData);
+    const commentElements = commentData.map((comment) => {
         const commentTimestamp = comment.createdAt;
         const commentHasBeenEdited = comment.hasBeenEdited;
         const commentDate = new Date(commentTimestamp);
