@@ -1,8 +1,18 @@
-import React from "react";
-import { useLoaderData, useSearchParams } from "react-router-dom";
+import React, { useEffect } from "react";
+import {
+    useLoaderData,
+    useSearchParams,
+    redirect,
+    useOutletContext,
+} from "react-router-dom";
 
-export async function homeLoader() {
+export async function homeLoader({ request }) {
     try {
+        const url = new URL(request.url);
+        const redirectRoute = url.searchParams.get("route");
+        if (redirectRoute) {
+            return redirect(redirectRoute);
+        }
         const data = [
             {
                 _id: "1",
@@ -19,7 +29,14 @@ export async function homeLoader() {
 
 export default function Home() {
     const [searchParams, setSearchParams] = useSearchParams();
+    const [isUserLoggedIn, setIsUserLoggedIn] = useOutletContext();
     const message = searchParams.get("message");
+    const status = searchParams.get("status");
+    useEffect(() => {
+        if (status === "logged in") {
+            setIsUserLoggedIn(true);
+        }
+    }, []);
     const postData = useLoaderData();
     const postElements = postData.map((post) => {
         return (
