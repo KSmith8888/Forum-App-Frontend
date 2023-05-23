@@ -50,7 +50,9 @@ export default function Login() {
     const loginForm = useRef();
     const navigate = useNavigate();
     const [loginMessage, setLoginMessage] = useState("");
+    /* eslint-disable no-unused-vars */
     const [isUserLoggedIn, setIsUserLoggedIn] = useOutletContext();
+    /* eslint-enable no-unused-vars */
 
     useEffect(() => {
         if (loginData) {
@@ -104,7 +106,7 @@ export default function Login() {
                 <p className="login-form-message">{loginMessage}</p>
             </Form>
             <p className="new-account-text">
-                Don't have an account?{" "}
+                Don{`'`}t have an account?{" "}
                 <Link to="/register">Create a new account</Link>
             </p>
         </section>

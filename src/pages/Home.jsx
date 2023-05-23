@@ -28,8 +28,10 @@ export async function homeLoader({ request }) {
 }
 
 export default function Home() {
+    /* eslint-disable no-unused-vars */
     const [searchParams, setSearchParams] = useSearchParams();
     const [isUserLoggedIn, setIsUserLoggedIn] = useOutletContext();
+    /* eslint-enable no-unused-vars */
     const message = searchParams.get("message");
     const status = searchParams.get("status");
     useEffect(() => {

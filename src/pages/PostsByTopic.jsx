@@ -21,7 +21,9 @@ export async function postsTopicLoader({ params }) {
 }
 
 export default function PostsByTopic() {
+    /* eslint-disable no-unused-vars */
     const [isUserLoggedIn, setIsUserLoggedIn] = useOutletContext();
+    /* eslint-enable no-unused-vars */
     const topic = useParams().topic;
     const postData = useLoaderData();
     const postElements = postData.map((post) => {

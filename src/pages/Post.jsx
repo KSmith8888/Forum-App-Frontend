@@ -70,7 +70,9 @@ export default function Post() {
     const postHours = postDate.getHours();
     const postMinutes = postDate.getMinutes();
     const postDateString = postDate.toDateString();
+    /* eslint-disable no-unused-vars */
     const [isUserLoggedIn, setIsUserLoggedIn] = useOutletContext();
+    /* eslint-enable no-unused-vars */
     const [userLikedPost, setUserLikedPost] = useState(false);
     const [postLikes, setPostLikes] = useState(loaderData.post.likes);
     const commentErrorMsg = useActionData() || "";

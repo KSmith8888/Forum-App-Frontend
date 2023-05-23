@@ -24,6 +24,8 @@
         "react-router-dom": "^6.11.1"
     },
     "devDependencies": {
+        "eslint": "^8.41.0",
+        "eslint-plugin-react": "^7.32.2",
         "vite": "^4.3.5"
     }
 }
