@@ -8,10 +8,9 @@ import {
 //Components
 import MainLayout from "./MainLayout";
 import Error from "./Error";
-import { resultsLoader } from "./Results";
 //Pages
 import Home, { homeLoader } from "../pages/Home";
-import Search, { searchAction } from "../pages/Search";
+import Search, { searchAction, resultsLoader } from "../pages/Search";
 import Post, { postLoader, commentAction } from "../pages/Post";
 import PostsByTopic, { postsTopicLoader } from "../pages/PostsByTopic";
 import CreatePost, { createPostAction } from "../pages/CreatePost";
