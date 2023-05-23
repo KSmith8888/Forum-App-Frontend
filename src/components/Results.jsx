@@ -17,12 +17,14 @@ export async function resultsLoader({ request }) {
         const resultsData = await response.json();
         return resultsData;
     } catch (error) {
+        console.log(error.message);
         return error;
     }
 }
 
 export default function Results() {
-    const searchResults = useLoaderData() || [];
+    const loaderData = useLoaderData();
+    const searchResults = loaderData.length ? loaderData : [];
     const postElements = searchResults.map((post) => {
         const postTimestamp = post.createdAt;
         const postDate = new Date(postTimestamp);

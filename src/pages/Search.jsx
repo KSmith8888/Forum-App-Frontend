@@ -12,12 +12,19 @@ export async function searchAction({ request }) {
 export default function Search() {
     return (
         <>
+            <h2>Search posts by keyword</h2>
             <Form className="search-form" method="post">
-                <label htmlFor="search-input">Search Posts:</label>
-                <input id="search-input" type="search" name="search" />
-                <button type="submit">Search</button>
+                <label htmlFor="search-input">Search Term:</label>
+                <input
+                    id="search-input"
+                    type="search"
+                    name="search"
+                    className="input"
+                />
+                <button type="submit" className="button">
+                    Search
+                </button>
             </Form>
-            <h2>Enter a search term above</h2>
             <Results />
         </>
     );

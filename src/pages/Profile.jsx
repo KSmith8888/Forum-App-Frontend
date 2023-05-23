@@ -11,10 +11,9 @@ export async function profileLoader() {
             `http://127.0.0.1:3000/api/v1/posts/user/${userId}`
         );
         const data = await response.json();
-        console.log(data);
         return data;
     } catch (error) {
-        console.log(error);
+        console.error(error.message);
         return error.message;
     }
 }
@@ -24,10 +23,28 @@ export default function Profile() {
     const userPosts = useLoaderData();
     const postElements = userPosts.map((post) => {
         return (
-            <div key={post.id}>
+            <div key={post.id} className="post-link-container">
                 <Link to={`/posts/details/${post.id}`} className="post-link">
-                    <h3>{post.title}</h3>
+                    <h4 className="post-link-title">{post.title}</h4>
                 </Link>
+                <div className="button-container">
+                    <button
+                        className="button"
+                        onClick={() => {
+                            console.log(`Edit post ${post.id}`);
+                        }}
+                    >
+                        Edit
+                    </button>
+                    <button
+                        className="button"
+                        onClick={() => {
+                            console.log(`Delete post ${post.id}`);
+                        }}
+                    >
+                        Delete
+                    </button>
+                </div>
             </div>
         );
     });
@@ -42,8 +59,10 @@ export default function Profile() {
                     <div className="posts-topic-container">{postElements}</div>
                 </>
             ) : (
-                <h3>You have not created any posts yet</h3>
+                <h4>You have not created any posts yet</h4>
             )}
+            <h3>Your Comments:</h3>
+            <h4>You have not created any comments yet</h4>
         </>
     );
 }

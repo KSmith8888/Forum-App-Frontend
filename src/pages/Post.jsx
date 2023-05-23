@@ -6,8 +6,8 @@ import {
     useActionData,
 } from "react-router-dom";
 
-import { likePost, likeComment } from "../utils/like.js";
-import MessageModal from "../components/MessageModal.jsx";
+import Comment from "../components/Comment.jsx";
+import { likePost } from "../utils/like.js";
 
 export async function postLoader({ params }) {
     try {
@@ -18,6 +18,7 @@ export async function postLoader({ params }) {
         const data = await response.json();
         return data;
     } catch (error) {
+        console.error(error.message);
         return error;
     }
 }
@@ -53,97 +54,58 @@ export async function commentAction({ request }) {
         if (!res.ok) {
             throw new Error(`Response error: ${res.status}`);
         }
-        return "Comment created successfully";
+        const data = await res.json();
+        return data._id;
     } catch (error) {
-        console.log(error);
-        return error.message;
+        console.error(error.message);
+        return `Error: ${error.message}`;
     }
 }
 
 export default function Post() {
     const loaderData = useLoaderData();
-    const postData = loaderData.post;
-    console.log(postData);
-    const postTimestamp = postData.createdAt;
-    const postHasBeenEdited = postData.hasBeenEdited;
+    const postTimestamp = loaderData.post.createdAt;
+    const postHasBeenEdited = loaderData.post.hasBeenEdited;
     const postDate = new Date(postTimestamp);
     const postHours = postDate.getHours();
     const postMinutes = postDate.getMinutes();
     const postDateString = postDate.toDateString();
     const [isUserLoggedIn, setIsUserLoggedIn] = useOutletContext();
     const [userLikedPost, setUserLikedPost] = useState(false);
-    const [postLikes, setPostLikes] = useState(postData.likes);
-    //const [userMessage, setUserMessage] = useState();
-    const commentErrorMsg = useActionData();
+    const [postLikes, setPostLikes] = useState(loaderData.post.likes);
+    const commentErrorMsg = useActionData() || "";
     const commentForm = useRef();
-    /*useEffect(() => {
+    useEffect(() => {
         if (commentForm.current) {
             commentForm.current.reset();
         }
-    }, [commentErrorMsg]);*/
-    const commentData = loaderData.comments;
-    console.log(commentData);
-    const commentElements = commentData.map((comment) => {
+    }, [commentErrorMsg]);
+    const commentElements = loaderData.comments.map((comment) => {
         const commentTimestamp = comment.createdAt;
-        const commentHasBeenEdited = comment.hasBeenEdited;
         const commentDate = new Date(commentTimestamp);
-        const [commentLikes, setCommentLikes] = useState(comment.likes);
-        const [userLikedComment, setUserLikedComment] = useState(false);
         const commentHours = commentDate.getHours();
         const commentMinutes = commentDate.getMinutes();
         const commentDateString = commentDate.toDateString();
         return (
-            <div className="comment" key={comment._id}>
-                <p className="comment-text">{comment.content}</p>
-                <p className="comment-info">
-                    <span className="comment-time">
-                        Posted:{" "}
-                        {`${
-                            commentHours > 12 ? commentHours - 12 : commentHours
-                        }:${
-                            commentMinutes > 9
-                                ? commentMinutes
-                                : `0${commentMinutes}`
-                        } ${commentDateString}`}
-                    </span>
-                    <span className="comment-likes">Likes: {commentLikes}</span>
-                    <span className="comment-edited">
-                        {commentHasBeenEdited ? "Edited" : ""}
-                    </span>
-                </p>
-                {isUserLoggedIn && (
-                    <button
-                        className={
-                            userLikedComment
-                                ? "like-button selected"
-                                : "like-button"
-                        }
-                        onClick={async () => {
-                            try {
-                                const likesData = await likeComment(
-                                    comment._id
-                                );
-                                setCommentLikes(likesData.likes);
-                                setUserLikedComment(likesData.didUserLike);
-                            } catch (error) {
-                                console.log(error);
-                            }
-                        }}
-                    >
-                        Like
-                    </button>
-                )}
-            </div>
+            <Comment
+                key={comment._id}
+                _id={comment._id}
+                content={comment.content}
+                commentHours={commentHours}
+                commentMinutes={commentMinutes}
+                commentDateString={commentDateString}
+                commentHasBeenEdited={comment.hasBeenEdited}
+                isUserLoggedIn={isUserLoggedIn}
+                likes={comment.likes}
+            />
         );
     });
 
     return (
         <>
             <article className="post-container">
-                <h2 className="post-title">{postData.title}</h2>
-                <p className="post-author">
-                    Author: {postData.user ? postData.user : "Unknown"}
-                </p>
+                <h2 className="post-title">{loaderData.post.title}</h2>
+                <p className="post-author">Author: {loaderData.post.user}</p>
                 <p className="post-info">
                     <span className="post-time">
                         Posted:{" "}
@@ -156,7 +118,7 @@ export default function Post() {
                         {postHasBeenEdited ? "Edited" : ""}
                     </span>
                 </p>
-                <p className="post-text">{postData.content}</p>
+                <p className="post-text">{loaderData.post.content}</p>
                 {isUserLoggedIn && (
                     <button
                         className={
@@ -166,11 +128,13 @@ export default function Post() {
                         }
                         onClick={async () => {
                             try {
-                                const likesData = await likePost(postData._id);
+                                const likesData = await likePost(
+                                    loaderData.post._id
+                                );
                                 setPostLikes(likesData.likes);
                                 setUserLikedPost(likesData.didUserLike);
                             } catch (error) {
-                                console.log(error);
+                                console.error(error.message);
                             }
                         }}
                     >
@@ -190,12 +154,18 @@ export default function Post() {
                         maxLength={300}
                         minLength={4}
                     />
-                    <input type="hidden" value={postData._id} name="post" />
+                    <input
+                        type="hidden"
+                        value={loaderData.post._id}
+                        name="post"
+                    />
                     <button type="submit" className="button">
                         Submit
                     </button>
                     <p className="error-message">
-                        {commentErrorMsg ? commentErrorMsg : ""}
+                        {commentErrorMsg.startsWith("Error:")
+                            ? commentErrorMsg
+                            : ""}
                     </p>
                 </Form>
             )}

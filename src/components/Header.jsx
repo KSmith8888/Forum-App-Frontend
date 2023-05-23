@@ -35,6 +35,9 @@ export default function Header({ isUserLoggedIn, setIsUserLoggedIn }) {
                     <Link to="/posts/movies" className="link">
                         Movies
                     </Link>
+                    <Link to="/posts/other" className="link">
+                        Other
+                    </Link>
                     <Link to="/register" className="link">
                         Create Account
                     </Link>

@@ -38,7 +38,7 @@ export async function createPostAction({ request }) {
         const data = await res.json();
         return redirect(`/posts/details/${data._id}`);
     } catch (error) {
-        console.log(error);
+        console.error(error.message);
         return error.message;
     }
 }
@@ -61,6 +61,7 @@ export default function CreatePost() {
                     <option value="Movies">Movies</option>
                     <option value="Games">Games</option>
                     <option value="Books">Books</option>
+                    <option value="Other">Other</option>
                 </select>
                 <label htmlFor="title-input">Title:</label>
                 <input
