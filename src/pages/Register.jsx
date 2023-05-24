@@ -45,6 +45,8 @@ export default function Register() {
                 type="text"
                 name="username"
                 pattern="[a-zA-Z0-9]+"
+                minLength="4"
+                maxLength="18"
                 title="Letters and numbers only, between 4 and 18 characters"
                 required
             />
@@ -57,6 +59,8 @@ export default function Register() {
                 type="password"
                 name="password"
                 pattern="[a-zA-Z0-9]+"
+                minLength="4"
+                maxLength="18"
                 title="Letters and numbers only, between 4 and 18 characters"
                 required
             />
@@ -69,6 +73,8 @@ export default function Register() {
                 type="password"
                 name="password-confirm"
                 pattern="[a-zA-Z0-9]+"
+                minLength="4"
+                maxLength="18"
                 title="Letters and numbers only, between 4 and 18 characters"
                 required
             />

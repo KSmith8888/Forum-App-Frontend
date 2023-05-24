@@ -148,6 +148,7 @@ img {
 .button-container {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .vertical-button-container {
@@ -187,4 +188,10 @@ img {
 .comment-time,
 .comment-likes {
     margin: 0 0.5em;
+}
+
+.post-link-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }

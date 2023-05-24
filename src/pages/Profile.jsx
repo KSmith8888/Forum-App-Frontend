@@ -14,14 +14,14 @@ export async function profileLoader() {
         return data;
     } catch (error) {
         console.error(error.message);
-        return error.message;
+        return [];
     }
 }
 
 export default function Profile() {
     const username = sessionStorage.getItem("username");
-    const userPosts = useLoaderData();
-    const postElements = userPosts.map((post) => {
+    const postAndCommentData = useLoaderData();
+    const postElements = postAndCommentData.posts.map((post) => {
         return (
             <div key={post.id} className="post-link-container">
                 <Link to={`/posts/details/${post.id}`} className="post-link">
@@ -48,21 +48,60 @@ export default function Profile() {
             </div>
         );
     });
+    const commentElements = postAndCommentData.comments.map((comment) => {
+        return (
+            <div key={comment._id} className="comment-link-container">
+                <h5 className="comment-link-title">{comment.content}</h5>
+                <div className="button-container">
+                    <Link
+                        to={`/posts/details/${comment.relatedPost}`}
+                        className="button-link"
+                    >
+                        Post
+                    </Link>
+                    <button
+                        className="button"
+                        onClick={() => {
+                            console.log(`Edit comment ${comment._id}`);
+                        }}
+                    >
+                        Edit
+                    </button>
+                    <button
+                        className="button"
+                        onClick={() => {
+                            console.log(`Delete comment ${comment._id}`);
+                        }}
+                    >
+                        Delete
+                    </button>
+                </div>
+            </div>
+        );
+    });
 
     return (
         <>
             <h2>{`Profile Page: ${username}`}</h2>
             <Link to="create">Create a new post</Link>
-            {userPosts.length > 0 ? (
+            {postAndCommentData.posts.length > 0 ? (
                 <>
                     <h3>Your Posts:</h3>
-                    <div className="posts-topic-container">{postElements}</div>
+                    <div className="user-posts-container">{postElements}</div>
                 </>
             ) : (
                 <h4>You have not created any posts yet</h4>
             )}
-            <h3>Your Comments:</h3>
-            <h4>You have not created any comments yet</h4>
+            {postAndCommentData.comments.length > 0 ? (
+                <>
+                    <h3>Your Comments:</h3>
+                    <div className="user-comments-container">
+                        {commentElements}
+                    </div>
+                </>
+            ) : (
+                <h4>You have not created any comments yet</h4>
+            )}
         </>
     );
 }
