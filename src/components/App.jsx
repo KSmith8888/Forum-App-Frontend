@@ -16,6 +16,11 @@ import PostsByTopic, { postsTopicLoader } from "../pages/PostsByTopic";
 import CreatePost, { createPostAction } from "../pages/CreatePost";
 import Register, { registerAction } from "../pages/Register";
 import Profile, { profileLoader } from "../pages/Profile";
+import EditPost, { editPostLoader, editPostAction } from "../pages/EditPost";
+import EditComment, {
+    editCommentLoader,
+    editCommentAction,
+} from "../pages/EditComment";
 import Login, { loginAction } from "../pages/Login";
 import NotFound from "../pages/NotFound";
 //Assets
@@ -49,6 +54,20 @@ const router = createBrowserRouter(
                     element={<Post />}
                     loader={postLoader}
                     action={commentAction}
+                    errorElement={<Error />}
+                />
+                <Route
+                    path="edit/:id"
+                    element={<EditPost />}
+                    loader={editPostLoader}
+                    action={editPostAction}
+                    errorElement={<Error />}
+                />
+                <Route
+                    path="comments/edit/:id"
+                    element={<EditComment />}
+                    loader={editCommentLoader}
+                    action={editCommentAction}
                     errorElement={<Error />}
                 />
             </Route>

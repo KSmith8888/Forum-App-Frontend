@@ -3,6 +3,7 @@ import {
     useLoaderData,
     useOutletContext,
     Form,
+    Link,
     useActionData,
 } from "react-router-dom";
 
@@ -116,9 +117,11 @@ export default function Post() {
                         } ${postDateString}`}
                     </span>
                     <span className="post-likes">Likes: {postLikes}</span>
-                    <span className="post-edited">
-                        {postHasBeenEdited ? "Edited" : ""}
-                    </span>
+                    {postHasBeenEdited && (
+                        <Link to="." className="button-link">
+                            Edit History
+                        </Link>
+                    )}
                 </p>
                 <p className="post-text">{loaderData.post.content}</p>
                 {isUserLoggedIn && (

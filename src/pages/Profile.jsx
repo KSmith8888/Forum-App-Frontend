@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Link, useLoaderData, redirect } from "react-router-dom";
+
+import MessageModal from "../components/MessageModal";
+import { deletePostRequest, deleteCommentRequest } from "../utils/delete.js";
 
 export async function profileLoader() {
     try {
@@ -21,6 +24,9 @@ export async function profileLoader() {
 export default function Profile() {
     const username = sessionStorage.getItem("username");
     const postAndCommentData = useLoaderData();
+    const messageModal = useRef();
+    //const [isModalOpen, setIsModalOpen] = useState(false);
+    //pass state to modal and update to use on click
     const postElements = postAndCommentData.posts.map((post) => {
         return (
             <div key={post.id} className="post-link-container">
@@ -28,18 +34,20 @@ export default function Profile() {
                     <h4 className="post-link-title">{post.title}</h4>
                 </Link>
                 <div className="button-container">
-                    <button
-                        className="button"
-                        onClick={() => {
-                            console.log(`Edit post ${post.id}`);
-                        }}
-                    >
+                    <Link to={`/posts/edit/${post.id}`} className="button-link">
                         Edit
-                    </button>
+                    </Link>
                     <button
                         className="button"
-                        onClick={() => {
-                            console.log(`Delete post ${post.id}`);
+                        onClick={async () => {
+                            try {
+                                const message = await deletePostRequest(
+                                    post.id
+                                );
+                                console.log(message);
+                            } catch (error) {
+                                console.error(error.message);
+                            }
                         }}
                     >
                         Delete
@@ -59,18 +67,23 @@ export default function Profile() {
                     >
                         Post
                     </Link>
-                    <button
-                        className="button"
-                        onClick={() => {
-                            console.log(`Edit comment ${comment._id}`);
-                        }}
+                    <Link
+                        to={`/posts/comments/edit/${comment._id}`}
+                        className="button-link"
                     >
                         Edit
-                    </button>
+                    </Link>
                     <button
                         className="button"
-                        onClick={() => {
-                            console.log(`Delete comment ${comment._id}`);
+                        onClick={async () => {
+                            try {
+                                const message = await deleteCommentRequest(
+                                    comment._id
+                                );
+                                console.log(message);
+                            } catch (error) {
+                                console.error(error.message);
+                            }
                         }}
                     >
                         Delete
@@ -102,6 +115,7 @@ export default function Profile() {
             ) : (
                 <h4>You have not created any comments yet</h4>
             )}
+            <MessageModal ref={messageModal} />
         </>
     );
 }
