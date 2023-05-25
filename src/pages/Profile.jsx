@@ -1,7 +1,6 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Link, useLoaderData, redirect } from "react-router-dom";
 
-import MessageModal from "../components/MessageModal";
 import { deletePostRequest, deleteCommentRequest } from "../utils/delete.js";
 
 export async function profileLoader() {
@@ -25,8 +24,7 @@ export default function Profile() {
     const username = sessionStorage.getItem("username");
     const postAndCommentData = useLoaderData();
     const messageModal = useRef();
-    //const [isModalOpen, setIsModalOpen] = useState(false);
-    //pass state to modal and update to use on click
+    const [modalMessage, setModalMessage] = useState(null);
     const postElements = postAndCommentData.posts.map((post) => {
         return (
             <div key={post.id} className="post-link-container">
@@ -80,9 +78,11 @@ export default function Profile() {
                                 const message = await deleteCommentRequest(
                                     comment._id
                                 );
-                                console.log(message);
+                                setModalMessage(message);
+                                messageModal.current.showModal();
                             } catch (error) {
-                                console.error(error.message);
+                                setModalMessage(error.message);
+                                messageModal.current.showModal();
                             }
                         }}
                     >
@@ -115,7 +115,20 @@ export default function Profile() {
             ) : (
                 <h4>You have not created any comments yet</h4>
             )}
-            <MessageModal ref={messageModal} />
+            <dialog className="message-modal" ref={messageModal}>
+                <p className="message-modal-text">
+                    {modalMessage ||
+                        "There has been an error, please try again later"}
+                </p>
+                <button
+                    className="button"
+                    onClick={() => {
+                        messageModal.current.close();
+                    }}
+                >
+                    Close
+                </button>
+            </dialog>
         </>
     );
 }

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import { likeComment } from "../utils/like.js";
 
@@ -11,6 +12,7 @@ export default function Comment({
     commentHasBeenEdited,
     isUserLoggedIn,
     likes,
+    username,
 }) {
     const [commentLikes, setCommentLikes] = useState(likes);
     const [userLikedComment, setUserLikedComment] = useState(false);
@@ -19,6 +21,7 @@ export default function Comment({
         <div className="comment">
             <p className="comment-text">{content}</p>
             <p className="comment-info">
+                <span className="comment-author">Author: {username}</span>
                 <span className="comment-time">
                     Posted:{" "}
                     {`${commentHours > 12 ? commentHours - 12 : commentHours}:${
@@ -28,9 +31,11 @@ export default function Comment({
                     } ${commentDateString}`}
                 </span>
                 <span className="comment-likes">Likes: {commentLikes}</span>
-                <span className="comment-edited">
-                    {commentHasBeenEdited ? "Edited" : ""}
-                </span>
+                {commentHasBeenEdited && (
+                    <Link to="." className="button-link">
+                        Edit History
+                    </Link>
+                )}
             </p>
             {isUserLoggedIn && (
                 <button

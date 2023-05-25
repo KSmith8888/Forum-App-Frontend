@@ -100,6 +100,7 @@ export default function Post() {
                 commentHasBeenEdited={comment.hasBeenEdited}
                 isUserLoggedIn={isUserLoggedIn}
                 likes={comment.likes}
+                username={comment.user}
             />
         );
     });
@@ -158,6 +159,7 @@ export default function Post() {
                         name="comment"
                         maxLength={300}
                         minLength={4}
+                        pattern="[a-zA-Z0-9 .,:!]+"
                     />
                     <input
                         type="hidden"
