@@ -24,6 +24,8 @@ export default function Profile() {
     const username = sessionStorage.getItem("username");
     const postAndCommentData = useLoaderData();
     const messageModal = useRef();
+    const [updatedPosts, setUpdatedPosts] = useState(null);
+    const [updatedComments, setUpdatedComments] = useState(null);
     const [modalMessage, setModalMessage] = useState(null);
     const postElements = postAndCommentData.posts.map((post) => {
         return (
@@ -42,9 +44,17 @@ export default function Profile() {
                                 const message = await deletePostRequest(
                                     post.id
                                 );
-                                console.log(message);
+                                const newPostElements =
+                                    postAndCommentData.posts.filter(
+                                        (initialPost) =>
+                                            initialPost._id !== post.id
+                                    );
+                                setUpdatedPosts(newPostElements);
+                                setModalMessage(message);
+                                messageModal.current.showModal();
                             } catch (error) {
-                                console.error(error.message);
+                                setModalMessage(error.message);
+                                messageModal.current.showModal();
                             }
                         }}
                     >
@@ -78,6 +88,12 @@ export default function Profile() {
                                 const message = await deleteCommentRequest(
                                     comment._id
                                 );
+                                const newCommentElements =
+                                    postAndCommentData.comments.filter(
+                                        (initialComment) =>
+                                            initialComment._id !== comment._id
+                                    );
+                                setUpdatedComments(newCommentElements);
                                 setModalMessage(message);
                                 messageModal.current.showModal();
                             } catch (error) {
@@ -100,7 +116,9 @@ export default function Profile() {
             {postAndCommentData.posts.length > 0 ? (
                 <>
                     <h3>Your Posts:</h3>
-                    <div className="user-posts-container">{postElements}</div>
+                    <div className="user-posts-container">
+                        {updatedPosts || postElements}
+                    </div>
                 </>
             ) : (
                 <h4>You have not created any posts yet</h4>
@@ -109,7 +127,7 @@ export default function Profile() {
                 <>
                     <h3>Your Comments:</h3>
                     <div className="user-comments-container">
-                        {commentElements}
+                        {updatedComments || commentElements}
                     </div>
                 </>
             ) : (
