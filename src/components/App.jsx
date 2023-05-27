@@ -15,7 +15,7 @@ import Post, { postLoader, commentAction } from "../pages/Post";
 import PostsByTopic, { postsTopicLoader } from "../pages/PostsByTopic";
 import CreatePost, { createPostAction } from "../pages/CreatePost";
 import Register, { registerAction } from "../pages/Register";
-import Profile, { profileLoader } from "../pages/Profile";
+import Profile, { profileLoader, profileAction } from "../pages/Profile";
 import EditPost, { editPostLoader, editPostAction } from "../pages/EditPost";
 import EditComment, {
     editCommentLoader,
@@ -84,7 +84,12 @@ const router = createBrowserRouter(
                 errorElement={<Error />}
             />
             <Route path="/profile" errorElement={<Error />}>
-                <Route index element={<Profile />} loader={profileLoader} />
+                <Route
+                    index
+                    element={<Profile />}
+                    loader={profileLoader}
+                    action={profileAction}
+                />
                 <Route
                     path="create"
                     element={<CreatePost />}

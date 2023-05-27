@@ -35,7 +35,7 @@ export async function searchAction({ request }) {
 }
 
 export default function Search() {
-    const searchResults = useLoaderData();
+    const searchResults = useLoaderData() || [];
     const searchForm = useRef();
     /* eslint-disable no-unused-vars */
     const [searchParams, setSearchParams] = useSearchParams();
@@ -57,7 +57,12 @@ export default function Search() {
     return (
         <>
             <h2>Search posts by keyword</h2>
-            <Form className="search-form" method="post" ref={searchForm}>
+            <Form
+                className="search-form"
+                method="post"
+                ref={searchForm}
+                autoComplete="false"
+            >
                 <label htmlFor="search-input">Search Term:</label>
                 <input
                     id="search-input"
@@ -74,7 +79,7 @@ export default function Search() {
                 {searchResults.length > 0 ? (
                     postElements
                 ) : (
-                    <h3>No results found {query ? `for ${query}` : ""}</h3>
+                    <h3>{query ? `No results found for ${query}` : ""}</h3>
                 )}
             </div>
         </>

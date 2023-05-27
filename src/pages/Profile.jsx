@@ -1,7 +1,11 @@
-import React, { useRef, useState } from "react";
-import { Link, useLoaderData, redirect } from "react-router-dom";
-
-import { deletePostRequest, deleteCommentRequest } from "../utils/delete.js";
+import React, { useRef, useState, useEffect } from "react";
+import {
+    Link,
+    useLoaderData,
+    redirect,
+    Form,
+    useActionData,
+} from "react-router-dom";
 
 export async function profileLoader() {
     try {
@@ -20,13 +24,54 @@ export async function profileLoader() {
     }
 }
 
+export async function profileAction({ request }) {
+    try {
+        const token = sessionStorage.getItem("token");
+        const userId = sessionStorage.getItem("_id");
+        const formData = await request.formData();
+        let type = "";
+        const id = formData.get("id");
+        const post = formData.get("post");
+        const comment = formData.get("comment");
+        if (post) {
+            type = post;
+        } else if (comment) {
+            type = comment;
+        }
+        if (!token || !userId) {
+            throw new Error("You must log in before deleting a post");
+        }
+        const res = await fetch(
+            `http://127.0.0.1:3000/api/v1/${type}/details/${id}`,
+            {
+                method: "DELETE",
+                body: JSON.stringify({ status: "Delete request" }),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                    "user_id": userId,
+                },
+            }
+        );
+        const data = await res.json();
+        return data.message;
+    } catch (error) {
+        return error.message;
+    }
+}
+
 export default function Profile() {
     const username = sessionStorage.getItem("username");
     const postAndCommentData = useLoaderData();
     const messageModal = useRef();
-    const [updatedPosts, setUpdatedPosts] = useState(null);
-    const [updatedComments, setUpdatedComments] = useState(null);
+    const actionMessage = useActionData();
     const [modalMessage, setModalMessage] = useState(null);
+    useEffect(() => {
+        if (actionMessage) {
+            setModalMessage(actionMessage);
+            messageModal.current.showModal();
+        }
+    }, [actionMessage]);
     const postElements = postAndCommentData.posts.map((post) => {
         return (
             <div key={post.id} className="post-link-container">
@@ -37,29 +82,11 @@ export default function Profile() {
                     <Link to={`/posts/edit/${post.id}`} className="button-link">
                         Edit
                     </Link>
-                    <button
-                        className="button"
-                        onClick={async () => {
-                            try {
-                                const message = await deletePostRequest(
-                                    post.id
-                                );
-                                const newPostElements =
-                                    postAndCommentData.posts.filter(
-                                        (initialPost) =>
-                                            initialPost._id !== post.id
-                                    );
-                                setUpdatedPosts(newPostElements);
-                                setModalMessage(message);
-                                messageModal.current.showModal();
-                            } catch (error) {
-                                setModalMessage(error.message);
-                                messageModal.current.showModal();
-                            }
-                        }}
-                    >
-                        Delete
-                    </button>
+                    <Form method="POST">
+                        <input type="hidden" name="post" value="posts" />
+                        <input type="hidden" name="id" value={post.id} />
+                        <button className="button">Delete</button>
+                    </Form>
                 </div>
             </div>
         );
@@ -81,29 +108,13 @@ export default function Profile() {
                     >
                         Edit
                     </Link>
-                    <button
-                        className="button"
-                        onClick={async () => {
-                            try {
-                                const message = await deleteCommentRequest(
-                                    comment._id
-                                );
-                                const newCommentElements =
-                                    postAndCommentData.comments.filter(
-                                        (initialComment) =>
-                                            initialComment._id !== comment._id
-                                    );
-                                setUpdatedComments(newCommentElements);
-                                setModalMessage(message);
-                                messageModal.current.showModal();
-                            } catch (error) {
-                                setModalMessage(error.message);
-                                messageModal.current.showModal();
-                            }
-                        }}
-                    >
-                        Delete
-                    </button>
+                    <Form method="POST">
+                        <input type="hidden" name="comment" value="comments" />
+                        <input type="hidden" name="id" value={comment._id} />
+                        <button type="submit" className="button">
+                            Delete
+                        </button>
+                    </Form>
                 </div>
             </div>
         );
@@ -116,9 +127,7 @@ export default function Profile() {
             {postAndCommentData.posts.length > 0 ? (
                 <>
                     <h3>Your Posts:</h3>
-                    <div className="user-posts-container">
-                        {updatedPosts || postElements}
-                    </div>
+                    <div className="user-posts-container">{postElements}</div>
                 </>
             ) : (
                 <h4>You have not created any posts yet</h4>
@@ -127,7 +136,7 @@ export default function Profile() {
                 <>
                     <h3>Your Comments:</h3>
                     <div className="user-comments-container">
-                        {updatedComments || commentElements}
+                        {commentElements}
                     </div>
                 </>
             ) : (
