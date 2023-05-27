@@ -3,3 +3,6 @@ node_modules/
 dist/
 .env
 .eslintrc.json
+tsconfig.json
+tsconfig.node.json
+vite.config.ts
