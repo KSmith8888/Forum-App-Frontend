@@ -3,7 +3,15 @@ import { Link, useNavigate } from "react-router-dom";
 
 import profileImage from "../assets/images/blank-profile-picture.png";
 
-export default function Header({ isUserLoggedIn, setIsUserLoggedIn }) {
+interface headerProps {
+    isUserLoggedIn: boolean;
+    setIsUserLoggedIn: Function;
+}
+
+export default function Header({
+    isUserLoggedIn,
+    setIsUserLoggedIn,
+}: headerProps) {
     const navigate = useNavigate();
 
     function logoutUser() {

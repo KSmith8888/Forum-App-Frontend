@@ -7,27 +7,68 @@ import {
     useActionData,
 } from "react-router-dom";
 
-import Comment from "../components/Comment.jsx";
+import Comment from "../components/Comment.js";
 import { likePost } from "../utils/like.js";
 
-export async function postLoader({ params }) {
+interface postInterface {
+    _id: string;
+    title: string;
+    content: string;
+    topic: string;
+    likes: number;
+    user: string;
+    keywords: string[];
+    comments: string[];
+    hasBeenEdited: boolean;
+    history: object[];
+    createdAt: string;
+    updatedAt: string;
+}
+
+interface commentInterface {
+    _id: string;
+    content: string;
+    likes: number;
+    user: string;
+    relatedPost: string;
+    hasBeenEdited: boolean;
+    history: string[];
+    createdAt: string;
+    updatedAt: string;
+}
+
+type requestType = {
+    request: Request;
+};
+type paramsType = {
+    id: string;
+};
+
+interface outletInterface {
+    isUserLoggedIn: boolean;
+    setIsUserLoggedIn: Function;
+}
+
+export async function postLoader({ ...args }) {
     try {
-        const postId = params.id;
+        const postId = args.params.id;
         const response = await fetch(
             `http://127.0.0.1:3000/api/v1/posts/details/${postId}`
         );
-        const data = await response.json();
+        const data: postInterface = await response.json();
         return data;
     } catch (error) {
-        console.error(error.message);
+        if (error instanceof Error) {
+            console.error(error.message);
+        }
         return error;
     }
 }
 
-export async function commentAction({ request }) {
+export async function commentAction({ request }: requestType): Promise<string> {
     try {
         const commentData = await request.formData();
-        const comment = commentData.get("comment");
+        const comment = commentData.get("comment") as string;
         const post = commentData.get("post");
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
@@ -58,52 +99,59 @@ export async function commentAction({ request }) {
         const data = await res.json();
         return data._id;
     } catch (error) {
-        console.error(error.message);
-        return `Error: ${error.message}`;
+        let message = "Please try again later";
+        if (error instanceof Error) {
+            console.error(error.message);
+            message = error.message;
+        }
+        return `Error: ${message}`;
     }
 }
 
 export default function Post() {
-    const loaderData = useLoaderData();
+    const loaderData = useLoaderData() as {
+        post: postInterface;
+        comments: commentInterface[];
+    };
     const postTimestamp = loaderData.post.createdAt;
     const postHasBeenEdited = loaderData.post.hasBeenEdited;
     const postDate = new Date(postTimestamp);
     const postHours = postDate.getHours();
     const postMinutes = postDate.getMinutes();
     const postDateString = postDate.toDateString();
-    /* eslint-disable no-unused-vars */
-    const [isUserLoggedIn, setIsUserLoggedIn] = useOutletContext();
-    /* eslint-enable no-unused-vars */
+    const { isUserLoggedIn } = useOutletContext<outletInterface>();
     const [userLikedPost, setUserLikedPost] = useState(false);
     const [postLikes, setPostLikes] = useState(loaderData.post.likes);
-    const commentErrorMsg = useActionData() || "";
-    const commentForm = useRef();
+    const commentErrorMsg = (useActionData() as string) || "";
+    const commentForm = useRef<HTMLFormElement>(null);
     useEffect(() => {
         if (commentForm.current) {
             commentForm.current.reset();
         }
     }, [commentErrorMsg]);
-    const commentElements = loaderData.comments.map((comment) => {
-        const commentTimestamp = comment.createdAt;
-        const commentDate = new Date(commentTimestamp);
-        const commentHours = commentDate.getHours();
-        const commentMinutes = commentDate.getMinutes();
-        const commentDateString = commentDate.toDateString();
-        return (
-            <Comment
-                key={comment._id}
-                _id={comment._id}
-                content={comment.content}
-                commentHours={commentHours}
-                commentMinutes={commentMinutes}
-                commentDateString={commentDateString}
-                commentHasBeenEdited={comment.hasBeenEdited}
-                isUserLoggedIn={isUserLoggedIn}
-                likes={comment.likes}
-                username={comment.user}
-            />
-        );
-    });
+    const commentElements = loaderData.comments.map(
+        (comment: commentInterface) => {
+            const commentTimestamp = comment.createdAt;
+            const commentDate = new Date(commentTimestamp);
+            const commentHours = commentDate.getHours();
+            const commentMinutes = commentDate.getMinutes();
+            const commentDateString = commentDate.toDateString();
+            return (
+                <Comment
+                    key={comment._id}
+                    _id={comment._id}
+                    content={comment.content}
+                    commentHours={commentHours}
+                    commentMinutes={commentMinutes}
+                    commentDateString={commentDateString}
+                    commentHasBeenEdited={comment.hasBeenEdited}
+                    isUserLoggedIn={isUserLoggedIn}
+                    likes={comment.likes}
+                    username={comment.user}
+                />
+            );
+        }
+    );
 
     return (
         <>
@@ -140,7 +188,9 @@ export default function Post() {
                                 setPostLikes(likesData.likes);
                                 setUserLikedPost(likesData.didUserLike);
                             } catch (error) {
-                                console.error(error.message);
+                                if (error instanceof Error) {
+                                    console.error(error.message);
+                                }
                             }
                         }}
                     >

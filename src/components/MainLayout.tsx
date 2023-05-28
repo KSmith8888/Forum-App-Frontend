@@ -4,7 +4,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 
 export default function Layout() {
-    const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
+    const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
 
     return (
         <div className="top-level-container">
@@ -13,7 +13,7 @@ export default function Layout() {
                 setIsUserLoggedIn={setIsUserLoggedIn}
             />
             <main className="main-section">
-                <Outlet context={[isUserLoggedIn, setIsUserLoggedIn]} />
+                <Outlet context={{ isUserLoggedIn, setIsUserLoggedIn }} />
             </main>
             <Footer />
         </div>

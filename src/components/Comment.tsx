@@ -3,6 +3,18 @@ import { Link } from "react-router-dom";
 
 import { likeComment } from "../utils/like.js";
 
+interface commentProps {
+    _id: string;
+    content: string;
+    commentHours: number;
+    commentMinutes: number;
+    commentDateString: string;
+    commentHasBeenEdited: boolean;
+    isUserLoggedIn: boolean;
+    likes: number;
+    username: string;
+}
+
 export default function Comment({
     _id,
     content,
@@ -13,7 +25,7 @@ export default function Comment({
     isUserLoggedIn,
     likes,
     username,
-}) {
+}: commentProps) {
     const [commentLikes, setCommentLikes] = useState(likes);
     const [userLikedComment, setUserLikedComment] = useState(false);
 
@@ -50,7 +62,9 @@ export default function Comment({
                             setCommentLikes(likesData.likes);
                             setUserLikedComment(likesData.didUserLike);
                         } catch (error) {
-                            console.error(error.message);
+                            if (error instanceof Error) {
+                                console.error(error.message);
+                            }
                         }
                     }}
                 >

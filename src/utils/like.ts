@@ -1,4 +1,4 @@
-export async function likePost(id) {
+export async function likePost(id: string) {
     try {
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
@@ -27,7 +27,7 @@ export async function likePost(id) {
     }
 }
 
-export async function likeComment(id) {
+export async function likeComment(id: string) {
     try {
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
