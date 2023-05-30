@@ -1,9 +1,9 @@
 import React from "react";
 import { Form, useActionData, redirect } from "react-router-dom";
 
-export async function registerAction({ request }) {
+export async function registerAction({ ...args }) {
     try {
-        const loginData = await request.formData();
+        const loginData = await args.request.formData();
         const username = loginData.get("username");
         const password = loginData.get("password");
         const passwordConfirm = loginData.get("password-confirm");
@@ -26,12 +26,16 @@ export async function registerAction({ request }) {
             "/?message=New account created successfully, please log in"
         );
     } catch (error) {
-        return error.message;
+        let errorMsg = "There has been an error, please try again later";
+        if (error instanceof Error) {
+            errorMsg = error.message;
+        }
+        return errorMsg;
     }
 }
 
 export default function Register() {
-    const registrationMessage = useActionData();
+    const registrationMessage = useActionData() as string;
 
     return (
         <Form className="register-form" method="post">
@@ -45,8 +49,8 @@ export default function Register() {
                 type="text"
                 name="username"
                 pattern="[a-zA-Z0-9]+"
-                minLength="4"
-                maxLength="18"
+                minLength={4}
+                maxLength={18}
                 title="Letters and numbers only, between 4 and 18 characters"
                 required
             />
@@ -59,8 +63,8 @@ export default function Register() {
                 type="password"
                 name="password"
                 pattern="[a-zA-Z0-9]+"
-                minLength="4"
-                maxLength="18"
+                minLength={4}
+                maxLength={18}
                 title="Letters and numbers only, between 4 and 18 characters"
                 required
             />
@@ -73,8 +77,8 @@ export default function Register() {
                 type="password"
                 name="password-confirm"
                 pattern="[a-zA-Z0-9]+"
-                minLength="4"
-                maxLength="18"
+                minLength={4}
+                maxLength={18}
                 title="Letters and numbers only, between 4 and 18 characters"
                 required
             />

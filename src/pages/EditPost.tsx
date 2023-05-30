@@ -1,30 +1,43 @@
 import React, { useState } from "react";
 import { redirect, useLoaderData, Form } from "react-router-dom";
 
-export async function editPostLoader({ params }) {
+import { postInterface, commentInterface } from "../utils/interfaces";
+
+interface postRelatedComments {
+    post: postInterface;
+    comments: Array<commentInterface>;
+}
+
+export async function editPostLoader({ ...args }) {
     try {
         const userId = sessionStorage.getItem("_id");
         if (!userId) {
             return redirect("/?message=Please log in");
         }
-        const postId = params.id;
+        const postId = args.params.id;
         const res = await fetch(
             `http://127.0.0.1:3000/api/v1/posts/details/${postId}`
         );
         if (!res.ok) {
             throw new Error(`Status error: ${res.status}`);
         }
-        const data = await res.json();
+        const data: postRelatedComments = await res.json();
         return data.post;
     } catch (error) {
-        return { msg: error.message };
+        const errorObj = {
+            msg: "There has been an error, please try again later",
+        };
+        if (error instanceof Error) {
+            errorObj.msg = error.message;
+        }
+        return errorObj.msg;
     }
 }
 
-export async function editPostAction({ request, params }) {
+export async function editPostAction({ ...args }) {
     try {
-        const postId = params.id;
-        const postData = await request.formData();
+        const postId = args.params.id;
+        const postData = await args.request.formData();
         const title = postData.get("title");
         const content = postData.get("content");
         const token = sessionStorage.getItem("token");
@@ -55,18 +68,26 @@ export async function editPostAction({ request, params }) {
         }
         return redirect(`/posts/details/${postId}`);
     } catch (error) {
-        console.error(error.message);
-        return error.message;
+        if (error instanceof Error) {
+            console.error(error.message);
+            return error.message;
+        } else {
+            return "There has been an error, please try again later";
+        }
     }
 }
 
 export default function EditPost() {
-    const postData = useLoaderData();
+    const loader = useLoaderData() as postInterface | string;
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
-    if (postData.err) {
-        setErrorMsg(postData.err);
+    const postData = { title: "", content: "" };
+    if (typeof loader !== "string") {
+        postData.title = loader.title;
+        postData.content = loader.content;
+    } else {
+        setErrorMsg(loader);
     }
 
     return (
@@ -79,8 +100,8 @@ export default function EditPost() {
                     name="title"
                     className="input"
                     type="text"
-                    minLength="4"
-                    maxLength="60"
+                    minLength={4}
+                    maxLength={60}
                     value={title}
                     onChange={(e) => {
                         setTitle(e.target.value);
@@ -92,10 +113,10 @@ export default function EditPost() {
                     id="content-input"
                     className="input textarea"
                     name="content"
-                    minLength="4"
-                    maxLength="900"
-                    rows="12"
-                    cols="50"
+                    minLength={4}
+                    maxLength={900}
+                    rows={12}
+                    cols={50}
                     value={content}
                     onChange={(e) => {
                         setContent(e.target.value);

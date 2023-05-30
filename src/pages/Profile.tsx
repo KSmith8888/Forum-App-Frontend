@@ -7,6 +7,8 @@ import {
     useActionData,
 } from "react-router-dom";
 
+import { commentInterface } from "../utils/interfaces";
+
 export async function profileLoader() {
     try {
         const userId = sessionStorage.getItem("_id");
@@ -19,16 +21,18 @@ export async function profileLoader() {
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error(error.message);
+        if (error instanceof Error) {
+            console.error(error.message);
+        }
         return [];
     }
 }
 
-export async function profileAction({ request }) {
+export async function profileAction({ ...args }) {
     try {
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
-        const formData = await request.formData();
+        const formData = await args.request.formData();
         let type = "";
         const id = formData.get("id");
         const post = formData.get("post");
@@ -56,23 +60,37 @@ export async function profileAction({ request }) {
         const data = await res.json();
         return data.message;
     } catch (error) {
-        return error.message;
+        let errorMsg = "There has been an error, please try again later";
+        if (error instanceof Error) {
+            errorMsg = error.message;
+        }
+        return errorMsg;
     }
+}
+
+interface userPost {
+    id: string;
+    title: string;
+}
+
+interface postAndComment {
+    posts: userPost[];
+    comments: commentInterface[];
 }
 
 export default function Profile() {
     const username = sessionStorage.getItem("username");
-    const postAndCommentData = useLoaderData();
-    const messageModal = useRef();
-    const actionMessage = useActionData();
-    const [modalMessage, setModalMessage] = useState(null);
+    const postAndCommentData = useLoaderData() as postAndComment;
+    const messageModal = useRef<HTMLDialogElement>(null);
+    const actionMessage = useActionData() as string;
+    const [modalMessage, setModalMessage] = useState("");
     useEffect(() => {
-        if (actionMessage) {
+        if (actionMessage && messageModal.current) {
             setModalMessage(actionMessage);
             messageModal.current.showModal();
         }
     }, [actionMessage]);
-    const postElements = postAndCommentData.posts.map((post) => {
+    const postElements = postAndCommentData.posts.map((post: userPost) => {
         return (
             <div key={post.id} className="post-link-container">
                 <Link to={`/posts/details/${post.id}`} className="post-link">
@@ -150,7 +168,9 @@ export default function Profile() {
                 <button
                     className="button"
                     onClick={() => {
-                        messageModal.current.close();
+                        if (messageModal.current) {
+                            messageModal.current.close();
+                        }
                     }}
                 >
                     Close

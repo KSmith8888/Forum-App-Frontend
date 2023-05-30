@@ -7,47 +7,13 @@ import {
     useActionData,
 } from "react-router-dom";
 
-import Comment from "../components/Comment.js";
-import { likePost } from "../utils/like.js";
-
-interface postInterface {
-    _id: string;
-    title: string;
-    content: string;
-    topic: string;
-    likes: number;
-    user: string;
-    keywords: string[];
-    comments: string[];
-    hasBeenEdited: boolean;
-    history: object[];
-    createdAt: string;
-    updatedAt: string;
-}
-
-interface commentInterface {
-    _id: string;
-    content: string;
-    likes: number;
-    user: string;
-    relatedPost: string;
-    hasBeenEdited: boolean;
-    history: string[];
-    createdAt: string;
-    updatedAt: string;
-}
-
-type requestType = {
-    request: Request;
-};
-type paramsType = {
-    id: string;
-};
-
-interface outletInterface {
-    isUserLoggedIn: boolean;
-    setIsUserLoggedIn: Function;
-}
+import Comment from "../components/Comment";
+import { likePost } from "../utils/like.ts";
+import {
+    outletInterface,
+    postInterface,
+    commentInterface,
+} from "../utils/interfaces.ts";
 
 export async function postLoader({ ...args }) {
     try {
@@ -65,9 +31,9 @@ export async function postLoader({ ...args }) {
     }
 }
 
-export async function commentAction({ request }: requestType): Promise<string> {
+export async function commentAction({ ...args }): Promise<string> {
     try {
-        const commentData = await request.formData();
+        const commentData = await args.request.formData();
         const comment = commentData.get("comment") as string;
         const post = commentData.get("post");
         const token = sessionStorage.getItem("token");

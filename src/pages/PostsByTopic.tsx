@@ -6,26 +6,28 @@ import {
     useOutletContext,
 } from "react-router-dom";
 
-export async function postsTopicLoader({ params }) {
+import { outletInterface, postInterface } from "../utils/interfaces";
+
+export async function postsTopicLoader({ ...args }) {
     try {
-        const topic = params.topic;
+        const topic = args.params.topic;
         const response = await fetch(
             `http://127.0.0.1:3000/api/v1/posts/${topic}`
         );
         const data = await response.json();
         return data;
     } catch (error) {
-        console.log(error.message);
+        if (error instanceof Error) {
+            console.log(error.message);
+        }
         return [];
     }
 }
 
 export default function PostsByTopic() {
-    /* eslint-disable no-unused-vars */
-    const [isUserLoggedIn, setIsUserLoggedIn] = useOutletContext();
-    /* eslint-enable no-unused-vars */
+    const { isUserLoggedIn } = useOutletContext() as outletInterface;
     const topic = useParams().topic;
-    const postData = useLoaderData();
+    const postData = useLoaderData() as Array<postInterface>;
     const postElements = postData.map((post) => {
         return (
             <div key={post._id}>

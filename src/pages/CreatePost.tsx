@@ -1,9 +1,9 @@
 import React from "react";
 import { Form, redirect, useActionData } from "react-router-dom";
 
-export async function createPostAction({ request }) {
+export async function createPostAction({ ...args }) {
     try {
-        const postData = await request.formData();
+        const postData = await args.request.formData();
         const topic = postData.get("topic").toLowerCase();
         const title = postData.get("title");
         const content = postData.get("content");
@@ -38,13 +38,16 @@ export async function createPostAction({ request }) {
         const data = await res.json();
         return redirect(`/posts/details/${data._id}`);
     } catch (error) {
-        console.error(error.message);
-        return error.message;
+        let errorMsg = "There has been an error, please try again later";
+        if (error instanceof Error) {
+            errorMsg = error.message;
+        }
+        return errorMsg;
     }
 }
 
 export default function CreatePost() {
-    const errorMessage = useActionData();
+    const errorMessage = useActionData() as string;
 
     return (
         <>
@@ -69,8 +72,8 @@ export default function CreatePost() {
                     className="input"
                     type="text"
                     name="title"
-                    minLength="4"
-                    maxLength="60"
+                    minLength={4}
+                    maxLength={60}
                     required
                 />
                 <label htmlFor="content-input">Content:</label>
@@ -78,10 +81,10 @@ export default function CreatePost() {
                     id="content-input"
                     className="input textarea"
                     name="content"
-                    minLength="4"
-                    maxLength="900"
-                    rows="12"
-                    cols="50"
+                    minLength={4}
+                    maxLength={900}
+                    rows={12}
+                    cols={50}
                     required
                 ></textarea>
                 <label htmlFor="keywords-input">
@@ -93,7 +96,7 @@ export default function CreatePost() {
                     className="input"
                     type="text"
                     name="keywords"
-                    maxLength="60"
+                    maxLength={60}
                 />
                 <button type="submit" className="button post-button">
                     Post

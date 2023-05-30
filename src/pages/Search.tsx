@@ -7,8 +7,10 @@ import {
     useSearchParams,
 } from "react-router-dom";
 
-export async function resultsLoader({ request }) {
-    const url = new URL(request.url);
+import { postInterface } from "../utils/interfaces";
+
+export async function resultsLoader({ ...args }) {
+    const url = new URL(args.request.url);
     const query = url.searchParams.get("query");
     try {
         if (!query) {
@@ -23,28 +25,31 @@ export async function resultsLoader({ request }) {
         const resultsData = await response.json();
         return resultsData;
     } catch (error) {
-        console.log(error.message);
+        if (error instanceof Error) {
+            console.log(error.message);
+        }
         return [];
     }
 }
 
-export async function searchAction({ request }) {
-    const formData = await request.formData();
+export async function searchAction({ ...args }) {
+    const formData = await args.request.formData();
     const searchTerm = formData.get("search");
     return redirect(`/search?query=${searchTerm}`);
 }
 
 export default function Search() {
-    const searchResults = useLoaderData() || [];
-    const searchForm = useRef();
-    /* eslint-disable no-unused-vars */
-    const [searchParams, setSearchParams] = useSearchParams();
-    /* eslint-enable no-unused-vars */
+    const loader = useLoaderData();
+    const searchResults = loader instanceof Array ? loader : [];
+    const searchForm = useRef<HTMLFormElement>(null);
+    const [searchParams] = useSearchParams();
     const query = searchParams.get("query");
     useEffect(() => {
-        searchForm.current.reset();
+        if (searchForm.current) {
+            searchForm.current.reset();
+        }
     }, [searchResults]);
-    const postElements = searchResults.map((post) => {
+    const postElements = searchResults.map((post: postInterface) => {
         return (
             <div className="post-link-container" key={post._id}>
                 <Link to={`/posts/details/${post._id}`}>

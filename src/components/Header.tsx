@@ -5,7 +5,7 @@ import profileImage from "../assets/images/blank-profile-picture.png";
 
 interface headerProps {
     isUserLoggedIn: boolean;
-    setIsUserLoggedIn: Function;
+    setIsUserLoggedIn: (isUserLoggedIn: boolean) => void;
 }
 
 export default function Header({

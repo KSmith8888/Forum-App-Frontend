@@ -6,9 +6,11 @@ import {
     useOutletContext,
 } from "react-router-dom";
 
-export async function homeLoader({ request }) {
+import { outletInterface } from "../utils/interfaces";
+
+export async function homeLoader({ ...args }) {
     try {
-        const url = new URL(request.url);
+        const url = new URL(args.request.url);
         const redirectRoute = url.searchParams.get("route");
         if (redirectRoute) {
             return redirect(redirectRoute);
@@ -27,11 +29,15 @@ export async function homeLoader({ request }) {
     }
 }
 
+interface tempHomeInterface {
+    _id: string;
+    title: string;
+    content: string;
+}
+
 export default function Home() {
-    /* eslint-disable no-unused-vars */
-    const [searchParams, setSearchParams] = useSearchParams();
-    const [isUserLoggedIn, setIsUserLoggedIn] = useOutletContext();
-    /* eslint-enable no-unused-vars */
+    const [searchParams] = useSearchParams();
+    const { setIsUserLoggedIn } = useOutletContext() as outletInterface;
     const message = searchParams.get("message");
     const status = searchParams.get("status");
     useEffect(() => {
@@ -39,7 +45,7 @@ export default function Home() {
             setIsUserLoggedIn(true);
         }
     }, []);
-    const postData = useLoaderData();
+    const postData = useLoaderData() as Array<tempHomeInterface>;
     const postElements = postData.map((post) => {
         return (
             <div key={post._id}>

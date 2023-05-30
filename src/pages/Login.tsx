@@ -7,9 +7,11 @@ import {
     useOutletContext,
 } from "react-router-dom";
 
-export async function loginAction({ request }) {
+import { outletInterface } from "../utils/interfaces.ts";
+
+export async function loginAction({ ...args }) {
     try {
-        const loginData = await request.formData();
+        const loginData = await args.request.formData();
         const username = loginData.get("username");
         const password = loginData.get("password");
         if (!username || !password) {
@@ -40,19 +42,28 @@ export async function loginAction({ request }) {
             status: data.status,
         };
     } catch (error) {
-        const errorMessage = { status: error.message };
+        const errorMessage = {
+            status: "There has been an error, please try again later",
+        };
+        if (error instanceof Error) {
+            errorMessage.status = error.message;
+        }
         return errorMessage;
     }
 }
 
+interface actionInterface {
+    status: string;
+    username?: string;
+    userId?: string;
+}
+
 export default function Login() {
-    const loginData = useActionData();
-    const loginForm = useRef();
+    const loginData = useActionData() as actionInterface;
+    const loginForm = useRef<HTMLFormElement>(null);
     const navigate = useNavigate();
     const [loginMessage, setLoginMessage] = useState("");
-    /* eslint-disable no-unused-vars */
-    const [isUserLoggedIn, setIsUserLoggedIn] = useOutletContext();
-    /* eslint-enable no-unused-vars */
+    const { setIsUserLoggedIn } = useOutletContext<outletInterface>();
 
     useEffect(() => {
         if (loginData) {
@@ -62,9 +73,11 @@ export default function Login() {
                 sessionStorage.getItem("username")
             ) {
                 setTimeout(() => {
-                    loginForm.current.reset();
-                    setIsUserLoggedIn(true);
-                    navigate("/profile");
+                    if (loginForm.current) {
+                        loginForm.current.reset();
+                        setIsUserLoggedIn(true);
+                        navigate("/profile");
+                    }
                 }, 1000);
             }
         }
@@ -80,8 +93,8 @@ export default function Login() {
                     className="input"
                     type="text"
                     name="username"
-                    minLength="4"
-                    maxLength="18"
+                    minLength={4}
+                    maxLength={18}
                     pattern="[a-zA-Z0-9]+"
                     title="Letters and numbers only, between 4 and 18 characters"
                     required
@@ -92,8 +105,8 @@ export default function Login() {
                     className="input"
                     type="password"
                     name="password"
-                    minLength="4"
-                    maxLength="18"
+                    minLength={4}
+                    maxLength={18}
                     pattern="[a-zA-Z0-9]+"
                     title="Letters and numbers only, between 4 and 18 characters"
                     required
