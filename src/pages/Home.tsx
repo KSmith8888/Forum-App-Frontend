@@ -6,7 +6,7 @@ import {
     useOutletContext,
 } from "react-router-dom";
 
-import { outletInterface } from "../utils/interfaces";
+import { outletInterface, postInterface } from "../utils/interfaces";
 
 export async function homeLoader({ ...args }) {
     try {
@@ -15,24 +15,19 @@ export async function homeLoader({ ...args }) {
         if (redirectRoute) {
             return redirect(redirectRoute);
         }
-        const data = [
-            {
-                _id: "1",
-                title: "Rem nisi dolorem minima dolor consequuntur",
-                content:
-                    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia maxime adipisci cupiditate neque asperiores, inventore illum, quibusdam quia quas atque suscipit eligendi! Assumenda voluptatum eius voluptatem, sequi eaque, nam earum quis corrupti ad maiores laboriosam quidem reprehenderit quaerat. Placeat eum eos optio qui et!",
-            },
-        ];
+        const res = await fetch("http://127.0.0.1:3000/api/v1/posts/popular");
+        if (!res.ok) {
+            throw new Error(`Status error: ${res.status}`);
+        }
+        const data = await res.json();
         return data;
     } catch (error) {
-        return error;
+        let errorMsg = "Post data is unavailable at this time";
+        if (error instanceof Error) {
+            errorMsg = error.message;
+        }
+        return errorMsg;
     }
-}
-
-interface tempHomeInterface {
-    _id: string;
-    title: string;
-    content: string;
 }
 
 export default function Home() {
@@ -45,26 +40,26 @@ export default function Home() {
             setIsUserLoggedIn(true);
         }
     }, []);
-    const postData = useLoaderData() as Array<tempHomeInterface>;
-    const postElements = postData.map((post) => {
-        return (
-            <div key={post._id}>
-                <h3>{post.title}</h3>
-                <p>{post.content}</p>
-            </div>
+    const postData = useLoaderData() as Array<postInterface> | string;
+    const postElements =
+        typeof postData !== "string" ? (
+            postData.map((post) => {
+                return (
+                    <div key={post._id}>
+                        <h3>{post.title}</h3>
+                        <p>{post.content}</p>
+                    </div>
+                );
+            })
+        ) : (
+            <p>{postData}</p>
         );
-    });
 
     return (
         <>
             <p className="user-message">{message ? message : ""}</p>
-            <h2>This is the home page</h2>
-            <p>See some popular posts below</p>
-            {postData ? (
-                <div>{postElements}</div>
-            ) : (
-                <p>Post data is unavailable at this time</p>
-            )}
+            <h2 className="home-heading">Trending Posts</h2>
+            <div>{postElements}</div>
         </>
     );
 }
