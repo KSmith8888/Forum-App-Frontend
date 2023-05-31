@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 
 import { likeComment } from "../utils/like.js";
 
@@ -11,6 +10,7 @@ interface commentProps {
     commentDateString: string;
     commentHasBeenEdited: boolean;
     isUserLoggedIn: boolean;
+    history: Array<string>;
     likes: number;
     username: string;
 }
@@ -22,12 +22,17 @@ export default function Comment({
     commentMinutes,
     commentDateString,
     commentHasBeenEdited,
+    history,
     isUserLoggedIn,
     likes,
     username,
 }: commentProps) {
     const [commentLikes, setCommentLikes] = useState(likes);
     const [userLikedComment, setUserLikedComment] = useState(false);
+    const [showHistory, setShowHistory] = useState(false);
+    const historyElements = history.map((prevContent: string, index) => {
+        return <p key={index}>{prevContent}</p>;
+    });
 
     return (
         <div className="comment">
@@ -44,11 +49,24 @@ export default function Comment({
                 </span>
                 <span className="comment-likes">Likes: {commentLikes}</span>
                 {commentHasBeenEdited && (
-                    <Link to="." className="button-link">
+                    <button
+                        className="button"
+                        onClick={() => {
+                            setShowHistory((prevShowHistory) => {
+                                return !prevShowHistory;
+                            });
+                        }}
+                    >
                         Edit History
-                    </Link>
+                    </button>
                 )}
             </p>
+            {showHistory && (
+                <div className="comment-history-container">
+                    <h3>Previous Comment Versions</h3>
+                    {historyElements}
+                </div>
+            )}
             {isUserLoggedIn && (
                 <button
                     className={

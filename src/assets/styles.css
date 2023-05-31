@@ -212,3 +212,8 @@ img {
 .previous-post {
     margin: 0 2em;
 }
+
+.post-text,
+.comment-text {
+    white-space: pre-line;
+}

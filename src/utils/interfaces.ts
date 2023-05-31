@@ -3,6 +3,11 @@ export interface outletInterface {
     setIsUserLoggedIn: (isUserLoggedIn: boolean) => void;
 }
 
+export interface postHistoryInterface {
+    title: string;
+    content: string;
+}
+
 export interface postInterface {
     _id: string;
     title: string;
@@ -13,7 +18,7 @@ export interface postInterface {
     keywords: string[];
     comments: string[];
     hasBeenEdited: boolean;
-    history: object[];
+    history: Array<postHistoryInterface>;
     createdAt: string;
     updatedAt: string;
 }

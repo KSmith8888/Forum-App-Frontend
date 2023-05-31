@@ -3,7 +3,6 @@ import {
     useLoaderData,
     useOutletContext,
     Form,
-    Link,
     useActionData,
 } from "react-router-dom";
 
@@ -86,8 +85,27 @@ export default function Post() {
     const postMinutes = postDate.getMinutes();
     const postDateString = postDate.toDateString();
     const { isUserLoggedIn } = useOutletContext<outletInterface>();
-    const [userLikedPost, setUserLikedPost] = useState(false);
+    let didUserAlradyLike = false;
+    const savedLikedPosts = sessionStorage.getItem("likedPosts");
+    if (savedLikedPosts) {
+        const parsedLikedPosts = JSON.parse(savedLikedPosts);
+        if (parsedLikedPosts.includes(loaderData.post._id)) {
+            didUserAlradyLike = true;
+        }
+    }
+    const [userLikedPost, setUserLikedPost] = useState(didUserAlradyLike);
     const [postLikes, setPostLikes] = useState(loaderData.post.likes);
+    const [showHistory, setShowHistory] = useState(false);
+    const historyElements = loaderData.post.history.map(
+        (prevVersion, index) => {
+            return (
+                <article key={index} className="previous-post">
+                    <h4>{prevVersion.title}</h4>
+                    <p>{prevVersion.content}</p>
+                </article>
+            );
+        }
+    );
     const commentErrorMsg = (useActionData() as string) || "";
     const commentForm = useRef<HTMLFormElement>(null);
     useEffect(() => {
@@ -111,6 +129,7 @@ export default function Post() {
                     commentMinutes={commentMinutes}
                     commentDateString={commentDateString}
                     commentHasBeenEdited={comment.hasBeenEdited}
+                    history={comment.history}
                     isUserLoggedIn={isUserLoggedIn}
                     likes={comment.likes}
                     username={comment.user}
@@ -133,11 +152,25 @@ export default function Post() {
                     </span>
                     <span className="post-likes">Likes: {postLikes}</span>
                     {postHasBeenEdited && (
-                        <Link to="." className="button-link">
+                        <button
+                            className="button"
+                            type="button"
+                            onClick={() => {
+                                setShowHistory((prevShowHistory) => {
+                                    return !prevShowHistory;
+                                });
+                            }}
+                        >
                             Edit History
-                        </Link>
+                        </button>
                     )}
                 </p>
+                {showHistory && (
+                    <div className="post-history-container">
+                        <h3>Previous Post Versions</h3>
+                        {historyElements}
+                    </div>
+                )}
                 <p className="post-text">{loaderData.post.content}</p>
                 {isUserLoggedIn && (
                     <button
