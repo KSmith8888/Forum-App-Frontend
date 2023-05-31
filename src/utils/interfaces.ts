@@ -6,6 +6,12 @@ export interface outletInterface {
 export interface postHistoryInterface {
     title: string;
     content: string;
+    timestamp: Date;
+}
+
+export interface commentHistoryInterface {
+    content: string;
+    timestamp: Date;
 }
 
 export interface postInterface {
@@ -30,7 +36,7 @@ export interface commentInterface {
     user: string;
     relatedPost: string;
     hasBeenEdited: boolean;
-    history: string[];
+    history: Array<commentHistoryInterface>;
     createdAt: string;
     updatedAt: string;
 }

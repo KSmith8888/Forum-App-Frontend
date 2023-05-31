@@ -98,10 +98,31 @@ export default function Post() {
     const [showHistory, setShowHistory] = useState(false);
     const historyElements = loaderData.post.history.map(
         (prevVersion, index) => {
+            const prevPostTimestamp = prevVersion.timestamp;
+            const prevPostDate = new Date(prevPostTimestamp);
+            const prevPostHours = prevPostDate.getHours();
+            const prevPostMinutes = prevPostDate.getMinutes();
+            const prevPostDateString = prevPostDate.toDateString();
             return (
                 <article key={index} className="previous-post">
-                    <h4>{prevVersion.title}</h4>
-                    <p>{prevVersion.content}</p>
+                    <h4 className="previous-post-title">
+                        {prevVersion.title}
+                        <span className="previous-post-time">
+                            Posted:{" "}
+                            {`${
+                                prevPostHours > 12
+                                    ? prevPostHours - 12
+                                    : prevPostHours
+                            }:${
+                                prevPostMinutes > 9
+                                    ? prevPostMinutes
+                                    : `0${prevPostMinutes}`
+                            } ${prevPostDateString}`}
+                        </span>
+                    </h4>
+                    <p className="previous-post-content">
+                        {prevVersion.content}
+                    </p>
                 </article>
             );
         }

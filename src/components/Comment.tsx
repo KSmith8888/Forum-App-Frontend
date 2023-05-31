@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-import { likeComment } from "../utils/like.js";
+import { likeComment } from "../utils/like";
+import { commentHistoryInterface } from "../utils/interfaces";
 
 interface commentProps {
     _id: string;
@@ -10,7 +11,7 @@ interface commentProps {
     commentDateString: string;
     commentHasBeenEdited: boolean;
     isUserLoggedIn: boolean;
-    history: Array<string>;
+    history: Array<commentHistoryInterface>;
     likes: number;
     username: string;
 }
@@ -30,9 +31,32 @@ export default function Comment({
     const [commentLikes, setCommentLikes] = useState(likes);
     const [userLikedComment, setUserLikedComment] = useState(false);
     const [showHistory, setShowHistory] = useState(false);
-    const historyElements = history.map((prevContent: string, index) => {
-        return <p key={index}>{prevContent}</p>;
-    });
+    const historyElements = history.map(
+        (prevComment: commentHistoryInterface, index) => {
+            const commentTimestamp = prevComment.timestamp;
+            const commentDate = new Date(commentTimestamp);
+            const commentHours = commentDate.getHours();
+            const commentMinutes = commentDate.getMinutes();
+            const commentDateString = commentDate.toDateString();
+            return (
+                <div key={index} className="previous-comment">
+                    <p className="previous-comment-content">
+                        {prevComment.content}
+                    </p>
+                    <p className="previous-comment-time">
+                        Posted:{" "}
+                        {`${
+                            commentHours > 12 ? commentHours - 12 : commentHours
+                        }:${
+                            commentMinutes > 9
+                                ? commentMinutes
+                                : `0${commentMinutes}`
+                        } ${commentDateString}`}
+                    </p>
+                </div>
+            );
+        }
+    );
 
     return (
         <div className="comment">
