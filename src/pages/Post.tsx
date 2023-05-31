@@ -37,7 +37,7 @@ export async function commentAction({ ...args }): Promise<string> {
         const post = commentData.get("post");
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
-        const reg = new RegExp("^[a-zA-Z0-9 .:,!-]+$");
+        const reg = new RegExp("^[a-zA-Z0-9 .:,!-]+$", "m");
         if (!reg.test(comment)) {
             throw new Error(
                 "Please do not include special characters in your message"
@@ -200,16 +200,21 @@ export default function Post() {
             <div className="comments-container">{commentElements}</div>
             {isUserLoggedIn && (
                 <Form className="comment-form" method="POST" ref={commentForm}>
-                    <label htmlFor="comment-input">Leave a comment:</label>
-                    <input
+                    <label
+                        htmlFor="comment-input"
+                        className="comment-form-label"
+                    >
+                        Leave a comment:
+                    </label>
+                    <textarea
                         id="comment-input"
-                        className="input"
-                        type="text"
+                        className="input textarea"
                         name="comment"
                         maxLength={300}
                         minLength={4}
-                        pattern="[a-zA-Z0-9 .,:!]+"
-                    />
+                        rows={6}
+                        cols={40}
+                    ></textarea>
                     <input
                         type="hidden"
                         value={loaderData.post._id}

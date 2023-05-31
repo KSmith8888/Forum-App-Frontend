@@ -68,19 +68,16 @@ export async function editPostAction({ ...args }) {
         }
         return redirect(`/posts/details/${postId}`);
     } catch (error) {
+        let errorMsg = "There has been an error, please try again later";
         if (error instanceof Error) {
-            console.error(error.message);
-            return error.message;
-        } else {
-            return "There has been an error, please try again later";
+            errorMsg = error.message;
         }
+        return errorMsg;
     }
 }
 
 export default function EditPost() {
     const loader = useLoaderData() as postInterface | string;
-    const [title, setTitle] = useState("");
-    const [content, setContent] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
     const postData = { title: "", content: "" };
     if (typeof loader !== "string") {
@@ -102,10 +99,6 @@ export default function EditPost() {
                     type="text"
                     minLength={4}
                     maxLength={60}
-                    value={title}
-                    onChange={(e) => {
-                        setTitle(e.target.value);
-                    }}
                     required
                 ></input>
                 <label htmlFor="content-input">Content:</label>
@@ -117,10 +110,6 @@ export default function EditPost() {
                     maxLength={900}
                     rows={12}
                     cols={50}
-                    value={content}
-                    onChange={(e) => {
-                        setContent(e.target.value);
-                    }}
                     required
                 ></textarea>
                 <button type="submit" className="button">
