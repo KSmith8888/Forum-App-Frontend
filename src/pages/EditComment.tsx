@@ -75,7 +75,7 @@ export default function EditComment() {
 
     return (
         <>
-            <Form method="POST">
+            <Form method="POST" className="edit-comment-form">
                 <h2>Edit Comment</h2>
                 <label htmlFor="content-input">Content:</label>
                 <textarea

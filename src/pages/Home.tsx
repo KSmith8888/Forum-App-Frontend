@@ -3,6 +3,7 @@ import {
     useLoaderData,
     useSearchParams,
     redirect,
+    Link,
     useOutletContext,
 } from "react-router-dom";
 
@@ -44,10 +45,13 @@ export default function Home() {
     const postElements =
         typeof postData !== "string" ? (
             postData.map((post) => {
+                const startingChars = post.content.substring(0, 25);
                 return (
-                    <div key={post._id}>
-                        <h3>{post.title}</h3>
-                        <p>{post.content}</p>
+                    <div key={post._id} className="trending-post-link">
+                        <Link to={`/posts/details/${post._id}`}>
+                            <h3>{post.title}</h3>
+                        </Link>
+                        <p>{`${startingChars}...`}</p>
                     </div>
                 );
             })

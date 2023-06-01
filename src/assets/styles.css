@@ -206,6 +206,12 @@ img {
     display: flex;
 }
 
+.edit-comment-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .previous-post,
 .previous-comment {
     margin: 0 2em;
@@ -222,6 +228,10 @@ img {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.comments-container {
+    margin: 2em 0;
 }
 
 .comment-form {
@@ -257,12 +267,11 @@ img {
 .comment-history-container {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
 }
 
 .previous-post,
 .previous-comment {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 }
