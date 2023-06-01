@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { redirect, useLoaderData, Form } from "react-router-dom";
 
 import { postInterface, commentInterface } from "../utils/interfaces";

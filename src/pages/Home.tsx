@@ -7,11 +7,15 @@ import {
     useOutletContext,
 } from "react-router-dom";
 
-import { outletInterface, postInterface } from "../utils/interfaces";
+import {
+    outletInterface,
+    postInterface,
+    loaderActionInterface,
+} from "../utils/interfaces";
 
-export async function homeLoader({ ...args }) {
+export async function homeLoader({ request }: loaderActionInterface) {
     try {
-        const url = new URL(args.request.url);
+        const url = new URL(request.url);
         const redirectRoute = url.searchParams.get("route");
         if (redirectRoute) {
             return redirect(redirectRoute);

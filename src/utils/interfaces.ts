@@ -3,6 +3,14 @@ export interface outletInterface {
     setIsUserLoggedIn: (isUserLoggedIn: boolean) => void;
 }
 
+export interface loaderActionInterface {
+    request: Request;
+    params: {
+        id?: string;
+        topic?: string;
+    };
+}
+
 export interface postHistoryInterface {
     title: string;
     content: string;
