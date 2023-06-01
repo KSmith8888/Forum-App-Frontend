@@ -85,15 +85,15 @@ export default function Post() {
     const postMinutes = postDate.getMinutes();
     const postDateString = postDate.toDateString();
     const { isUserLoggedIn } = useOutletContext<outletInterface>();
-    let didUserAlradyLike = false;
+    let didUserAlreadyLike = false;
     const savedLikedPosts = sessionStorage.getItem("likedPosts");
     if (savedLikedPosts) {
         const parsedLikedPosts = JSON.parse(savedLikedPosts);
         if (parsedLikedPosts.includes(loaderData.post._id)) {
-            didUserAlradyLike = true;
+            didUserAlreadyLike = true;
         }
     }
-    const [userLikedPost, setUserLikedPost] = useState(didUserAlradyLike);
+    const [userLikedPost, setUserLikedPost] = useState(didUserAlreadyLike);
     const [postLikes, setPostLikes] = useState(loaderData.post.likes);
     const [showHistory, setShowHistory] = useState(false);
     const historyElements = loaderData.post.history.map(
@@ -105,23 +105,21 @@ export default function Post() {
             const prevPostDateString = prevPostDate.toDateString();
             return (
                 <article key={index} className="previous-post">
-                    <h4 className="previous-post-title">
-                        {prevVersion.title}
-                        <span className="previous-post-time">
-                            Posted:{" "}
-                            {`${
-                                prevPostHours > 12
-                                    ? prevPostHours - 12
-                                    : prevPostHours
-                            }:${
-                                prevPostMinutes > 9
-                                    ? prevPostMinutes
-                                    : `0${prevPostMinutes}`
-                            } ${prevPostDateString}`}
-                        </span>
-                    </h4>
+                    <h4 className="previous-post-title">{prevVersion.title}</h4>
                     <p className="previous-post-content">
                         {prevVersion.content}
+                    </p>
+                    <p className="previous-post-time">
+                        Posted:{" "}
+                        {`${
+                            prevPostHours > 12
+                                ? prevPostHours - 12
+                                : prevPostHours
+                        }:${
+                            prevPostMinutes > 9
+                                ? prevPostMinutes
+                                : `0${prevPostMinutes}`
+                        } ${prevPostDateString}`}
                     </p>
                 </article>
             );
@@ -160,18 +158,48 @@ export default function Post() {
     );
 
     return (
-        <>
-            <article className="post-container">
+        <div className="post-container">
+            <article className="post">
                 <h2 className="post-title">{loaderData.post.title}</h2>
-                <p className="post-author">Author: {loaderData.post.user}</p>
-                <p className="post-info">
-                    <span className="post-time">
+                <p className="post-text">{loaderData.post.content}</p>
+                <div className="post-likes-container">
+                    <p className="post-likes">Likes: {postLikes}</p>
+                    {isUserLoggedIn && (
+                        <button
+                            className={
+                                userLikedPost
+                                    ? "like-button selected"
+                                    : "like-button"
+                            }
+                            onClick={async () => {
+                                try {
+                                    const likesData = await likePost(
+                                        loaderData.post._id
+                                    );
+                                    setPostLikes(likesData.likes);
+                                    setUserLikedPost(likesData.didUserLike);
+                                } catch (error) {
+                                    if (error instanceof Error) {
+                                        console.error(error.message);
+                                    }
+                                }
+                            }}
+                        >
+                            Like
+                        </button>
+                    )}
+                </div>
+                <div className="post-info-container">
+                    <p className="post-author">
+                        Author: {loaderData.post.user}
+                    </p>
+                    <p className="post-time">
                         Posted:{" "}
                         {`${postHours > 12 ? postHours - 12 : postHours}:${
                             postMinutes > 9 ? postMinutes : `0${postMinutes}`
                         } ${postDateString}`}
-                    </span>
-                    <span className="post-likes">Likes: {postLikes}</span>
+                    </p>
+
                     {postHasBeenEdited && (
                         <button
                             className="button"
@@ -185,37 +213,12 @@ export default function Post() {
                             Edit History
                         </button>
                     )}
-                </p>
+                </div>
                 {showHistory && (
                     <div className="post-history-container">
                         <h3>Previous Post Versions</h3>
                         {historyElements}
                     </div>
-                )}
-                <p className="post-text">{loaderData.post.content}</p>
-                {isUserLoggedIn && (
-                    <button
-                        className={
-                            userLikedPost
-                                ? "like-button selected"
-                                : "like-button"
-                        }
-                        onClick={async () => {
-                            try {
-                                const likesData = await likePost(
-                                    loaderData.post._id
-                                );
-                                setPostLikes(likesData.likes);
-                                setUserLikedPost(likesData.didUserLike);
-                            } catch (error) {
-                                if (error instanceof Error) {
-                                    console.error(error.message);
-                                }
-                            }
-                        }}
-                    >
-                        Like
-                    </button>
                 )}
             </article>
             <div className="comments-container">{commentElements}</div>
@@ -251,6 +254,6 @@ export default function Post() {
                     </p>
                 </Form>
             )}
-        </>
+        </div>
     );
 }

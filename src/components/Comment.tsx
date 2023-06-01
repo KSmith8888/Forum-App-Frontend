@@ -29,7 +29,16 @@ export default function Comment({
     username,
 }: commentProps) {
     const [commentLikes, setCommentLikes] = useState(likes);
-    const [userLikedComment, setUserLikedComment] = useState(false);
+    let didUserAlreadyLike = false;
+    const savedLikedComments = sessionStorage.getItem("likedComments");
+    if (savedLikedComments) {
+        const parsedLikedComments = JSON.parse(savedLikedComments);
+        if (parsedLikedComments.includes(_id)) {
+            didUserAlreadyLike = true;
+        }
+    }
+    const [userLikedComment, setUserLikedComment] =
+        useState(didUserAlreadyLike);
     const [showHistory, setShowHistory] = useState(false);
     const historyElements = history.map(
         (prevComment: commentHistoryInterface, index) => {
@@ -61,17 +70,42 @@ export default function Comment({
     return (
         <div className="comment">
             <p className="comment-text">{content}</p>
-            <p className="comment-info">
-                <span className="comment-author">Author: {username}</span>
-                <span className="comment-time">
+            <div className="comment-likes-container">
+                <p className="comment-likes">Likes: {commentLikes}</p>
+                {isUserLoggedIn && (
+                    <button
+                        className={
+                            userLikedComment
+                                ? "like-button selected"
+                                : "like-button"
+                        }
+                        onClick={async () => {
+                            try {
+                                const likesData = await likeComment(_id);
+                                setCommentLikes(likesData.likes);
+                                setUserLikedComment(likesData.didUserLike);
+                            } catch (error) {
+                                if (error instanceof Error) {
+                                    console.error(error.message);
+                                }
+                            }
+                        }}
+                    >
+                        Like
+                    </button>
+                )}
+            </div>
+            <div className="comment-info-container">
+                <p className="comment-author">Author: {username}</p>
+                <p className="comment-time">
                     Posted:{" "}
                     {`${commentHours > 12 ? commentHours - 12 : commentHours}:${
                         commentMinutes > 9
                             ? commentMinutes
                             : `0${commentMinutes}`
                     } ${commentDateString}`}
-                </span>
-                <span className="comment-likes">Likes: {commentLikes}</span>
+                </p>
+
                 {commentHasBeenEdited && (
                     <button
                         className="button"
@@ -84,34 +118,13 @@ export default function Comment({
                         Edit History
                     </button>
                 )}
-            </p>
+            </div>
+
             {showHistory && (
                 <div className="comment-history-container">
                     <h3>Previous Comment Versions</h3>
                     {historyElements}
                 </div>
-            )}
-            {isUserLoggedIn && (
-                <button
-                    className={
-                        userLikedComment
-                            ? "like-button selected"
-                            : "like-button"
-                    }
-                    onClick={async () => {
-                        try {
-                            const likesData = await likeComment(_id);
-                            setCommentLikes(likesData.likes);
-                            setUserLikedComment(likesData.didUserLike);
-                        } catch (error) {
-                            if (error instanceof Error) {
-                                console.error(error.message);
-                            }
-                        }
-                    }}
-                >
-                    Like
-                </button>
             )}
         </div>
     );

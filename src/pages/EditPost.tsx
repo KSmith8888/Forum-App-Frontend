@@ -43,7 +43,7 @@ export async function editPostAction({ ...args }) {
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
         const reg = new RegExp("^[a-zA-Z0-9 .:,!-]+$");
-        if (!reg.test(title) || !reg.test(content)) {
+        if ((title && !reg.test(title)) || !reg.test(content)) {
             throw new Error(
                 "Please do not include special characters in your message"
             );
@@ -99,7 +99,6 @@ export default function EditPost() {
                     type="text"
                     minLength={4}
                     maxLength={60}
-                    required
                 ></input>
                 <label htmlFor="content-input">Content:</label>
                 <textarea

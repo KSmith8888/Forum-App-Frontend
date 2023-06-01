@@ -34,7 +34,7 @@ export async function editCommentAction({ ...args }) {
         const userId = sessionStorage.getItem("_id");
         const commentData = await args.request.formData();
         const content = commentData.get("content");
-        const reg = new RegExp("^[a-zA-Z0-9 .,:!]+$");
+        const reg = new RegExp("^[a-zA-Z0-9 .,:!]+$", "m");
         if (!reg.test(content)) {
             throw new Error(
                 "Please do not include special characters in your message"
@@ -78,16 +78,16 @@ export default function EditComment() {
             <Form method="POST">
                 <h2>Edit Comment</h2>
                 <label htmlFor="content-input">Content:</label>
-                <input
+                <textarea
                     id="content-input"
-                    type="text"
                     name="content"
-                    className="input"
-                    pattern="[a-zA-Z0-9 .,:!]+"
+                    className="input textarea"
                     minLength={4}
                     maxLength={300}
+                    rows={6}
+                    cols={40}
                     required
-                />
+                ></textarea>
                 <button type="submit" className="button">
                     Update
                 </button>
