@@ -1,10 +1,11 @@
-import React from "react";
-import { useRouteError, isRouteErrorResponse } from "react-router-dom";
+import { useRouteError } from "react-router-dom";
 
-export default function Error() {
+export default function ErrorElement() {
     const error = useRouteError();
-    const isRouteErr = isRouteErrorResponse(error);
-    const message = isRouteErr ? error.data.message : "";
+    let message = "Please try again later";
+    if (error instanceof Error) {
+        message = error.message;
+    }
 
     return (
         <>

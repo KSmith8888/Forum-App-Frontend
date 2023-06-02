@@ -22,6 +22,11 @@ export interface commentHistoryInterface {
     timestamp: Date;
 }
 
+export interface postRelatedComments {
+    post: postInterface;
+    comments: commentInterface[];
+}
+
 export interface postInterface {
     _id: string;
     title: string;

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import {
     Form,
     useLoaderData,
@@ -7,33 +7,31 @@ import {
     useSearchParams,
 } from "react-router-dom";
 
-import { postInterface } from "../utils/interfaces";
+import { postInterface, loaderActionInterface } from "../utils/interfaces";
 
-export async function resultsLoader({ ...args }) {
-    const url = new URL(args.request.url);
+export async function resultsLoader({ request }: loaderActionInterface) {
+    const url = new URL(request.url);
     const query = url.searchParams.get("query");
-    try {
-        if (!query) {
-            return [];
-        }
-        const response = await fetch(
-            `http://127.0.0.1:3000/api/v1/posts/search/${query}`
-        );
-        if (!response.ok) {
-            throw new Error(`Status error ${response.status}`);
-        }
-        const resultsData = await response.json();
-        return resultsData;
-    } catch (error) {
-        if (error instanceof Error) {
-            console.log(error.message);
-        }
+    if (!query) {
         return [];
     }
+    const res = await fetch(
+        `http://127.0.0.1:3000/api/v1/posts/search/${query}`
+    );
+    if (!res.ok) {
+        const errorData = await res.json();
+        if (errorData && errorData.msg) {
+            throw new Error(errorData.msg);
+        } else {
+            throw new Error(`Response error: ${res.status}`);
+        }
+    }
+    const resultsData: Array<postInterface> = await res.json();
+    return resultsData;
 }
 
-export async function searchAction({ ...args }) {
-    const formData = await args.request.formData();
+export async function searchAction({ request }: loaderActionInterface) {
+    const formData = await request.formData();
     const searchTerm = formData.get("search");
     return redirect(`/search?query=${searchTerm}`);
 }

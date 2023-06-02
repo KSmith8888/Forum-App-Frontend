@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
     useLoaderData,
     useOutletContext,
@@ -10,31 +10,36 @@ import Comment from "../components/Comment";
 import { likePost } from "../utils/like.ts";
 import {
     outletInterface,
-    postInterface,
     commentInterface,
+    loaderActionInterface,
+    postRelatedComments,
 } from "../utils/interfaces.ts";
 
-export async function postLoader({ ...args }) {
-    try {
-        const postId = args.params.id;
-        const response = await fetch(
-            `http://127.0.0.1:3000/api/v1/posts/details/${postId}`
-        );
-        const data: postInterface = await response.json();
-        return data;
-    } catch (error) {
-        if (error instanceof Error) {
-            console.error(error.message);
+export async function postLoader({ params }: loaderActionInterface) {
+    const postId = params.id;
+    const res = await fetch(
+        `http://127.0.0.1:3000/api/v1/posts/details/${postId}`
+    );
+    if (!res.ok) {
+        const errorData = await res.json();
+        if (errorData && errorData.msg) {
+            throw new Error(errorData.msg);
+        } else {
+            throw new Error(`Response error: ${res.status}`);
         }
-        return error;
     }
+    const data: postRelatedComments = await res.json();
+    return data;
 }
 
-export async function commentAction({ ...args }): Promise<string> {
+export async function commentAction({ request }: loaderActionInterface) {
     try {
-        const commentData = await args.request.formData();
-        const comment = commentData.get("comment") as string;
-        const post = commentData.get("post");
+        const commentData = await request.formData();
+        const comment = commentData.get("comment");
+        if (!comment || typeof comment !== "string") {
+            throw new Error("Please provide a message for your comment");
+        }
+        const post = commentData.get("post") as string;
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
         const reg = new RegExp("^[a-zA-Z0-9 .:,!-]+$", "m");
@@ -59,12 +64,17 @@ export async function commentAction({ ...args }): Promise<string> {
             }
         );
         if (!res.ok) {
-            throw new Error(`Response error: ${res.status}`);
+            const errorData = await res.json();
+            if (errorData && errorData.msg) {
+                throw new Error(errorData.msg);
+            } else {
+                throw new Error(`Response error: ${res.status}`);
+            }
         }
         const data = await res.json();
         return data._id;
     } catch (error) {
-        let message = "Please try again later";
+        let message = "There was an error, please try again later";
         if (error instanceof Error) {
             console.error(error.message);
             message = error.message;
@@ -74,10 +84,7 @@ export async function commentAction({ ...args }): Promise<string> {
 }
 
 export default function Post() {
-    const loaderData = useLoaderData() as {
-        post: postInterface;
-        comments: commentInterface[];
-    };
+    const loaderData = useLoaderData() as postRelatedComments;
     const postTimestamp = loaderData.post.createdAt;
     const postHasBeenEdited = loaderData.post.hasBeenEdited;
     const postDate = new Date(postTimestamp);
