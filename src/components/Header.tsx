@@ -1,7 +1,4 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-
-import profileImage from "../assets/images/blank-profile-picture.png";
+import { Link, redirect } from "react-router-dom";
 
 interface headerProps {
     isUserLoggedIn: boolean;
@@ -12,7 +9,16 @@ export default function Header({
     isUserLoggedIn,
     setIsUserLoggedIn,
 }: headerProps) {
-    const navigate = useNavigate();
+    let profileImageName = "blank.png";
+    let profileImageAlt = "A generic blank avatar image of a mans head";
+    if (isUserLoggedIn) {
+        const profileImage = localStorage.getItem("profileImageName");
+        const profileAltText = localStorage.getItem("profileImageAlt");
+        if (profileImage && profileAltText) {
+            profileImageName = profileImage;
+            profileImageAlt = profileAltText;
+        }
+    }
 
     function logoutUser() {
         sessionStorage.removeItem("role");
@@ -20,7 +26,7 @@ export default function Header({
         sessionStorage.removeItem("_id");
         sessionStorage.removeItem("token");
         setIsUserLoggedIn(false);
-        navigate("/?message=You have logged out successfully");
+        redirect("/?message=You have logged out successfully");
     }
 
     return (
@@ -53,8 +59,8 @@ export default function Header({
             </div>
             <div className="profile-container">
                 <img
-                    src={profileImage}
-                    alt="A generic blank avatar image of a mans head"
+                    src={`/profile-images/${profileImageName}`}
+                    alt={profileImageAlt}
                     className="profile-image"
                 />
                 {isUserLoggedIn ? (

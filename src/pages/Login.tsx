@@ -32,6 +32,8 @@ export async function loginAction({ ...args }) {
             }
         }
         const data = await res.json();
+        localStorage.setItem("profileImageName", data.profileImageName);
+        localStorage.setItem("profileImageAlt", data.profileImageAlt);
         sessionStorage.setItem("role", data.role);
         sessionStorage.setItem("username", data.username);
         sessionStorage.setItem("_id", data._id);

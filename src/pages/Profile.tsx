@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import {
     Link,
     useLoaderData,
@@ -7,7 +7,7 @@ import {
     useActionData,
 } from "react-router-dom";
 
-import { commentInterface } from "../utils/interfaces";
+import { commentInterface, loaderActionInterface } from "../utils/interfaces";
 
 export async function profileLoader() {
     try {
@@ -28,15 +28,21 @@ export async function profileLoader() {
     }
 }
 
-export async function profileAction({ ...args }) {
+export async function profileAction({ request }: loaderActionInterface) {
     try {
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
-        const formData = await args.request.formData();
+        const formData = await request.formData();
         let type = "";
         const id = formData.get("id");
         const post = formData.get("post");
         const comment = formData.get("comment");
+        if (
+            (post && typeof post !== "string") ||
+            (comment && typeof comment !== "string")
+        ) {
+            throw new Error("Post or comment data not provided");
+        }
         if (post) {
             type = post;
         } else if (comment) {
@@ -90,6 +96,15 @@ export default function Profile() {
             messageModal.current.showModal();
         }
     }, [actionMessage]);
+    let profileImageName = "blank.png";
+    let profileImageAlt = "A generic blank avatar image of a mans head";
+    const profileImage = localStorage.getItem("profileImageName");
+    const profileAltText = localStorage.getItem("profileImageAlt");
+    if (profileImage && profileAltText) {
+        profileImageName = profileImage;
+        profileImageAlt = profileAltText;
+    }
+    const [updatedProfilePic, setUpdatedProfilePic] = useState("");
     const postElements = postAndCommentData.posts.map((post: userPost) => {
         return (
             <div key={post.id} className="post-link-container">
@@ -141,6 +156,41 @@ export default function Profile() {
     return (
         <>
             <h2>{`Profile Page: ${username}`}</h2>
+            <div className="profile-image-info">
+                <h3>Profile Image:</h3>
+                <img
+                    src={`/profile-images/${profileImageName}`}
+                    alt={profileImageAlt}
+                    className="profile-image"
+                />
+                <button>Change</button>
+            </div>
+            <dialog className="profile-image-modal">
+                <div className="profile-image-grid">
+                    <img
+                        src="/profile-images/blank.png"
+                        alt="A generic blank avatar image of a mans head"
+                        className="profile-image-grid-item"
+                        onClick={() => {
+                            setUpdatedProfilePic("blank.png");
+                        }}
+                    />
+                    <img
+                        src="/profile-images/apple.jpg"
+                        alt="A red apple with sunlit trees in the background"
+                        className="profile-image-grid-item"
+                    />
+                </div>
+                <form>
+                    <input
+                        type="hidden"
+                        name="filename"
+                        value={updatedProfilePic}
+                    />
+                    <button type="submit">Update</button>
+                </form>
+                <button>Close</button>
+            </dialog>
             <Link to="create">Create a new post</Link>
             {postAndCommentData.posts.length > 0 ? (
                 <>
