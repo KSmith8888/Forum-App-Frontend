@@ -143,24 +143,11 @@ export default function Post() {
     }, [commentErrorMsg]);
     const commentElements = loaderData.comments.map(
         (comment: commentInterface) => {
-            const commentTimestamp = comment.createdAt;
-            const commentDate = new Date(commentTimestamp);
-            const commentHours = commentDate.getHours();
-            const commentMinutes = commentDate.getMinutes();
-            const commentDateString = commentDate.toDateString();
             return (
                 <Comment
                     key={comment._id}
-                    _id={comment._id}
-                    content={comment.content}
-                    commentHours={commentHours}
-                    commentMinutes={commentMinutes}
-                    commentDateString={commentDateString}
-                    commentHasBeenEdited={comment.hasBeenEdited}
-                    history={comment.history}
+                    commentData={comment}
                     isUserLoggedIn={isUserLoggedIn}
-                    likes={comment.likes}
-                    username={comment.user}
                 />
             );
         }

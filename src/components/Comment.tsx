@@ -1,52 +1,40 @@
 import React, { useState } from "react";
 
 import { likeComment } from "../utils/like";
-import { commentHistoryInterface } from "../utils/interfaces";
+import { commentHistoryInterface, commentInterface } from "../utils/interfaces";
 
 interface commentProps {
-    _id: string;
-    content: string;
-    commentHours: number;
-    commentMinutes: number;
-    commentDateString: string;
-    commentHasBeenEdited: boolean;
+    commentData: commentInterface;
     isUserLoggedIn: boolean;
-    history: Array<commentHistoryInterface>;
-    likes: number;
-    username: string;
 }
 
-export default function Comment({
-    _id,
-    content,
-    commentHours,
-    commentMinutes,
-    commentDateString,
-    commentHasBeenEdited,
-    history,
-    isUserLoggedIn,
-    likes,
-    username,
-}: commentProps) {
-    const [commentLikes, setCommentLikes] = useState(likes);
+export default function Comment({ commentData, isUserLoggedIn }: commentProps) {
+    const commentTimestamp = commentData.createdAt;
+    const commentDate = new Date(commentTimestamp);
+    const commentHours = commentDate.getHours();
+    const commentMinutes = commentDate.getMinutes();
+    const commentDateString = commentDate.toDateString();
+    const commentHoursAmPm = commentHours >= 12 ? "PM" : "AM";
+    const [commentLikes, setCommentLikes] = useState(commentData.likes);
     let didUserAlreadyLike = false;
     const savedLikedComments = localStorage.getItem("likedComments");
     if (savedLikedComments) {
         const parsedLikedComments = JSON.parse(savedLikedComments);
-        if (parsedLikedComments.includes(_id)) {
+        if (parsedLikedComments.includes(commentData._id)) {
             didUserAlreadyLike = true;
         }
     }
     const [userLikedComment, setUserLikedComment] =
         useState(didUserAlreadyLike);
     const [showHistory, setShowHistory] = useState(false);
-    const historyElements = history.map(
-        (prevComment: commentHistoryInterface, index) => {
-            const commentTimestamp = prevComment.timestamp;
-            const commentDate = new Date(commentTimestamp);
-            const commentHours = commentDate.getHours();
-            const commentMinutes = commentDate.getMinutes();
-            const commentDateString = commentDate.toDateString();
+    const historyElements = commentData.history.map(
+        (prevComment: commentHistoryInterface, index: number) => {
+            const prevCommentTimestamp = prevComment.timestamp;
+            const prevCommentDate = new Date(prevCommentTimestamp);
+            const prevCommentHours = prevCommentDate.getHours();
+            const prevCommentHoursAmPm = prevCommentHours >= 12 ? "PM" : "AM";
+            const prevCommentMinutes = prevCommentDate.getMinutes();
+            const prevCommentDateString = prevCommentDate.toDateString();
             return (
                 <div key={index} className="previous-comment">
                     <p className="previous-comment-content">
@@ -55,12 +43,14 @@ export default function Comment({
                     <p className="previous-comment-time">
                         Posted:{" "}
                         {`${
-                            commentHours > 12 ? commentHours - 12 : commentHours
+                            prevCommentHours > 12
+                                ? prevCommentHours - 12
+                                : prevCommentHours
                         }:${
-                            commentMinutes > 9
-                                ? commentMinutes
-                                : `0${commentMinutes}`
-                        } ${commentDateString}`}
+                            prevCommentMinutes > 9
+                                ? `${prevCommentMinutes} ${prevCommentHoursAmPm}`
+                                : `0${prevCommentMinutes} ${prevCommentHoursAmPm}`
+                        } ${prevCommentDateString}`}
                     </p>
                 </div>
             );
@@ -69,7 +59,7 @@ export default function Comment({
 
     return (
         <div className="comment">
-            <p className="comment-text">{content}</p>
+            <p className="comment-text">{commentData.content}</p>
             <div className="comment-likes-container">
                 <p className="comment-likes">Likes: {commentLikes}</p>
                 {isUserLoggedIn && (
@@ -81,7 +71,9 @@ export default function Comment({
                         }
                         onClick={async () => {
                             try {
-                                const likesData = await likeComment(_id);
+                                const likesData = await likeComment(
+                                    commentData._id
+                                );
                                 setCommentLikes(likesData.likes);
                                 setUserLikedComment(likesData.didUserLike);
                             } catch (error) {
@@ -96,17 +88,22 @@ export default function Comment({
                 )}
             </div>
             <div className="comment-info-container">
-                <p className="comment-author">Author: {username}</p>
+                <img
+                    src={`/profile-images/${commentData.profileImageName}`}
+                    alt={commentData.profileImageAlt}
+                    className="comment-profile-image"
+                />
+                <p className="comment-author">Author: {commentData.user}</p>
                 <p className="comment-time">
                     Posted:{" "}
                     {`${commentHours > 12 ? commentHours - 12 : commentHours}:${
                         commentMinutes > 9
-                            ? commentMinutes
-                            : `0${commentMinutes}`
+                            ? `${commentMinutes} ${commentHoursAmPm}`
+                            : `0${commentMinutes} ${commentHoursAmPm}`
                     } ${commentDateString}`}
                 </p>
 
-                {commentHasBeenEdited && (
+                {commentData.hasBeenEdited && (
                     <button
                         className="button"
                         onClick={() => {

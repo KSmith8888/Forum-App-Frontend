@@ -283,19 +283,25 @@ img {
     align-items: flex-start;
 }
 
-.post-profile-image {
+.post-profile-image,
+.comment-profile-image {
     width: 25px;
     height: 25px;
     object-fit: cover;
 }
 
-.profile-image-selected {
-    width: 50px;
-    height: 50px;
-    border: 3px solid rgb(9, 9, 109);
-}
-
 .profile-image-grid-item {
     width: 50px;
     height: 50px;
+    object-fit: cover;
+}
+
+.profile-image-selected {
+    border: 3px solid rgb(7, 7, 77);
+}
+
+.profile-image-modal[open] {
+    padding: 2em;
+    border: 1px solid black;
+    background-color: rgb(218, 214, 214);
 }

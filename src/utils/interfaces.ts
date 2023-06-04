@@ -54,4 +54,6 @@ export interface commentInterface {
     history: Array<commentHistoryInterface>;
     createdAt: string;
     updatedAt: string;
+    profileImageName: string;
+    profileImageAlt: string;
 }

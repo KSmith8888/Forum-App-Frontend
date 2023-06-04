@@ -26,11 +26,11 @@ export default function ProfilePicSelector({
                 <img
                     src="/profile-images/blank.png"
                     alt="A generic blank avatar image of a mans head"
-                    className={
+                    className={`profile-image-grid-item ${
                         profilePic === "blank.png"
                             ? "profile-image-selected"
-                            : "profile-image-grid-item"
-                    }
+                            : ""
+                    }`}
                     onClick={() => {
                         setProfilePic("blank.png");
                     }}
@@ -38,11 +38,11 @@ export default function ProfilePicSelector({
                 <img
                     src="/profile-images/apple.jpg"
                     alt="A red apple with sunlit trees in the background"
-                    className={
+                    className={`profile-image-grid-item ${
                         profilePic === "apple.jpg"
                             ? "profile-image-selected"
-                            : "profile-image-grid-item"
-                    }
+                            : ""
+                    }`}
                     onClick={() => {
                         setProfilePic("apple.jpg");
                     }}
