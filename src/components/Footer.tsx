@@ -1,10 +1,9 @@
-import React from "react";
-
 export default function Footer() {
     return (
         <footer className="footer">
             <small className="footer-text">
-                Legal disclosures and other important information
+                This app stores information in the browser for necessary
+                functionality and to improve user experience
             </small>
         </footer>
     );

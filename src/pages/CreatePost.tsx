@@ -1,4 +1,3 @@
-import React from "react";
 import { Form, redirect, useActionData } from "react-router-dom";
 
 export async function createPostAction({ ...args }) {

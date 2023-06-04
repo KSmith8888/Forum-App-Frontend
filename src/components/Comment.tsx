@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { likeComment } from "../utils/like";
 import { commentHistoryInterface, commentInterface } from "../utils/interfaces";
