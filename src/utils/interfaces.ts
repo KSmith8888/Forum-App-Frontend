@@ -57,3 +57,8 @@ export interface commentInterface {
     profileImageName: string;
     profileImageAlt: string;
 }
+
+export interface profilePicInterface {
+    name: string;
+    alt: string;
+}

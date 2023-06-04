@@ -7,7 +7,11 @@ import {
     useActionData,
 } from "react-router-dom";
 
-import { commentInterface, loaderActionInterface } from "../utils/interfaces";
+import {
+    commentInterface,
+    loaderActionInterface,
+    profilePicInterface,
+} from "../utils/interfaces";
 import ProfilePicSelector from "../components/ProfilePicSelector";
 
 export async function profileLoader() {
@@ -97,15 +101,21 @@ export default function Profile() {
             messageModal.current.showModal();
         }
     }, [actionMessage]);
-    let profileImageName = "blank.png";
-    let profileImageAlt = "A generic blank avatar image of a mans head";
-    const profileImage = localStorage.getItem("profileImageName");
-    const profileAltText = localStorage.getItem("profileImageAlt");
-    if (profileImage && profileAltText) {
-        profileImageName = profileImage;
-        profileImageAlt = profileAltText;
+    let initialProfilePic = {
+        name: "blank.png",
+        alt: "A generic blank avatar image of a mans head",
+    };
+    const savedProfileImage = localStorage.getItem("profileImageName");
+    const savedProfileAltText = localStorage.getItem("profileImageAlt");
+    if (savedProfileImage && savedProfileAltText) {
+        initialProfilePic = {
+            name: savedProfileImage,
+            alt: savedProfileAltText,
+        };
     }
-    const [updatedProfilePic, setUpdatedProfilePic] = useState("");
+    const [profilePic, setProfilePic] =
+        useState<profilePicInterface>(initialProfilePic);
+
     const [isPicModalOpen, setIsPicModalOpen] = useState(false);
     const postElements = postAndCommentData.posts.map((post: userPost) => {
         return (
@@ -161,8 +171,8 @@ export default function Profile() {
             <div className="profile-image-info">
                 <h3>Profile Image:</h3>
                 <img
-                    src={`/profile-images/${profileImageName}`}
-                    alt={profileImageAlt}
+                    src={`/profile-images/${profilePic.name}`}
+                    alt={profilePic.alt}
                     className="profile-image"
                 />
                 <button
@@ -175,10 +185,10 @@ export default function Profile() {
                 </button>
             </div>
             <ProfilePicSelector
-                setProfilePic={setUpdatedProfilePic}
-                profilePic={updatedProfilePic}
                 isPicModalOpen={isPicModalOpen}
                 setIsPicModalOpen={setIsPicModalOpen}
+                setProfilePic={setProfilePic}
+                profilePic={profilePic}
             />
 
             <Link to="create">Create a new post</Link>
