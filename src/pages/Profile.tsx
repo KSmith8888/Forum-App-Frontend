@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 
 import { commentInterface, loaderActionInterface } from "../utils/interfaces";
+import ProfilePicSelector from "../components/ProfilePicSelector";
 
 export async function profileLoader() {
     try {
@@ -105,6 +106,7 @@ export default function Profile() {
         profileImageAlt = profileAltText;
     }
     const [updatedProfilePic, setUpdatedProfilePic] = useState("");
+    const [isPicModalOpen, setIsPicModalOpen] = useState(false);
     const postElements = postAndCommentData.posts.map((post: userPost) => {
         return (
             <div key={post.id} className="post-link-container">
@@ -163,34 +165,22 @@ export default function Profile() {
                     alt={profileImageAlt}
                     className="profile-image"
                 />
-                <button>Change</button>
+                <button
+                    onClick={() => {
+                        setIsPicModalOpen(true);
+                    }}
+                    className="button"
+                >
+                    Change
+                </button>
             </div>
-            <dialog className="profile-image-modal">
-                <div className="profile-image-grid">
-                    <img
-                        src="/profile-images/blank.png"
-                        alt="A generic blank avatar image of a mans head"
-                        className="profile-image-grid-item"
-                        onClick={() => {
-                            setUpdatedProfilePic("blank.png");
-                        }}
-                    />
-                    <img
-                        src="/profile-images/apple.jpg"
-                        alt="A red apple with sunlit trees in the background"
-                        className="profile-image-grid-item"
-                    />
-                </div>
-                <form>
-                    <input
-                        type="hidden"
-                        name="filename"
-                        value={updatedProfilePic}
-                    />
-                    <button type="submit">Update</button>
-                </form>
-                <button>Close</button>
-            </dialog>
+            <ProfilePicSelector
+                setProfilePic={setUpdatedProfilePic}
+                profilePic={updatedProfilePic}
+                isPicModalOpen={isPicModalOpen}
+                setIsPicModalOpen={setIsPicModalOpen}
+            />
+
             <Link to="create">Create a new post</Link>
             {postAndCommentData.posts.length > 0 ? (
                 <>

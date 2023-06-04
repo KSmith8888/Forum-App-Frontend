@@ -282,3 +282,20 @@ img {
     flex-direction: column;
     align-items: flex-start;
 }
+
+.post-profile-image {
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+}
+
+.profile-image-selected {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgb(9, 9, 109);
+}
+
+.profile-image-grid-item {
+    width: 50px;
+    height: 50px;
+}

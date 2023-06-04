@@ -40,6 +40,8 @@ export interface postInterface {
     history: Array<postHistoryInterface>;
     createdAt: string;
     updatedAt: string;
+    profileImageName: string;
+    profileImageAlt: string;
 }
 
 export interface commentInterface {

@@ -89,6 +89,7 @@ export default function Post() {
     const postHasBeenEdited = loaderData.post.hasBeenEdited;
     const postDate = new Date(postTimestamp);
     const postHours = postDate.getHours();
+    const postHoursAmPm = postHours >= 12 ? "PM" : "AM";
     const postMinutes = postDate.getMinutes();
     const postDateString = postDate.toDateString();
     const { isUserLoggedIn } = useOutletContext<outletInterface>();
@@ -108,6 +109,7 @@ export default function Post() {
             const prevPostTimestamp = prevVersion.timestamp;
             const prevPostDate = new Date(prevPostTimestamp);
             const prevPostHours = prevPostDate.getHours();
+            const prevPostHoursAmPm = prevPostHours >= 12 ? "PM" : "AM";
             const prevPostMinutes = prevPostDate.getMinutes();
             const prevPostDateString = prevPostDate.toDateString();
             return (
@@ -124,8 +126,8 @@ export default function Post() {
                                 : prevPostHours
                         }:${
                             prevPostMinutes > 9
-                                ? prevPostMinutes
-                                : `0${prevPostMinutes}`
+                                ? `${prevPostMinutes} ${prevPostHoursAmPm}`
+                                : `0${prevPostMinutes} ${prevPostHoursAmPm}`
                         } ${prevPostDateString}`}
                     </p>
                 </article>
@@ -197,13 +199,20 @@ export default function Post() {
                     )}
                 </div>
                 <div className="post-info-container">
+                    <img
+                        src={`/profile-images/${loaderData.post.profileImageName}`}
+                        alt={loaderData.post.profileImageAlt}
+                        className="post-profile-image"
+                    />
                     <p className="post-author">
                         Author: {loaderData.post.user}
                     </p>
                     <p className="post-time">
                         Posted:{" "}
                         {`${postHours > 12 ? postHours - 12 : postHours}:${
-                            postMinutes > 9 ? postMinutes : `0${postMinutes}`
+                            postMinutes > 9
+                                ? `${postMinutes} ${postHoursAmPm}`
+                                : `0${postMinutes} ${postHoursAmPm}`
                         } ${postDateString}`}
                     </p>
 
