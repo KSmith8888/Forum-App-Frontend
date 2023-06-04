@@ -1,4 +1,3 @@
-import React from "react";
 import { Form, useActionData, redirect } from "react-router-dom";
 
 export async function registerAction({ ...args }) {

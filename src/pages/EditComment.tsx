@@ -1,4 +1,3 @@
-import React from "react";
 import { redirect, useLoaderData, Form } from "react-router-dom";
 
 import { commentInterface } from "../utils/interfaces";
