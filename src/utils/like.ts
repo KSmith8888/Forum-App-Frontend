@@ -21,11 +21,11 @@ export async function likePost(id: string) {
             throw new Error(`Response error: ${res.status}`);
         }
         const data = await res.json();
-        const savedLikedPosts = sessionStorage.getItem("likedPosts");
+        const savedLikedPosts = localStorage.getItem("likedPosts");
         if (savedLikedPosts) {
             const prevLikedPosts = JSON.parse(savedLikedPosts);
             if (data.didUserLike) {
-                sessionStorage.setItem(
+                localStorage.setItem(
                     "likedPosts",
                     JSON.stringify([...prevLikedPosts, id])
                 );
@@ -35,15 +35,15 @@ export async function likePost(id: string) {
                         return postId !== id;
                     }
                 );
-                sessionStorage.setItem(
+                localStorage.setItem(
                     "likedPosts",
                     JSON.stringify(filteredLikedPosts)
                 );
             } else if (!data.didUserLike && savedLikedPosts.length === 1) {
-                sessionStorage.removeItem("likedPosts");
+                localStorage.removeItem("likedPosts");
             }
         } else {
-            sessionStorage.setItem("likedPosts", JSON.stringify([id]));
+            localStorage.setItem("likedPosts", JSON.stringify([id]));
         }
         return data;
     } catch (error) {
@@ -74,11 +74,11 @@ export async function likeComment(id: string) {
             throw new Error(`Response error: ${res.status}`);
         }
         const data = await res.json();
-        const savedLikedComments = sessionStorage.getItem("likedComments");
+        const savedLikedComments = localStorage.getItem("likedComments");
         if (savedLikedComments) {
             const prevLikedComments = JSON.parse(savedLikedComments);
             if (data.didUserLike) {
-                sessionStorage.setItem(
+                localStorage.setItem(
                     "likedComments",
                     JSON.stringify([...prevLikedComments, id])
                 );
@@ -88,15 +88,15 @@ export async function likeComment(id: string) {
                         return postId !== id;
                     }
                 );
-                sessionStorage.setItem(
+                localStorage.setItem(
                     "likedComments",
                     JSON.stringify(filteredLikedComments)
                 );
             } else if (!data.didUserLike && savedLikedComments.length === 1) {
-                sessionStorage.removeItem("likedComments");
+                localStorage.removeItem("likedComments");
             }
         } else {
-            sessionStorage.setItem("likedComments", JSON.stringify([id]));
+            localStorage.setItem("likedComments", JSON.stringify([id]));
         }
         return data;
     } catch (error) {

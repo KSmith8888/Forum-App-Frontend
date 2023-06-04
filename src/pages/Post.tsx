@@ -94,7 +94,7 @@ export default function Post() {
     const postDateString = postDate.toDateString();
     const { isUserLoggedIn } = useOutletContext<outletInterface>();
     let didUserAlreadyLike = false;
-    const savedLikedPosts = sessionStorage.getItem("likedPosts");
+    const savedLikedPosts = localStorage.getItem("likedPosts");
     if (savedLikedPosts) {
         const parsedLikedPosts = JSON.parse(savedLikedPosts);
         if (parsedLikedPosts.includes(loaderData.post._id)) {
