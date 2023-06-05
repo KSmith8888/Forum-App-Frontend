@@ -1,4 +1,4 @@
-import { Link, redirect } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface headerProps {
     isUserLoggedIn: boolean;
@@ -9,6 +9,7 @@ export default function Header({
     isUserLoggedIn,
     setIsUserLoggedIn,
 }: headerProps) {
+    const navigate = useNavigate();
     let profileImageName = "blank.png";
     let profileImageAlt = "A generic blank avatar image of a mans head";
     if (isUserLoggedIn) {
@@ -26,7 +27,7 @@ export default function Header({
         sessionStorage.removeItem("_id");
         sessionStorage.removeItem("token");
         setIsUserLoggedIn(false);
-        redirect("/?message=You have logged out successfully");
+        navigate("/?message=You have logged out successfully");
     }
 
     return (

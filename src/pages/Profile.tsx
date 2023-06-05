@@ -103,7 +103,7 @@ export default function Profile() {
     }, [actionMessage]);
     let initialProfilePic = {
         name: "blank.png",
-        alt: "A generic blank avatar image of a mans head",
+        alt: "A generic, blank outline of a mans upper body",
     };
     const savedProfileImage = localStorage.getItem("profileImageName");
     const savedProfileAltText = localStorage.getItem("profileImageAlt");
@@ -139,7 +139,7 @@ export default function Profile() {
     const commentElements = postAndCommentData.comments.map((comment) => {
         return (
             <div key={comment._id} className="comment-link-container">
-                <h5 className="comment-link-title">{comment.content}</h5>
+                <p className="comment-link-content">{comment.content}</p>
                 <div className="button-container">
                     <Link
                         to={`/posts/details/${comment.relatedPost}`}
@@ -190,15 +190,17 @@ export default function Profile() {
                 setProfilePic={setProfilePic}
                 profilePic={profilePic}
             />
-
-            <Link to="create">Create a new post</Link>
             {postAndCommentData.posts.length > 0 ? (
                 <>
                     <h3>Your Posts:</h3>
+                    <Link to="create">Create a new post</Link>
                     <div className="user-posts-container">{postElements}</div>
                 </>
             ) : (
-                <h4>You have not created any posts yet</h4>
+                <>
+                    <h4>You have not created any posts yet</h4>
+                    <Link to="create">Create a new post</Link>
+                </>
             )}
             {postAndCommentData.comments.length > 0 ? (
                 <>

@@ -43,42 +43,50 @@ export default function ProfilePicSelector({
 
     return (
         <dialog className="profile-image-modal" ref={picModal}>
+            <h3>Select a profile picture:</h3>
             <div className="profile-image-grid">
-                <img
-                    src="/profile-images/blank.png"
-                    alt="A generic blank avatar image of a mans head"
-                    role="button"
-                    className={`profile-image-grid-item ${
-                        profilePic.name === "blank.png"
-                            ? "profile-image-selected"
-                            : ""
-                    }`}
+                <button
+                    type="button"
+                    className="profile-image-button"
                     onClick={() => {
                         handlePicUpdate({
                             name: "blank.png",
-                            alt: "A generic blank avatar image of a mans head",
+                            alt: "A generic, blank outline of a mans upper body",
                         });
                     }}
-                />
-                <img
-                    src="/profile-images/apple.jpg"
-                    alt="A red apple with sunlit trees in the background"
-                    role="button"
-                    className={`profile-image-grid-item ${
-                        profilePic.name === "apple.jpg"
-                            ? "profile-image-selected"
-                            : ""
-                    }`}
+                >
+                    <img
+                        src="/profile-images/blank.png"
+                        alt="A generic, blank outline of a mans upper body"
+                        className={`profile-image-grid-item ${
+                            profilePic.name === "blank.png"
+                                ? "profile-image-selected"
+                                : ""
+                        }`}
+                    />
+                </button>
+                <button
+                    type="button"
+                    className="profile-image-button"
                     onClick={() => {
                         handlePicUpdate({
                             name: "apple.jpg",
                             alt: "A red apple with sunlit trees in the background",
                         });
                     }}
-                />
+                >
+                    <img
+                        src="/profile-images/apple.jpg"
+                        alt="A red apple with sunlit trees in the background"
+                        className={`profile-image-grid-item ${
+                            profilePic.name === "apple.jpg"
+                                ? "profile-image-selected"
+                                : ""
+                        }`}
+                    />
+                </button>
             </div>
             <p className="error-message">{profilePicErrorMsg}</p>
-
             <button
                 className="button"
                 type="button"
