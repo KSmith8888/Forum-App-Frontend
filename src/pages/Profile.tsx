@@ -5,12 +5,14 @@ import {
     redirect,
     Form,
     useActionData,
+    useOutletContext,
 } from "react-router-dom";
 
 import {
     commentInterface,
     loaderActionInterface,
     profilePicInterface,
+    outletInterface,
 } from "../utils/interfaces";
 import ProfilePicSelector from "../components/ProfilePicSelector";
 
@@ -164,6 +166,7 @@ export default function Profile() {
             </div>
         );
     });
+    const { setHasPicBeenUpdated } = useOutletContext<outletInterface>();
 
     return (
         <>
@@ -189,6 +192,7 @@ export default function Profile() {
                 setIsPicModalOpen={setIsPicModalOpen}
                 setProfilePic={setProfilePic}
                 profilePic={profilePic}
+                setHasPicBeenUpdated={setHasPicBeenUpdated}
             />
             {postAndCommentData.posts.length > 0 ? (
                 <>

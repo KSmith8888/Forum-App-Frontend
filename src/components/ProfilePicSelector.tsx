@@ -8,6 +8,7 @@ interface profilePicProps {
     setIsPicModalOpen: (value: boolean) => void;
     profilePic: profilePicInterface;
     setProfilePic: (profilePic: profilePicInterface) => void;
+    setHasPicBeenUpdated: (hasPicBeenUpdated: boolean) => void;
 }
 
 export default function ProfilePicSelector({
@@ -15,6 +16,7 @@ export default function ProfilePicSelector({
     setIsPicModalOpen,
     profilePic,
     setProfilePic,
+    setHasPicBeenUpdated,
 }: profilePicProps) {
     const picModal = useRef<HTMLDialogElement>(null);
     useEffect(() => {
@@ -35,6 +37,7 @@ export default function ProfilePicSelector({
             localStorage.setItem("profileImageAlt", newPicInfo.alt);
             setProfilePic(newPicInfo);
             setIsPicModalOpen(false);
+            setHasPicBeenUpdated(true);
             if (picModal.current) {
                 picModal.current.close();
             }

@@ -1,18 +1,21 @@
+import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 interface headerProps {
     isUserLoggedIn: boolean;
     setIsUserLoggedIn: (isUserLoggedIn: boolean) => void;
+    hasPicBeenUpdated: boolean;
 }
 
 export default function Header({
     isUserLoggedIn,
     setIsUserLoggedIn,
+    hasPicBeenUpdated,
 }: headerProps) {
     const navigate = useNavigate();
     let profileImageName = "blank.png";
-    let profileImageAlt = "A generic blank avatar image of a mans head";
-    if (isUserLoggedIn) {
+    let profileImageAlt = "A generic, blank outline of a mans upper body";
+    function profilePicPath() {
         const profileImage = localStorage.getItem("profileImageName");
         const profileAltText = localStorage.getItem("profileImageAlt");
         if (profileImage && profileAltText) {
@@ -20,6 +23,14 @@ export default function Header({
             profileImageAlt = profileAltText;
         }
     }
+    if (isUserLoggedIn) {
+        profilePicPath();
+    }
+    useEffect(() => {
+        if (hasPicBeenUpdated) {
+            profilePicPath();
+        }
+    }, [hasPicBeenUpdated]);
 
     function logoutUser() {
         sessionStorage.removeItem("role");

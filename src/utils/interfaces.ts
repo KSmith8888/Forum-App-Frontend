@@ -1,6 +1,7 @@
 export interface outletInterface {
     isUserLoggedIn: boolean;
     setIsUserLoggedIn: (isUserLoggedIn: boolean) => void;
+    setHasPicBeenUpdated: (hasPicBeenUpdated: boolean) => void;
 }
 
 export interface loaderActionInterface {

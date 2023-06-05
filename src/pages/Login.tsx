@@ -35,7 +35,7 @@ export async function loginAction({ ...args }) {
         localStorage.setItem("profileImageName", data.profileImageName);
         localStorage.setItem("profileImageAlt", data.profileImageAlt);
         sessionStorage.setItem("role", data.role);
-        sessionStorage.setItem("username", data.username);
+        sessionStorage.setItem("username", data.displayName);
         sessionStorage.setItem("_id", data._id);
         sessionStorage.setItem("token", data.token);
         return {
