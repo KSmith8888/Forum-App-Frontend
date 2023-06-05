@@ -141,7 +141,21 @@ export default function Post() {
             commentForm.current.reset();
         }
     }, [commentErrorMsg]);
-    const commentElements = loaderData.comments.map(
+    const [showRemainingComments, setShowRemainingComments] = useState(false);
+    const firstTenComments = loaderData.comments.slice(0, 10);
+    const commentElements = firstTenComments.map(
+        (comment: commentInterface) => {
+            return (
+                <Comment
+                    key={comment._id}
+                    commentData={comment}
+                    isUserLoggedIn={isUserLoggedIn}
+                />
+            );
+        }
+    );
+    const remainingComments = loaderData.comments.slice(10);
+    const remainingCommentElements = remainingComments.map(
         (comment: commentInterface) => {
             return (
                 <Comment
@@ -225,6 +239,19 @@ export default function Post() {
                 )}
             </article>
             <div className="comments-container">{commentElements}</div>
+            {showRemainingComments ? (
+                remainingCommentElements
+            ) : (
+                <button
+                    type="button"
+                    className="button"
+                    onClick={() => {
+                        setShowRemainingComments(true);
+                    }}
+                >
+                    Show More
+                </button>
+            )}
             {isUserLoggedIn && (
                 <Form className="comment-form" method="POST" ref={commentForm}>
                     <label
