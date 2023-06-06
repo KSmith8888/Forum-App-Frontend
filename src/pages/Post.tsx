@@ -239,19 +239,19 @@ export default function Post() {
                 )}
             </article>
             <div className="comments-container">{commentElements}</div>
-            {showRemainingComments ? (
-                remainingCommentElements
-            ) : (
-                <button
-                    type="button"
-                    className="button"
-                    onClick={() => {
-                        setShowRemainingComments(true);
-                    }}
-                >
-                    Show More
-                </button>
-            )}
+            {showRemainingComments
+                ? remainingCommentElements
+                : remainingCommentElements.length > 0 && (
+                      <button
+                          type="button"
+                          className="button"
+                          onClick={() => {
+                              setShowRemainingComments(true);
+                          }}
+                      >
+                          Show More
+                      </button>
+                  )}
             {isUserLoggedIn && (
                 <Form className="comment-form" method="POST" ref={commentForm}>
                     <label

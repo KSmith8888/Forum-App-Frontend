@@ -6,6 +6,7 @@ import {
     Form,
     useActionData,
     useOutletContext,
+    useNavigate,
 } from "react-router-dom";
 
 import {
@@ -14,6 +15,7 @@ import {
     profilePicInterface,
     outletInterface,
 } from "../utils/interfaces";
+import { deleteAccount } from "../utils/delete-account";
 import ProfilePicSelector from "../components/ProfilePicSelector";
 
 export async function profileLoader() {
@@ -166,7 +168,18 @@ export default function Profile() {
             </div>
         );
     });
-    const { setHasPicBeenUpdated } = useOutletContext<outletInterface>();
+    const { setHasPicBeenUpdated, setIsUserLoggedIn } =
+        useOutletContext<outletInterface>();
+    const navigate = useNavigate();
+
+    function logoutUser(msg: string) {
+        sessionStorage.removeItem("role");
+        sessionStorage.removeItem("username");
+        sessionStorage.removeItem("_id");
+        sessionStorage.removeItem("token");
+        setIsUserLoggedIn(false);
+        navigate(`/?message=${msg}`);
+    }
 
     return (
         <>
@@ -186,6 +199,38 @@ export default function Profile() {
                 >
                     Change
                 </button>
+                <div className="delete-account-container">
+                    <button
+                        type="button"
+                        className="delete-account-button"
+                        onClick={async () => {
+                            const id = sessionStorage.getItem("_id");
+                            if (id) {
+                                const deleteData = await deleteAccount(id);
+                                if (
+                                    deleteData instanceof Error &&
+                                    messageModal.current
+                                ) {
+                                    setModalMessage(deleteData.message);
+                                    messageModal.current.showModal();
+                                } else {
+                                    localStorage.clear();
+                                    logoutUser("Your account has been deleted");
+                                }
+                            } else {
+                                logoutUser(
+                                    "Something went wrong please log in and try again"
+                                );
+                            }
+                        }}
+                    >
+                        Delete Account
+                    </button>
+                    <p className="warning-message">
+                        This action will delete your account, along with all of
+                        your posts and comments
+                    </p>
+                </div>
             </div>
             <ProfilePicSelector
                 isPicModalOpen={isPicModalOpen}

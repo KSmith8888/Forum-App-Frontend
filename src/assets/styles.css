@@ -322,3 +322,28 @@ img {
     border: none;
     padding: 0;
 }
+
+.delete-account-container {
+    width: 40%;
+    border: 2px solid red;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-account-button {
+    cursor: pointer;
+    border: 1px solid rgb(100, 3, 3);
+    color: #fff;
+    background-color: #c70c0c;
+    margin: 1em;
+    padding: 0.2em 0.5em;
+    border-radius: 5px;
+}
+
+.delete-account-button:hover,
+.delete-account-button:focus {
+    background-color: #9e0909;
+}
