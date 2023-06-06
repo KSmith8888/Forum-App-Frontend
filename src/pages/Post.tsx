@@ -13,6 +13,7 @@ import {
     commentInterface,
     loaderActionInterface,
     postRelatedComments,
+    likeInterface,
 } from "../utils/interfaces.ts";
 
 export async function postLoader({ params }: loaderActionInterface) {
@@ -183,9 +184,8 @@ export default function Post() {
                             }
                             onClick={async () => {
                                 try {
-                                    const likesData = await likePost(
-                                        loaderData.post._id
-                                    );
+                                    const likesData: likeInterface =
+                                        await likePost(loaderData.post._id);
                                     setPostLikes(likesData.likes);
                                     setUserLikedPost(likesData.didUserLike);
                                 } catch (error) {

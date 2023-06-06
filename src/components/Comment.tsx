@@ -1,12 +1,11 @@
 import { useState } from "react";
 
 import { likeComment } from "../utils/like";
-import { commentHistoryInterface, commentInterface } from "../utils/interfaces";
-
-interface commentProps {
-    commentData: commentInterface;
-    isUserLoggedIn: boolean;
-}
+import {
+    commentHistoryInterface,
+    likeInterface,
+    commentProps,
+} from "../utils/interfaces";
 
 export default function Comment({ commentData, isUserLoggedIn }: commentProps) {
     const commentTimestamp = commentData.createdAt;
@@ -71,9 +70,8 @@ export default function Comment({ commentData, isUserLoggedIn }: commentProps) {
                         }
                         onClick={async () => {
                             try {
-                                const likesData = await likeComment(
-                                    commentData._id
-                                );
+                                const likesData: likeInterface =
+                                    await likeComment(commentData._id);
                                 setCommentLikes(likesData.likes);
                                 setUserLikedComment(likesData.didUserLike);
                             } catch (error) {

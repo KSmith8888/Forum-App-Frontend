@@ -28,6 +28,12 @@ export interface postRelatedComments {
     comments: commentInterface[];
 }
 
+export interface likeInterface {
+    status: string;
+    likes: number;
+    didUserLike: boolean;
+}
+
 export interface postInterface {
     _id: string;
     title: string;
@@ -57,6 +63,11 @@ export interface commentInterface {
     updatedAt: string;
     profileImageName: string;
     profileImageAlt: string;
+}
+
+export interface commentProps {
+    commentData: commentInterface;
+    isUserLoggedIn: boolean;
 }
 
 export interface profilePicInterface {
