@@ -10,10 +10,16 @@ import { outletInterface, postInterface } from "../utils/interfaces";
 export async function postsTopicLoader({ ...args }) {
     try {
         const topic = args.params.topic;
-        const response = await fetch(
-            `http://127.0.0.1:3000/api/v1/posts/${topic}`
-        );
-        const data = await response.json();
+        const res = await fetch(`http://127.0.0.1:3000/api/v1/posts/${topic}`);
+        if (!res.ok) {
+            const errorData = await res.json();
+            if (errorData && errorData.msg) {
+                throw new Error(errorData.msg);
+            } else {
+                throw new Error(`Response error: ${res.status}`);
+            }
+        }
+        const data = await res.json();
         return data;
     } catch (error) {
         if (error instanceof Error) {

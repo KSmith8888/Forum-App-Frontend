@@ -16,6 +16,8 @@ import {
     likeInterface,
 } from "../utils/interfaces.ts";
 
+import "../assets/styles/post.css";
+
 export async function postLoader({ params }: loaderActionInterface) {
     const postId = params.id;
     const res = await fetch(

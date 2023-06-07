@@ -1,5 +1,7 @@
 import { Form, redirect, useActionData } from "react-router-dom";
 
+import "../assets/styles/create-post.css";
+
 export async function createPostAction({ ...args }) {
     try {
         const postData = await args.request.formData();

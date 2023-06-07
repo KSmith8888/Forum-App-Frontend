@@ -1,0 +1,142 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+    color: black;
+    background-color: #fff;
+}
+
+button,
+input,
+textarea {
+    font-family: inherit;
+    font-size: 100%;
+}
+
+img {
+    max-width: 100%;
+}
+
+.button,
+.like-button {
+    cursor: pointer;
+    border: 1px solid black;
+    color: #1c1c1c;
+    background-color: rgb(218, 214, 214);
+    margin: 0.5em;
+    padding: 0.2em 0.5em;
+    border-radius: 5px;
+}
+
+.button:hover,
+.button:focus,
+.like-button:hover,
+.like-button:focus {
+    background-color: rgb(199, 192, 192);
+}
+
+.selected {
+    background-color: rgb(15, 17, 129);
+    color: #fff;
+}
+
+.selected:hover,
+.selected:focus {
+    background-color: rgb(10, 11, 77);
+}
+
+#root {
+    margin: 0;
+}
+
+.button-link {
+    padding: 0.2em 0.5em;
+    margin: 0.5em;
+    border: 1px solid black;
+    background-color: rgb(15, 17, 129);
+    color: #fff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.button-link:hover,
+.button-link:focus {
+    background-color: rgb(10, 11, 77);
+}
+
+.top-level-container {
+    margin: 0;
+    min-height: 100vh;
+}
+
+.main-section {
+    width: 90%;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-heading,
+.error-message {
+    color: red;
+}
+
+.footer {
+    width: 90%;
+    padding: 2em;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.footer-text {
+    font-weight: bold;
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.vertical-button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.input {
+    margin: 0.5em;
+}
+
+.textarea {
+    resize: none;
+}
+
+.select {
+    align-self: flex-start;
+}
+
+.login-form,
+.register-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-post-container,
+.edit-comment-container {
+    display: flex;
+}
+
+.edit-comment-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

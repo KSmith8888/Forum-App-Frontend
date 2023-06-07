@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
+import "../assets/styles/header.css";
+
 interface headerProps {
     isUserLoggedIn: boolean;
     setIsUserLoggedIn: (isUserLoggedIn: boolean) => void;

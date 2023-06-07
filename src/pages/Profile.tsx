@@ -18,23 +18,26 @@ import {
 import { deleteAccount } from "../utils/delete-account";
 import ProfilePicSelector from "../components/ProfilePicSelector";
 
+import "../assets/styles/profile.css";
+
 export async function profileLoader() {
-    try {
-        const userId = sessionStorage.getItem("_id");
-        if (!userId) {
-            return redirect("/?message=Please log in");
-        }
-        const response = await fetch(
-            `http://127.0.0.1:3000/api/v1/posts/user/${userId}`
-        );
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        if (error instanceof Error) {
-            console.error(error.message);
-        }
-        return [];
+    const userId = sessionStorage.getItem("_id");
+    if (!userId) {
+        return redirect("/?message=Please log in");
     }
+    const res = await fetch(
+        `http://127.0.0.1:3000/api/v1/posts/user/${userId}`
+    );
+    if (!res.ok) {
+        const errorData = await res.json();
+        if (errorData && errorData.msg) {
+            throw new Error(errorData.msg);
+        } else {
+            throw new Error(`Response error: ${res.status}`);
+        }
+    }
+    const data = await res.json();
+    return data;
 }
 
 export async function profileAction({ request }: loaderActionInterface) {
@@ -58,7 +61,7 @@ export async function profileAction({ request }: loaderActionInterface) {
             type = comment;
         }
         if (!token || !userId) {
-            throw new Error("You must log in before deleting a post");
+            throw new Error("You must log in before performing that action");
         }
         const res = await fetch(
             `http://127.0.0.1:3000/api/v1/${type}/details/${id}`,
@@ -72,6 +75,14 @@ export async function profileAction({ request }: loaderActionInterface) {
                 },
             }
         );
+        if (!res.ok) {
+            const errorData = await res.json();
+            if (errorData && errorData.msg) {
+                throw new Error(errorData.msg);
+            } else {
+                throw new Error(`Response error: ${res.status}`);
+            }
+        }
         const data = await res.json();
         return data.message;
     } catch (error) {

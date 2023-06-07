@@ -1,0 +1,12 @@
+.post-form {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid grey;
+    border-radius: 5px;
+    padding: 2em;
+}
+
+.post-button {
+    min-width: 8em;
+    align-self: flex-start;
+}

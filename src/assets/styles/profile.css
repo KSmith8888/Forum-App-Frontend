@@ -1,0 +1,61 @@
+.profile-image-grid-item {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.profile-image-selected {
+    border: 3px solid rgb(7, 7, 77);
+}
+
+.profile-image-modal[open] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2em;
+    border: 1px solid black;
+    background-color: rgb(218, 214, 214);
+}
+
+.profile-image-button {
+    width: 50px;
+    height: 50px;
+    border: none;
+    padding: 0;
+}
+
+.delete-account-container {
+    width: 40%;
+    border: 2px solid red;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-account-button {
+    cursor: pointer;
+    border: 1px solid rgb(100, 3, 3);
+    color: #fff;
+    background-color: #c70c0c;
+    margin: 1em;
+    padding: 0.2em 0.5em;
+    border-radius: 5px;
+}
+
+.delete-account-button:hover,
+.delete-account-button:focus {
+    background-color: #9e0909;
+}
+
+.post-link-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.comment-link-content {
+    font-size: 1.1rem;
+}

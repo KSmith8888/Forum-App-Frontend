@@ -23,7 +23,7 @@ import EditComment, {
 import Login, { loginAction } from "../pages/Login";
 import NotFound from "../pages/NotFound";
 //Assets
-import "../assets/styles.css";
+import "../assets/styles/main.css";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
