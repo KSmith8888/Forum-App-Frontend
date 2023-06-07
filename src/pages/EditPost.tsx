@@ -73,46 +73,38 @@ export async function editPostAction({
 }
 
 export default function EditPost() {
-    const loader = useLoaderData() as postInterface;
-    const postData = { title: "", content: "" };
-    if (typeof loader !== "string") {
-        postData.title = loader.title;
-        postData.content = loader.content;
-    }
+    const prevPostData = useLoaderData() as postInterface;
+    const prevPostTitle = prevPostData.title || "";
+    const prevPostContent = prevPostData.content || "";
 
     return (
-        <div className="edit-post-container">
-            <Form method="post" className="post-form">
-                <h2>Edit Post</h2>
-                <label htmlFor="title-input">Title:</label>
-                <input
-                    id="title-input"
-                    name="title"
-                    className="input"
-                    type="text"
-                    minLength={4}
-                    maxLength={60}
-                ></input>
-                <label htmlFor="content-input">Content:</label>
-                <textarea
-                    id="content-input"
-                    className="input textarea"
-                    name="content"
-                    minLength={4}
-                    maxLength={900}
-                    rows={12}
-                    cols={50}
-                    required
-                ></textarea>
-                <button type="submit" className="button">
-                    Update
-                </button>
-            </Form>
-            <div className="previous-post">
-                <h2>Previous Post Content</h2>
-                <p>{postData.title}</p>
-                <p>{postData.content}</p>
-            </div>
-        </div>
+        <Form method="patch" className="post-form">
+            <h2>Edit Post</h2>
+            <label htmlFor="title-input">Title:</label>
+            <input
+                id="title-input"
+                name="title"
+                className="input"
+                type="text"
+                minLength={4}
+                maxLength={60}
+                defaultValue={prevPostTitle}
+            ></input>
+            <label htmlFor="content-input">Content:</label>
+            <textarea
+                id="content-input"
+                className="input textarea"
+                name="content"
+                minLength={4}
+                maxLength={900}
+                rows={12}
+                cols={50}
+                defaultValue={prevPostContent}
+                required
+            ></textarea>
+            <button type="submit" className="button">
+                Update
+            </button>
+        </Form>
     );
 }
