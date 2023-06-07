@@ -25,7 +25,7 @@ export interface commentHistoryInterface {
 
 export interface postRelatedComments {
     post: postInterface;
-    comments: commentInterface[];
+    comments: Array<commentInterface>;
 }
 
 export interface likeInterface {
