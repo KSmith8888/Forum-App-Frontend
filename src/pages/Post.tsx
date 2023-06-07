@@ -15,6 +15,7 @@ import {
     postRelatedComments,
     likeInterface,
 } from "../utils/interfaces.ts";
+import { createDateString } from "../utils/create-date-string.ts";
 
 import "../assets/styles/post.css";
 
@@ -88,13 +89,14 @@ export async function commentAction({ request }: loaderActionInterface) {
 
 export default function Post() {
     const loaderData = useLoaderData() as postRelatedComments;
-    const postTimestamp = loaderData.post.createdAt;
+    const postDateString = createDateString(
+        loaderData.post.createdAt,
+        "Posted"
+    );
     const postHasBeenEdited = loaderData.post.hasBeenEdited;
-    const postDate = new Date(postTimestamp);
-    const postHours = postDate.getHours();
-    const postHoursAmPm = postHours >= 12 ? "PM" : "AM";
-    const postMinutes = postDate.getMinutes();
-    const postDateString = postDate.toDateString();
+    const editDateString = postHasBeenEdited
+        ? createDateString(loaderData.post.updatedAt, "Edited")
+        : "";
     const { isUserLoggedIn } = useOutletContext<outletInterface>();
     let didUserAlreadyLike = false;
     const savedLikedPosts = localStorage.getItem("likedPosts");
@@ -109,30 +111,17 @@ export default function Post() {
     const [showHistory, setShowHistory] = useState(false);
     const historyElements = loaderData.post.history.map(
         (prevVersion, index) => {
-            const prevPostTimestamp = prevVersion.timestamp;
-            const prevPostDate = new Date(prevPostTimestamp);
-            const prevPostHours = prevPostDate.getHours();
-            const prevPostHoursAmPm = prevPostHours >= 12 ? "PM" : "AM";
-            const prevPostMinutes = prevPostDate.getMinutes();
-            const prevPostDateString = prevPostDate.toDateString();
+            const prevPostDateString = createDateString(
+                prevVersion.timestamp,
+                "Posted"
+            );
             return (
                 <article key={index} className="previous-post">
                     <h4 className="previous-post-title">{prevVersion.title}</h4>
                     <p className="previous-post-content">
                         {prevVersion.content}
                     </p>
-                    <p className="previous-post-time">
-                        Posted:{" "}
-                        {`${
-                            prevPostHours > 12
-                                ? prevPostHours - 12
-                                : prevPostHours
-                        }:${
-                            prevPostMinutes > 9
-                                ? `${prevPostMinutes} ${prevPostHoursAmPm}`
-                                : `0${prevPostMinutes} ${prevPostHoursAmPm}`
-                        } ${prevPostDateString}`}
-                    </p>
+                    <p className="previous-post-time">{prevPostDateString}</p>
                 </article>
             );
         }
@@ -210,27 +199,23 @@ export default function Post() {
                     <p className="post-author">
                         Author: {loaderData.post.user}
                     </p>
-                    <p className="post-time">
-                        Posted:{" "}
-                        {`${postHours > 12 ? postHours - 12 : postHours}:${
-                            postMinutes > 9
-                                ? `${postMinutes} ${postHoursAmPm}`
-                                : `0${postMinutes} ${postHoursAmPm}`
-                        } ${postDateString}`}
-                    </p>
+                    <p className="post-time">{postDateString}</p>
 
                     {postHasBeenEdited && (
-                        <button
-                            className="button"
-                            type="button"
-                            onClick={() => {
-                                setShowHistory((prevShowHistory) => {
-                                    return !prevShowHistory;
-                                });
-                            }}
-                        >
-                            Edit History
-                        </button>
+                        <>
+                            <p className="post-edited-time">{editDateString}</p>
+                            <button
+                                className="button"
+                                type="button"
+                                onClick={() => {
+                                    setShowHistory((prevShowHistory) => {
+                                        return !prevShowHistory;
+                                    });
+                                }}
+                            >
+                                Edit History
+                            </button>
+                        </>
                     )}
                 </div>
                 {showHistory && (

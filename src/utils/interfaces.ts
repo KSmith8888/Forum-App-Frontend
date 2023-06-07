@@ -15,12 +15,12 @@ export interface loaderActionInterface {
 export interface postHistoryInterface {
     title: string;
     content: string;
-    timestamp: Date;
+    timestamp: string;
 }
 
 export interface commentHistoryInterface {
     content: string;
-    timestamp: Date;
+    timestamp: string;
 }
 
 export interface postRelatedComments {

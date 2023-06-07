@@ -6,14 +6,14 @@ import {
     likeInterface,
     commentProps,
 } from "../utils/interfaces";
+import { createDateString } from "../utils/create-date-string";
 
 export default function Comment({ commentData, isUserLoggedIn }: commentProps) {
-    const commentTimestamp = commentData.createdAt;
-    const commentDate = new Date(commentTimestamp);
-    const commentHours = commentDate.getHours();
-    const commentMinutes = commentDate.getMinutes();
-    const commentDateString = commentDate.toDateString();
-    const commentHoursAmPm = commentHours >= 12 ? "PM" : "AM";
+    const commentDateString = createDateString(commentData.createdAt, "Posted");
+    const commentHasBeenEdited = commentData.hasBeenEdited;
+    const editDateString = commentHasBeenEdited
+        ? createDateString(commentData.updatedAt, "Edited")
+        : "";
     const [commentLikes, setCommentLikes] = useState(commentData.likes);
     let didUserAlreadyLike = false;
     const savedLikedComments = localStorage.getItem("likedComments");
@@ -28,28 +28,17 @@ export default function Comment({ commentData, isUserLoggedIn }: commentProps) {
     const [showHistory, setShowHistory] = useState(false);
     const historyElements = commentData.history.map(
         (prevComment: commentHistoryInterface, index: number) => {
-            const prevCommentTimestamp = prevComment.timestamp;
-            const prevCommentDate = new Date(prevCommentTimestamp);
-            const prevCommentHours = prevCommentDate.getHours();
-            const prevCommentHoursAmPm = prevCommentHours >= 12 ? "PM" : "AM";
-            const prevCommentMinutes = prevCommentDate.getMinutes();
-            const prevCommentDateString = prevCommentDate.toDateString();
+            const prevCommentDateString = createDateString(
+                prevComment.timestamp,
+                "Posted"
+            );
             return (
                 <div key={index} className="previous-comment">
                     <p className="previous-comment-content">
                         {prevComment.content}
                     </p>
                     <p className="previous-comment-time">
-                        Posted:{" "}
-                        {`${
-                            prevCommentHours > 12
-                                ? prevCommentHours - 12
-                                : prevCommentHours
-                        }:${
-                            prevCommentMinutes > 9
-                                ? `${prevCommentMinutes} ${prevCommentHoursAmPm}`
-                                : `0${prevCommentMinutes} ${prevCommentHoursAmPm}`
-                        } ${prevCommentDateString}`}
+                        {prevCommentDateString}
                     </p>
                 </div>
             );
@@ -92,26 +81,21 @@ export default function Comment({ commentData, isUserLoggedIn }: commentProps) {
                     className="comment-profile-image"
                 />
                 <p className="comment-author">Author: {commentData.user}</p>
-                <p className="comment-time">
-                    Posted:{" "}
-                    {`${commentHours > 12 ? commentHours - 12 : commentHours}:${
-                        commentMinutes > 9
-                            ? `${commentMinutes} ${commentHoursAmPm}`
-                            : `0${commentMinutes} ${commentHoursAmPm}`
-                    } ${commentDateString}`}
-                </p>
-
-                {commentData.hasBeenEdited && (
-                    <button
-                        className="button"
-                        onClick={() => {
-                            setShowHistory((prevShowHistory) => {
-                                return !prevShowHistory;
-                            });
-                        }}
-                    >
-                        Edit History
-                    </button>
+                <p className="comment-time">{commentDateString}</p>
+                {commentHasBeenEdited && (
+                    <>
+                        <p className="comment-edited-time">{editDateString}</p>
+                        <button
+                            className="button"
+                            onClick={() => {
+                                setShowHistory((prevShowHistory) => {
+                                    return !prevShowHistory;
+                                });
+                            }}
+                        >
+                            Edit History
+                        </button>
+                    </>
                 )}
             </div>
 
