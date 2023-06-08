@@ -21,6 +21,7 @@ import EditComment, {
     editCommentAction,
 } from "../pages/EditComment";
 import Login, { loginAction } from "../pages/Login";
+import Moderation, { moderationLoader } from "../pages/Moderation";
 import NotFound from "../pages/NotFound";
 //Assets
 import "../assets/styles/main.css";
@@ -95,6 +96,12 @@ const router = createBrowserRouter(
                     action={createPostAction}
                 />
             </Route>
+            <Route
+                path="/moderation"
+                element={<Moderation />}
+                loader={moderationLoader}
+                errorElement={<ErrorElement />}
+            />
             <Route
                 path="*"
                 element={<NotFound />}

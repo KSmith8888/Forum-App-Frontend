@@ -94,18 +94,20 @@ export async function profileAction({ request }: loaderActionInterface) {
     }
 }
 
-interface userPost {
+interface userProfilePost {
     id: string;
     title: string;
 }
 
 interface postAndComment {
-    posts: userPost[];
-    comments: commentInterface[];
+    posts: Array<userProfilePost>;
+    comments: Array<commentInterface>;
 }
 
 export default function Profile() {
     const username = sessionStorage.getItem("username");
+    const userRole = sessionStorage.getItem("role");
+    const isMod = userRole === "mod" || userRole === "admin";
     const postAndCommentData = useLoaderData() as postAndComment;
     const messageModal = useRef<HTMLDialogElement>(null);
     const actionMessage = useActionData() as string;
@@ -132,25 +134,33 @@ export default function Profile() {
         useState<profilePicInterface>(initialProfilePic);
 
     const [isPicModalOpen, setIsPicModalOpen] = useState(false);
-    const postElements = postAndCommentData.posts.map((post: userPost) => {
-        return (
-            <div key={post.id} className="post-link-container">
-                <Link to={`/posts/details/${post.id}`} className="post-link">
-                    <h4 className="post-link-title">{post.title}</h4>
-                </Link>
-                <div className="button-container">
-                    <Link to={`/posts/edit/${post.id}`} className="button-link">
-                        Edit
+    const postElements = postAndCommentData.posts.map(
+        (post: userProfilePost) => {
+            return (
+                <div key={post.id} className="post-link-container">
+                    <Link
+                        to={`/posts/details/${post.id}`}
+                        className="post-link"
+                    >
+                        <h4 className="post-link-title">{post.title}</h4>
                     </Link>
-                    <Form method="POST">
-                        <input type="hidden" name="post" value="posts" />
-                        <input type="hidden" name="id" value={post.id} />
-                        <button className="button">Delete</button>
-                    </Form>
+                    <div className="button-container">
+                        <Link
+                            to={`/posts/edit/${post.id}`}
+                            className="button-link"
+                        >
+                            Edit
+                        </Link>
+                        <Form method="POST">
+                            <input type="hidden" name="post" value="posts" />
+                            <input type="hidden" name="id" value={post.id} />
+                            <button className="button">Delete</button>
+                        </Form>
+                    </div>
                 </div>
-            </div>
-        );
-    });
+            );
+        }
+    );
     const commentElements = postAndCommentData.comments.map((comment) => {
         return (
             <div key={comment._id} className="comment-link-container">
@@ -195,6 +205,7 @@ export default function Profile() {
     return (
         <>
             <h2>{`Profile Page: ${username}`}</h2>
+            {isMod && <Link to="/moderation">Moderation</Link>}
             <div className="profile-image-info">
                 <h3>Profile Image:</h3>
                 <img
