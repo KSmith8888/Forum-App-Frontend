@@ -135,29 +135,31 @@ export default function Post() {
     }, [commentErrorMsg]);
     const [showRemainingComments, setShowRemainingComments] = useState(false);
     const firstTenComments = loaderData.comments.slice(0, 10);
-    const commentElements = firstTenComments.map(
-        (comment: commentInterface) => {
-            return (
-                <Comment
-                    key={comment._id}
-                    commentData={comment}
-                    isUserLoggedIn={isUserLoggedIn}
-                />
-            );
-        }
-    );
+    const commentElements =
+        firstTenComments.length > 0
+            ? firstTenComments.map((comment: commentInterface) => {
+                  return (
+                      <Comment
+                          key={comment._id}
+                          commentData={comment}
+                          isUserLoggedIn={isUserLoggedIn}
+                      />
+                  );
+              })
+            : [];
     const remainingComments = loaderData.comments.slice(10);
-    const remainingCommentElements = remainingComments.map(
-        (comment: commentInterface) => {
-            return (
-                <Comment
-                    key={comment._id}
-                    commentData={comment}
-                    isUserLoggedIn={isUserLoggedIn}
-                />
-            );
-        }
-    );
+    const remainingCommentElements =
+        remainingComments.length > 0
+            ? remainingComments.map((comment: commentInterface) => {
+                  return (
+                      <Comment
+                          key={comment._id}
+                          commentData={comment}
+                          isUserLoggedIn={isUserLoggedIn}
+                      />
+                  );
+              })
+            : [];
 
     return (
         <div className="post-container">

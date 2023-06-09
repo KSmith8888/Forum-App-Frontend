@@ -21,7 +21,10 @@ import EditComment, {
     editCommentAction,
 } from "../pages/EditComment";
 import Login, { loginAction } from "../pages/Login";
-import Moderation, { moderationLoader } from "../pages/Moderation";
+import Moderation, {
+    moderationLoader,
+    moderationAction,
+} from "../pages/Moderation";
 import NotFound from "../pages/NotFound";
 //Assets
 import "../assets/styles/main.css";
@@ -100,6 +103,7 @@ const router = createBrowserRouter(
                 path="/moderation"
                 element={<Moderation />}
                 loader={moderationLoader}
+                action={moderationAction}
                 errorElement={<ErrorElement />}
             />
             <Route
