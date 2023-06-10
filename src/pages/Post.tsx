@@ -22,7 +22,7 @@ import "../assets/styles/post.css";
 export async function postLoader({ params }: loaderActionInterface) {
     const postId = params.id;
     const res = await fetch(
-        `http://127.0.0.1:3000/api/v1/posts/details/${postId}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/details/${postId}`
     );
     if (!res.ok) {
         const errorData = await res.json();
@@ -46,7 +46,7 @@ export async function commentAction({ request }: loaderActionInterface) {
         const post = commentData.get("post") as string;
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
-        const reg = new RegExp("^[a-zA-Z0-9 .:,!-]+$", "m");
+        const reg = new RegExp("^[a-zA-Z0-9 .:,?'!-]+$", "m");
         if (!reg.test(comment)) {
             throw new Error(
                 "Please do not include special characters in your message"
@@ -56,7 +56,7 @@ export async function commentAction({ request }: loaderActionInterface) {
             throw new Error("You must log in before creating a post");
         }
         const res = await fetch(
-            "http://127.0.0.1:3000/api/v1/comments/create",
+            `${import.meta.env.VITE_BACKEND_URL}/api/v1/comments/create`,
             {
                 method: "POST",
                 body: JSON.stringify({ content: comment, postId: post }),

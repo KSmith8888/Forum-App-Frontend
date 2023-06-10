@@ -1,23 +1,36 @@
 import { Form, useActionData, redirect } from "react-router-dom";
 
-export async function registerAction({ ...args }) {
+import { loaderActionInterface } from "../utils/interfaces";
+
+export async function registerAction({ request }: loaderActionInterface) {
     try {
-        const loginData = await args.request.formData();
+        const loginData = await request.formData();
         const username = loginData.get("username");
         const password = loginData.get("password");
         const passwordConfirm = loginData.get("password-confirm");
+        if (!username || !password) {
+            throw new Error("You must provide a valid username and password");
+        }
+        if (typeof username !== "string" || typeof password !== "string") {
+            throw new Error(
+                "Please do not include special characters in your credentials"
+            );
+        }
         if (password !== passwordConfirm) {
             throw new Error(
                 "The values in the password and confirm password fields must match"
             );
         }
-        const res = await fetch("http://127.0.0.1:3000/api/v1/users", {
-            method: "POST",
-            body: JSON.stringify({ username, password }),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+        const res = await fetch(
+            `${import.meta.env.VITE_BACKEND_URL}/api/v1/users`,
+            {
+                method: "POST",
+                body: JSON.stringify({ username, password }),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        );
         if (!res.ok) {
             throw new Error(`Status error ${res.status}`);
         }

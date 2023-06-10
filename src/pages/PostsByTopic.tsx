@@ -5,33 +5,32 @@ import {
     useOutletContext,
 } from "react-router-dom";
 
-import { outletInterface, postInterface } from "../utils/interfaces";
+import {
+    outletInterface,
+    postInterface,
+    loaderActionInterface,
+} from "../utils/interfaces";
 
-export async function postsTopicLoader({ ...args }) {
-    try {
-        const topic = args.params.topic;
-        const res = await fetch(`http://127.0.0.1:3000/api/v1/posts/${topic}`);
-        if (!res.ok) {
-            const errorData = await res.json();
-            if (errorData && errorData.msg) {
-                throw new Error(errorData.msg);
-            } else {
-                throw new Error(`Response error: ${res.status}`);
-            }
+export async function postsTopicLoader({ params }: loaderActionInterface) {
+    const topic = params.topic;
+    const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/${topic}`
+    );
+    if (!res.ok) {
+        const errorData = await res.json();
+        if (errorData && errorData.msg) {
+            throw new Error(errorData.msg);
+        } else {
+            throw new Error(`Response error: ${res.status}`);
         }
-        const data = await res.json();
-        return data;
-    } catch (error) {
-        if (error instanceof Error) {
-            console.log(error.message);
-        }
-        return [];
     }
+    const data = await res.json();
+    return data;
 }
 
 export default function PostsByTopic() {
     const { isUserLoggedIn } = useOutletContext() as outletInterface;
-    const topic = useParams().topic;
+    const topic = useParams().topic || "";
     const postData = useLoaderData() as Array<postInterface>;
     const postElements = postData.map((post) => {
         return (
@@ -45,7 +44,7 @@ export default function PostsByTopic() {
 
     return (
         <>
-            <h2 className="posts-topic-heading">Posts about {topic}</h2>
+            <h2 className="posts-topic-heading">{topic} Posts</h2>
             {isUserLoggedIn && <Link to="/profile/create">Create a post</Link>}
             {postData.length > 0 ? (
                 <div className="posts-topic-container">{postElements}</div>

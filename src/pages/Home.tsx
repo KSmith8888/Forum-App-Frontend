@@ -20,7 +20,9 @@ export async function homeLoader({ request }: loaderActionInterface) {
         if (redirectRoute) {
             return redirect(redirectRoute);
         }
-        const res = await fetch("http://127.0.0.1:3000/api/v1/posts/popular");
+        const res = await fetch(
+            `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/popular`
+        );
         if (!res.ok) {
             throw new Error(`Status error: ${res.status}`);
         }
@@ -49,7 +51,7 @@ export default function Home() {
     const postElements =
         typeof postData !== "string" ? (
             postData.map((post) => {
-                const startingChars = post.content.substring(0, 25);
+                const startingChars = post.content.substring(0, 50);
                 return (
                     <div key={post._id} className="trending-post-link">
                         <Link to={`/posts/details/${post._id}`}>

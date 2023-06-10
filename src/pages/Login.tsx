@@ -7,23 +7,31 @@ import {
     useOutletContext,
 } from "react-router-dom";
 
-import { outletInterface } from "../utils/interfaces.ts";
+import { outletInterface, loaderActionInterface } from "../utils/interfaces.ts";
 
-export async function loginAction({ ...args }) {
+export async function loginAction({ request }: loaderActionInterface) {
     try {
-        const loginData = await args.request.formData();
+        const loginData = await request.formData();
         const username = loginData.get("username");
         const password = loginData.get("password");
         if (!username || !password) {
             throw new Error("No username or password present");
         }
-        const res = await fetch("http://127.0.0.1:3000/api/v1/login", {
-            method: "POST",
-            body: JSON.stringify({ username, password }),
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+        if (typeof username !== "string" || typeof password !== "string") {
+            throw new Error(
+                "Please do not include special characters in your credentials"
+            );
+        }
+        const res = await fetch(
+            `${import.meta.env.VITE_BACKEND_URL}/api/v1/login`,
+            {
+                method: "POST",
+                body: JSON.stringify({ username, password }),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        );
         if (!res.ok) {
             if (res.status === 401) {
                 throw new Error("Provided credentials do not match");

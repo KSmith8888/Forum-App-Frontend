@@ -16,7 +16,7 @@ export async function resultsLoader({ request }: loaderActionInterface) {
         return [];
     }
     const res = await fetch(
-        `http://127.0.0.1:3000/api/v1/posts/search/${query}`
+        `${import.meta.env.VITE_BACKEND_URL}/v1/posts/search/${query}`
     );
     if (!res.ok) {
         const errorData = await res.json();

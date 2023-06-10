@@ -26,7 +26,7 @@ export async function profileLoader() {
         return redirect("/?message=Please log in");
     }
     const res = await fetch(
-        `http://127.0.0.1:3000/api/v1/posts/user/${userId}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/user/${userId}`
     );
     if (!res.ok) {
         const errorData = await res.json();
@@ -64,7 +64,7 @@ export async function profileAction({ request }: loaderActionInterface) {
             throw new Error("You must log in before performing that action");
         }
         const res = await fetch(
-            `http://127.0.0.1:3000/api/v1/${type}/details/${id}`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/v1/${type}/details/${id}`,
             {
                 method: "DELETE",
                 body: JSON.stringify({ status: "Delete request" }),
