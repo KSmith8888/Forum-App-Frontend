@@ -9,7 +9,9 @@ export async function editCommentLoader({ params }: loaderActionInterface) {
     }
     const commentId = params.id;
     const res = await fetch(
-        `http://127.0.0.1:3000/api/v1/comments/details/${commentId}`
+        `${
+            import.meta.env.VITE_BACKEND_URL
+        }/api/v1/comments/details/${commentId}`
     );
     if (!res.ok) {
         const errorData = await res.json();
@@ -32,7 +34,7 @@ export async function editCommentAction({
     const userId = sessionStorage.getItem("_id");
     const commentData = await request.formData();
     const content = commentData.get("content");
-    const reg = new RegExp("^[a-zA-Z0-9 .,:!]+$", "m");
+    const reg = new RegExp("^[a-zA-Z0-9 .:,?'!-]+$", "m");
     if (typeof content === "string" && !reg.test(content)) {
         throw new Error(
             "Please do not include special characters in your message"
@@ -43,7 +45,9 @@ export async function editCommentAction({
         throw new Error("You must log in before creating a post");
     }
     const res = await fetch(
-        `http://127.0.0.1:3000/api/v1/comments/details/${commentId}`,
+        `${
+            import.meta.env.VITE_BACKEND_URL
+        }/api/v1/comments/details/${commentId}`,
         {
             method: "PATCH",
             body: JSON.stringify({ content }),

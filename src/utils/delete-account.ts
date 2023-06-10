@@ -6,7 +6,7 @@ export async function deleteAccount(id: string) {
             throw new Error("You must be logged in to perform this action");
         }
         const res = await fetch(
-            `http://127.0.0.1:3000/api/v1/users/profile/${id}`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/profile/${id}`,
             {
                 method: "DELETE",
                 body: JSON.stringify({ status: "Delete user account" }),

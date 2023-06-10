@@ -1,22 +1,26 @@
 import { Form, redirect, useActionData } from "react-router-dom";
 
+import { loaderActionInterface } from "../utils/interfaces";
 import "../assets/styles/create-post.css";
 
-export async function createPostAction({ ...args }) {
+export async function createPostAction({ request }: loaderActionInterface) {
     try {
-        const postData = await args.request.formData();
-        const topic = postData.get("topic").toLowerCase();
+        const postData = await request.formData();
+        const topic = postData.get("topic");
         const title = postData.get("title");
         const content = postData.get("content");
         const keywords = postData.get("keywords");
+        if (
+            typeof topic !== "string" ||
+            typeof title !== "string" ||
+            typeof content !== "string"
+        ) {
+            throw new Error("There has been an error");
+        }
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
-        const reg = new RegExp("^[a-zA-Z0-9 .:,!-]+$", "m");
-        if (
-            !reg.test(title) ||
-            !reg.test(content) ||
-            (keywords && !reg.test(keywords))
-        ) {
+        const reg = new RegExp("^[a-zA-Z0-9 .:,?'!-]+$", "m");
+        if (!reg.test(title) || !reg.test(content)) {
             throw new Error(
                 "Please do not include special characters in your message"
             );
@@ -24,17 +28,30 @@ export async function createPostAction({ ...args }) {
         if (!token || !userId) {
             throw new Error("You must log in before creating a post");
         }
-        const res = await fetch("http://127.0.0.1:3000/api/v1/posts/create", {
-            method: "POST",
-            body: JSON.stringify({ topic, title, content, keywords }),
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
-                "user_id": userId,
-            },
-        });
+        const res = await fetch(
+            `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/create`,
+            {
+                method: "POST",
+                body: JSON.stringify({
+                    topic: topic.toLowerCase(),
+                    title,
+                    content,
+                    keywords,
+                }),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                    "user_id": userId,
+                },
+            }
+        );
         if (!res.ok) {
-            throw new Error(`Response error: ${res.status}`);
+            const errorData = await res.json();
+            if (errorData && errorData.msg) {
+                throw new Error(errorData.msg);
+            } else {
+                throw new Error(`Response error: ${res.status}`);
+            }
         }
         const data = await res.json();
         return redirect(`/posts/details/${data._id}`);
@@ -48,7 +65,8 @@ export async function createPostAction({ ...args }) {
 }
 
 export default function CreatePost() {
-    const errorMessage = useActionData() as string;
+    const action = useActionData();
+    const errorMessage = typeof action === "string" ? action : "";
 
     return (
         <>
@@ -102,9 +120,7 @@ export default function CreatePost() {
                 <button type="submit" className="button post-button">
                     Post
                 </button>
-                <p className="error-message">
-                    {errorMessage ? errorMessage : ""}
-                </p>
+                <p className="error-message">{errorMessage}</p>
             </Form>
         </>
     );

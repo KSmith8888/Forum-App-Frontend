@@ -4,15 +4,18 @@ export async function likePost(id: string) {
     if (!token || !userId) {
         throw new Error("You must log in before liking a post");
     }
-    const res = await fetch(`http://127.0.0.1:3000/api/v1/posts/likes/${id}`, {
-        method: "PATCH",
-        body: JSON.stringify({ status: "Update like count" }),
-        headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${token}`,
-            "user_id": userId,
-        },
-    });
+    const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/likes/${id}`,
+        {
+            method: "PATCH",
+            body: JSON.stringify({ status: "Update like count" }),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+                "user_id": userId,
+            },
+        }
+    );
     if (!res.ok) {
         const errorData = await res.json();
         if (errorData && errorData.msg) {
@@ -59,7 +62,7 @@ export async function likeComment(id: string) {
         throw new Error("You must log in before liking a comment");
     }
     const res = await fetch(
-        `http://127.0.0.1:3000/api/v1/comments/likes/${id}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/comments/likes/${id}`,
         {
             method: "PATCH",
             body: JSON.stringify({ status: "Update like count" }),

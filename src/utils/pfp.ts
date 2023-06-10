@@ -8,7 +8,9 @@ export async function updateProfilePic(profilePic: profilePicInterface) {
             throw new Error("You must log in before liking a post");
         }
         const res = await fetch(
-            `http://127.0.0.1:3000/api/v1/users/profile/${userId}/image`,
+            `${
+                import.meta.env.VITE_BACKEND_URL
+            }/api/v1/users/profile/${userId}/image`,
             {
                 method: "PATCH",
                 body: JSON.stringify({
