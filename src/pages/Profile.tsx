@@ -206,22 +206,25 @@ export default function Profile() {
         <>
             <h2>{`Profile Page: ${username}`}</h2>
             {isMod && <Link to="/moderation">Moderation</Link>}
-            <div className="profile-image-info">
-                <h3>Profile Image:</h3>
-                <img
-                    src={`/profile-images/${profilePic.name}`}
-                    alt={profilePic.alt}
-                    className="profile-image"
-                />
-                <button
-                    onClick={() => {
-                        setIsPicModalOpen(true);
-                    }}
-                    className="button"
-                >
-                    Change
-                </button>
+            <div className="profile-options-container">
+                <div className="profile-image-info">
+                    <h3>Profile Image:</h3>
+                    <img
+                        src={`/profile-images/${profilePic.name}`}
+                        alt={profilePic.alt}
+                        className="profile-image"
+                    />
+                    <button
+                        onClick={() => {
+                            setIsPicModalOpen(true);
+                        }}
+                        className="button"
+                    >
+                        Change
+                    </button>
+                </div>
                 <div className="delete-account-container">
+                    <h3 className="delete-account-heading">Delete Account:</h3>
                     <button
                         type="button"
                         className="delete-account-button"
@@ -246,7 +249,7 @@ export default function Profile() {
                             }
                         }}
                     >
-                        Delete Account
+                        Delete
                     </button>
                     <p className="warning-message">
                         This action will delete your account, along with all of

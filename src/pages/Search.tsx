@@ -16,7 +16,7 @@ export async function resultsLoader({ request }: loaderActionInterface) {
         return [];
     }
     const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/v1/posts/search/${query}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/search/${query}`
     );
     if (!res.ok) {
         const errorData = await res.json();
@@ -58,7 +58,7 @@ export default function Search() {
     });
 
     return (
-        <>
+        <div className="search-container">
             <h2>Search posts by keyword</h2>
             <Form
                 className="search-form"
@@ -85,6 +85,6 @@ export default function Search() {
                     <h3>{query ? `No results found for ${query}` : ""}</h3>
                 )}
             </div>
-        </>
+        </div>
     );
 }

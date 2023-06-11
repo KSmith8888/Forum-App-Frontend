@@ -26,21 +26,30 @@
 }
 
 .delete-account-container {
-    width: 40%;
+    text-align: center;
+    max-width: 12em;
     border: 2px solid red;
-    padding: 1em;
+    margin: 0 0.5em;
+    padding: 0.5em;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
+.delete-account-heading {
+    margin: 0.5em;
+    color: #c70c0c;
+}
+
 .delete-account-button {
+    font-size: 1.1rem;
+    font-weight: 600;
     cursor: pointer;
     border: 1px solid rgb(100, 3, 3);
     color: #fff;
     background-color: #c70c0c;
-    margin: 1em;
+    margin: 0.2em 0.5em;
     padding: 0.2em 0.5em;
     border-radius: 5px;
 }
@@ -58,4 +67,17 @@
 
 .comment-link-content {
     font-size: 1.1rem;
+}
+
+.profile-options-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.profile-image-info {
+    margin: 0 0.5em;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

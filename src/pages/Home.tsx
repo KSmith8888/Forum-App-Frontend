@@ -66,10 +66,29 @@ export default function Home() {
         );
 
     return (
-        <>
-            <p className="user-message">{message ? message : ""}</p>
-            <h2 className="home-heading">Trending Posts</h2>
-            <div>{postElements}</div>
-        </>
+        <div className="home-container">
+            <section className="trending-posts-section">
+                <p className="user-message">{message ? message : ""}</p>
+                <h2 className="home-heading">Trending Posts</h2>
+                <div>{postElements}</div>
+            </section>
+            <section className="topics-links-section">
+                <h2>Topics:</h2>
+                <nav className="topics-nav">
+                    <Link to="/posts/books" className="link">
+                        Books
+                    </Link>
+                    <Link to="/posts/games" className="link">
+                        Games
+                    </Link>
+                    <Link to="/posts/movies" className="link">
+                        Movies
+                    </Link>
+                    <Link to="/posts/other" className="link">
+                        Other
+                    </Link>
+                </nav>
+            </section>
+        </div>
     );
 }

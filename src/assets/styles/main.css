@@ -52,6 +52,10 @@ img {
     margin: 0;
 }
 
+.link {
+    margin: 0.5em;
+}
+
 .button-link {
     padding: 0.2em 0.5em;
     margin: 0.5em;
@@ -74,12 +78,27 @@ img {
 }
 
 .main-section {
-    width: 90%;
-    padding: 2em;
+    min-height: 60vh;
+    padding: 1em;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
+}
+
+.home-container {
+    display: flex;
+}
+
+.topics-nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.trending-posts-section,
+.topics-links-section {
+    padding: 0.5em;
+    margin: 0.5em;
 }
 
 .error-heading,
@@ -88,7 +107,8 @@ img {
 }
 
 .footer {
-    width: 90%;
+    min-height: 10vh;
+    text-align: center;
     padding: 2em;
     display: flex;
     justify-content: center;
@@ -136,6 +156,13 @@ img {
 }
 
 .edit-comment-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.search-container,
+.search-form {
     display: flex;
     flex-direction: column;
     align-items: center;
