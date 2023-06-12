@@ -32,7 +32,12 @@ export async function registerAction({ request }: loaderActionInterface) {
             }
         );
         if (!res.ok) {
-            throw new Error(`Status error ${res.status}`);
+            const errorData = await res.json();
+            if (errorData && errorData.msg) {
+                throw new Error(errorData.msg);
+            } else {
+                throw new Error(`Response error: ${res.status}`);
+            }
         }
         return redirect(
             "/?message=New account created successfully, please log in"
@@ -47,37 +52,43 @@ export async function registerAction({ request }: loaderActionInterface) {
 }
 
 export default function Register() {
-    const registrationMessage = useActionData() as string;
+    const registrationMessage = useActionData();
 
     return (
         <Form className="register-form" method="post">
             <h2>Create new account</h2>
             <label htmlFor="register-username">
-                Username (Letters and numbers only, between 4 and 18 characters)
+                Username
+                <span className="block-label-text">
+                    (Letters, numbers and underscores only, between 4 and 18
+                    characters)
+                </span>
             </label>
             <input
                 id="register-username"
                 className="input"
                 type="text"
                 name="username"
-                pattern="[a-zA-Z0-9]+"
+                pattern="[a-zA-Z0-9_]+"
                 minLength={4}
                 maxLength={18}
-                title="Letters and numbers only, between 4 and 18 characters"
                 required
             />
             <label htmlFor="register-password">
-                Password (Letters and numbers only, between 4 and 18 characters)
+                Password{" "}
+                <span className="block-label-text">
+                    (Letters, numbers and underscores only, between 4 and 18
+                    characters)
+                </span>
             </label>
             <input
                 id="register-password"
                 className="input"
                 type="password"
                 name="password"
-                pattern="[a-zA-Z0-9]+"
+                pattern="[a-zA-Z0-9_]+"
                 minLength={4}
                 maxLength={18}
-                title="Letters and numbers only, between 4 and 18 characters"
                 required
             />
             <label htmlFor="register-password-confirm">
@@ -88,10 +99,9 @@ export default function Register() {
                 className="input"
                 type="password"
                 name="password-confirm"
-                pattern="[a-zA-Z0-9]+"
+                pattern="[a-zA-Z0-9_]+"
                 minLength={4}
                 maxLength={18}
-                title="Letters and numbers only, between 4 and 18 characters"
                 required
             />
 
@@ -100,7 +110,9 @@ export default function Register() {
             </button>
 
             <p className="error-message">
-                {registrationMessage ? registrationMessage : ""}
+                {typeof registrationMessage === "string"
+                    ? registrationMessage
+                    : ""}
             </p>
         </Form>
     );

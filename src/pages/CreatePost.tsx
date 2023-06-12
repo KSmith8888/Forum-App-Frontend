@@ -103,7 +103,6 @@ export default function CreatePost() {
                     minLength={4}
                     maxLength={900}
                     rows={12}
-                    cols={50}
                     required
                 ></textarea>
                 <label htmlFor="keywords-input">

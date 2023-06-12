@@ -109,7 +109,7 @@ img {
 .footer {
     min-height: 10vh;
     text-align: center;
-    padding: 2em;
+    padding: 1.5em;
     display: flex;
     justify-content: center;
     text-align: center;
@@ -166,4 +166,20 @@ img {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.register-form,
+.login-section {
+    text-align: center;
+    padding: 0 1em;
+}
+
+.new-account-text {
+    text-align: center;
+    margin: 0.2em;
+}
+
+.block-label-text {
+    margin: 0 1em;
+    display: block;
 }

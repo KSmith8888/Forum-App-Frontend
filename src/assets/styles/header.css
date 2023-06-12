@@ -1,12 +1,12 @@
 .main-heading {
-    margin: 0.5em 0;
+    margin: 0.2em 0.5em;
 }
 
 .header {
     width: 100%;
     padding: 1em;
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid black;
 }
@@ -53,6 +53,10 @@
 }
 
 @media (max-width: 650px) {
+    .header {
+        flex-direction: column;
+        padding: 0.5em;
+    }
     .main-nav {
         flex-direction: column;
     }
