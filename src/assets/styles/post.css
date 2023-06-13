@@ -26,15 +26,18 @@
 }
 
 .post-container,
-.post,
-.comment {
+.post {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.comments-container {
-    margin: 2em 0;
+.comment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1em 0;
+    border-top: 1px solid black;
 }
 
 .comment-form {
@@ -84,4 +87,14 @@
     width: 30px;
     height: 30px;
     object-fit: cover;
+}
+
+@media (max-width: 650px) {
+    .post-container {
+        width: 90%;
+    }
+    .post-time,
+    .post-edited-time {
+        display: block;
+    }
 }

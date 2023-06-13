@@ -30,7 +30,12 @@ export async function postsTopicLoader({ params }: loaderActionInterface) {
 
 export default function PostsByTopic() {
     const { isUserLoggedIn } = useOutletContext() as outletInterface;
-    const topic = useParams().topic || "";
+    let topic = useParams().topic || "";
+    if (topic.length > 0) {
+        const firstLetter = topic.charAt(0).toUpperCase();
+        const restOfTopic = topic.slice(1);
+        topic = `${firstLetter}${restOfTopic}`;
+    }
     const postData = useLoaderData() as Array<postInterface>;
     const postElements = postData.map((post) => {
         return (
@@ -49,10 +54,7 @@ export default function PostsByTopic() {
             {postData.length > 0 ? (
                 <div className="posts-topic-container">{postElements}</div>
             ) : (
-                <p>
-                    No posts exist for that topic, or there was a problem
-                    getting the data
-                </p>
+                <p>No posts exist for that topic yet</p>
             )}
         </>
     );

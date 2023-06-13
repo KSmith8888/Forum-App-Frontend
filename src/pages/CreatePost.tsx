@@ -19,8 +19,8 @@ export async function createPostAction({ request }: loaderActionInterface) {
         }
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
-        const reg = new RegExp("^[a-zA-Z0-9 .:,?'!-]+$", "m");
-        if (!reg.test(title) || !reg.test(content)) {
+        const reg = new RegExp("^[a-zA-Z0-9 .:,?_'!-]+$", "m");
+        if (!reg.test(title) || !reg.test(content) || !reg.test(topic)) {
             throw new Error(
                 "Please do not include special characters in your message"
             );
@@ -69,58 +69,59 @@ export default function CreatePost() {
     const errorMessage = typeof action === "string" ? action : "";
 
     return (
-        <>
-            <Form action="/profile/create" method="post" className="post-form">
-                <h2>Create a new post</h2>
-                <label htmlFor="topic-input">Topic:</label>
-                <select
-                    id="topic-input"
-                    className="input select"
-                    name="topic"
-                    required
-                >
-                    <option value="">Please select a topic</option>
-                    <option value="Movies">Movies</option>
-                    <option value="Games">Games</option>
-                    <option value="Books">Books</option>
-                    <option value="Other">Other</option>
-                </select>
-                <label htmlFor="title-input">Title:</label>
-                <input
-                    id="title-input"
-                    className="input"
-                    type="text"
-                    name="title"
-                    minLength={4}
-                    maxLength={60}
-                    required
-                />
-                <label htmlFor="content-input">Content:</label>
-                <textarea
-                    id="content-input"
-                    className="input textarea"
-                    name="content"
-                    minLength={4}
-                    maxLength={900}
-                    rows={12}
-                    required
-                ></textarea>
-                <label htmlFor="keywords-input">
-                    Keywords (Words that relate to your post to help other users
-                    find it):
-                </label>
-                <input
-                    id="keywords-input"
-                    className="input"
-                    type="text"
-                    name="keywords"
-                    maxLength={60}
-                />
-                <button type="submit" className="button post-button">
-                    Post
-                </button>
-                <p className="error-message">{errorMessage}</p>
-            </Form>
-        </>
+        <Form action="/profile/create" method="post" className="post-form">
+            <h2>Create a new post</h2>
+            <label htmlFor="topic-input">Topic:</label>
+            <select
+                id="topic-input"
+                className="input select"
+                name="topic"
+                required
+            >
+                <option value="">Please select a topic</option>
+                <option value="Programming">Programming</option>
+                <option value="Movies">Movies</option>
+                <option value="Politics">Politics</option>
+                <option value="Games">Games</option>
+                <option value="Space">Space</option>
+                <option value="Books">Books</option>
+                <option value="Other">Other</option>
+            </select>
+            <label htmlFor="title-input">Title:</label>
+            <input
+                id="title-input"
+                className="input"
+                type="text"
+                name="title"
+                minLength={4}
+                maxLength={60}
+                required
+            />
+            <label htmlFor="content-input">Content:</label>
+            <textarea
+                id="content-input"
+                className="input textarea"
+                name="content"
+                minLength={4}
+                maxLength={900}
+                rows={12}
+                required
+            ></textarea>
+            <label htmlFor="keywords-input">
+                Keywords (Words that relate to your post to help other users
+                find it):
+            </label>
+            <input
+                id="keywords-input"
+                className="input"
+                type="text"
+                name="keywords"
+                maxLength={60}
+            />
+            <button type="submit" className="button post-button">
+                Post
+            </button>
+            <p className="error-message">{errorMessage}</p>
+        </Form>
     );
 }
