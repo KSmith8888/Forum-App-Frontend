@@ -107,7 +107,6 @@ img {
 }
 
 .footer {
-    min-height: 10vh;
     text-align: center;
     padding: 1.5em;
     display: flex;
