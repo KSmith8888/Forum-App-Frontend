@@ -5,6 +5,5 @@ dist/
 .eslintrc.json
 tsconfig.json
 tsconfig.node.json
-vite.config.ts
 .prettierignore
 .eslintignore
