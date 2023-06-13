@@ -109,12 +109,10 @@ img {
 .footer {
     text-align: center;
     padding: 1.5em;
-    display: flex;
-    justify-content: center;
-    text-align: center;
 }
 
 .footer-text {
+    font-size: 0.8rem;
     font-weight: bold;
 }
 
