@@ -87,6 +87,7 @@ img {
 }
 
 .home-container {
+    width: 100%;
     display: flex;
 }
 
@@ -110,11 +111,7 @@ img {
     width: 100%;
     text-align: center;
     padding: 1.5em;
-}
-
-.footer-text {
     font-size: 0.8rem;
-    font-weight: bold;
 }
 
 .button-container {
