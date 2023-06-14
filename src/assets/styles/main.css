@@ -78,7 +78,7 @@ img {
 }
 
 .main-section {
-    min-height: 60vh;
+    width: 100%;
     padding: 1em;
     display: flex;
     flex-direction: column;
@@ -107,6 +107,7 @@ img {
 }
 
 .footer {
+    width: 100%;
     text-align: center;
     padding: 1.5em;
 }
