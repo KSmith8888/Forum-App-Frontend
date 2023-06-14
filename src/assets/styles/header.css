@@ -54,6 +54,7 @@
 
 @media (max-width: 650px) {
     .header {
+        min-height: 20vh;
         flex-direction: column;
         padding: 0.5em;
     }
