@@ -3,25 +3,16 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="author" content="Kevyn Smith" />
+        <meta
+            name="description"
+            content="A forum/social media app made with the MERN stack"
+        />
+        <title>Forum App</title>
+        <script src="./redirect.js"></script>
         <title>Page Not Found</title>
     </head>
     <body>
-        <script>
-            let params = null;
-            const route = location.pathname
-                ? `route=${location.pathname}`
-                : null;
-            const id = sessionStorage.getItem("_id");
-            const isUserLoggedIn = id ? "status=logged in" : null;
-            if (route && isUserLoggedIn) {
-                params = `?${route}&${isUserLoggedIn}`;
-            } else if (route && !isUserLoggedIn) {
-                params = `?${route}`;
-            } else if (!route && isUserLoggedIn) {
-                params = `?${isUserLoggedIn}`;
-            }
-            const redirectUrl = params ? `/${params}` : "/";
-            location.assign(redirectUrl);
-        </script>
+        <p>Redirecting to homepage...</p>
     </body>
 </html>
