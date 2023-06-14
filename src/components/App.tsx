@@ -5,27 +5,30 @@ import {
     RouterProvider,
 } from "react-router-dom";
 //Components
-import MainLayout from "./MainLayout";
-import ErrorElement from "./Error";
+import MainLayout from "./MainLayout.tsx";
+import ErrorElement from "./Error.tsx";
 //Pages
-import Home, { homeLoader } from "../pages/Home";
-import Search, { searchAction, resultsLoader } from "../pages/Search";
-import Post, { postLoader, commentAction } from "../pages/Post";
-import PostsByTopic, { postsTopicLoader } from "../pages/PostsByTopic";
-import CreatePost, { createPostAction } from "../pages/CreatePost";
-import Register, { registerAction } from "../pages/Register";
-import Profile, { profileLoader, profileAction } from "../pages/Profile";
-import EditPost, { editPostLoader, editPostAction } from "../pages/EditPost";
+import Home, { homeLoader } from "../pages/Home.tsx";
+import Search, { searchAction, resultsLoader } from "../pages/Search.tsx";
+import Post, { postLoader, commentAction } from "../pages/Post.tsx";
+import PostsByTopic, { postsTopicLoader } from "../pages/PostsByTopic.tsx";
+import CreatePost, { createPostAction } from "../pages/CreatePost.tsx";
+import Register, { registerAction } from "../pages/Register.tsx";
+import Profile, { profileLoader, profileAction } from "../pages/Profile.tsx";
+import EditPost, {
+    editPostLoader,
+    editPostAction,
+} from "../pages/EditPost.tsx";
 import EditComment, {
     editCommentLoader,
     editCommentAction,
-} from "../pages/EditComment";
-import Login, { loginAction } from "../pages/Login";
+} from "../pages/EditComment.tsx";
+import Login, { loginAction } from "../pages/Login.tsx";
 import Moderation, {
     moderationLoader,
     moderationAction,
-} from "../pages/Moderation";
-import NotFound from "../pages/NotFound";
+} from "../pages/Moderation.tsx";
+import NotFound from "../pages/NotFound.tsx";
 //Assets
 import "../assets/styles/main.css";
 

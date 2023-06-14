@@ -11,7 +11,7 @@ import {
     outletInterface,
     postInterface,
     loaderActionInterface,
-} from "../utils/interfaces";
+} from "../utils/interfaces.ts";
 
 export async function homeLoader({ request }: loaderActionInterface) {
     const url = new URL(request.url);

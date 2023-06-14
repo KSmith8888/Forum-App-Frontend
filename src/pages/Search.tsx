@@ -7,7 +7,7 @@ import {
     useSearchParams,
 } from "react-router-dom";
 
-import { postInterface, loaderActionInterface } from "../utils/interfaces";
+import { postInterface, loaderActionInterface } from "../utils/interfaces.ts";
 
 export async function resultsLoader({ request }: loaderActionInterface) {
     const url = new URL(request.url);
