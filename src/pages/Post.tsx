@@ -16,6 +16,7 @@ import {
     likeInterface,
 } from "../utils/interfaces.ts";
 import { createDateString } from "../utils/create-date-string.ts";
+import { report } from "../utils/report.ts";
 
 import "../assets/styles/post.css";
 
@@ -133,6 +134,7 @@ export default function Post() {
             commentForm.current.reset();
         }
     }, [commentErrorMsg]);
+    const reportModal = useRef<HTMLDialogElement>(null);
     const [showRemainingComments, setShowRemainingComments] = useState(false);
     const firstTenComments = loaderData.comments.slice(0, 10);
     const commentElements =
@@ -169,29 +171,62 @@ export default function Post() {
                 <div className="post-likes-container">
                     <p className="post-likes">Likes: {postLikes}</p>
                     {isUserLoggedIn && (
-                        <button
-                            className={
-                                userLikedPost
-                                    ? "like-button selected"
-                                    : "like-button"
-                            }
-                            onClick={async () => {
-                                try {
-                                    const likesData: likeInterface =
-                                        await likePost(loaderData.post._id);
-                                    setPostLikes(likesData.likes);
-                                    setUserLikedPost(likesData.didUserLike);
-                                } catch (error) {
-                                    if (error instanceof Error) {
-                                        console.error(error.message);
-                                    }
+                        <div className="button-container">
+                            <button
+                                className={
+                                    userLikedPost
+                                        ? "like-button selected"
+                                        : "like-button"
                                 }
-                            }}
-                        >
-                            Like
-                        </button>
+                                onClick={async () => {
+                                    try {
+                                        const likesData: likeInterface =
+                                            await likePost(loaderData.post._id);
+                                        setPostLikes(likesData.likes);
+                                        setUserLikedPost(likesData.didUserLike);
+                                    } catch (error) {
+                                        if (error instanceof Error) {
+                                            console.error(error.message);
+                                        }
+                                    }
+                                }}
+                            >
+                                Like
+                            </button>
+                            <button
+                                className="button"
+                                onClick={() => {
+                                    try {
+                                        report(loaderData.post._id, "Post");
+                                        if (reportModal.current) {
+                                            reportModal.current.showModal();
+                                        }
+                                    } catch (error) {
+                                        if (error instanceof Error) {
+                                            console.log(error.message);
+                                        }
+                                    }
+                                }}
+                            >
+                                Report
+                            </button>
+                        </div>
                     )}
                 </div>
+                <dialog className="report-modal" ref={reportModal}>
+                    <p>Message has been reported</p>
+                    <p>The moderation team will be reviewing it shortly</p>
+                    <button
+                        className="button"
+                        onClick={() => {
+                            if (reportModal.current) {
+                                reportModal.current.close();
+                            }
+                        }}
+                    >
+                        Close
+                    </button>
+                </dialog>
                 <div className="post-info-container">
                     <img
                         src={`/profile-images/${loaderData.post.profileImageName}`}

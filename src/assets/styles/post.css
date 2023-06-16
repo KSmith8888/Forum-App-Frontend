@@ -89,6 +89,13 @@
     object-fit: cover;
 }
 
+.report-modal[open] {
+    text-align: center;
+    padding: 2em;
+    border: 1px solid black;
+    background-color: rgb(218, 214, 214);
+}
+
 @media (max-width: 650px) {
     .post-container {
         width: 90%;
