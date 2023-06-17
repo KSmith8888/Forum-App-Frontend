@@ -135,6 +135,12 @@ export default function Post() {
         }
     }, [commentErrorMsg]);
     const reportModal = useRef<HTMLDialogElement>(null);
+    function openReportModal() {
+        if (reportModal.current) {
+            reportModal.current.showModal();
+        }
+    }
+
     const [showRemainingComments, setShowRemainingComments] = useState(false);
     const firstTenComments = loaderData.comments.slice(0, 10);
     const commentElements =
@@ -145,6 +151,7 @@ export default function Post() {
                           key={comment._id}
                           commentData={comment}
                           isUserLoggedIn={isUserLoggedIn}
+                          openReportModal={openReportModal}
                       />
                   );
               })
@@ -158,6 +165,7 @@ export default function Post() {
                           key={comment._id}
                           commentData={comment}
                           isUserLoggedIn={isUserLoggedIn}
+                          openReportModal={openReportModal}
                       />
                   );
               })
@@ -195,12 +203,13 @@ export default function Post() {
                             </button>
                             <button
                                 className="button"
-                                onClick={() => {
+                                onClick={async () => {
                                     try {
-                                        report(loaderData.post._id, "Post");
-                                        if (reportModal.current) {
-                                            reportModal.current.showModal();
-                                        }
+                                        await report(
+                                            loaderData.post._id,
+                                            "Post"
+                                        );
+                                        openReportModal();
                                     } catch (error) {
                                         if (error instanceof Error) {
                                             console.log(error.message);

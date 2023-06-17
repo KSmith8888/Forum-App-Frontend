@@ -7,8 +7,13 @@ import {
     commentProps,
 } from "../utils/interfaces";
 import { createDateString } from "../utils/create-date-string";
+import { report } from "../utils/report.ts";
 
-export default function Comment({ commentData, isUserLoggedIn }: commentProps) {
+export default function Comment({
+    commentData,
+    isUserLoggedIn,
+    openReportModal,
+}: commentProps) {
     const commentDateString = createDateString(commentData.createdAt, "Posted");
     const commentHasBeenEdited = commentData.hasBeenEdited;
     const editDateString = commentHasBeenEdited
@@ -51,27 +56,51 @@ export default function Comment({ commentData, isUserLoggedIn }: commentProps) {
             <div className="comment-likes-container">
                 <p className="comment-likes">Likes: {commentLikes}</p>
                 {isUserLoggedIn && (
-                    <button
-                        className={
-                            userLikedComment
-                                ? "like-button selected"
-                                : "like-button"
-                        }
-                        onClick={async () => {
-                            try {
-                                const likesData: likeInterface =
-                                    await likeComment(commentData._id);
-                                setCommentLikes(likesData.likes);
-                                setUserLikedComment(likesData.didUserLike);
-                            } catch (error) {
-                                if (error instanceof Error) {
-                                    console.error(error.message);
+                    <>
+                        <div className="button-container">
+                            <button
+                                className={
+                                    userLikedComment
+                                        ? "like-button selected"
+                                        : "like-button"
                                 }
-                            }
-                        }}
-                    >
-                        Like
-                    </button>
+                                onClick={async () => {
+                                    try {
+                                        const likesData: likeInterface =
+                                            await likeComment(commentData._id);
+                                        setCommentLikes(likesData.likes);
+                                        setUserLikedComment(
+                                            likesData.didUserLike
+                                        );
+                                    } catch (error) {
+                                        if (error instanceof Error) {
+                                            console.error(error.message);
+                                        }
+                                    }
+                                }}
+                            >
+                                Like
+                            </button>
+                            <button
+                                className="button"
+                                onClick={async () => {
+                                    try {
+                                        await report(
+                                            commentData._id,
+                                            "Comment"
+                                        );
+                                        openReportModal();
+                                    } catch (error) {
+                                        if (error instanceof Error) {
+                                            console.log(error.message);
+                                        }
+                                    }
+                                }}
+                            >
+                                Report
+                            </button>
+                        </div>
+                    </>
                 )}
             </div>
             <div className="comment-info-container">

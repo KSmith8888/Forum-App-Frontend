@@ -1,4 +1,4 @@
-import { redirect, Form, useActionData } from "react-router-dom";
+import { redirect, Form, useActionData, useLoaderData } from "react-router-dom";
 
 import { loaderActionInterface } from "../utils/interfaces";
 import {
@@ -10,13 +10,37 @@ import {
 export async function moderationLoader() {
     const userId = sessionStorage.getItem("_id");
     const userRole = sessionStorage.getItem("role");
+    const token = sessionStorage.getItem("token");
     if (!userId) {
         return redirect("/?message=Please log in");
     }
     if (userRole !== "mod" && userRole !== "admin") {
         return redirect("/?message=Not Authorized");
     }
-    return null;
+    if (!token || !userId) {
+        throw new Error("You must log in before reporting");
+    }
+    const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/moderation/report`,
+        {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+                "user_id": userId,
+            },
+        }
+    );
+    if (!res.ok) {
+        const errorData = await res.json();
+        if (errorData && errorData.msg) {
+            throw new Error(errorData.msg);
+        } else {
+            throw new Error(`Response error: ${res.status}`);
+        }
+    }
+    const data = await res.json();
+    return data;
 }
 
 export async function moderationAction({ request }: loaderActionInterface) {
@@ -43,6 +67,10 @@ export async function moderationAction({ request }: loaderActionInterface) {
 }
 
 export default function Moderation() {
+    const reportedMessages = useLoaderData();
+    if (Array.isArray(reportedMessages)) {
+        console.log(reportedMessages[0]);
+    }
     const userRole = sessionStorage.getItem("role");
     const actionMessage = useActionData() as string;
 

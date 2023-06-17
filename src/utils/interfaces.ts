@@ -68,6 +68,7 @@ export interface commentInterface {
 export interface commentProps {
     commentData: commentInterface;
     isUserLoggedIn: boolean;
+    openReportModal: () => void;
 }
 
 export interface profilePicInterface {
