@@ -87,7 +87,8 @@ export default function Comment({
                                     try {
                                         await report(
                                             commentData._id,
-                                            "Comment"
+                                            "Comment",
+                                            commentData.relatedPost
                                         );
                                         openReportModal();
                                     } catch (error) {

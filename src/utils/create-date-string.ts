@@ -1,4 +1,4 @@
-export function createDateString(timestamp: string, type: "Posted" | "Edited") {
+export function createDateString(timestamp: string, type: string) {
     const date = new Date(timestamp);
     const initialHours = date.getHours();
     const hoursAmPm = initialHours >= 12 ? "PM" : "AM";

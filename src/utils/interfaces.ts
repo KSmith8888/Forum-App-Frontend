@@ -75,3 +75,12 @@ export interface profilePicInterface {
     name: string;
     alt: string;
 }
+
+export interface reportInterface {
+    messageId: string;
+    messageType: string;
+    reportedBy: string;
+    relatedPost: string;
+    createdAt: string;
+    updatedAt: string;
+}
