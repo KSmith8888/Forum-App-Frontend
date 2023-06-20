@@ -5,4 +5,7 @@ import { defineConfig } from "vite";
 export default defineConfig({
     base: "./",
     plugins: [react(), splitVendorChunkPlugin()],
+    build: {
+        target: "es2021",
+    },
 });
