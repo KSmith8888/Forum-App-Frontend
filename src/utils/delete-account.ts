@@ -21,6 +21,9 @@ export async function deleteAccount(id: string) {
             throw new Error(`Response error: ${res.status}`);
         }
         const data = await res.json();
+        if (!data.msg) {
+            throw new Error("Incorrect data format returned from server");
+        }
         return data.msg;
     } catch (error) {
         return error;

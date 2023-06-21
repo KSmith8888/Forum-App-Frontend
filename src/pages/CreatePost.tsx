@@ -19,7 +19,7 @@ export async function createPostAction({ request }: loaderActionInterface) {
         }
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
-        const reg = new RegExp("^[a-zA-Z0-9 .:,?_'!-]+$", "m");
+        const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!-]+$", "m");
         if (!reg.test(title) || !reg.test(content) || !reg.test(topic)) {
             throw new Error(
                 "Please do not include special characters in your message"
@@ -65,8 +65,7 @@ export async function createPostAction({ request }: loaderActionInterface) {
 }
 
 export default function CreatePost() {
-    const action = useActionData();
-    const errorMessage = typeof action === "string" ? action : "";
+    const errorMessage = useActionData();
 
     return (
         <Form action="/profile/create" method="post" className="post-form">
@@ -121,7 +120,9 @@ export default function CreatePost() {
             <button type="submit" className="button post-button">
                 Post
             </button>
-            <p className="error-message">{errorMessage}</p>
+            <p className="error-message">
+                {typeof errorMessage === "string" ? errorMessage : ""}
+            </p>
         </Form>
     );
 }

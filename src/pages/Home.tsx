@@ -39,7 +39,7 @@ export async function homeLoader({ request }: loaderActionInterface) {
 
 export default function Home() {
     const [searchParams] = useSearchParams();
-    const { setIsUserLoggedIn } = useOutletContext() as outletInterface;
+    const { setIsUserLoggedIn } = useOutletContext<outletInterface>();
     const message = searchParams.get("message");
     const status = searchParams.get("status");
     useEffect(() => {
@@ -47,8 +47,9 @@ export default function Home() {
             setIsUserLoggedIn(true);
         }
     }, []);
-    const postData = useLoaderData() as Array<postInterface>;
-    const postElements = postData.map((post) => {
+    const loader = useLoaderData();
+    const postData = loader instanceof Array ? loader : [];
+    const postElements = postData.map((post: postInterface) => {
         const startingChars = post.content.substring(0, 50);
         return (
             <div key={post._id} className="trending-post-link">

@@ -41,13 +41,17 @@ export async function commentAction({ request }: loaderActionInterface) {
     try {
         const commentData = await request.formData();
         const comment = commentData.get("comment");
-        if (!comment || typeof comment !== "string") {
+        const post = commentData.get("post");
+        if (
+            !comment ||
+            typeof comment !== "string" ||
+            typeof post !== "string"
+        ) {
             throw new Error("Please provide a message for your comment");
         }
-        const post = commentData.get("post") as string;
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
-        const reg = new RegExp("^[a-zA-Z0-9 .:,?'!-]+$", "m");
+        const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!-]+$", "m");
         if (!reg.test(comment)) {
             throw new Error(
                 "Please do not include special characters in your message"
@@ -127,7 +131,7 @@ export default function Post() {
             );
         }
     );
-    const commentErrorMsg = (useActionData() as string) || "";
+    const commentErrorMsg = useActionData();
     const commentForm = useRef<HTMLFormElement>(null);
     useEffect(() => {
         if (commentForm.current) {
@@ -311,7 +315,7 @@ export default function Post() {
                         Submit
                     </button>
                     <p className="error-message">
-                        {commentErrorMsg.startsWith("Error:")
+                        {typeof commentErrorMsg === "string"
                             ? commentErrorMsg
                             : ""}
                     </p>

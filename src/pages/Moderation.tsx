@@ -81,8 +81,9 @@ export async function moderationAction({ request }: loaderActionInterface) {
 }
 
 export default function Moderation() {
-    const reportedMessages = useLoaderData() as Array<reportInterface>;
-    const reportElements = reportedMessages.map((report) => {
+    const loader = useLoaderData();
+    const reportedMessages = loader instanceof Array ? loader : [];
+    const reportElements = reportedMessages.map((report: reportInterface) => {
         const linkId =
             report.messageType === "Post"
                 ? report.messageId
@@ -99,14 +100,16 @@ export default function Moderation() {
         );
     });
     const userRole = sessionStorage.getItem("role");
-    const actionMessage = useActionData() as string;
+    const actionMessage = useActionData();
 
     return (
         <>
             <h2 className="moderation-main-heading">Moderation Page</h2>
             <div className="moderation-main-container">
                 <section className="moderation-forms-section">
-                    <p className="moderation-form-message">{actionMessage}</p>
+                    <p className="moderation-form-message">
+                        {typeof actionMessage === "string" ? actionMessage : ""}
+                    </p>
                     <Form
                         method="DELETE"
                         action="/moderation"

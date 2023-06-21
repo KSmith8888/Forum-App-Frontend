@@ -26,7 +26,10 @@ export async function deleteUsersAccount(username: string) {
             throw new Error(`Response error: ${res.status}`);
         }
     }
-    const data: { msg: string } = await res.json();
+    const data = await res.json();
+    if (!data.msg) {
+        throw new Error("Incorrect data format returned from server");
+    }
     return data.msg;
 }
 
@@ -56,7 +59,10 @@ export async function deleteUsersPost(postId: string) {
             throw new Error(`Response error: ${res.status}`);
         }
     }
-    const data: { msg: string } = await res.json();
+    const data = await res.json();
+    if (!data.msg) {
+        throw new Error("Incorrect data format returned from server");
+    }
     return data.msg;
 }
 
@@ -88,6 +94,9 @@ export async function updateUsersRole(username: string) {
             throw new Error(`Response error: ${res.status}`);
         }
     }
-    const data: { msg: string } = await res.json();
+    const data = await res.json();
+    if (!data.msg) {
+        throw new Error("Incorrect data format returned from server");
+    }
     return data.msg;
 }

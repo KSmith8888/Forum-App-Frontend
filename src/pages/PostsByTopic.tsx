@@ -25,19 +25,23 @@ export async function postsTopicLoader({ params }: loaderActionInterface) {
         }
     }
     const data = await res.json();
+    if (!Array.isArray(data)) {
+        throw new Error("Invalid data returned from server");
+    }
     return data;
 }
 
 export default function PostsByTopic() {
-    const { isUserLoggedIn } = useOutletContext() as outletInterface;
+    const { isUserLoggedIn } = useOutletContext<outletInterface>();
     let topic = useParams().topic || "";
     if (topic.length > 0) {
         const firstLetter = topic.charAt(0).toUpperCase();
         const restOfTopic = topic.slice(1);
         topic = `${firstLetter}${restOfTopic}`;
     }
-    const postData = useLoaderData() as Array<postInterface>;
-    const postElements = postData.map((post) => {
+    const loader = useLoaderData();
+    const postData = loader instanceof Array ? loader : [];
+    const postElements = postData.map((post: postInterface) => {
         return (
             <div key={post._id}>
                 <Link to={`/posts/details/${post._id}`} className="post-link">

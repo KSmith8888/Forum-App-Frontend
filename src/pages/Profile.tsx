@@ -20,6 +20,16 @@ import ProfilePicSelector from "../components/ProfilePicSelector";
 
 import "../assets/styles/profile.css";
 
+interface userProfilePost {
+    id: string;
+    title: string;
+}
+
+interface postAndComment {
+    posts: Array<userProfilePost>;
+    comments: Array<commentInterface>;
+}
+
 export async function profileLoader() {
     const userId = sessionStorage.getItem("_id");
     if (!userId) {
@@ -36,7 +46,7 @@ export async function profileLoader() {
             throw new Error(`Response error: ${res.status}`);
         }
     }
-    const data = await res.json();
+    const data: postAndComment = await res.json();
     return data;
 }
 
@@ -94,26 +104,16 @@ export async function profileAction({ request }: loaderActionInterface) {
     }
 }
 
-interface userProfilePost {
-    id: string;
-    title: string;
-}
-
-interface postAndComment {
-    posts: Array<userProfilePost>;
-    comments: Array<commentInterface>;
-}
-
 export default function Profile() {
     const username = sessionStorage.getItem("username");
     const userRole = sessionStorage.getItem("role");
     const isMod = userRole === "mod" || userRole === "admin";
     const postAndCommentData = useLoaderData() as postAndComment;
     const messageModal = useRef<HTMLDialogElement>(null);
-    const actionMessage = useActionData() as string;
+    const actionMessage = useActionData();
     const [modalMessage, setModalMessage] = useState("");
     useEffect(() => {
-        if (actionMessage && messageModal.current) {
+        if (typeof actionMessage === "string" && messageModal.current) {
             setModalMessage(actionMessage);
             messageModal.current.showModal();
         }
