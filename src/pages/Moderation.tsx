@@ -59,6 +59,7 @@ export async function moderationAction({ request }: loaderActionInterface) {
     const deleteAccountUsername = formData.get("delete-account-username");
     const deletePostId = formData.get("delete-post-id");
     const updateRoleUsername = formData.get("change-role-username");
+    const newAccountRole = formData.get("new-role-input");
     let returnMessage = null;
     if (deleteAccountUsername && typeof deleteAccountUsername === "string") {
         const deleteAccountMsg = await deleteUsersAccount(
@@ -70,8 +71,16 @@ export async function moderationAction({ request }: loaderActionInterface) {
         const deletePostMsg = await deleteUsersPost(deletePostId);
         returnMessage = deletePostMsg;
     }
-    if (updateRoleUsername && typeof updateRoleUsername === "string") {
-        const updateRoleMsg = await updateUsersRole(updateRoleUsername);
+    if (
+        updateRoleUsername &&
+        typeof updateRoleUsername === "string" &&
+        newAccountRole &&
+        typeof newAccountRole === "string"
+    ) {
+        const updateRoleMsg = await updateUsersRole(
+            updateRoleUsername,
+            newAccountRole
+        );
         returnMessage = updateRoleMsg;
     }
     if (!returnMessage) {
@@ -124,8 +133,9 @@ export default function Moderation() {
                             className="input"
                             name="delete-account-username"
                             type="text"
-                            pattern="[a-zA-Z0-9]+"
+                            pattern="[a-zA-Z0-9_]+"
                             maxLength={18}
+                            required
                         />
                         <button type="submit" className="button">
                             Delete Account
@@ -147,6 +157,7 @@ export default function Moderation() {
                             type="text"
                             pattern="[a-zA-Z0-9]+"
                             maxLength={25}
+                            required
                         />
                         <button type="submit" className="button">
                             Delete Post
@@ -158,7 +169,7 @@ export default function Moderation() {
                             action="/moderation"
                             className="moderation-form"
                         >
-                            <h3>Change User Role to Mod</h3>
+                            <h3>Change Account Role</h3>
                             <label htmlFor="change-role-input">
                                 Username of account to be updated:
                             </label>
@@ -167,9 +178,22 @@ export default function Moderation() {
                                 className="input"
                                 name="change-role-username"
                                 type="text"
-                                pattern="[a-zA-Z0-9]+"
+                                pattern="[a-zA-Z0-9_]+"
                                 maxLength={18}
+                                required
                             />
+                            <label htmlFor="new-role">New Role:</label>
+                            <select
+                                id="new-role"
+                                className="input select"
+                                name="new-role-input"
+                                required
+                            >
+                                <option value="">Select new role:</option>
+                                <option value="user">User</option>
+                                <option value="mod">Mod</option>
+                                <option value="admin">Admin</option>
+                            </select>
                             <button type="submit" className="button">
                                 Update Account
                             </button>

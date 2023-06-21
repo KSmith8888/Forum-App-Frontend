@@ -7,7 +7,7 @@ export async function deleteUsersAccount(username: string) {
     const res = await fetch(
         `${
             import.meta.env.VITE_BACKEND_URL
-        }/api/v1/users/moderation/profile/${username}`,
+        }/api/v1/moderation/profile/${username}`,
         {
             method: "DELETE",
             body: JSON.stringify({ status: "Delete account request" }),
@@ -40,7 +40,7 @@ export async function deleteUsersPost(postId: string) {
         throw new Error("You must log in before performing that action");
     }
     const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/details/${postId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/moderation/posts/${postId}`,
         {
             method: "DELETE",
             body: JSON.stringify({ status: "Delete post request" }),
@@ -66,7 +66,7 @@ export async function deleteUsersPost(postId: string) {
     return data.msg;
 }
 
-export async function updateUsersRole(username: string) {
+export async function updateUsersRole(username: string, newRole: string) {
     const token = sessionStorage.getItem("token");
     const userId = sessionStorage.getItem("_id");
     if (!token || !userId) {
@@ -75,10 +75,10 @@ export async function updateUsersRole(username: string) {
     const res = await fetch(
         `${
             import.meta.env.VITE_BACKEND_URL
-        }/api/v1/users/profile/${username}/role`,
+        }/api/v1/moderation/profile/${username}/role`,
         {
             method: "PATCH",
-            body: JSON.stringify({ status: "Change account role request" }),
+            body: JSON.stringify({ newRole }),
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,
