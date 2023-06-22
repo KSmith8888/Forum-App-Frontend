@@ -47,10 +47,7 @@ export async function moderationLoader() {
             throw new Error(`Response error: ${res.status}`);
         }
     }
-    const data: Array<reportInterface> = await res.json();
-    if (!Array.isArray(data)) {
-        throw new Error("Something went wrong, incorrect data format");
-    }
+    const data = await res.json();
     return data;
 }
 
@@ -91,7 +88,7 @@ export async function moderationAction({ request }: loaderActionInterface) {
 
 export default function Moderation() {
     const loader = useLoaderData();
-    const reportedMessages = loader instanceof Array ? loader : [];
+    const reportedMessages = Array.isArray(loader) ? loader : [];
     const reportElements = reportedMessages.map((report: reportInterface) => {
         const linkId =
             report.messageType === "Post"

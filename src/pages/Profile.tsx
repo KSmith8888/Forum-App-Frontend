@@ -10,7 +10,6 @@ import {
 } from "react-router-dom";
 
 import {
-    commentInterface,
     loaderActionInterface,
     profilePicInterface,
     outletInterface,
@@ -23,11 +22,6 @@ import "../assets/styles/profile.css";
 interface userProfilePost {
     id: string;
     title: string;
-}
-
-interface postAndComment {
-    posts: Array<userProfilePost>;
-    comments: Array<commentInterface>;
 }
 
 export async function profileLoader() {
@@ -46,7 +40,7 @@ export async function profileLoader() {
             throw new Error(`Response error: ${res.status}`);
         }
     }
-    const data: postAndComment = await res.json();
+    const data = await res.json();
     return data;
 }
 
@@ -108,7 +102,17 @@ export default function Profile() {
     const username = sessionStorage.getItem("username");
     const userRole = sessionStorage.getItem("role");
     const isMod = userRole === "mod" || userRole === "admin";
-    const postAndCommentData = useLoaderData() as postAndComment;
+    const loaderData = useLoaderData();
+    let postsData = [];
+    let commentsData = [];
+    if (loaderData && typeof loaderData === "object") {
+        if ("posts" in loaderData && Array.isArray(loaderData.posts)) {
+            postsData = loaderData.posts;
+        }
+        if ("comments" in loaderData && Array.isArray(loaderData.comments)) {
+            commentsData = loaderData.comments;
+        }
+    }
     const messageModal = useRef<HTMLDialogElement>(null);
     const actionMessage = useActionData();
     const [modalMessage, setModalMessage] = useState("");
@@ -134,34 +138,26 @@ export default function Profile() {
         useState<profilePicInterface>(initialProfilePic);
 
     const [isPicModalOpen, setIsPicModalOpen] = useState(false);
-    const postElements = postAndCommentData.posts.map(
-        (post: userProfilePost) => {
-            return (
-                <div key={post.id} className="post-link-container">
-                    <Link
-                        to={`/posts/details/${post.id}`}
-                        className="post-link"
-                    >
-                        <h4 className="post-link-title">{post.title}</h4>
+    const postElements = postsData.map((post: userProfilePost) => {
+        return (
+            <div key={post.id} className="post-link-container">
+                <Link to={`/posts/details/${post.id}`} className="post-link">
+                    <h4 className="post-link-title">{post.title}</h4>
+                </Link>
+                <div className="button-container">
+                    <Link to={`/posts/edit/${post.id}`} className="button-link">
+                        Edit
                     </Link>
-                    <div className="button-container">
-                        <Link
-                            to={`/posts/edit/${post.id}`}
-                            className="button-link"
-                        >
-                            Edit
-                        </Link>
-                        <Form method="POST">
-                            <input type="hidden" name="post" value="posts" />
-                            <input type="hidden" name="id" value={post.id} />
-                            <button className="button">Delete</button>
-                        </Form>
-                    </div>
+                    <Form method="POST">
+                        <input type="hidden" name="post" value="posts" />
+                        <input type="hidden" name="id" value={post.id} />
+                        <button className="button">Delete</button>
+                    </Form>
                 </div>
-            );
-        }
-    );
-    const commentElements = postAndCommentData.comments.map((comment) => {
+            </div>
+        );
+    });
+    const commentElements = commentsData.map((comment) => {
         return (
             <div key={comment._id} className="comment-link-container">
                 <p className="comment-link-content">{comment.content}</p>
@@ -205,7 +201,11 @@ export default function Profile() {
     return (
         <>
             <h2>{`Profile Page: ${username}`}</h2>
-            {isMod && <Link to="/moderation">Moderation</Link>}
+            {isMod && (
+                <Link to="/moderation" className="button-link">
+                    Moderation
+                </Link>
+            )}
             <div className="profile-options-container">
                 <div className="profile-image-info">
                     <h3>Profile Image:</h3>
@@ -264,7 +264,7 @@ export default function Profile() {
                 profilePic={profilePic}
                 setHasPicBeenUpdated={setHasPicBeenUpdated}
             />
-            {postAndCommentData.posts.length > 0 ? (
+            {postElements.length > 0 ? (
                 <>
                     <h3>Your Posts:</h3>
                     <Link to="create">Create a new post</Link>
@@ -276,7 +276,7 @@ export default function Profile() {
                     <Link to="create">Create a new post</Link>
                 </>
             )}
-            {postAndCommentData.comments.length > 0 ? (
+            {commentElements.length > 0 ? (
                 <>
                     <h3>Your Comments:</h3>
                     <div className="user-comments-container">

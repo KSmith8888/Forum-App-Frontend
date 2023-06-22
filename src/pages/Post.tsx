@@ -33,8 +33,18 @@ export async function postLoader({ params }: loaderActionInterface) {
             throw new Error(`Response error: ${res.status}`);
         }
     }
-    const data: postRelatedComments = await res.json();
-    return data;
+    const data = await res.json();
+    if (
+        typeof data === "object" &&
+        "post" in data &&
+        typeof data.post === "object" &&
+        "comments" in data &&
+        Array.isArray(data.comments)
+    ) {
+        return data;
+    } else {
+        throw new Error("Something went wrong, please try again later");
+    }
 }
 
 export async function commentAction({ request }: loaderActionInterface) {

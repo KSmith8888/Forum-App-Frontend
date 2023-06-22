@@ -40,12 +40,24 @@ export async function loginAction({ request }: loaderActionInterface) {
             }
         }
         const data = await res.json();
-        localStorage.setItem("profileImageName", data.profileImageName);
-        localStorage.setItem("profileImageAlt", data.profileImageAlt);
-        sessionStorage.setItem("role", data.role);
-        sessionStorage.setItem("username", data.displayName);
-        sessionStorage.setItem("_id", data._id);
-        sessionStorage.setItem("token", data.token);
+        if (
+            typeof data === "object" &&
+            "profileImageName" in data &&
+            "profileImageAlt" in data &&
+            "role" in data &&
+            "displayName" in data &&
+            "_id" in data &&
+            "token" in data
+        ) {
+            localStorage.setItem("profileImageName", data.profileImageName);
+            localStorage.setItem("profileImageAlt", data.profileImageAlt);
+            sessionStorage.setItem("role", data.role);
+            sessionStorage.setItem("username", data.displayName);
+            sessionStorage.setItem("_id", data._id);
+            sessionStorage.setItem("token", data.token);
+        } else {
+            throw new Error("There has been an error, please try again later");
+        }
         return {
             username: data.username,
             userId: data._id,
@@ -62,21 +74,20 @@ export async function loginAction({ request }: loaderActionInterface) {
     }
 }
 
-interface actionInterface {
-    status: string;
-    username?: string;
-    userId?: string;
-}
-
 export default function Login() {
-    const loginData = useActionData() as actionInterface;
+    const loginData = useActionData();
     const loginForm = useRef<HTMLFormElement>(null);
     const navigate = useNavigate();
     const [loginMessage, setLoginMessage] = useState("");
     const { setIsUserLoggedIn } = useOutletContext<outletInterface>();
 
     useEffect(() => {
-        if (loginData) {
+        if (
+            loginData &&
+            typeof loginData === "object" &&
+            "status" in loginData &&
+            typeof loginData.status === "string"
+        ) {
             setLoginMessage(loginData.status);
             if (
                 loginData.status === "Login successful" &&

@@ -1,6 +1,6 @@
 import { redirect, useLoaderData, Form } from "react-router-dom";
 
-import { commentInterface, loaderActionInterface } from "../utils/interfaces";
+import { loaderActionInterface } from "../utils/interfaces";
 
 export async function editCommentLoader({ params }: loaderActionInterface) {
     const userId = sessionStorage.getItem("_id");
@@ -21,8 +21,12 @@ export async function editCommentLoader({ params }: loaderActionInterface) {
             throw new Error(`Response error: ${res.status}`);
         }
     }
-    const data: commentInterface = await res.json();
-    return data;
+    const data = await res.json();
+    if (typeof data === "object" && "content" in data) {
+        return data.content;
+    } else {
+        throw new Error("Something went wrong, please try again later");
+    }
 }
 
 export async function editCommentAction({
@@ -71,8 +75,8 @@ export async function editCommentAction({
 }
 
 export default function EditComment() {
-    const prevCommentData = useLoaderData() as commentInterface;
-    const prevContent = prevCommentData.content || "";
+    const loaderData = useLoaderData();
+    const prevContent = typeof loaderData === "string" ? loaderData : "";
 
     return (
         <Form method="POST" className="edit-comment-form">

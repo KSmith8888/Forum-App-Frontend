@@ -1,10 +1,6 @@
 import { redirect, useLoaderData, Form } from "react-router-dom";
 
-import {
-    postInterface,
-    postRelatedComments,
-    loaderActionInterface,
-} from "../utils/interfaces";
+import { loaderActionInterface } from "../utils/interfaces";
 
 export async function editPostLoader({ params }: loaderActionInterface) {
     const userId = sessionStorage.getItem("_id");
@@ -23,8 +19,12 @@ export async function editPostLoader({ params }: loaderActionInterface) {
             throw new Error(`Response error: ${res.status}`);
         }
     }
-    const data: postRelatedComments = await res.json();
-    return data.post;
+    const data = await res.json();
+    if (typeof data === "object" && "post" in data) {
+        return data.post;
+    } else {
+        throw new Error("Something went wrong, please try again later");
+    }
 }
 
 export async function editPostAction({
@@ -37,7 +37,7 @@ export async function editPostAction({
     const content = postData.get("content");
     const token = sessionStorage.getItem("token");
     const userId = sessionStorage.getItem("_id");
-    const reg = new RegExp("^[a-zA-Z0-9 .:,?'!-]+$", "m");
+    const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!-]+$", "m");
     if (
         typeof title !== "string" ||
         typeof content !== "string" ||
@@ -75,9 +75,17 @@ export async function editPostAction({
 }
 
 export default function EditPost() {
-    const prevPostData = useLoaderData() as postInterface;
-    const prevPostTitle = prevPostData.title || "";
-    const prevPostContent = prevPostData.content || "";
+    const loaderData = useLoaderData();
+    let prevPostTitle = "";
+    let prevPostContent = "";
+    if (loaderData && typeof loaderData === "object") {
+        if ("title" in loaderData && typeof loaderData.title === "string") {
+            prevPostTitle = loaderData.title;
+        }
+        if ("content" in loaderData && typeof loaderData.content === "string") {
+            prevPostContent = loaderData.content;
+        }
+    }
 
     return (
         <Form method="patch" className="post-form">
