@@ -86,9 +86,14 @@ img {
     align-items: center;
 }
 
+.user-message {
+    margin: 0.25em 0;
+}
+
 .home-container {
     width: 100%;
     display: flex;
+    justify-content: space-around;
 }
 
 .topics-nav {

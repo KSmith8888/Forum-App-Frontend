@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import {
     redirect,
     Form,
@@ -101,12 +102,37 @@ export default function Moderation() {
                 <Link to={`/posts/details/${linkId}`}>
                     The Reported Message
                 </Link>
+                <button
+                    type="button"
+                    className="button"
+                    onClick={() => {
+                        console.log(report._id);
+                    }}
+                >
+                    Delete
+                </button>
                 <p>{reportDateString}</p>
             </div>
         );
     });
     const userRole = sessionStorage.getItem("role");
     const actionMessage = useActionData();
+    const deleteAccountForm = useRef<HTMLFormElement>(null);
+    const deletePostForm = useRef<HTMLFormElement>(null);
+    const changeRoleForm = useRef<HTMLFormElement>(null);
+    useEffect(() => {
+        if (actionMessage) {
+            if (deleteAccountForm && deleteAccountForm.current) {
+                deleteAccountForm.current.reset();
+            }
+            if (deletePostForm && deletePostForm.current) {
+                deletePostForm.current.reset();
+            }
+            if (changeRoleForm && changeRoleForm.current) {
+                changeRoleForm.current.reset();
+            }
+        }
+    }, [actionMessage]);
 
     return (
         <>
@@ -120,6 +146,7 @@ export default function Moderation() {
                         method="DELETE"
                         action="/moderation"
                         className="moderation-form"
+                        ref={deleteAccountForm}
                     >
                         <h3>Delete User Account</h3>
                         <label htmlFor="username-input">
@@ -142,6 +169,7 @@ export default function Moderation() {
                         method="DELETE"
                         action="/moderation"
                         className="moderation-form"
+                        ref={deletePostForm}
                     >
                         <h3>Delete Post</h3>
                         <label htmlFor="post-id-input">
@@ -165,6 +193,7 @@ export default function Moderation() {
                             method="patch"
                             action="/moderation"
                             className="moderation-form"
+                            ref={changeRoleForm}
                         >
                             <h3>Change Account Role</h3>
                             <label htmlFor="change-role-input">

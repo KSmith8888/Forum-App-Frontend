@@ -3,9 +3,8 @@ import { splitVendorChunkPlugin } from "vite";
 import { defineConfig } from "vite";
 
 export default defineConfig({
-    base: "./",
     plugins: [react(), splitVendorChunkPlugin()],
     build: {
-        target: "es2021",
+        target: ["es2021", "edge88", "firefox98", "chrome87", "safari15.4"],
     },
 });

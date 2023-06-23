@@ -77,6 +77,7 @@ export interface profilePicInterface {
 }
 
 export interface reportInterface {
+    _id: string;
     messageId: string;
     messageType: string;
     reportedBy: string;
