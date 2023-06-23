@@ -100,3 +100,41 @@ export async function updateUsersRole(username: string, newRole: string) {
     }
     return data.msg;
 }
+
+export async function deleteReport(reportId: string) {
+    try {
+        const token = sessionStorage.getItem("token");
+        const userId = sessionStorage.getItem("_id");
+        if (!token || !userId) {
+            throw new Error("You must log in before performing that action");
+        }
+        const res = await fetch(
+            `${
+                import.meta.env.VITE_BACKEND_URL
+            }/api/v1/moderation/report/${reportId}`,
+            {
+                method: "DELETE",
+                body: JSON.stringify({ status: "Delete report request" }),
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                    "user_id": userId,
+                },
+            }
+        );
+        if (!res.ok) {
+            const errorData = await res.json();
+            if (errorData && errorData.msg) {
+                throw new Error(errorData.msg);
+            } else {
+                throw new Error(`Response error: ${res.status}`);
+            }
+        }
+        const data = await res.json();
+        return data.msg;
+    } catch (error) {
+        if (error instanceof Error) {
+            return error.message;
+        }
+    }
+}

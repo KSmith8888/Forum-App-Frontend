@@ -1,20 +1,16 @@
 import { useEffect, useRef } from "react";
-import {
-    redirect,
-    Form,
-    useActionData,
-    useLoaderData,
-    Link,
-} from "react-router-dom";
+import { redirect, Form, useActionData, useLoaderData } from "react-router-dom";
 
-import { loaderActionInterface, reportInterface } from "../utils/interfaces";
+import { loaderActionInterface, reportInterface } from "../utils/interfaces.ts";
 import {
     deleteUsersAccount,
     deleteUsersPost,
     updateUsersRole,
+    deleteReport,
 } from "../utils/moderation";
+import ModReport from "../components/ModReport.tsx";
 
-import { createDateString } from "../utils/create-date-string.ts";
+import "../assets/styles/moderation.css";
 
 export async function moderationLoader() {
     const userId = sessionStorage.getItem("_id");
@@ -58,6 +54,7 @@ export async function moderationAction({ request }: loaderActionInterface) {
     const deletePostId = formData.get("delete-post-id");
     const updateRoleUsername = formData.get("change-role-username");
     const newAccountRole = formData.get("new-role-input");
+    const deleteReportId = formData.get("delete-report-id");
     let returnMessage = null;
     if (deleteAccountUsername && typeof deleteAccountUsername === "string") {
         const deleteAccountMsg = await deleteUsersAccount(
@@ -81,7 +78,11 @@ export async function moderationAction({ request }: loaderActionInterface) {
         );
         returnMessage = updateRoleMsg;
     }
-    if (!returnMessage) {
+    if (deleteReportId && typeof deleteReportId === "string") {
+        const deleteReportMsg = await deleteReport(deleteReportId);
+        returnMessage = deleteReportMsg;
+    }
+    if (typeof returnMessage !== "string") {
         returnMessage = "Something went wrong, please try again later";
     }
     return returnMessage;
@@ -91,29 +92,7 @@ export default function Moderation() {
     const loader = useLoaderData();
     const reportedMessages = Array.isArray(loader) ? loader : [];
     const reportElements = reportedMessages.map((report: reportInterface) => {
-        const linkId =
-            report.messageType === "Post"
-                ? report.messageId
-                : report.relatedPost;
-        const reportDateString = createDateString(report.createdAt, "Reported");
-        return (
-            <div className="report-container" key={report.messageId}>
-                <p>{`Report Type: ${report.messageType}`}</p>
-                <Link to={`/posts/details/${linkId}`}>
-                    The Reported Message
-                </Link>
-                <button
-                    type="button"
-                    className="button"
-                    onClick={() => {
-                        console.log(report._id);
-                    }}
-                >
-                    Delete
-                </button>
-                <p>{reportDateString}</p>
-            </div>
-        );
+        return <ModReport key={report._id} report={report} />;
     });
     const userRole = sessionStorage.getItem("role");
     const actionMessage = useActionData();

@@ -1,0 +1,35 @@
+.moderation-main-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.moderation-forms-section {
+    margin: 0 0 2em 0;
+}
+
+.moderation-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.moderation-main-heading,
+.moderation-form-message {
+    margin: 0.5em 0;
+}
+
+.report-text {
+    margin: 0.5em;
+}
+
+@media (max-width: 650px) {
+    .moderation-main-container {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .moderation-forms-section {
+        margin: 2em 0;
+    }
+}
