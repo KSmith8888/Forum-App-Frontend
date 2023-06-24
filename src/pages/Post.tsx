@@ -7,11 +7,13 @@ import {
 } from "react-router-dom";
 
 import Comment from "../components/Comment";
+import PostHistory from "../components/PostHistory.tsx";
 import { likePost } from "../utils/like.ts";
 import {
     outletInterface,
     commentInterface,
     loaderActionInterface,
+    postHistoryInterface,
     postRelatedComments,
     likeInterface,
 } from "../utils/interfaces.ts";
@@ -104,40 +106,34 @@ export async function commentAction({ request }: loaderActionInterface) {
 
 export default function Post() {
     const loaderData = useLoaderData() as postRelatedComments;
-    const postDateString = createDateString(
-        loaderData.post.createdAt,
-        "Posted"
-    );
-    const postHasBeenEdited = loaderData.post.hasBeenEdited;
+    const postData = loaderData.post;
+    const commentData = loaderData.comments;
+    const postDateString = createDateString(postData.createdAt, "Posted");
+    const postHasBeenEdited = postData.hasBeenEdited;
     const editDateString = postHasBeenEdited
-        ? createDateString(loaderData.post.updatedAt, "Edited")
+        ? createDateString(postData.updatedAt, "Edited")
         : "";
     const { isUserLoggedIn } = useOutletContext<outletInterface>();
     let didUserAlreadyLike = false;
     const savedLikedPosts = localStorage.getItem("likedPosts");
     if (savedLikedPosts) {
         const parsedLikedPosts = JSON.parse(savedLikedPosts);
-        if (parsedLikedPosts.includes(loaderData.post._id)) {
+        if (parsedLikedPosts.includes(postData._id)) {
             didUserAlreadyLike = true;
         }
     }
     const [userLikedPost, setUserLikedPost] = useState(didUserAlreadyLike);
-    const [postLikes, setPostLikes] = useState(loaderData.post.likes);
+    const [postLikes, setPostLikes] = useState(postData.likes);
     const [showHistory, setShowHistory] = useState(false);
-    const historyElements = loaderData.post.history.map(
-        (prevVersion, index) => {
-            const prevPostDateString = createDateString(
-                prevVersion.timestamp,
-                "Posted"
-            );
+    const historyElements = postData.history.map(
+        (prevVersion: postHistoryInterface) => {
             return (
-                <article key={index} className="previous-post">
-                    <h4 className="previous-post-title">{prevVersion.title}</h4>
-                    <p className="previous-post-content">
-                        {prevVersion.content}
-                    </p>
-                    <p className="previous-post-time">{prevPostDateString}</p>
-                </article>
+                <PostHistory
+                    key={prevVersion.id}
+                    timestamp={prevVersion.timestamp}
+                    title={prevVersion.title}
+                    content={prevVersion.content}
+                />
             );
         }
     );
@@ -156,7 +152,7 @@ export default function Post() {
     }
 
     const [showRemainingComments, setShowRemainingComments] = useState(false);
-    const firstTenComments = loaderData.comments.slice(0, 10);
+    const firstTenComments = commentData.slice(0, 10);
     const commentElements =
         firstTenComments.length > 0
             ? firstTenComments.map((comment: commentInterface) => {
@@ -170,7 +166,7 @@ export default function Post() {
                   );
               })
             : [];
-    const remainingComments = loaderData.comments.slice(10);
+    const remainingComments = commentData.slice(10);
     const remainingCommentElements =
         remainingComments.length > 0
             ? remainingComments.map((comment: commentInterface) => {
@@ -188,8 +184,8 @@ export default function Post() {
     return (
         <div className="post-container">
             <article className="post">
-                <h2 className="post-title">{loaderData.post.title}</h2>
-                <p className="post-text">{loaderData.post.content}</p>
+                <h2 className="post-title">{postData.title}</h2>
+                <p className="post-text">{postData.content}</p>
                 <div className="post-likes-container">
                     <p className="post-likes">Likes: {postLikes}</p>
                     {isUserLoggedIn && (
@@ -203,7 +199,7 @@ export default function Post() {
                                 onClick={async () => {
                                     try {
                                         const likesData: likeInterface =
-                                            await likePost(loaderData.post._id);
+                                            await likePost(postData._id);
                                         setPostLikes(likesData.likes);
                                         setUserLikedPost(likesData.didUserLike);
                                     } catch (error) {
@@ -219,10 +215,7 @@ export default function Post() {
                                 className="button"
                                 onClick={async () => {
                                     try {
-                                        await report(
-                                            loaderData.post._id,
-                                            "Post"
-                                        );
+                                        await report(postData._id, "Post");
                                         openReportModal();
                                     } catch (error) {
                                         if (error instanceof Error) {
@@ -252,13 +245,11 @@ export default function Post() {
                 </dialog>
                 <div className="post-info-container">
                     <img
-                        src={`/profile-images/${loaderData.post.profileImageName}`}
-                        alt={loaderData.post.profileImageAlt}
+                        src={`/profile-images/${postData.profileImageName}`}
+                        alt={postData.profileImageAlt}
                         className="post-profile-image"
                     />
-                    <p className="post-author">
-                        Author: {loaderData.post.user}
-                    </p>
+                    <p className="post-author">Author: {postData.user}</p>
                     <p className="post-time">{postDateString}</p>
 
                     {postHasBeenEdited && (
@@ -316,11 +307,7 @@ export default function Post() {
                         rows={6}
                         cols={40}
                     ></textarea>
-                    <input
-                        type="hidden"
-                        value={loaderData.post._id}
-                        name="post"
-                    />
+                    <input type="hidden" value={postData._id} name="post" />
                     <button type="submit" className="button">
                         Submit
                     </button>

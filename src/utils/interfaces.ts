@@ -16,6 +16,7 @@ export interface postHistoryInterface {
     title: string;
     content: string;
     timestamp: string;
+    id: string;
 }
 
 export interface commentHistoryInterface {
