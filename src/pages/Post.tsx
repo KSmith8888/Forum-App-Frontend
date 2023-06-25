@@ -51,9 +51,9 @@ export async function postLoader({ params }: loaderActionInterface) {
 
 export async function commentAction({ request }: loaderActionInterface) {
     try {
-        const commentData = await request.formData();
-        const comment = commentData.get("comment");
-        const post = commentData.get("post");
+        const commentForm = await request.formData();
+        const comment = commentForm.get("comment");
+        const post = commentForm.get("post");
         if (
             !comment ||
             typeof comment !== "string" ||
@@ -92,8 +92,7 @@ export async function commentAction({ request }: loaderActionInterface) {
                 throw new Error(`Response error: ${res.status}`);
             }
         }
-        const data = await res.json();
-        return data._id;
+        return null;
     } catch (error) {
         let message = "There was an error, please try again later";
         if (error instanceof Error) {
@@ -184,72 +183,83 @@ export default function Post() {
     return (
         <div className="post-container">
             <article className="post">
-                <h2 className="post-title">{postData.title}</h2>
-                <p className="post-text">{postData.content}</p>
-                <div className="post-likes-container">
-                    <p className="post-likes">Likes: {postLikes}</p>
-                    {isUserLoggedIn && (
-                        <div className="button-container">
-                            <button
-                                className={
-                                    userLikedPost
-                                        ? "like-button selected"
-                                        : "like-button"
+                <div className="column-content">
+                    <h2 className="post-title">{postData.title}</h2>
+                    <p className="post-text">{postData.content}</p>
+                    <div className="post-likes-container">
+                        <p className="post-likes">Likes: {postLikes}</p>
+                        {isUserLoggedIn && (
+                            <div className="button-container">
+                                <button
+                                    className={
+                                        userLikedPost
+                                            ? "like-button selected"
+                                            : "like-button"
+                                    }
+                                    onClick={async () => {
+                                        try {
+                                            const likesData: likeInterface =
+                                                await likePost(postData._id);
+                                            setPostLikes(likesData.likes);
+                                            setUserLikedPost(
+                                                likesData.didUserLike
+                                            );
+                                        } catch (error) {
+                                            if (error instanceof Error) {
+                                                console.error(error.message);
+                                            }
+                                        }
+                                    }}
+                                >
+                                    Like
+                                </button>
+                                <button
+                                    className="button"
+                                    onClick={async () => {
+                                        try {
+                                            await report(postData._id, "Post");
+                                            openReportModal();
+                                        } catch (error) {
+                                            if (error instanceof Error) {
+                                                console.log(error.message);
+                                            }
+                                        }
+                                    }}
+                                >
+                                    Report
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                    <dialog className="report-modal" ref={reportModal}>
+                        <p>Message has been reported</p>
+                        <p>The moderation team will be reviewing it shortly</p>
+                        <button
+                            className="button"
+                            onClick={() => {
+                                if (reportModal.current) {
+                                    reportModal.current.close();
                                 }
-                                onClick={async () => {
-                                    try {
-                                        const likesData: likeInterface =
-                                            await likePost(postData._id);
-                                        setPostLikes(likesData.likes);
-                                        setUserLikedPost(likesData.didUserLike);
-                                    } catch (error) {
-                                        if (error instanceof Error) {
-                                            console.error(error.message);
-                                        }
-                                    }
-                                }}
-                            >
-                                Like
-                            </button>
-                            <button
-                                className="button"
-                                onClick={async () => {
-                                    try {
-                                        await report(postData._id, "Post");
-                                        openReportModal();
-                                    } catch (error) {
-                                        if (error instanceof Error) {
-                                            console.log(error.message);
-                                        }
-                                    }
-                                }}
-                            >
-                                Report
-                            </button>
-                        </div>
-                    )}
+                            }}
+                        >
+                            Close
+                        </button>
+                    </dialog>
                 </div>
-                <dialog className="report-modal" ref={reportModal}>
-                    <p>Message has been reported</p>
-                    <p>The moderation team will be reviewing it shortly</p>
-                    <button
-                        className="button"
-                        onClick={() => {
-                            if (reportModal.current) {
-                                reportModal.current.close();
-                            }
-                        }}
-                    >
-                        Close
-                    </button>
-                </dialog>
-                <div className="post-info-container">
-                    <img
-                        src={`/profile-images/${postData.profileImageName}`}
-                        alt={postData.profileImageAlt}
-                        className="post-profile-image"
-                    />
-                    <p className="post-author">Author: {postData.user}</p>
+                <div className="column-info">
+                    <div className="author-info-container">
+                        <img
+                            src={`/profile-images/${postData.profileImageName}`}
+                            alt={postData.profileImageAlt}
+                            className="post-profile-image"
+                        />
+                        <p className="post-author">
+                            Author:{" "}
+                            <span className="post-author-span">
+                                {postData.user}
+                            </span>
+                        </p>
+                    </div>
                     <p className="post-time">{postDateString}</p>
 
                     {postHasBeenEdited && (
@@ -269,13 +279,13 @@ export default function Post() {
                         </>
                     )}
                 </div>
-                {showHistory && (
-                    <div className="post-history-container">
-                        <h3>Previous Post Versions</h3>
-                        {historyElements}
-                    </div>
-                )}
             </article>
+            {showHistory && (
+                <div className="post-history-container">
+                    <h3>Previous Post Versions</h3>
+                    {historyElements}
+                </div>
+            )}
             <div className="comments-container">{commentElements}</div>
             {showRemainingComments
                 ? remainingCommentElements

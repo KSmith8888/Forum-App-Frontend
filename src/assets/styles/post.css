@@ -1,13 +1,14 @@
 .post-container {
-    width: 70%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .post-title {
     margin: 0.5em;
 }
 
-.post-author,
-.post-time,
 .post-likes,
 .comment-author,
 .comment-time,
@@ -25,8 +26,24 @@
     white-space: pre-line;
 }
 
-.post-container,
 .post {
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.column-info {
+    width: 35%;
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.column-content {
+    width: 65%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -56,7 +73,22 @@
     font-weight: 600;
 }
 
-.post-info-container,
+.post-author,
+.post-time,
+.post-edited-time {
+    margin: 0.5em;
+}
+
+.author-info-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post-author-span {
+    display: block;
+}
+
 .comment-info-container {
     display: flex;
     justify-content: center;
@@ -87,6 +119,7 @@
     width: 30px;
     height: 30px;
     object-fit: cover;
+    margin: 0.5em;
 }
 
 .report-modal[open] {
@@ -97,6 +130,14 @@
 }
 
 @media (max-width: 650px) {
+    .post {
+        flex-direction: column;
+    }
+    .column-content,
+    .column-info {
+        width: 100%;
+        align-items: center;
+    }
     .post-container {
         width: 90%;
     }
