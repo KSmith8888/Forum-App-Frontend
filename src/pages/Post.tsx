@@ -1,12 +1,12 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import {
     useLoaderData,
     useOutletContext,
-    Form,
     useActionData,
 } from "react-router-dom";
 
 import Comment from "../components/Comment";
+import CommentForm from "../components/CommentForm.tsx";
 import PostHistory from "../components/PostHistory.tsx";
 import { likePost } from "../utils/like.ts";
 import {
@@ -52,19 +52,21 @@ export async function postLoader({ params }: loaderActionInterface) {
 export async function commentAction({ request }: loaderActionInterface) {
     try {
         const commentForm = await request.formData();
-        const comment = commentForm.get("comment");
-        const post = commentForm.get("post");
+        const content = commentForm.get("content");
+        const relatedId = commentForm.get("relatedId");
+        const replyType = commentForm.get("type");
         if (
-            !comment ||
-            typeof comment !== "string" ||
-            typeof post !== "string"
+            !content ||
+            typeof content !== "string" ||
+            typeof relatedId !== "string" ||
+            typeof replyType !== "string"
         ) {
             throw new Error("Please provide a message for your comment");
         }
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
         const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!-]+$", "m");
-        if (!reg.test(comment)) {
+        if (!reg.test(content)) {
             throw new Error(
                 "Please do not include special characters in your message"
             );
@@ -76,7 +78,7 @@ export async function commentAction({ request }: loaderActionInterface) {
             `${import.meta.env.VITE_BACKEND_URL}/api/v1/comments/create`,
             {
                 method: "POST",
-                body: JSON.stringify({ content: comment, postId: post }),
+                body: JSON.stringify({ content, relatedId, replyType }),
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`,
@@ -124,6 +126,7 @@ export default function Post() {
     const [userLikedPost, setUserLikedPost] = useState(didUserAlreadyLike);
     const [postLikes, setPostLikes] = useState(postData.likes);
     const [showHistory, setShowHistory] = useState(false);
+    const [showCommentForm, setShowCommentForm] = useState(false);
     const historyElements = postData.history.map(
         (prevVersion: postHistoryInterface) => {
             return (
@@ -136,13 +139,12 @@ export default function Post() {
             );
         }
     );
-    const commentErrorMsg = useActionData();
-    const commentForm = useRef<HTMLFormElement>(null);
-    useEffect(() => {
-        if (commentForm.current) {
-            commentForm.current.reset();
-        }
-    }, [commentErrorMsg]);
+    const actionData = useActionData();
+    const commentErrorMsg =
+        typeof actionData === "string" || actionData === null
+            ? actionData
+            : null;
+
     const reportModal = useRef<HTMLDialogElement>(null);
     function openReportModal() {
         if (reportModal.current) {
@@ -159,6 +161,7 @@ export default function Post() {
                       <Comment
                           key={comment._id}
                           commentData={comment}
+                          commentErrorMsg={commentErrorMsg}
                           isUserLoggedIn={isUserLoggedIn}
                           openReportModal={openReportModal}
                       />
@@ -173,6 +176,7 @@ export default function Post() {
                       <Comment
                           key={comment._id}
                           commentData={comment}
+                          commentErrorMsg={commentErrorMsg}
                           isUserLoggedIn={isUserLoggedIn}
                           openReportModal={openReportModal}
                       />
@@ -212,6 +216,15 @@ export default function Post() {
                                     }}
                                 >
                                     Like
+                                </button>
+                                <button
+                                    type="button"
+                                    className="button"
+                                    onClick={() => {
+                                        setShowCommentForm(true);
+                                    }}
+                                >
+                                    Reply
                                 </button>
                                 <button
                                     className="button"
@@ -286,6 +299,15 @@ export default function Post() {
                     {historyElements}
                 </div>
             )}
+            {isUserLoggedIn && showCommentForm ? (
+                <CommentForm
+                    commentErrorMsg={commentErrorMsg}
+                    id={postData._id}
+                    type={"post"}
+                />
+            ) : (
+                <p>Log in or create an account to comment</p>
+            )}
             <div className="comments-container">{commentElements}</div>
             {showRemainingComments
                 ? remainingCommentElements
@@ -300,34 +322,6 @@ export default function Post() {
                           Show More
                       </button>
                   )}
-            {isUserLoggedIn && (
-                <Form className="comment-form" method="POST" ref={commentForm}>
-                    <label
-                        htmlFor="comment-input"
-                        className="comment-form-label"
-                    >
-                        Leave a comment:
-                    </label>
-                    <textarea
-                        id="comment-input"
-                        className="input textarea"
-                        name="comment"
-                        maxLength={300}
-                        minLength={4}
-                        rows={6}
-                        cols={40}
-                    ></textarea>
-                    <input type="hidden" value={postData._id} name="post" />
-                    <button type="submit" className="button">
-                        Submit
-                    </button>
-                    <p className="error-message">
-                        {typeof commentErrorMsg === "string"
-                            ? commentErrorMsg
-                            : ""}
-                    </p>
-                </Form>
-            )}
         </div>
     );
 }

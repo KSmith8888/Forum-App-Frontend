@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import CommentForm from "./CommentForm.tsx";
 import { likeComment } from "../utils/like";
 import {
     commentHistoryInterface,
@@ -12,6 +13,7 @@ import { report } from "../utils/report.ts";
 export default function Comment({
     commentData,
     isUserLoggedIn,
+    commentErrorMsg,
     openReportModal,
 }: commentProps) {
     const commentDateString = createDateString(commentData.createdAt, "Posted");
@@ -31,6 +33,7 @@ export default function Comment({
     const [userLikedComment, setUserLikedComment] =
         useState(didUserAlreadyLike);
     const [showHistory, setShowHistory] = useState(false);
+    const [showReplyForm, setShowReplyForm] = useState(false);
     const historyElements = commentData.history.map(
         (prevComment: commentHistoryInterface, index: number) => {
             const prevCommentDateString = createDateString(
@@ -51,7 +54,7 @@ export default function Comment({
     );
 
     return (
-        <div className="comment">
+        <div className={`comment ${commentData.commentReply ? "reply" : ""}`}>
             <p className="comment-text">{commentData.content}</p>
             <div className="comment-likes-container">
                 <p className="comment-likes">Likes: {commentLikes}</p>
@@ -82,13 +85,22 @@ export default function Comment({
                                 Like
                             </button>
                             <button
+                                type="button"
+                                className="button"
+                                onClick={() => {
+                                    setShowReplyForm(true);
+                                }}
+                            >
+                                Reply
+                            </button>
+                            <button
                                 className="button"
                                 onClick={async () => {
                                     try {
                                         await report(
                                             commentData._id,
                                             "Comment",
-                                            commentData.relatedPost
+                                            commentData.relatedMessage
                                         );
                                         openReportModal();
                                     } catch (error) {
@@ -134,6 +146,14 @@ export default function Comment({
                     <h3>Previous Comment Versions</h3>
                     {historyElements}
                 </div>
+            )}
+
+            {isUserLoggedIn && showReplyForm && (
+                <CommentForm
+                    commentErrorMsg={commentErrorMsg}
+                    id={commentData.relatedMessage}
+                    type="comment"
+                />
             )}
         </div>
     );

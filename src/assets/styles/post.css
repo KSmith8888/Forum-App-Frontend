@@ -95,6 +95,10 @@
     align-items: center;
 }
 
+.reply {
+    margin-left: 2em;
+}
+
 .post-likes-container,
 .comment-likes-container {
     display: flex;

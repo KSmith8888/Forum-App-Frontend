@@ -57,17 +57,19 @@ export interface commentInterface {
     content: string;
     likes: number;
     user: string;
-    relatedPost: string;
+    relatedMessage: string;
     hasBeenEdited: boolean;
     history: Array<commentHistoryInterface>;
     createdAt: string;
     updatedAt: string;
     profileImageName: string;
     profileImageAlt: string;
+    commentReply: boolean;
 }
 
 export interface commentProps {
     commentData: commentInterface;
+    commentErrorMsg: string | null;
     isUserLoggedIn: boolean;
     openReportModal: () => void;
 }
