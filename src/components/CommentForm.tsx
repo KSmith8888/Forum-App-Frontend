@@ -3,24 +3,26 @@ import { Form } from "react-router-dom";
 
 interface commentFormProps {
     commentErrorMsg: string | null;
-    id: string;
     type: "post" | "comment";
+    postId: string;
+    commentId?: string;
 }
 
 export default function CommentForm({
     commentErrorMsg,
-    id,
     type,
+    postId,
+    commentId = "none",
 }: commentFormProps) {
     const commentForm = useRef<HTMLFormElement>(null);
     useEffect(() => {
-        if (commentForm.current) {
+        if (commentForm.current && commentErrorMsg === null) {
             commentForm.current.reset();
         }
     }, [commentErrorMsg]);
     return (
         <Form
-            action={`/posts/details/${id}`}
+            action={`/posts/details/${postId}`}
             className="comment-form"
             method="POST"
             ref={commentForm}
@@ -37,7 +39,8 @@ export default function CommentForm({
                 rows={6}
                 cols={40}
             ></textarea>
-            <input type="hidden" value={id} name="relatedId" />
+            <input type="hidden" value={postId} name="postId" />
+            <input type="hidden" value={commentId} name="commentId" />
             <input type="hidden" value={type} name="type" />
             <button type="submit" className="button">
                 Submit

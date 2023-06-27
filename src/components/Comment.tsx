@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import CommentForm from "./CommentForm.tsx";
 import { likeComment } from "../utils/like";
@@ -34,6 +34,11 @@ export default function Comment({
         useState(didUserAlreadyLike);
     const [showHistory, setShowHistory] = useState(false);
     const [showReplyForm, setShowReplyForm] = useState(false);
+    useEffect(() => {
+        if (commentErrorMsg === null) {
+            setShowReplyForm(false);
+        }
+    }, [commentErrorMsg]);
     const historyElements = commentData.history.map(
         (prevComment: commentHistoryInterface, index: number) => {
             const prevCommentDateString = createDateString(
@@ -88,7 +93,7 @@ export default function Comment({
                                 type="button"
                                 className="button"
                                 onClick={() => {
-                                    setShowReplyForm(true);
+                                    setShowReplyForm((prevState) => !prevState);
                                 }}
                             >
                                 Reply
@@ -148,11 +153,12 @@ export default function Comment({
                 </div>
             )}
 
-            {isUserLoggedIn && showReplyForm && (
+            {showReplyForm && (
                 <CommentForm
                     commentErrorMsg={commentErrorMsg}
-                    id={commentData.relatedMessage}
                     type="comment"
+                    postId={commentData.relatedMessage}
+                    commentId={commentData._id}
                 />
             )}
         </div>

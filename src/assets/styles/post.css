@@ -96,7 +96,8 @@
 }
 
 .reply {
-    margin-left: 2em;
+    background-color: lightblue;
+    margin-left: 5em;
 }
 
 .post-likes-container,

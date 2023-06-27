@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
     useLoaderData,
     useOutletContext,
@@ -53,13 +53,15 @@ export async function commentAction({ request }: loaderActionInterface) {
     try {
         const commentForm = await request.formData();
         const content = commentForm.get("content");
-        const relatedId = commentForm.get("relatedId");
+        const postId = commentForm.get("postId");
+        const commentId = commentForm.get("commentId");
         const replyType = commentForm.get("type");
         if (
             !content ||
             typeof content !== "string" ||
-            typeof relatedId !== "string" ||
-            typeof replyType !== "string"
+            typeof postId !== "string" ||
+            typeof replyType !== "string" ||
+            typeof commentId !== "string"
         ) {
             throw new Error("Please provide a message for your comment");
         }
@@ -78,7 +80,7 @@ export async function commentAction({ request }: loaderActionInterface) {
             `${import.meta.env.VITE_BACKEND_URL}/api/v1/comments/create`,
             {
                 method: "POST",
-                body: JSON.stringify({ content, relatedId, replyType }),
+                body: JSON.stringify({ content, postId, commentId, replyType }),
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`,
@@ -140,10 +142,15 @@ export default function Post() {
         }
     );
     const actionData = useActionData();
-    const commentErrorMsg =
-        typeof actionData === "string" || actionData === null
-            ? actionData
-            : null;
+    const [commentErrorMsg, setCommentErrorMsg] = useState<null | string>(null);
+    useEffect(() => {
+        if (typeof actionData === "string" || actionData === null) {
+            setCommentErrorMsg(actionData);
+        }
+        if (actionData === null) {
+            setShowCommentForm(false);
+        }
+    }, [actionData]);
 
     const reportModal = useRef<HTMLDialogElement>(null);
     function openReportModal() {
@@ -221,7 +228,9 @@ export default function Post() {
                                     type="button"
                                     className="button"
                                     onClick={() => {
-                                        setShowCommentForm(true);
+                                        setShowCommentForm(
+                                            (prevState) => !prevState
+                                        );
                                     }}
                                 >
                                     Reply
@@ -258,6 +267,9 @@ export default function Post() {
                             Close
                         </button>
                     </dialog>
+                    {!isUserLoggedIn && (
+                        <p>Log in or create an account to comment</p>
+                    )}
                 </div>
                 <div className="column-info">
                     <div className="author-info-container">
@@ -299,14 +311,12 @@ export default function Post() {
                     {historyElements}
                 </div>
             )}
-            {isUserLoggedIn && showCommentForm ? (
+            {showCommentForm && (
                 <CommentForm
                     commentErrorMsg={commentErrorMsg}
-                    id={postData._id}
                     type={"post"}
+                    postId={postData._id}
                 />
-            ) : (
-                <p>Log in or create an account to comment</p>
             )}
             <div className="comments-container">{commentElements}</div>
             {showRemainingComments
