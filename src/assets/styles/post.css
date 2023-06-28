@@ -2,7 +2,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
 }
 
 .post-title {
@@ -32,6 +32,11 @@
     flex-direction: row-reverse;
     justify-content: center;
     align-items: flex-start;
+    border-bottom: 1px solid black;
+}
+
+.comments-container {
+    width: 65%;
 }
 
 .column-info {
@@ -53,12 +58,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 1em 0;
-    border-top: 1px solid black;
+    padding: 1em;
+}
+
+.comment:nth-child(odd) {
+    background-color: lightblue;
+}
+
+.comment:nth-child(even) {
+    background-color: rgb(215, 231, 236);
 }
 
 .comment-form {
-    margin: 2em 0;
+    margin: 1em 0 0.5em 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -96,12 +108,16 @@
 }
 
 .reply {
-    background-color: lightblue;
-    margin-left: 5em;
+    padding-left: 5em;
 }
 
-.post-likes-container,
+.post-likes-container {
+    display: flex;
+    align-items: center;
+}
+
 .comment-likes-container {
+    margin: 0.5em 0;
     display: flex;
     align-items: center;
 }
@@ -143,8 +159,8 @@
         width: 100%;
         align-items: center;
     }
-    .post-container {
-        width: 90%;
+    .comments-container {
+        width: 100%;
     }
     .post-time,
     .post-edited-time {

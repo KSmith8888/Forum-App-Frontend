@@ -57,7 +57,7 @@ export interface commentInterface {
     content: string;
     likes: number;
     user: string;
-    relatedMessage: string;
+    relatedPost: string;
     hasBeenEdited: boolean;
     history: Array<commentHistoryInterface>;
     createdAt: string;
@@ -70,6 +70,7 @@ export interface commentInterface {
 export interface commentProps {
     commentData: commentInterface;
     commentErrorMsg: string | null;
+    actionData: unknown;
     isUserLoggedIn: boolean;
     openReportModal: () => void;
 }

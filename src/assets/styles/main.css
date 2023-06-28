@@ -79,7 +79,6 @@ img {
 
 .main-section {
     width: 100%;
-    padding: 1em;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

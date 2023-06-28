@@ -14,6 +14,7 @@ export default function Comment({
     commentData,
     isUserLoggedIn,
     commentErrorMsg,
+    actionData,
     openReportModal,
 }: commentProps) {
     const commentDateString = createDateString(commentData.createdAt, "Posted");
@@ -35,10 +36,10 @@ export default function Comment({
     const [showHistory, setShowHistory] = useState(false);
     const [showReplyForm, setShowReplyForm] = useState(false);
     useEffect(() => {
-        if (commentErrorMsg === null) {
+        if (showReplyForm && Array.isArray(actionData)) {
             setShowReplyForm(false);
         }
-    }, [commentErrorMsg]);
+    }, [actionData]);
     const historyElements = commentData.history.map(
         (prevComment: commentHistoryInterface, index: number) => {
             const prevCommentDateString = createDateString(
@@ -105,7 +106,7 @@ export default function Comment({
                                         await report(
                                             commentData._id,
                                             "Comment",
-                                            commentData.relatedMessage
+                                            commentData.relatedPost
                                         );
                                         openReportModal();
                                     } catch (error) {
@@ -157,7 +158,7 @@ export default function Comment({
                 <CommentForm
                     commentErrorMsg={commentErrorMsg}
                     type="comment"
-                    postId={commentData.relatedMessage}
+                    postId={commentData.relatedPost}
                     commentId={commentData._id}
                 />
             )}

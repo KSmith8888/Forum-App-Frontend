@@ -96,7 +96,11 @@ export async function commentAction({ request }: loaderActionInterface) {
                 throw new Error(`Response error: ${res.status}`);
             }
         }
-        return null;
+        const data = await res.json();
+        if (!Array.isArray(data)) {
+            throw new Error("Data Error");
+        }
+        return data;
     } catch (error) {
         let message = "There was an error, please try again later";
         if (error instanceof Error) {
@@ -144,11 +148,10 @@ export default function Post() {
     const actionData = useActionData();
     const [commentErrorMsg, setCommentErrorMsg] = useState<null | string>(null);
     useEffect(() => {
-        if (typeof actionData === "string" || actionData === null) {
-            setCommentErrorMsg(actionData);
-        }
-        if (actionData === null) {
+        if (Array.isArray(actionData)) {
             setShowCommentForm(false);
+        } else if (typeof actionData === "string") {
+            setCommentErrorMsg(actionData);
         }
     }, [actionData]);
 
@@ -169,6 +172,7 @@ export default function Post() {
                           key={comment._id}
                           commentData={comment}
                           commentErrorMsg={commentErrorMsg}
+                          actionData={actionData}
                           isUserLoggedIn={isUserLoggedIn}
                           openReportModal={openReportModal}
                       />
@@ -184,6 +188,7 @@ export default function Post() {
                           key={comment._id}
                           commentData={comment}
                           commentErrorMsg={commentErrorMsg}
+                          actionData={actionData}
                           isUserLoggedIn={isUserLoggedIn}
                           openReportModal={openReportModal}
                       />
