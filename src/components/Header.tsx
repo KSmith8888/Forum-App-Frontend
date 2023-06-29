@@ -7,14 +7,17 @@ interface headerProps {
     isUserLoggedIn: boolean;
     setIsUserLoggedIn: (isUserLoggedIn: boolean) => void;
     hasPicBeenUpdated: boolean;
+    numOfNotifications: number;
 }
 
 export default function Header({
     isUserLoggedIn,
     setIsUserLoggedIn,
     hasPicBeenUpdated,
+    numOfNotifications,
 }: headerProps) {
     const navigate = useNavigate();
+    const newNotifications = numOfNotifications > 0 ? true : false;
     let profileImageName = "blank.png";
     let profileImageAlt = "A generic, blank outline of a mans upper body";
     function profilePicPath() {
@@ -67,6 +70,9 @@ export default function Header({
                     />
                     {isUserLoggedIn ? (
                         <div className="vertical-button-container">
+                            {newNotifications && (
+                                <p>Notifications: {numOfNotifications}</p>
+                            )}
                             <Link to="/profile" className="button-link">
                                 Profile
                             </Link>

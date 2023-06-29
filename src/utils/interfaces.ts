@@ -89,3 +89,10 @@ export interface reportInterface {
     createdAt: string;
     updatedAt: string;
 }
+
+export interface notificationInterface {
+    _id: string;
+    message: string;
+    isReply: boolean;
+    replyMessageId: string;
+}

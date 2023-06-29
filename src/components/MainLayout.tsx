@@ -6,6 +6,7 @@ import Footer from "./Footer.tsx";
 export default function Layout() {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
     const [hasPicBeenUpdated, setHasPicBeenUpdated] = useState<boolean>(false);
+    const [numOfNotifications, setNumOfNotifications] = useState(0);
 
     return (
         <div className="top-level-container">
@@ -13,6 +14,7 @@ export default function Layout() {
                 isUserLoggedIn={isUserLoggedIn}
                 setIsUserLoggedIn={setIsUserLoggedIn}
                 hasPicBeenUpdated={hasPicBeenUpdated}
+                numOfNotifications={numOfNotifications}
             />
             <main className="main-section">
                 <Outlet
@@ -20,6 +22,7 @@ export default function Layout() {
                         isUserLoggedIn,
                         setIsUserLoggedIn,
                         setHasPicBeenUpdated,
+                        setNumOfNotifications,
                     }}
                 />
             </main>

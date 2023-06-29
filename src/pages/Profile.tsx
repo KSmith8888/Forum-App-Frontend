@@ -13,6 +13,7 @@ import {
     loaderActionInterface,
     profilePicInterface,
     outletInterface,
+    notificationInterface,
 } from "../utils/interfaces";
 import { deleteAccount } from "../utils/delete-account";
 import ProfilePicSelector from "../components/ProfilePicSelector";
@@ -25,12 +26,23 @@ interface userProfilePost {
 }
 
 export async function profileLoader() {
+    const token = sessionStorage.getItem("token");
     const userId = sessionStorage.getItem("_id");
     if (!userId) {
         return redirect("/?message=Please log in");
     }
     const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/user/${userId}`
+        `${
+            import.meta.env.VITE_BACKEND_URL
+        }/api/v1/users/profile/details/${userId}`,
+        {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+                "user_id": userId,
+            },
+        }
     );
     if (!res.ok) {
         const errorData = await res.json();
@@ -105,12 +117,19 @@ export default function Profile() {
     const loaderData = useLoaderData();
     let postsData = [];
     let commentsData = [];
+    let notificationsData = [];
     if (loaderData && typeof loaderData === "object") {
         if ("posts" in loaderData && Array.isArray(loaderData.posts)) {
             postsData = loaderData.posts;
         }
         if ("comments" in loaderData && Array.isArray(loaderData.comments)) {
             commentsData = loaderData.comments;
+        }
+        if (
+            "notifications" in loaderData &&
+            Array.isArray(loaderData.notifications)
+        ) {
+            notificationsData = loaderData.notifications;
         }
     }
     const messageModal = useRef<HTMLDialogElement>(null);
@@ -185,6 +204,15 @@ export default function Profile() {
             </div>
         );
     });
+    const notificationElements = notificationsData.map(
+        (notification: notificationInterface) => {
+            return (
+                <div key={notification._id} className="profile-notification">
+                    <p>{notification.message}</p>
+                </div>
+            );
+        }
+    );
     const { setHasPicBeenUpdated, setIsUserLoggedIn } =
         useOutletContext<outletInterface>();
     const navigate = useNavigate();
@@ -264,6 +292,16 @@ export default function Profile() {
                 profilePic={profilePic}
                 setHasPicBeenUpdated={setHasPicBeenUpdated}
             />
+            {notificationElements.length > 0 ? (
+                <>
+                    <h3>Notifications:</h3>
+                    <div className="notifications-container">
+                        {notificationElements}
+                    </div>
+                </>
+            ) : (
+                <p>No notifications at this time</p>
+            )}
             {postElements.length > 0 ? (
                 <>
                     <h3>Your Posts:</h3>
