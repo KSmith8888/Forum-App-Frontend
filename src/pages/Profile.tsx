@@ -28,7 +28,7 @@ interface userProfilePost {
 export async function profileLoader() {
     const token = sessionStorage.getItem("token");
     const userId = sessionStorage.getItem("_id");
-    if (!userId) {
+    if (!userId || !token) {
         return redirect("/?message=Please log in");
     }
     const res = await fetch(
@@ -209,10 +209,19 @@ export default function Profile() {
             return (
                 <div key={notification._id} className="profile-notification">
                     <p>{notification.message}</p>
+                    {notification.isReply && (
+                        <Link
+                            to={`/posts/details/${notification.replyMessageId}`}
+                            className="button-link"
+                        >
+                            The Thread
+                        </Link>
+                    )}
                 </div>
             );
         }
     );
+
     const { setHasPicBeenUpdated, setIsUserLoggedIn } =
         useOutletContext<outletInterface>();
     const navigate = useNavigate();

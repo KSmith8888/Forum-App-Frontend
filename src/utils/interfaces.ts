@@ -94,5 +94,5 @@ export interface notificationInterface {
     _id: string;
     message: string;
     isReply: boolean;
-    replyMessageId: string;
+    replyMessageId?: string;
 }
