@@ -7,7 +7,6 @@ import { profilePicInterface } from "../utils/interfaces.ts";
 
 export default function Layout() {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
-    const [hasPicBeenUpdated, setHasPicBeenUpdated] = useState<boolean>(false);
     const [numOfNotifications, setNumOfNotifications] = useState(0);
     const initialProfilePic = {
         name: "blank.png",
@@ -21,15 +20,15 @@ export default function Layout() {
             <Header
                 isUserLoggedIn={isUserLoggedIn}
                 setIsUserLoggedIn={setIsUserLoggedIn}
-                hasPicBeenUpdated={hasPicBeenUpdated}
                 numOfNotifications={numOfNotifications}
+                profilePic={profilePic}
+                setProfilePic={setProfilePic}
             />
             <main className="main-section">
                 <Outlet
                     context={{
                         isUserLoggedIn,
                         setIsUserLoggedIn,
-                        setHasPicBeenUpdated,
                         setNumOfNotifications,
                         profilePic,
                         setProfilePic,

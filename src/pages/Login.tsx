@@ -42,15 +42,11 @@ export async function loginAction({ request }: loaderActionInterface) {
         const data = await res.json();
         if (
             typeof data === "object" &&
-            "profileImageName" in data &&
-            "profileImageAlt" in data &&
             "role" in data &&
             "displayName" in data &&
             "_id" in data &&
             "token" in data
         ) {
-            localStorage.setItem("profileImageName", data.profileImageName);
-            localStorage.setItem("profileImageAlt", data.profileImageAlt);
             sessionStorage.setItem("role", data.role);
             sessionStorage.setItem("username", data.displayName);
             sessionStorage.setItem("_id", data._id);
@@ -58,17 +54,11 @@ export async function loginAction({ request }: loaderActionInterface) {
         } else {
             throw new Error("There has been an error, please try again later");
         }
-        return {
-            username: data.username,
-            userId: data._id,
-            status: data.status,
-        };
+        return data;
     } catch (error) {
-        const errorMessage = {
-            status: "There has been an error, please try again later",
-        };
+        let errorMessage = "There has been an error, please try again later";
         if (error instanceof Error) {
-            errorMessage.status = error.message;
+            errorMessage = error.message;
         }
         return errorMessage;
     }
@@ -79,28 +69,34 @@ export default function Login() {
     const loginForm = useRef<HTMLFormElement>(null);
     const navigate = useNavigate();
     const [loginMessage, setLoginMessage] = useState("");
-    const { setIsUserLoggedIn } = useOutletContext<outletInterface>();
+    const { setIsUserLoggedIn, setProfilePic } =
+        useOutletContext<outletInterface>();
 
     useEffect(() => {
         if (
             loginData &&
             typeof loginData === "object" &&
+            !Array.isArray(loginData) &&
             "status" in loginData &&
-            typeof loginData.status === "string"
+            typeof loginData.status === "string" &&
+            "profileImageName" in loginData &&
+            "profileImageAlt" in loginData &&
+            typeof loginData.profileImageName === "string" &&
+            typeof loginData.profileImageAlt === "string" &&
+            loginData.status === "Login successful" &&
+            sessionStorage.getItem("username")
         ) {
-            setLoginMessage(loginData.status);
-            if (
-                loginData.status === "Login successful" &&
-                sessionStorage.getItem("username")
-            ) {
-                setTimeout(() => {
-                    if (loginForm.current) {
-                        loginForm.current.reset();
-                        setIsUserLoggedIn(true);
-                        navigate("/profile");
-                    }
-                }, 1000);
+            if (loginForm.current) {
+                loginForm.current.reset();
             }
+            setProfilePic({
+                name: loginData.profileImageName,
+                alt: loginData.profileImageAlt,
+            });
+            setIsUserLoggedIn(true);
+            navigate("/profile");
+        } else if (typeof loginData === "string") {
+            setLoginMessage(loginData);
         }
     }, [loginData]);
 

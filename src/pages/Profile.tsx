@@ -207,23 +207,8 @@ export default function Profile() {
         }
     );
 
-    const { setIsUserLoggedIn, isUserLoggedIn, profilePic, setProfilePic } =
+    const { setIsUserLoggedIn, profilePic, setProfilePic } =
         useOutletContext<outletInterface>();
-    useEffect(() => {
-        const savedProfileImage = localStorage.getItem("profileImageName");
-        const savedProfileAltText = localStorage.getItem("profileImageAlt");
-        if (isUserLoggedIn && savedProfileImage && savedProfileAltText) {
-            if (
-                savedProfileImage !== profilePic.name &&
-                savedProfileAltText !== profilePic.alt
-            ) {
-                setProfilePic({
-                    name: savedProfileImage,
-                    alt: savedProfileAltText,
-                });
-            }
-        }
-    }, []);
     const navigate = useNavigate();
 
     function logoutUser(msg: string) {
@@ -232,6 +217,10 @@ export default function Profile() {
         sessionStorage.removeItem("_id");
         sessionStorage.removeItem("token");
         setIsUserLoggedIn(false);
+        setProfilePic({
+            name: "blank.png",
+            alt: "A generic, blank outline of a mans upper body",
+        });
         navigate(`/?message=${msg}`);
     }
 
