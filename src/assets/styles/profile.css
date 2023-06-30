@@ -23,6 +23,7 @@
     height: 50px;
     border: none;
     padding: 0;
+    margin: 0.25em 0.5em;
 }
 
 .delete-account-container {

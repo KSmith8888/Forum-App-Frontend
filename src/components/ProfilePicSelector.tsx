@@ -1,23 +1,20 @@
 import { useRef, useEffect, useState } from "react";
+import { useOutletContext } from "react-router-dom";
 
 import { updateProfilePic } from "../utils/pfp.ts";
-import { profilePicInterface } from "../utils/interfaces.ts";
+import { profilePicInterface, outletInterface } from "../utils/interfaces.ts";
+import PicSelectorButton from "../components/PicSelectorButton.tsx";
 
 interface profilePicProps {
     isPicModalOpen: boolean;
     setIsPicModalOpen: (value: boolean) => void;
-    profilePic: profilePicInterface;
-    setProfilePic: (profilePic: profilePicInterface) => void;
-    setHasPicBeenUpdated: (hasPicBeenUpdated: boolean) => void;
 }
 
 export default function ProfilePicSelector({
     isPicModalOpen,
     setIsPicModalOpen,
-    profilePic,
-    setProfilePic,
-    setHasPicBeenUpdated,
 }: profilePicProps) {
+    const { profilePic, setProfilePic } = useOutletContext<outletInterface>();
     const picModal = useRef<HTMLDialogElement>(null);
     useEffect(() => {
         if (isPicModalOpen && picModal.current) {
@@ -37,7 +34,6 @@ export default function ProfilePicSelector({
             localStorage.setItem("profileImageAlt", newPicInfo.alt);
             setProfilePic(newPicInfo);
             setIsPicModalOpen(false);
-            setHasPicBeenUpdated(true);
             if (picModal.current) {
                 picModal.current.close();
             }
@@ -48,46 +44,24 @@ export default function ProfilePicSelector({
         <dialog className="profile-image-modal" ref={picModal}>
             <h3>Select a profile picture:</h3>
             <div className="profile-image-grid">
-                <button
-                    type="button"
-                    className="profile-image-button"
-                    onClick={() => {
-                        handlePicUpdate({
-                            name: "blank.png",
-                            alt: "A generic, blank outline of a mans upper body",
-                        });
-                    }}
-                >
-                    <img
-                        src="/profile-images/blank.png"
-                        alt="A generic, blank outline of a mans upper body"
-                        className={`profile-image-grid-item ${
-                            profilePic.name === "blank.png"
-                                ? "profile-image-selected"
-                                : ""
-                        }`}
-                    />
-                </button>
-                <button
-                    type="button"
-                    className="profile-image-button"
-                    onClick={() => {
-                        handlePicUpdate({
-                            name: "apple.jpg",
-                            alt: "A red apple with sunlit trees in the background",
-                        });
-                    }}
-                >
-                    <img
-                        src="/profile-images/apple.jpg"
-                        alt="A red apple with sunlit trees in the background"
-                        className={`profile-image-grid-item ${
-                            profilePic.name === "apple.jpg"
-                                ? "profile-image-selected"
-                                : ""
-                        }`}
-                    />
-                </button>
+                <PicSelectorButton
+                    handlePicUpdate={handlePicUpdate}
+                    name="blank.png"
+                    alt="A generic, blank outline of a mans upper body"
+                    profilePic={profilePic}
+                />
+                <PicSelectorButton
+                    handlePicUpdate={handlePicUpdate}
+                    name="apple.jpg"
+                    alt="A red apple with sunlit trees in the background"
+                    profilePic={profilePic}
+                />
+                <PicSelectorButton
+                    handlePicUpdate={handlePicUpdate}
+                    name="coffee.jpg"
+                    alt="A white mug filled with coffee, surrounded by coffee beans"
+                    profilePic={profilePic}
+                />
             </div>
             <p className="error-message">{profilePicErrorMsg}</p>
             <button

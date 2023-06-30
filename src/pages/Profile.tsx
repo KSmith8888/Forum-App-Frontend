@@ -11,7 +11,6 @@ import {
 
 import {
     loaderActionInterface,
-    profilePicInterface,
     outletInterface,
     notificationInterface,
 } from "../utils/interfaces";
@@ -141,20 +140,6 @@ export default function Profile() {
             messageModal.current.showModal();
         }
     }, [actionMessage]);
-    let initialProfilePic = {
-        name: "blank.png",
-        alt: "A generic, blank outline of a mans upper body",
-    };
-    const savedProfileImage = localStorage.getItem("profileImageName");
-    const savedProfileAltText = localStorage.getItem("profileImageAlt");
-    if (savedProfileImage && savedProfileAltText) {
-        initialProfilePic = {
-            name: savedProfileImage,
-            alt: savedProfileAltText,
-        };
-    }
-    const [profilePic, setProfilePic] =
-        useState<profilePicInterface>(initialProfilePic);
 
     const [isPicModalOpen, setIsPicModalOpen] = useState(false);
     const postElements = postsData.map((post: userProfilePost) => {
@@ -222,8 +207,23 @@ export default function Profile() {
         }
     );
 
-    const { setHasPicBeenUpdated, setIsUserLoggedIn } =
+    const { setIsUserLoggedIn, isUserLoggedIn, profilePic, setProfilePic } =
         useOutletContext<outletInterface>();
+    useEffect(() => {
+        const savedProfileImage = localStorage.getItem("profileImageName");
+        const savedProfileAltText = localStorage.getItem("profileImageAlt");
+        if (isUserLoggedIn && savedProfileImage && savedProfileAltText) {
+            if (
+                savedProfileImage !== profilePic.name &&
+                savedProfileAltText !== profilePic.alt
+            ) {
+                setProfilePic({
+                    name: savedProfileImage,
+                    alt: savedProfileAltText,
+                });
+            }
+        }
+    }, []);
     const navigate = useNavigate();
 
     function logoutUser(msg: string) {
@@ -297,9 +297,6 @@ export default function Profile() {
             <ProfilePicSelector
                 isPicModalOpen={isPicModalOpen}
                 setIsPicModalOpen={setIsPicModalOpen}
-                setProfilePic={setProfilePic}
-                profilePic={profilePic}
-                setHasPicBeenUpdated={setHasPicBeenUpdated}
             />
             {notificationElements.length > 0 ? (
                 <>
