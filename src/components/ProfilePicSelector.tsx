@@ -24,17 +24,15 @@ export default function ProfilePicSelector({
     const [profilePicErrorMsg, setProfilePicErrorMsg] = useState("");
 
     async function handlePicUpdate(newPicInfo: profilePicInterface) {
-        const picUpdateData: Error | Response = await updateProfilePic(
+        const picUpdateData: Error | { msg: string } = await updateProfilePic(
             newPicInfo
         );
         if (picUpdateData instanceof Error) {
             setProfilePicErrorMsg(picUpdateData.message);
         } else {
-            localStorage.setItem("profileImageName", newPicInfo.name);
-            localStorage.setItem("profileImageAlt", newPicInfo.alt);
             setProfilePic(newPicInfo);
-            setIsPicModalOpen(false);
             if (picModal.current) {
+                setIsPicModalOpen(false);
                 picModal.current.close();
             }
         }
@@ -42,7 +40,9 @@ export default function ProfilePicSelector({
 
     return (
         <dialog className="profile-image-modal" ref={picModal}>
-            <h3>Select a profile picture:</h3>
+            <h3 className="profile-pic-modal-heading">
+                Select a Profile Picture:
+            </h3>
             <div className="profile-image-grid">
                 <PicSelectorButton
                     handlePicUpdate={handlePicUpdate}
@@ -62,8 +62,13 @@ export default function ProfilePicSelector({
                     alt="A white mug filled with coffee, surrounded by coffee beans"
                     profilePic={profilePic}
                 />
+                <PicSelectorButton
+                    handlePicUpdate={handlePicUpdate}
+                    name="tree.jpg"
+                    alt="A green tree in an open field of grass, with hazy sky in the background"
+                    profilePic={profilePic}
+                />
             </div>
-            <p className="error-message">{profilePicErrorMsg}</p>
             <button
                 className="button"
                 type="button"
@@ -76,6 +81,7 @@ export default function ProfilePicSelector({
             >
                 Close
             </button>
+            <p className="error-message">{profilePicErrorMsg}</p>
         </dialog>
     );
 }

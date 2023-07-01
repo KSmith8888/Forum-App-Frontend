@@ -25,7 +25,12 @@ export async function updateProfilePic(profilePic: profilePicInterface) {
             }
         );
         if (!res.ok) {
-            throw new Error(`Status Error: ${res.status}`);
+            const errorData = await res.json();
+            if (errorData && errorData.msg) {
+                throw new Error(errorData.msg);
+            } else {
+                throw new Error(`Response error: ${res.status}`);
+            }
         }
         const data = await res.json();
         return data;

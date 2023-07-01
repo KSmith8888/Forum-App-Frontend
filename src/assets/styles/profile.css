@@ -5,6 +5,18 @@
     cursor: pointer;
 }
 
+.profile-image-grid {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 0.5em;
+}
+
+.profile-pic-modal-heading {
+    margin: 0 0 1em 0;
+}
+
 .profile-image-selected {
     border: 3px solid rgb(7, 7, 77);
 }
@@ -13,7 +25,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 2em;
+    justify-content: center;
+    padding: 2em 2em 0.5em 2em;
     border: 1px solid black;
     background-color: rgb(218, 214, 214);
 }
@@ -81,4 +94,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.user-comments-container {
+    padding: 0 1em;
 }
