@@ -68,6 +68,36 @@ export default function ProfilePicSelector({
                     alt="A green tree in an open field of grass, with hazy sky in the background"
                     profilePic={profilePic}
                 />
+                <PicSelectorButton
+                    handlePicUpdate={handlePicUpdate}
+                    name="guitar.jpg"
+                    alt="A black, brown and white electric guitar, tilted diagonally"
+                    profilePic={profilePic}
+                />
+                <PicSelectorButton
+                    handlePicUpdate={handlePicUpdate}
+                    name="iced-tea.jpg"
+                    alt="A clear glass filled with iced tea, with two lemons next to it"
+                    profilePic={profilePic}
+                />
+                <PicSelectorButton
+                    handlePicUpdate={handlePicUpdate}
+                    name="laptop.jpg"
+                    alt="A grey and black laptop computer, displaying various charts and graphs"
+                    profilePic={profilePic}
+                />
+                <PicSelectorButton
+                    handlePicUpdate={handlePicUpdate}
+                    name="boat.jpg"
+                    alt="A white yacht on a blue body of water with clear sky in the background"
+                    profilePic={profilePic}
+                />
+                <PicSelectorButton
+                    handlePicUpdate={handlePicUpdate}
+                    name="globe.jpg"
+                    alt="A globe of the Earth sitting on a dark brown desk"
+                    profilePic={profilePic}
+                />
             </div>
             <button
                 className="button"
