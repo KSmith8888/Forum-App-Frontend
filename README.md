@@ -6,29 +6,29 @@ The frontend of a forum/social media app made with the MERN stack
 
 ### Dependencies
 
-react:
+react:  
 https://github.com/facebook/react  
-react-dom:
+react-dom:  
 https://github.com/facebook/react  
-react-router-dom:
-https://github.com/remix-run/react-router
-typescript:
+react-router-dom:  
+https://github.com/remix-run/react-router  
+typescript:  
 https://github.com/Microsoft/TypeScript  
-vite:
-https://github.com/vitejs/vite
-eslint:
+vite:  
+https://github.com/vitejs/vite  
+eslint:  
 https://github.com/eslint/eslint  
-eslint-plugin-react:
-https://github.com/jsx-eslint/eslint-plugin-react
-@types/react:
+eslint-plugin-react:  
+https://github.com/jsx-eslint/eslint-plugin-react  
+@types/react:  
 https://github.com/DefinitelyTyped/DefinitelyTyped  
-@types/react-dom:
+@types/react-dom:  
 https://github.com/DefinitelyTyped/DefinitelyTyped  
-@typescript-eslint/eslint-plugin:
+@typescript-eslint/eslint-plugin:  
 https://github.com/typescript-eslint/typescript-eslint  
-@typescript-eslint/parser:
+@typescript-eslint/parser:  
 https://github.com/typescript-eslint/typescript-eslint  
-@vitejs/plugin-react:
+@vitejs/plugin-react:  
 https://github.com/vitejs/vite-plugin-react
 
 ### Images
