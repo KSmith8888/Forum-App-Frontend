@@ -6,9 +6,7 @@ The frontend of a forum/social media app made with the MERN stack
 
 ### Dependencies
 
-react:  
-https://github.com/facebook/react  
-react-dom:  
+react and react-dom:  
 https://github.com/facebook/react  
 react-router-dom:  
 https://github.com/remix-run/react-router  
@@ -20,13 +18,9 @@ eslint:
 https://github.com/eslint/eslint  
 eslint-plugin-react:  
 https://github.com/jsx-eslint/eslint-plugin-react  
-@types/react:  
+@types/react and @types/react-dom:  
 https://github.com/DefinitelyTyped/DefinitelyTyped  
-@types/react-dom:  
-https://github.com/DefinitelyTyped/DefinitelyTyped  
-@typescript-eslint/eslint-plugin:  
-https://github.com/typescript-eslint/typescript-eslint  
-@typescript-eslint/parser:  
+@typescript-eslint/eslint-plugin and @typescript-eslint/parser:  
 https://github.com/typescript-eslint/typescript-eslint  
 @vitejs/plugin-react:  
 https://github.com/vitejs/vite-plugin-react
@@ -54,3 +48,7 @@ Apple red fruit red chief by NoName_13:
 https://pixabay.com/photos/apple-red-fruit-red-chief-1702316/  
 Guitar electric guitar by PIRO:  
 https://pixabay.com/photos/guitar-electric-guitar-2925282/
+
+## License
+
+MIT: https://github.com/KSmith8888/Forum-App-Frontend/blob/main/LICENSE
