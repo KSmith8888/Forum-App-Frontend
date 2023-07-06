@@ -113,9 +113,18 @@ img {
 
 .footer {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+}
+
+.footer-text {
+    margin: 0.5em 0;
     text-align: center;
-    padding: 1.5em;
     font-size: 0.8rem;
+    max-width: 45em;
 }
 
 .button-container {
@@ -141,6 +150,10 @@ img {
 
 .select {
     align-self: flex-start;
+}
+
+.checkbox {
+    cursor: pointer;
 }
 
 .login-form,
@@ -169,6 +182,7 @@ img {
 
 .register-form,
 .login-section {
+    max-width: 25em;
     text-align: center;
     padding: 0 1em;
 }
@@ -181,4 +195,21 @@ img {
 .block-label-text {
     margin: 0 1em;
     display: block;
+}
+
+.terms-container {
+    max-width: 25em;
+    padding: 1em;
+}
+
+.terms-list-item {
+    margin: 0.5em 0;
+}
+
+#terms-input-container {
+    margin: 0.5em 0;
+}
+
+#accept-terms-input {
+    margin-right: 1em;
 }

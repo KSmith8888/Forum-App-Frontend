@@ -28,6 +28,7 @@ import Moderation, {
     moderationLoader,
     moderationAction,
 } from "../pages/Moderation.tsx";
+import Terms from "../pages/Terms.tsx";
 import NotFound from "../pages/NotFound.tsx";
 //Assets
 import "../assets/styles/main.css";
@@ -107,6 +108,11 @@ const router = createBrowserRouter(
                 element={<Moderation />}
                 loader={moderationLoader}
                 action={moderationAction}
+                errorElement={<ErrorElement />}
+            />
+            <Route
+                path="/terms"
+                element={<Terms />}
                 errorElement={<ErrorElement />}
             />
             <Route

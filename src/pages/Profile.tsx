@@ -146,7 +146,7 @@ export default function Profile() {
         return (
             <div key={post.id} className="post-link-container">
                 <Link to={`/posts/details/${post.id}`} className="post-link">
-                    <h4 className="post-link-title">{post.title}</h4>
+                    {post.title}
                 </Link>
                 <div className="button-container">
                     <Link to={`/posts/edit/${post.id}`} className="button-link">
@@ -168,9 +168,9 @@ export default function Profile() {
                 <div className="button-container">
                     <Link
                         to={`/posts/details/${comment.relatedPost}`}
-                        className="button-link"
+                        className="related-post-link"
                     >
-                        Post
+                        Related Post
                     </Link>
                     <Link
                         to={`/posts/comments/edit/${comment._id}`}

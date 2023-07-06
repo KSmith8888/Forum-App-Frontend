@@ -1,4 +1,4 @@
-import { Form, useActionData, redirect } from "react-router-dom";
+import { Form, useActionData, redirect, Link } from "react-router-dom";
 
 import { loaderActionInterface } from "../utils/interfaces";
 
@@ -7,9 +7,12 @@ export async function registerAction({ request }: loaderActionInterface) {
         const loginData = await request.formData();
         const username = loginData.get("username");
         const password = loginData.get("password");
+        const terms = loginData.get("terms");
         const passwordConfirm = loginData.get("password-confirm");
-        if (!username || !password) {
-            throw new Error("You must provide a valid username and password");
+        if (!username || !password || !terms) {
+            throw new Error(
+                "You must provide a valid username and password and agree to the terms of service"
+            );
         }
         if (typeof username !== "string" || typeof password !== "string") {
             throw new Error(
@@ -25,7 +28,7 @@ export async function registerAction({ request }: loaderActionInterface) {
             `${import.meta.env.VITE_BACKEND_URL}/api/v1/users`,
             {
                 method: "POST",
-                body: JSON.stringify({ username, password }),
+                body: JSON.stringify({ username, password, terms }),
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -104,6 +107,22 @@ export default function Register() {
                 maxLength={18}
                 required
             />
+            <div id="terms-input-container">
+                <input
+                    id="accept-terms-input"
+                    className="checkbox"
+                    type="checkbox"
+                    name="terms"
+                    value="terms"
+                    required
+                />
+                <label htmlFor="accept-terms-input">
+                    I agree to the{" "}
+                    <Link to="/terms" target="_blank">
+                        Terms of Service
+                    </Link>
+                </label>
+            </div>
 
             <button type="submit" className="button">
                 Submit

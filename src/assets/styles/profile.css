@@ -74,9 +74,14 @@
 }
 
 .post-link-container {
+    margin: 0.5em 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+}
+
+.post-link {
+    margin-bottom: 1em;
 }
 
 .comment-link-content {
