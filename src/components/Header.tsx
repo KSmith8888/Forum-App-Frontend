@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { profilePicInterface } from "../utils/interfaces";
 
@@ -20,6 +21,7 @@ export default function Header({
 }: headerProps) {
     const navigate = useNavigate();
     const newNotifications = numOfNotifications > 0 ? true : false;
+    const mobileMenuBtn = useRef<HTMLButtonElement>(null);
 
     function logoutUser() {
         sessionStorage.removeItem("role");
@@ -39,15 +41,29 @@ export default function Header({
             <h1 className="main-heading">The Forum App</h1>
             <div className="header-info-container">
                 <nav className="main-nav">
-                    <Link to="/" className="link">
+                    <Link to="/" className="button-link">
                         Home
                     </Link>
-                    <Link to="/search" className="link">
-                        Search Posts
+                    <Link to="/search" className="button-link">
+                        Search
                     </Link>
-                    <Link to="/register" className="link">
-                        Create Account
+                    <Link to="/register" className="button-link">
+                        Register
                     </Link>
+                    {isUserLoggedIn ? (
+                        <>
+                            <Link to="/profile" className="button-link">
+                                Profile
+                            </Link>
+                            <button className="button" onClick={logoutUser}>
+                                Logout
+                            </button>
+                        </>
+                    ) : (
+                        <Link to="/login" className="button-link">
+                            Login
+                        </Link>
+                    )}
                 </nav>
 
                 <div className="profile-container">
@@ -56,24 +72,19 @@ export default function Header({
                         alt={profilePic.alt}
                         className="profile-image"
                     />
-                    {isUserLoggedIn ? (
-                        <div className="vertical-button-container">
-                            {newNotifications && (
-                                <p>Notifications: {numOfNotifications}</p>
-                            )}
-                            <Link to="/profile" className="button-link">
-                                Profile
-                            </Link>
-                            <button className="button" onClick={logoutUser}>
-                                Logout
-                            </button>
-                        </div>
-                    ) : (
-                        <Link to="/login" className="button-link">
-                            Login
-                        </Link>
+                    {newNotifications && (
+                        <p>Notifications: {numOfNotifications}</p>
                     )}
                 </div>
+
+                <button
+                    ref={mobileMenuBtn}
+                    className="hamburger-menu-button hidden"
+                    aria-label="Open Menu"
+                    onClick={() => {
+                        console.log("Open Menu");
+                    }}
+                ></button>
             </div>
         </header>
     );

@@ -49,11 +49,14 @@ export default function Home() {
     const postElements = postData.map((post: postInterface) => {
         const startingChars = post.content.substring(0, 50);
         return (
-            <div key={post._id} className="trending-post-link">
-                <Link to={`/posts/details/${post._id}`}>
-                    <h3>{post.title}</h3>
+            <div key={post._id} className="trending-post-link-container">
+                <Link
+                    to={`/posts/details/${post._id}`}
+                    className="trending-post-link"
+                >
+                    <h3 className="trending-post-title">{post.title}</h3>
                 </Link>
-                <p>{`${startingChars}...`}</p>
+                <p className="trending-post-text">{`${startingChars}...`}</p>
             </div>
         );
     });
@@ -63,17 +66,17 @@ export default function Home() {
             <p className="user-message">{message ? message : ""}</p>
             <div className="home-container">
                 <section className="trending-posts-section">
-                    <h2 className="home-heading">Trending Posts:</h2>
+                    <h2 className="popular-posts-heading">Popular Posts:</h2>
                     {postElements.length > 0 ? (
                         <div className="trending-post-elements">
                             {postElements}
                         </div>
                     ) : (
-                        <p>No trending posts available at this time</p>
+                        <p>No popular posts available at this time</p>
                     )}
                 </section>
                 <section className="topics-links-section">
-                    <h2>Topics:</h2>
+                    <h2 className="topics-heading">Topics:</h2>
                     <nav className="topics-nav">
                         <Link to="/posts/programming" className="link">
                             Programming
