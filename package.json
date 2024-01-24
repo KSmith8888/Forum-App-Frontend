@@ -23,10 +23,10 @@
     "dependencies": {
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "react-router-dom": "^6.21.1"
+        "react-router-dom": "^6.21.3"
     },
     "devDependencies": {
-        "@types/react": "^18.2.47",
+        "@types/react": "^18.2.48",
         "@types/react-dom": "^18.2.18",
         "@typescript-eslint/eslint-plugin": "^5.62.0",
         "@typescript-eslint/parser": "^5.62.0",
@@ -34,6 +34,6 @@
         "eslint": "^8.56.0",
         "eslint-plugin-react": "^7.33.2",
         "typescript": "^5.3.3",
-        "vite": "^4.5.1"
+        "vite": "^4.5.2"
     }
 }
