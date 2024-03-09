@@ -10,3 +10,14 @@
     min-width: 8em;
     align-self: flex-start;
 }
+
+.post-type-container {
+    display: flex;
+    justify-content: center;
+}
+
+.post-type-button:disabled {
+    background-color: rgb(238, 240, 241);
+    color: rgb(104, 102, 102);
+    border: 1px solid rgb(92, 91, 91);
+}

@@ -201,7 +201,13 @@ export default function Post() {
             <article className="post">
                 <div className="column-content">
                     <h2 className="post-title">{postData.title}</h2>
-                    <p className="post-text">{postData.content}</p>
+                    <p className="post-text">
+                        {postData.postType === "Link" ? (
+                            <a href={postData.content}>{postData.content}</a>
+                        ) : (
+                            postData.content
+                        )}
+                    </p>
                     <div className="post-likes-container">
                         <p className="post-likes">Likes: {postLikes}</p>
                         {isUserLoggedIn && (

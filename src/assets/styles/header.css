@@ -38,11 +38,18 @@
     height: 40px;
 }
 
+.nav-modal {
+    min-width: 15em;
+    background-color: rgb(233, 218, 199);
+    border: 2px solid black;
+    text-align: center;
+}
+
 .main-nav {
     margin: 1em;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    align-items: stretch;
 }
 
 .link {
@@ -54,7 +61,7 @@
 }
 
 .hamburger-menu-button {
-    display: none;
+    cursor: pointer;
     background-image: url("/profile-images/mobile-menu.png");
     background-size: cover;
     background-repeat: no-repeat;
@@ -78,8 +85,5 @@
     }
     .profile-image {
         margin-right: 0;
-    }
-    .hamburger-menu-button {
-        display: inline;
     }
 }

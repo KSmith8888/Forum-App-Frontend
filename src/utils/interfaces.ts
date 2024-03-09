@@ -40,6 +40,7 @@ export interface likeInterface {
 export interface postInterface {
     _id: string;
     title: string;
+    postType: string;
     content: string;
     topic: string;
     likes: number;

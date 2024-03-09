@@ -22,8 +22,16 @@ export default function Header({
     const navigate = useNavigate();
     const newNotifications = numOfNotifications > 0 ? true : false;
     const mobileMenuBtn = useRef<HTMLButtonElement>(null);
+    const navModal = useRef<HTMLDialogElement>(null);
+
+    function closeNavModal() {
+        if (navModal.current) {
+            navModal.current.close();
+        }
+    }
 
     function logoutUser() {
+        closeNavModal();
         sessionStorage.removeItem("role");
         sessionStorage.removeItem("username");
         sessionStorage.removeItem("_id");
@@ -40,32 +48,16 @@ export default function Header({
         <header className="header">
             <h1 className="main-heading">The Forum App</h1>
             <div className="header-info-container">
-                <nav className="main-nav">
-                    <Link to="/" className="button-link">
-                        Home
-                    </Link>
-                    <Link to="/search" className="button-link">
-                        Search
-                    </Link>
-                    <Link to="/register" className="button-link">
-                        Register
-                    </Link>
-                    {isUserLoggedIn ? (
-                        <>
-                            <Link to="/profile" className="button-link">
-                                Profile
-                            </Link>
-                            <button className="button" onClick={logoutUser}>
-                                Logout
-                            </button>
-                        </>
-                    ) : (
-                        <Link to="/login" className="button-link">
-                            Login
-                        </Link>
-                    )}
-                </nav>
-
+                <button
+                    ref={mobileMenuBtn}
+                    className="hamburger-menu-button"
+                    aria-label="Open Menu"
+                    onClick={() => {
+                        if (navModal.current) {
+                            navModal.current.showModal();
+                        }
+                    }}
+                ></button>
                 <div className="profile-container">
                     <img
                         src={`/profile-images/${profilePic.name}`}
@@ -76,16 +68,72 @@ export default function Header({
                         <p>Notifications: {numOfNotifications}</p>
                     )}
                 </div>
-
-                <button
-                    ref={mobileMenuBtn}
-                    className="hamburger-menu-button hidden"
-                    aria-label="Open Menu"
-                    onClick={() => {
-                        console.log("Open Menu");
-                    }}
-                ></button>
             </div>
+            <dialog ref={navModal} className="nav-modal">
+                <nav className="main-nav">
+                    <Link
+                        to="/"
+                        className="button-link"
+                        onClick={() => {
+                            closeNavModal();
+                        }}
+                    >
+                        Home
+                    </Link>
+                    <Link
+                        to="/search"
+                        className="button-link"
+                        onClick={() => {
+                            closeNavModal();
+                        }}
+                    >
+                        Search
+                    </Link>
+                    <Link
+                        to="/register"
+                        className="button-link"
+                        onClick={() => {
+                            closeNavModal();
+                        }}
+                    >
+                        Register
+                    </Link>
+                    {isUserLoggedIn ? (
+                        <>
+                            <Link
+                                to="/profile"
+                                className="button-link"
+                                onClick={() => {
+                                    closeNavModal();
+                                }}
+                            >
+                                Profile
+                            </Link>
+                            <button className="button" onClick={logoutUser}>
+                                Logout
+                            </button>
+                        </>
+                    ) : (
+                        <Link
+                            to="/login"
+                            className="button-link"
+                            onClick={() => {
+                                closeNavModal();
+                            }}
+                        >
+                            Login
+                        </Link>
+                    )}
+                </nav>
+                <button
+                    className="button"
+                    onClick={() => {
+                        closeNavModal();
+                    }}
+                >
+                    Close
+                </button>
+            </dialog>
         </header>
     );
 }

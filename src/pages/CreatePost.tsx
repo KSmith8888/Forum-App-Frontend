@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Form, redirect, useActionData } from "react-router-dom";
 
 import { loaderActionInterface } from "../utils/interfaces";
@@ -8,19 +9,26 @@ export async function createPostAction({ request }: loaderActionInterface) {
         const postData = await request.formData();
         const topic = postData.get("topic");
         const title = postData.get("title");
+        const postType = postData.get("post-type");
         const content = postData.get("content");
         const keywords = postData.get("keywords");
         if (
             typeof topic !== "string" ||
             typeof title !== "string" ||
-            typeof content !== "string"
+            typeof content !== "string" ||
+            typeof postType !== "string"
         ) {
             throw new Error("There has been an error");
         }
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
         const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!-]+$", "m");
-        if (!reg.test(title) || !reg.test(content) || !reg.test(topic)) {
+        if (
+            !reg.test(title) ||
+            !reg.test(content) ||
+            !reg.test(topic) ||
+            !reg.test(postType)
+        ) {
             throw new Error(
                 "Please do not include special characters in your message"
             );
@@ -35,6 +43,7 @@ export async function createPostAction({ request }: loaderActionInterface) {
                 body: JSON.stringify({
                     topic: topic.toLowerCase(),
                     title,
+                    postType,
                     content,
                     keywords,
                 }),
@@ -66,10 +75,33 @@ export async function createPostAction({ request }: loaderActionInterface) {
 
 export default function CreatePost() {
     const errorMessage = useActionData();
+    const [typeOfPost, setTypeOfPost] = useState("Text");
 
     return (
         <Form action="/profile/create" method="post" className="post-form">
             <h2>Create a new post</h2>
+            <div className="post-type-container">
+                <button
+                    type="button"
+                    className="button post-button post-type-button"
+                    disabled={typeOfPost === "Text" ? true : false}
+                    onClick={() => {
+                        setTypeOfPost("Text");
+                    }}
+                >
+                    Text
+                </button>
+                <button
+                    type="button"
+                    className="button post-button post-type-button"
+                    disabled={typeOfPost === "Link" ? true : false}
+                    onClick={() => {
+                        setTypeOfPost("Link");
+                    }}
+                >
+                    Link
+                </button>
+            </div>
             <label htmlFor="topic-input">Topic:</label>
             <select
                 id="topic-input"
@@ -86,6 +118,8 @@ export default function CreatePost() {
                 <option value="Books">Books</option>
                 <option value="Other">Other</option>
             </select>
+
+            <input type="hidden" name="post-type" value={typeOfPost} />
             <label htmlFor="title-input">Title:</label>
             <input
                 id="title-input"
@@ -102,8 +136,8 @@ export default function CreatePost() {
                 className="input textarea"
                 name="content"
                 minLength={4}
-                maxLength={900}
-                rows={12}
+                maxLength={typeOfPost === "Text" ? 900 : 90}
+                rows={typeOfPost === "Text" ? 12 : 1}
                 required
             ></textarea>
             <label htmlFor="keywords-input">
