@@ -89,15 +89,6 @@ export default function Header({
                     >
                         Search
                     </Link>
-                    <Link
-                        to="/register"
-                        className="button-link"
-                        onClick={() => {
-                            closeNavModal();
-                        }}
-                    >
-                        Register
-                    </Link>
                     {isUserLoggedIn ? (
                         <>
                             <Link
@@ -114,15 +105,26 @@ export default function Header({
                             </button>
                         </>
                     ) : (
-                        <Link
-                            to="/login"
-                            className="button-link"
-                            onClick={() => {
-                                closeNavModal();
-                            }}
-                        >
-                            Login
-                        </Link>
+                        <>
+                            <Link
+                                to="/register"
+                                className="button-link"
+                                onClick={() => {
+                                    closeNavModal();
+                                }}
+                            >
+                                Register
+                            </Link>
+                            <Link
+                                to="/login"
+                                className="button-link"
+                                onClick={() => {
+                                    closeNavModal();
+                                }}
+                            >
+                                Login
+                            </Link>
+                        </>
                     )}
                 </nav>
                 <button

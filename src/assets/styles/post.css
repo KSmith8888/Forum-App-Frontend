@@ -151,6 +151,10 @@
     background-color: rgb(235, 230, 230);
 }
 
+.link-post-image {
+    border: 1px solid black;
+}
+
 @media (max-width: 650px) {
     .post {
         flex-direction: column;

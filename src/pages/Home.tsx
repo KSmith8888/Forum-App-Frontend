@@ -56,7 +56,17 @@ export default function Home() {
                 >
                     <h3 className="trending-post-title">{post.title}</h3>
                 </Link>
-                <p className="trending-post-text">{`${startingChars}...`}</p>
+                {post.postType === "Link" ? (
+                    <a href={post.content} target="_blank" rel="noreferrer">
+                        <img
+                            src="/icon-images/link-post-icon.png"
+                            alt={`A grey and blue chain link representing a hyperlink to ${post.content}`}
+                            className="link-post-image"
+                        />
+                    </a>
+                ) : (
+                    <p className="trending-post-text">{`${startingChars}...`}</p>
+                )}
             </div>
         );
     });

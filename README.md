@@ -47,7 +47,9 @@ https://pixabay.com/vectors/blank-profile-picture-mystery-man-973460/
 Apple red fruit red chief by NoName_13:  
 https://pixabay.com/photos/apple-red-fruit-red-chief-1702316/  
 Guitar electric guitar by PIRO:  
-https://pixabay.com/photos/guitar-electric-guitar-2925282/
+https://pixabay.com/photos/guitar-electric-guitar-2925282/  
+Link hyperlink chain by inspire-studio  
+https://pixabay.com/vectors/link-hyperlink-chain-linking-6931554/
 
 ## License
 

@@ -80,9 +80,6 @@
     .header-info-container {
         flex-direction: row-reverse;
     }
-    .main-nav {
-        display: none;
-    }
     .profile-image {
         margin-right: 0;
     }
