@@ -13,6 +13,8 @@ import {
     loaderActionInterface,
 } from "../utils/interfaces.ts";
 
+import "../assets/styles/main.css";
+
 export async function homeLoader({ request }: loaderActionInterface) {
     const url = new URL(request.url);
     const redirectRoute = url.searchParams.get("route");
@@ -50,23 +52,42 @@ export default function Home() {
         const startingChars = post.content.substring(0, 50);
         return (
             <div key={post._id} className="trending-post-link-container">
-                <Link
-                    to={`/posts/details/${post._id}`}
-                    className="trending-post-link"
-                >
-                    <h3 className="trending-post-title">{post.title}</h3>
-                </Link>
-                {post.postType === "Link" ? (
-                    <a href={post.content} target="_blank" rel="noreferrer">
-                        <img
-                            src="/icon-images/link-post-icon.png"
-                            alt={`A grey and blue chain link representing a hyperlink to ${post.content}`}
-                            className="link-post-image"
-                        />
-                    </a>
-                ) : (
-                    <p className="trending-post-text">{`${startingChars}...`}</p>
-                )}
+                <div className="trending-main-content-container">
+                    <div className="post-inner-content-container">
+                        <Link
+                            to={`/posts/details/${post._id}`}
+                            className="trending-post-link"
+                        >
+                            <h3 className="trending-post-title">
+                                {post.title}
+                            </h3>
+                        </Link>
+                        <p className="trending-post-text">
+                            {post.postType === "Link" ? (
+                                <a
+                                    href={post.content}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                >
+                                    {post.content}
+                                </a>
+                            ) : (
+                                `${startingChars}...`
+                            )}
+                        </p>
+                    </div>
+                    {post.postType === "Link" && (
+                        <a href={post.content} target="_blank" rel="noreferrer">
+                            <img
+                                src="/icon-images/link-post-icon.png"
+                                alt={`A grey and blue chain link representing a hyperlink to ${post.content}`}
+                                className="home-link-post-image"
+                                width="110"
+                                height="110"
+                            />
+                        </a>
+                    )}
+                </div>
             </div>
         );
     });
@@ -87,29 +108,33 @@ export default function Home() {
                 </section>
                 <section className="topics-links-section">
                     <h2 className="topics-heading">Topics:</h2>
-                    <nav className="topics-nav">
-                        <Link to="/posts/programming" className="link">
-                            Programming
-                        </Link>
-                        <Link to="/posts/movies" className="link">
-                            Movies
-                        </Link>
-                        <Link to="/posts/politics" className="link">
-                            Politics
-                        </Link>
-                        <Link to="/posts/games" className="link">
-                            Games
-                        </Link>
-                        <Link to="/posts/space" className="link">
-                            Space
-                        </Link>
-                        <Link to="/posts/books" className="link">
-                            Books
-                        </Link>
-                        <Link to="/posts/other" className="link">
-                            Other
-                        </Link>
-                    </nav>
+                    <div className="topics-link-container">
+                        <div className="topics-link-row">
+                            <Link to="/posts/programming" className="link">
+                                Programming
+                            </Link>
+                            <Link to="/posts/movies" className="link">
+                                Movies
+                            </Link>
+                            <Link to="/posts/politics" className="link">
+                                Politics
+                            </Link>
+                        </div>
+                        <div className="topics-link-row">
+                            <Link to="/posts/games" className="link">
+                                Games
+                            </Link>
+                            <Link to="/posts/space" className="link">
+                                Space
+                            </Link>
+                            <Link to="/posts/books" className="link">
+                                Books
+                            </Link>
+                            <Link to="/posts/other" className="link">
+                                Other
+                            </Link>
+                        </div>
+                    </div>
                 </section>
             </div>
         </>

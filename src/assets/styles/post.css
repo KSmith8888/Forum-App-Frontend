@@ -37,7 +37,7 @@
 }
 
 .comments-container {
-    width: 65%;
+    width: 100%;
 }
 
 .column-info {
@@ -151,7 +151,16 @@
     background-color: rgb(235, 230, 230);
 }
 
+.post-main-content-container {
+    margin: 1em;
+    display: flex;
+    align-items: center;
+}
+
 .link-post-image {
+    width: 77px;
+    height: 77px;
+    margin: 0 1em;
     border: 1px solid black;
 }
 

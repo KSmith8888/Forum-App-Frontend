@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Form } from "react-router-dom";
 import { profilePicInterface } from "../utils/interfaces";
 
 import "../assets/styles/header.css";
@@ -58,6 +58,26 @@ export default function Header({
                         }
                     }}
                 ></button>
+                <Form
+                    className="header-search-form"
+                    method="post"
+                    action="/search"
+                    autoComplete="false"
+                >
+                    <label htmlFor="search-input">Search:</label>
+                    <input
+                        id="search-input"
+                        type="search"
+                        name="search"
+                        className="header-search-input"
+                        pattern="[a-zA-Z]+"
+                    />
+                    <button type="submit" className="header-search-button">
+                        Search
+                    </button>
+                </Form>
+            </div>
+            <dialog ref={navModal} className="nav-modal">
                 <div className="profile-container">
                     <img
                         src={`/profile-images/${profilePic.name}`}
@@ -68,8 +88,6 @@ export default function Header({
                         <p>Notifications: {numOfNotifications}</p>
                     )}
                 </div>
-            </div>
-            <dialog ref={navModal} className="nav-modal">
                 <nav className="main-nav">
                     <Link
                         to="/"

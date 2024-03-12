@@ -200,9 +200,24 @@ export default function Post() {
         <div className="post-container">
             <article className="post">
                 <div className="column-content">
-                    <h2 className="post-title">{postData.title}</h2>
-                    <p className="post-text">
-                        {postData.postType === "Link" ? (
+                    <div className="post-main-content-container">
+                        <div className="post-inner-content-container">
+                            <h2 className="post-title">{postData.title}</h2>
+                            <p className="post-text">
+                                {postData.postType === "Link" ? (
+                                    <a
+                                        href={postData.content}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
+                                        {postData.content}
+                                    </a>
+                                ) : (
+                                    postData.content
+                                )}
+                            </p>
+                        </div>
+                        {postData.postType === "Link" && (
                             <a
                                 href={postData.content}
                                 target="_blank"
@@ -212,12 +227,12 @@ export default function Post() {
                                     src="/icon-images/link-post-icon.png"
                                     alt={`A grey and blue chain link representing a hyperlink to ${postData.content}`}
                                     className="link-post-image"
+                                    width="110"
+                                    height="110"
                                 />
                             </a>
-                        ) : (
-                            postData.content
                         )}
-                    </p>
+                    </div>
                     <div className="post-likes-container">
                         <p className="post-likes">Likes: {postLikes}</p>
                         {isUserLoggedIn && (
