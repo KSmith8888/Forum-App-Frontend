@@ -275,7 +275,6 @@ export default function Post() {
                                     className="button"
                                     onClick={async () => {
                                         try {
-                                            await report(postData._id, "Post");
                                             openReportModal();
                                         } catch (error) {
                                             if (error instanceof Error) {
@@ -290,8 +289,24 @@ export default function Post() {
                         )}
                     </div>
                     <dialog className="report-modal" ref={reportModal}>
-                        <p>Message has been reported</p>
-                        <p>The moderation team will be reviewing it shortly</p>
+                        <p>Report this message to the moderation team?</p>
+                        <button
+                            className="button"
+                            onClick={async () => {
+                                try {
+                                    await report(postData._id, "Post");
+                                } catch (error) {
+                                    if (error instanceof Error) {
+                                        console.log(error.message);
+                                    }
+                                }
+                                if (reportModal.current) {
+                                    reportModal.current.close();
+                                }
+                            }}
+                        >
+                            Submit
+                        </button>
                         <button
                             className="button"
                             onClick={() => {
