@@ -85,34 +85,6 @@ export default function Search() {
                     <h3>{query ? `No results found for ${query}` : ""}</h3>
                 )}
             </div>
-            <h2 className="topics-heading">Topics:</h2>
-            <div className="topics-link-container">
-                <div className="topics-link-row">
-                    <Link to="/posts/programming" className="link">
-                        Programming
-                    </Link>
-                    <Link to="/posts/movies" className="link">
-                        Movies
-                    </Link>
-                    <Link to="/posts/politics" className="link">
-                        Politics
-                    </Link>
-                </div>
-                <div className="topics-link-row">
-                    <Link to="/posts/games" className="link">
-                        Games
-                    </Link>
-                    <Link to="/posts/space" className="link">
-                        Space
-                    </Link>
-                    <Link to="/posts/books" className="link">
-                        Books
-                    </Link>
-                    <Link to="/posts/other" className="link">
-                        Other
-                    </Link>
-                </div>
-            </div>
         </div>
     );
 }

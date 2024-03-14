@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Header from "./Header.tsx";
 import Footer from "./Footer.tsx";
+import TopicNav from "./TopicNav.tsx";
 
 import { profilePicInterface } from "../utils/interfaces.ts";
 
@@ -24,6 +25,7 @@ export default function Layout() {
                 profilePic={profilePic}
                 setProfilePic={setProfilePic}
             />
+            <TopicNav />
             <main className="main-section">
                 <Outlet
                     context={{

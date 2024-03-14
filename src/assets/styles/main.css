@@ -75,11 +75,12 @@ background-color: rgb(25, 28, 160);
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .main-section {
     width: 100%;
+    min-height: 55vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -97,21 +98,20 @@ background-color: rgb(25, 28, 160);
 }
 
 .trending-posts-section,
-.topics-links-section {
+.new-posts-section {
     padding: 0.5em;
     margin: 0.5em;
 }
 
-.topics-heading,
-.popular-posts-heading {
-    margin: 0.5em 0;
+.popular-posts-heading,
+.new-posts-heading {
+    margin: 0;
     text-align: center;
 }
 
-.trending-post-link-container {
+.trending-posts-link-container {
     display: flex;
     flex-direction: column;
-
     border-bottom: 1px solid black;
 }
 
@@ -241,9 +241,20 @@ background-color: rgb(25, 28, 160);
     height: 55px;
 }
 
+.topics-links-nav {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.topic-link {
+    margin: 0.5em 1em;
+    text-decoration: none;
+}
+
 .topics-link-container {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
 }
 
 .topics-link-row {
@@ -253,6 +264,9 @@ background-color: rgb(25, 28, 160);
 
 @media (max-width: 650px) {
     .home-container {
+        flex-direction: column;
+    }
+    .topics-link-container {
         flex-direction: column;
     }
 }
