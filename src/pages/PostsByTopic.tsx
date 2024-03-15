@@ -41,12 +41,42 @@ export default function PostsByTopic() {
     }
     const loader = useLoaderData();
     const postData = loader instanceof Array ? loader : [];
-    const postElements = postData.map((post: postInterface) => {
+    const postEls = postData.map((post: postInterface) => {
+        const startingChars = post.content.substring(0, 50);
         return (
-            <div key={post._id}>
-                <Link to={`/posts/details/${post._id}`} className="post-link">
-                    <h3>{post.title}</h3>
-                </Link>
+            <div key={post._id} className="results-posts-link-container">
+                <div className="results-main-content-container">
+                    <div className="post-inner-content-container">
+                        <Link
+                            to={`/posts/details/${post._id}`}
+                            className="results-post-link"
+                        >
+                            <h3 className="results-post-title">{post.title}</h3>
+                        </Link>
+                        <p className="results-post-text">
+                            {post.postType === "Link" ? (
+                                <a
+                                    href={post.content}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                >
+                                    {post.content}
+                                </a>
+                            ) : (
+                                `${startingChars}...`
+                            )}
+                        </p>
+                    </div>
+                    {post.postType === "Link" && (
+                        <a href={post.content} target="_blank" rel="noreferrer">
+                            <img
+                                src="/icon-images/link-post-icon.png"
+                                alt={`A grey and blue chain link representing a hyperlink to ${post.content}`}
+                                className="results-link-post-image"
+                            />
+                        </a>
+                    )}
+                </div>
             </div>
         );
     });
@@ -54,9 +84,17 @@ export default function PostsByTopic() {
     return (
         <>
             <h2 className="posts-topic-heading">{topic} Posts</h2>
-            {isUserLoggedIn && <Link to="/profile/create">Create a post</Link>}
+            {isUserLoggedIn && (
+                <Link
+                    to={`/profile/create${
+                        topic !== "" ? `?topic=${topic}` : ""
+                    }`}
+                >
+                    Create a post
+                </Link>
+            )}
             {postData.length > 0 ? (
-                <div className="posts-topic-container">{postElements}</div>
+                <div className="posts-topic-container">{postEls}</div>
             ) : (
                 <p>No posts exist for that topic yet</p>
             )}

@@ -46,7 +46,11 @@ export default function Header({
 
     return (
         <header className="header">
-            <h1 className="main-heading">The Forum App</h1>
+            <h1 className="main-heading">
+                <Link to="/" className="main-heading-link">
+                    The Forum App
+                </Link>
+            </h1>
             <div className="header-info-container">
                 <button
                     ref={mobileMenuBtn}

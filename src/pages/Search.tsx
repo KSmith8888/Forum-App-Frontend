@@ -47,12 +47,42 @@ export default function Search() {
             searchForm.current.reset();
         }
     }, [searchResults]);
-    const postElements = searchResults.map((post: postInterface) => {
+    const postEls = searchResults.map((post: postInterface) => {
+        const startingChars = post.content.substring(0, 50);
         return (
-            <div className="post-link-container" key={post._id}>
-                <Link to={`/posts/details/${post._id}`}>
-                    <h3 className="post-title">{post.title}</h3>
-                </Link>
+            <div key={post._id} className="results-posts-link-container">
+                <div className="results-main-content-container">
+                    <div className="post-inner-content-container">
+                        <Link
+                            to={`/posts/details/${post._id}`}
+                            className="results-post-link"
+                        >
+                            <h3 className="results-post-title">{post.title}</h3>
+                        </Link>
+                        <p className="results-post-text">
+                            {post.postType === "Link" ? (
+                                <a
+                                    href={post.content}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                >
+                                    {post.content}
+                                </a>
+                            ) : (
+                                `${startingChars}...`
+                            )}
+                        </p>
+                    </div>
+                    {post.postType === "Link" && (
+                        <a href={post.content} target="_blank" rel="noreferrer">
+                            <img
+                                src="/icon-images/link-post-icon.png"
+                                alt={`A grey and blue chain link representing a hyperlink to ${post.content}`}
+                                className="results-link-post-image"
+                            />
+                        </a>
+                    )}
+                </div>
             </div>
         );
     });
@@ -80,7 +110,7 @@ export default function Search() {
             </Form>
             <div className="results-container">
                 {searchResults.length > 0 ? (
-                    postElements
+                    postEls
                 ) : (
                     <h3>{query ? `No results found for ${query}` : ""}</h3>
                 )}

@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Form, redirect, useActionData } from "react-router-dom";
+import {
+    Form,
+    redirect,
+    useActionData,
+    useSearchParams,
+} from "react-router-dom";
 
 import { loaderActionInterface } from "../utils/interfaces";
 import "../assets/styles/create-post.css";
@@ -76,6 +81,8 @@ export async function createPostAction({ request }: loaderActionInterface) {
 export default function CreatePost() {
     const errorMessage = useActionData();
     const [typeOfPost, setTypeOfPost] = useState("Text");
+    const [searchParams] = useSearchParams();
+    const topicParam = searchParams.get("topic");
 
     return (
         <Form action="/profile/create" method="post" className="post-form">
@@ -107,6 +114,7 @@ export default function CreatePost() {
                 id="topic-input"
                 className="input select"
                 name="topic"
+                defaultValue={topicParam ? topicParam : ""}
                 required
             >
                 <option value="">Please select a topic</option>

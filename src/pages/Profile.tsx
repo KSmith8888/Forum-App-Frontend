@@ -136,6 +136,7 @@ export default function Profile() {
     const [modalMessage, setModalMessage] = useState("");
     useEffect(() => {
         if (typeof actionMessage === "string" && messageModal.current) {
+            console.log(actionMessage);
             setModalMessage(actionMessage);
             messageModal.current.showModal();
         }

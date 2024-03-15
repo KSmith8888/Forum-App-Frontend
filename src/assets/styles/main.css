@@ -109,13 +109,15 @@ background-color: rgb(25, 28, 160);
     text-align: center;
 }
 
-.trending-posts-link-container {
+.trending-posts-link-container,
+.results-posts-link-container {
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid black;
 }
 
-.trending-post-link {
+.trending-post-link,
+.results-post-link {
     color: black;
     text-decoration: none;
 }
@@ -228,14 +230,17 @@ background-color: rgb(25, 28, 160);
     margin-right: 1em;
 }
 
-.trending-main-content-container {
+.trending-main-content-container,
+.results-main-content-container {
     margin: 0.5em;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.home-link-post-image {
+.home-link-post-image,
+.results-link-post-image {
+    margin: 0 0.5em;
     border: 1px solid black;
     width: 55px;
     height: 55px;
