@@ -146,7 +146,10 @@ export default function Profile() {
     const postElements = postsData.map((post: userProfilePost) => {
         return (
             <div key={post.id} className="post-link-container">
-                <Link to={`/posts/details/${post.id}`} className="post-link">
+                <Link
+                    to={`/posts/details/${post.id}`}
+                    className="profile-post-link"
+                >
                     {post.title}
                 </Link>
                 <div className="button-container">
@@ -163,16 +166,16 @@ export default function Profile() {
         );
     });
     const commentElements = commentsData.map((comment) => {
+        const startingChars = comment.content.substring(0, 50);
         return (
             <div key={comment._id} className="comment-link-container">
-                <p className="comment-link-content">{comment.content}</p>
+                <Link
+                    to={`/posts/details/${comment.relatedPost}`}
+                    className="related-post-link"
+                >
+                    {`${startingChars}...`}
+                </Link>
                 <div className="button-container">
-                    <Link
-                        to={`/posts/details/${comment.relatedPost}`}
-                        className="related-post-link"
-                    >
-                        Related Post
-                    </Link>
                     <Link
                         to={`/posts/comments/edit/${comment._id}`}
                         className="button-link"
@@ -193,7 +196,10 @@ export default function Profile() {
     const notificationElements = notificationsData.map(
         (notification: notificationInterface) => {
             return (
-                <div key={notification._id} className="profile-notification">
+                <div
+                    key={notification._id}
+                    className="profile-notification-container"
+                >
                     <p>{notification.message}</p>
                     {notification.isReply && (
                         <Link
@@ -227,115 +233,123 @@ export default function Profile() {
 
     return (
         <>
-            <h2>{`Profile Page: ${username}`}</h2>
+            <h2>{username || "Something went wrong"}</h2>
             {isMod && (
                 <Link to="/moderation" className="button-link">
                     Moderation
                 </Link>
             )}
-            <div className="profile-options-container">
-                <div className="profile-image-info">
-                    <h3>Profile Image:</h3>
-                    <img
-                        src={`/profile-images/${profilePic.name}`}
-                        alt={profilePic.alt}
-                        className="profile-image"
-                    />
-                    <button
-                        onClick={() => {
-                            setIsPicModalOpen(true);
-                        }}
-                        className="button"
-                    >
-                        Change
-                    </button>
-                </div>
-                <div className="delete-account-container">
-                    <h3 className="delete-account-heading">Delete Account:</h3>
-                    <button
-                        type="button"
-                        className="delete-account-button"
-                        onClick={async () => {
-                            const id = sessionStorage.getItem("_id");
-                            if (id) {
-                                const deleteData = await deleteAccount(id);
-                                if (
-                                    deleteData instanceof Error &&
-                                    messageModal.current
-                                ) {
-                                    setModalMessage(deleteData.message);
-                                    messageModal.current.showModal();
+            <div className="profile-section-row">
+                <section className="profile-settings-section">
+                    <h3>Account Settings:</h3>
+                    <div className="profile-image-info">
+                        <h4>Profile Image:</h4>
+                        <img
+                            src={`/profile-images/${profilePic.name}`}
+                            alt={profilePic.alt}
+                            className="profile-image"
+                        />
+                        <button
+                            onClick={() => {
+                                setIsPicModalOpen(true);
+                            }}
+                            className="button"
+                        >
+                            Change
+                        </button>
+                        <ProfilePicSelector
+                            isPicModalOpen={isPicModalOpen}
+                            setIsPicModalOpen={setIsPicModalOpen}
+                        />
+                    </div>
+                    <div className="delete-account-container">
+                        <h3 className="delete-account-heading">
+                            Delete Account:
+                        </h3>
+                        <p className="warning-message">
+                            This action will delete your account, along with all
+                            of your posts and comments
+                        </p>
+                        <button
+                            type="button"
+                            className="delete-account-button"
+                            onClick={async () => {
+                                const id = sessionStorage.getItem("_id");
+                                if (id) {
+                                    const deleteData = await deleteAccount(id);
+                                    if (
+                                        deleteData instanceof Error &&
+                                        messageModal.current
+                                    ) {
+                                        setModalMessage(deleteData.message);
+                                        messageModal.current.showModal();
+                                    } else {
+                                        localStorage.clear();
+                                        logoutUser(
+                                            "Your account has been deleted"
+                                        );
+                                    }
                                 } else {
-                                    localStorage.clear();
-                                    logoutUser("Your account has been deleted");
+                                    logoutUser(
+                                        "Something went wrong please log in and try again"
+                                    );
                                 }
-                            } else {
-                                logoutUser(
-                                    "Something went wrong please log in and try again"
-                                );
+                            }}
+                        >
+                            Delete
+                        </button>
+                    </div>
+                </section>
+                <section className="profile-notifications-section">
+                    <h3>Notifications:</h3>
+                    {notificationElements.length > 0 ? (
+                        <div className="notifications-container">
+                            {notificationElements}
+                        </div>
+                    ) : (
+                        <p>No notifications at this time</p>
+                    )}
+                </section>
+            </div>
+            <div className="profile-section-row">
+                <section className="profile-posts-section">
+                    <h3>Your Posts:</h3>
+
+                    {postElements.length > 0 ? (
+                        <div className="user-posts-container">
+                            {postElements}
+                        </div>
+                    ) : (
+                        <h4>You have not created any posts yet</h4>
+                    )}
+                </section>
+                <section className="profile-comments-section">
+                    <h3>Your Comments:</h3>
+                    {commentElements.length > 0 ? (
+                        <div className="user-comments-container">
+                            {commentElements}
+                        </div>
+                    ) : (
+                        <h4>You have not created any comments yet</h4>
+                    )}
+                </section>
+                <dialog className="message-modal" ref={messageModal}>
+                    <p className="message-modal-text">
+                        {modalMessage ||
+                            "There has been an error, please try again later"}
+                    </p>
+                    <button
+                        className="button"
+                        onClick={() => {
+                            if (messageModal.current) {
+                                messageModal.current.close();
                             }
                         }}
                     >
-                        Delete
+                        Close
                     </button>
-                    <p className="warning-message">
-                        This action will delete your account, along with all of
-                        your posts and comments
-                    </p>
-                </div>
+                </dialog>
             </div>
-            <ProfilePicSelector
-                isPicModalOpen={isPicModalOpen}
-                setIsPicModalOpen={setIsPicModalOpen}
-            />
-            {notificationElements.length > 0 ? (
-                <>
-                    <h3>Notifications:</h3>
-                    <div className="notifications-container">
-                        {notificationElements}
-                    </div>
-                </>
-            ) : (
-                <p>No notifications at this time</p>
-            )}
-            {postElements.length > 0 ? (
-                <>
-                    <h3>Your Posts:</h3>
-                    <Link to="create">Create a new post</Link>
-                    <div className="user-posts-container">{postElements}</div>
-                </>
-            ) : (
-                <>
-                    <h4>You have not created any posts yet</h4>
-                    <Link to="create">Create a new post</Link>
-                </>
-            )}
-            {commentElements.length > 0 ? (
-                <>
-                    <h3>Your Comments:</h3>
-                    <div className="user-comments-container">
-                        {commentElements}
-                    </div>
-                </>
-            ) : (
-                <h4>You have not created any comments yet</h4>
-            )}
-            <dialog className="message-modal" ref={messageModal}>
-                <p className="message-modal-text">
-                    {modalMessage ||
-                        "There has been an error, please try again later"}
-                </p>
-                <button
-                    className="button"
-                    onClick={() => {
-                        if (messageModal.current) {
-                            messageModal.current.close();
-                        }
-                    }}
-                >
-                    Close
-                </button>
-            </dialog>
         </>
     );
 }

@@ -40,9 +40,8 @@
 }
 
 .delete-account-container {
+    max-width: 20em;
     text-align: center;
-    max-width: 12em;
-    border: 2px solid red;
     margin: 0 0.5em;
     padding: 0.5em;
     display: flex;
@@ -52,13 +51,12 @@
 }
 
 .delete-account-heading {
-    margin: 0.5em;
+    margin: 0 0 0.5em 0;
     color: #c70c0c;
 }
 
 .delete-account-button {
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 1rem;
     cursor: pointer;
     border: 1px solid rgb(100, 3, 3);
     color: #fff;
@@ -73,24 +71,45 @@
     background-color: #9e0909;
 }
 
-.post-link-container {
+.profile-notification-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.post-link-container,
+.comment-link-container {
     margin: 0.5em 0;
+    padding: 0.5em 1em;
     display: flex;
     flex-direction: column;
     align-items: center;
+    border: 1px solid black;
 }
 
-.post-link {
-    margin-bottom: 1em;
+.profile-post-link,
+.related-post-link {
+    margin: 0.5em 0;
+    font-size: 1.2rem;
+    color: rgb(15, 15, 121);
+    text-decoration: none;
 }
 
-.comment-link-content {
-    font-size: 1.1rem;
-}
-
-.profile-options-container {
+.profile-section-row {
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+}
+
+.profile-settings-section,
+.profile-notifications-section,
+.profile-posts-section,
+.profile-comments-section {
+    min-width: 35%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .profile-image-info {
@@ -103,4 +122,19 @@
 
 .user-comments-container {
     padding: 0 1em;
+}
+
+@media (max-width: 650px) {
+    .profile-section-row {
+        flex-direction: column;
+    }
+    .profile-settings-section,
+    .profile-notifications-section,
+    .profile-posts-section,
+    .profile-comments-section {
+        width: 100%;
+    }
+    .profile-notification-container {
+        flex-direction: column;
+    }
 }

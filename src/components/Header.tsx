@@ -21,7 +21,6 @@ export default function Header({
 }: headerProps) {
     const navigate = useNavigate();
     const newNotifications = numOfNotifications > 0 ? true : false;
-    const mobileMenuBtn = useRef<HTMLButtonElement>(null);
     const navModal = useRef<HTMLDialogElement>(null);
 
     function closeNavModal() {
@@ -53,7 +52,6 @@ export default function Header({
             </h1>
             <div className="header-info-container">
                 <button
-                    ref={mobileMenuBtn}
                     className="hamburger-menu-button"
                     aria-label="Open Menu"
                     onClick={() => {
@@ -121,6 +119,15 @@ export default function Header({
                                 }}
                             >
                                 Profile
+                            </Link>
+                            <Link
+                                to="/profile/create"
+                                className="button-link"
+                                onClick={() => {
+                                    closeNavModal();
+                                }}
+                            >
+                                Create Post
                             </Link>
                             <button className="button" onClick={logoutUser}>
                                 Logout
