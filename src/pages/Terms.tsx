@@ -9,8 +9,13 @@ export default function Terms() {
                     your jurisdiction, whichever is higher
                 </li>
                 <li className="terms-list-item">
-                    You will not attempt to use the service for any illegal
+                    You will not attempt to use this service for any illegal
                     purpose
+                </li>
+                <li className="terms-list-item">
+                    You will not attempt to hold this service or its operators
+                    liable for third party content linked to from within the
+                    service
                 </li>
             </ul>
         </div>

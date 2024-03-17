@@ -60,100 +60,121 @@ export default function Comment({
     );
 
     return (
-        <div className={`comment ${commentData.commentReply ? "reply" : ""}`}>
-            <p className="comment-text">{commentData.content}</p>
-            <div className="comment-likes-container">
-                <p className="comment-likes">Likes: {commentLikes}</p>
-                {isUserLoggedIn && (
-                    <>
-                        <div className="button-container">
-                            <button
-                                className={
-                                    userLikedComment
-                                        ? "like-button selected"
-                                        : "like-button"
-                                }
-                                onClick={async () => {
-                                    try {
-                                        const likesData: likeInterface =
-                                            await likeComment(commentData._id);
-                                        setCommentLikes(likesData.likes);
-                                        setUserLikedComment(
-                                            likesData.didUserLike
-                                        );
-                                    } catch (error) {
-                                        if (error instanceof Error) {
-                                            console.error(error.message);
+        <>
+            <article
+                className={`comment ${commentData.commentReply ? "reply" : ""}`}
+            >
+                <div className="column-content">
+                    <p className="comment-text">{commentData.content}</p>
+                    <div className="comment-likes-container">
+                        <p className="comment-likes">Likes: {commentLikes}</p>
+                        {isUserLoggedIn && (
+                            <>
+                                <div className="button-container">
+                                    <button
+                                        className={
+                                            userLikedComment
+                                                ? "like-button selected"
+                                                : "like-button"
                                         }
-                                    }
-                                }}
-                            >
-                                Like
-                            </button>
+                                        onClick={async () => {
+                                            try {
+                                                const likesData: likeInterface =
+                                                    await likeComment(
+                                                        commentData._id
+                                                    );
+                                                setCommentLikes(
+                                                    likesData.likes
+                                                );
+                                                setUserLikedComment(
+                                                    likesData.didUserLike
+                                                );
+                                            } catch (error) {
+                                                if (error instanceof Error) {
+                                                    console.error(
+                                                        error.message
+                                                    );
+                                                }
+                                            }
+                                        }}
+                                    >
+                                        Like
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="button"
+                                        onClick={() => {
+                                            setShowReplyForm(
+                                                (prevState) => !prevState
+                                            );
+                                        }}
+                                    >
+                                        Reply
+                                    </button>
+                                    <button
+                                        className="button"
+                                        onClick={async () => {
+                                            try {
+                                                await report(
+                                                    commentData._id,
+                                                    "Comment",
+                                                    commentData.relatedPost
+                                                );
+                                                openReportModal();
+                                            } catch (error) {
+                                                if (error instanceof Error) {
+                                                    console.log(error.message);
+                                                }
+                                            }
+                                        }}
+                                    >
+                                        Report
+                                    </button>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                </div>
+                <div className="column-info">
+                    <div className="author-info-container">
+                        <img
+                            src={`/profile-images/${commentData.profileImageName}`}
+                            alt={commentData.profileImageAlt}
+                            className="comment-profile-image"
+                        />
+                        <p className="comment-author">
+                            Author:{" "}
+                            <span className="comment-author-span">
+                                {commentData.user}
+                            </span>
+                        </p>
+                    </div>
+                    <p className="comment-time">{commentDateString}</p>
+                    {commentHasBeenEdited && (
+                        <>
+                            <p className="comment-edited-time">
+                                {editDateString}
+                            </p>
                             <button
-                                type="button"
                                 className="button"
                                 onClick={() => {
-                                    setShowReplyForm((prevState) => !prevState);
+                                    setShowHistory((prevShowHistory) => {
+                                        return !prevShowHistory;
+                                    });
                                 }}
                             >
-                                Reply
+                                Edit History
                             </button>
-                            <button
-                                className="button"
-                                onClick={async () => {
-                                    try {
-                                        await report(
-                                            commentData._id,
-                                            "Comment",
-                                            commentData.relatedPost
-                                        );
-                                        openReportModal();
-                                    } catch (error) {
-                                        if (error instanceof Error) {
-                                            console.log(error.message);
-                                        }
-                                    }
-                                }}
-                            >
-                                Report
-                            </button>
-                        </div>
-                    </>
-                )}
-            </div>
-            <div className="comment-info-container">
-                <img
-                    src={`/profile-images/${commentData.profileImageName}`}
-                    alt={commentData.profileImageAlt}
-                    className="comment-profile-image"
-                />
-                <p className="comment-author">Author: {commentData.user}</p>
-                <p className="comment-time">{commentDateString}</p>
-                {commentHasBeenEdited && (
-                    <>
-                        <p className="comment-edited-time">{editDateString}</p>
-                        <button
-                            className="button"
-                            onClick={() => {
-                                setShowHistory((prevShowHistory) => {
-                                    return !prevShowHistory;
-                                });
-                            }}
-                        >
-                            Edit History
-                        </button>
-                    </>
-                )}
-            </div>
-
+                        </>
+                    )}
+                </div>
+            </article>
             {showHistory && (
                 <div className="comment-history-container">
                     <h3>Previous Comment Versions</h3>
                     {historyElements}
                 </div>
             )}
-
             {showReplyForm && (
                 <CommentForm
                     commentErrorMsg={commentErrorMsg}
@@ -162,6 +183,6 @@ export default function Comment({
                     commentId={commentData._id}
                 />
             )}
-        </div>
+        </>
     );
 }

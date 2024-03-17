@@ -71,10 +71,22 @@
     background-color: #9e0909;
 }
 
+.message-modal {
+    max-width: 25em;
+    background-color: rgb(177, 203, 224);
+    border: 2px solid black;
+    text-align: center;
+    padding: 2em 2.5em;
+}
+
 .profile-notification-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.profile-notification-link {
+    margin: 0 0.5em;
 }
 
 .post-link-container,

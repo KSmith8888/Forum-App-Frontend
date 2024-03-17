@@ -25,9 +25,11 @@
 .post-text,
 .comment-text {
     white-space: pre-line;
+    margin: 1.5em 1.5em 0.5em 1.5em;
 }
 
-.post {
+.post,
+.comment {
     width: 100%;
     display: flex;
     flex-direction: row-reverse;
@@ -55,13 +57,6 @@
     align-items: center;
 }
 
-.comment {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1em;
-}
-
 .comment:nth-child(odd) {
     background-color: lightblue;
 }
@@ -71,6 +66,8 @@
 }
 
 .comment-form {
+    align-self: center;
+    justify-self: center;
     margin: 1em 0 0.5em 0;
     display: flex;
     flex-direction: column;
@@ -88,7 +85,10 @@
 
 .post-author,
 .post-time,
-.post-edited-time {
+.post-edited-time,
+.comment-author,
+.comment-time,
+.comment-edited-time {
     margin: 0.5em;
 }
 
@@ -98,14 +98,9 @@
     align-items: center;
 }
 
-.post-author-span {
+.post-author-span,
+.comment-author-span {
     display: block;
-}
-
-.comment-info-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .reply {
@@ -145,10 +140,11 @@
 }
 
 .report-modal[open] {
+    max-width: 25em;
+    background-color: rgb(177, 203, 224);
+    border: 2px solid black;
     text-align: center;
-    padding: 2em;
-    border: 1px solid black;
-    background-color: rgb(235, 230, 230);
+    padding: 2em 2.5em;
 }
 
 .post-main-content-container {
@@ -165,7 +161,8 @@
 }
 
 @media (max-width: 650px) {
-    .post {
+    .post,
+    .comment {
         flex-direction: column;
     }
     .column-content,
@@ -177,7 +174,9 @@
         width: 100%;
     }
     .post-time,
-    .post-edited-time {
+    .post-edited-time,
+    .comment-time,
+    .comment-edited-time {
         display: block;
     }
 }

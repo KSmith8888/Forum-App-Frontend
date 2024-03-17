@@ -204,9 +204,9 @@ export default function Profile() {
                     {notification.isReply && (
                         <Link
                             to={`/posts/details/${notification.replyMessageId}`}
-                            className="button-link"
+                            className="profile-notification-link"
                         >
-                            The Thread
+                            See Thread
                         </Link>
                     )}
                 </div>
