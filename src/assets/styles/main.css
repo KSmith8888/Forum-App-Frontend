@@ -240,7 +240,7 @@ background-color: rgb(25, 28, 160);
 
 .home-link-post-image,
 .results-link-post-image {
-    margin: 0 0.5em;
+    margin: 0 0.5em 0 1em;
     border: 1px solid black;
     width: 55px;
     height: 55px;

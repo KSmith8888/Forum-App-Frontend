@@ -28,9 +28,16 @@
     margin: 1.5em 1.5em 0.5em 1.5em;
 }
 
+.link-post-anchor {
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
 .post,
 .comment {
     width: 100%;
+    padding: 1em 0.5em;
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
@@ -44,7 +51,6 @@
 
 .column-info {
     width: 35%;
-    padding: 2em;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -148,9 +154,13 @@
 }
 
 .post-main-content-container {
-    margin: 1em;
+    padding: 1em 0;
     display: flex;
     align-items: center;
+}
+
+.post-inner-content-container {
+    min-width: 20em;
 }
 
 .link-post-image {
@@ -161,6 +171,9 @@
 }
 
 @media (max-width: 650px) {
+    .post-inner-content-container {
+        min-width: fit-content;
+    }
     .post,
     .comment {
         flex-direction: column;

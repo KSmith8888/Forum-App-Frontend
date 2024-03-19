@@ -209,6 +209,7 @@ export default function Post() {
                                         href={postData.content}
                                         target="_blank"
                                         rel="noreferrer"
+                                        className="link-post-anchor"
                                     >
                                         {postData.content}
                                     </a>
