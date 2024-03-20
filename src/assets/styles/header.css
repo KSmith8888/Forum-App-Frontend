@@ -67,14 +67,14 @@
 
 .hamburger-menu-button {
     cursor: pointer;
-    background-image: url("/profile-images/mobile-menu.png");
+    background-image: url("/icon-images/menu-icon.png");
     background-size: cover;
     background-repeat: no-repeat;
     margin: 0.5em 1em;
-    border: 1px solid black;
+    border: none;
     border-radius: 5px;
-    width: 30px;
-    height: 30px;
+    width: 34px;
+    height: 28px;
 }
 
 .header-search-form {

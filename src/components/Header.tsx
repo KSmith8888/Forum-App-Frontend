@@ -72,7 +72,7 @@ export default function Header({
                         type="search"
                         name="search"
                         className="header-search-input"
-                        pattern="[a-zA-Z]+"
+                        maxLength={30}
                     />
                     <button type="submit" className="header-search-button">
                         Search

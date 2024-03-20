@@ -102,7 +102,7 @@ export default function Search() {
                     type="search"
                     name="search"
                     className="input"
-                    pattern="[a-zA-Z]+"
+                    maxLength={30}
                 />
                 <button type="submit" className="button">
                     Search

@@ -118,9 +118,6 @@ export default function Moderation() {
             <h2 className="moderation-main-heading">Moderation Page</h2>
             <div className="moderation-main-container">
                 <section className="moderation-forms-section">
-                    <p className="moderation-form-message">
-                        {typeof actionMessage === "string" ? actionMessage : ""}
-                    </p>
                     <Form
                         method="DELETE"
                         action="/moderation"
@@ -204,6 +201,9 @@ export default function Moderation() {
                             </button>
                         </Form>
                     )}
+                    <p className="moderation-form-message">
+                        {typeof actionMessage === "string" ? actionMessage : ""}
+                    </p>
                 </section>
                 <section className="reports-section">
                     <h3>Reported posts and comments</h3>
