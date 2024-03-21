@@ -118,13 +118,14 @@ export default function Moderation() {
             <h2 className="moderation-main-heading">Moderation Page</h2>
             <div className="moderation-main-container">
                 <section className="moderation-forms-section">
+                    <h3 className="section-heading">Moderation Actions</h3>
                     <Form
                         method="DELETE"
                         action="/moderation"
                         className="moderation-form"
                         ref={deleteAccountForm}
                     >
-                        <h3>Delete User Account</h3>
+                        <h4 className="form-heading">Delete User Account</h4>
                         <label htmlFor="username-input">
                             Username of account to be deleted:
                         </label>
@@ -147,7 +148,7 @@ export default function Moderation() {
                         className="moderation-form"
                         ref={deletePostForm}
                     >
-                        <h3>Delete Post</h3>
+                        <h4 className="form-heading">Delete Post</h4>
                         <label htmlFor="post-id-input">
                             Id number of post to be deleted:
                         </label>
@@ -171,7 +172,9 @@ export default function Moderation() {
                             className="moderation-form"
                             ref={changeRoleForm}
                         >
-                            <h3>Change Account Role</h3>
+                            <h4 className="form-heading">
+                                Change Account Role
+                            </h4>
                             <label htmlFor="change-role-input">
                                 Username of account to be updated:
                             </label>
@@ -206,7 +209,9 @@ export default function Moderation() {
                     </p>
                 </section>
                 <section className="reports-section">
-                    <h3>Reported posts and comments</h3>
+                    <h3 className="section-heading">
+                        Reported posts and comments
+                    </h3>
                     <div>{reportElements.length > 0 && reportElements}</div>
                 </section>
             </div>

@@ -4,6 +4,10 @@
     justify-content: space-around;
 }
 
+.section-heading {
+    margin: 0.5em 0 1em 0;
+}
+
 .moderation-forms-section {
     margin: 0 0 2em 0;
 }
@@ -12,6 +16,13 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    margin: 0.5em 0;
+    padding: 0.5em 1em;
+    border: 1px solid black;
+}
+
+.form-heading {
+    margin: 0.5em 0;
 }
 
 .moderation-main-heading,
@@ -23,6 +34,12 @@
     margin: 0.5em;
 }
 
+.report-container {
+    margin: 0.5em 0;
+    padding: 0.5em 0;
+    border: 1px solid black;
+}
+
 @media (max-width: 650px) {
     .moderation-main-container {
         flex-direction: column;
@@ -30,6 +47,6 @@
         justify-content: center;
     }
     .moderation-forms-section {
-        margin: 2em 0;
+        margin: 1em 0;
     }
 }

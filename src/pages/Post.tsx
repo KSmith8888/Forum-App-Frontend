@@ -156,8 +156,15 @@ export default function Post() {
     }, [actionData]);
 
     const reportModal = useRef<HTMLDialogElement>(null);
-    function openReportModal() {
+    function openReportModal(
+        messageId: string,
+        reportType: string,
+        relatedId: string
+    ) {
         if (reportModal.current) {
+            reportModal.current.dataset.messageId = messageId;
+            reportModal.current.dataset.reportType = reportType;
+            reportModal.current.dataset.relatedId = relatedId;
             reportModal.current.showModal();
         }
     }
@@ -276,7 +283,11 @@ export default function Post() {
                                     className="button"
                                     onClick={async () => {
                                         try {
-                                            openReportModal();
+                                            openReportModal(
+                                                postData._id,
+                                                "Post",
+                                                "none"
+                                            );
                                         } catch (error) {
                                             if (error instanceof Error) {
                                                 console.log(error.message);
@@ -289,19 +300,43 @@ export default function Post() {
                             </div>
                         )}
                     </div>
-                    <dialog className="report-modal" ref={reportModal}>
-                        <p>Report this message to the moderation team?</p>
+                    <dialog
+                        className="report-modal"
+                        ref={reportModal}
+                        data-reportType="none"
+                        data-messageId="none"
+                        data-relatedId="none"
+                    >
+                        <p className="report-modal-text">
+                            Report this message to the moderation team?
+                        </p>
                         <button
                             className="button"
                             onClick={async () => {
-                                try {
-                                    await report(postData._id, "Post");
-                                } catch (error) {
-                                    if (error instanceof Error) {
-                                        console.log(error.message);
-                                    }
-                                }
                                 if (reportModal.current) {
+                                    try {
+                                        if (
+                                            reportModal.current.dataset
+                                                .messageId &&
+                                            reportModal.current.dataset
+                                                .reportType &&
+                                            reportModal.current.dataset
+                                                .relatedId
+                                        ) {
+                                            await report(
+                                                reportModal.current.dataset
+                                                    .messageId,
+                                                reportModal.current.dataset
+                                                    .reportType,
+                                                reportModal.current.dataset
+                                                    .relatedId
+                                            );
+                                        }
+                                    } catch (error) {
+                                        if (error instanceof Error) {
+                                            console.log(error.message);
+                                        }
+                                    }
                                     reportModal.current.close();
                                 }
                             }}

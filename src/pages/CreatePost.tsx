@@ -119,6 +119,7 @@ export default function CreatePost() {
             >
                 <option value="">Please select a topic</option>
                 <option value="Programming">Programming</option>
+                <option value="News">News</option>
                 <option value="Movies">Movies</option>
                 <option value="Politics">Politics</option>
                 <option value="Games">Games</option>

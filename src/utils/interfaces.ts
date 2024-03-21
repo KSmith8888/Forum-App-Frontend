@@ -75,7 +75,11 @@ export interface commentProps {
     commentErrorMsg: string | null;
     actionData: unknown;
     isUserLoggedIn: boolean;
-    openReportModal: () => void;
+    openReportModal: (
+        messageId: string,
+        reportType: string,
+        relatedId: string
+    ) => void;
 }
 
 export interface profilePicInterface {

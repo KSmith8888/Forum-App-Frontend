@@ -8,7 +8,6 @@ import {
     commentProps,
 } from "../utils/interfaces";
 import { createDateString } from "../utils/create-date-string";
-import { report } from "../utils/report.ts";
 
 export default function Comment({
     commentData,
@@ -115,12 +114,11 @@ export default function Comment({
                                         className="button"
                                         onClick={async () => {
                                             try {
-                                                await report(
+                                                openReportModal(
                                                     commentData._id,
                                                     "Comment",
                                                     commentData.relatedPost
                                                 );
-                                                openReportModal();
                                             } catch (error) {
                                                 if (error instanceof Error) {
                                                     console.log(error.message);
