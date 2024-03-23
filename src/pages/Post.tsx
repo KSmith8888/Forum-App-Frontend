@@ -303,9 +303,9 @@ export default function Post() {
                     <dialog
                         className="report-modal"
                         ref={reportModal}
-                        data-reportType="none"
-                        data-messageId="none"
-                        data-relatedId="none"
+                        data-type="none"
+                        data-id="none"
+                        data-related="none"
                     >
                         <p className="report-modal-text">
                             Report this message to the moderation team?
@@ -316,20 +316,16 @@ export default function Post() {
                                 if (reportModal.current) {
                                     try {
                                         if (
-                                            reportModal.current.dataset
-                                                .messageId &&
-                                            reportModal.current.dataset
-                                                .reportType &&
-                                            reportModal.current.dataset
-                                                .relatedId
+                                            reportModal.current.dataset.id &&
+                                            reportModal.current.dataset.type &&
+                                            reportModal.current.dataset.related
                                         ) {
                                             await report(
+                                                reportModal.current.dataset.id,
                                                 reportModal.current.dataset
-                                                    .messageId,
+                                                    .type,
                                                 reportModal.current.dataset
-                                                    .reportType,
-                                                reportModal.current.dataset
-                                                    .relatedId
+                                                    .related
                                             );
                                         }
                                     } catch (error) {

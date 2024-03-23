@@ -85,8 +85,9 @@
 
 .profile-notification-container {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    padding: 0.5em 1em;
+    border-bottom: 1px solid black;
 }
 
 .profile-notification-link {

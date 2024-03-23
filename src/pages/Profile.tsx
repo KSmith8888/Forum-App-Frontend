@@ -15,6 +15,7 @@ import {
     notificationInterface,
 } from "../utils/interfaces";
 import { deleteAccount } from "../utils/delete-account";
+import { deleteNotification } from "../utils/delete-notification";
 import ProfilePicSelector from "../components/ProfilePicSelector";
 
 import "../assets/styles/profile.css";
@@ -200,15 +201,43 @@ export default function Profile() {
                     key={notification._id}
                     className="profile-notification-container"
                 >
-                    <p>{notification.message}</p>
-                    {notification.isReply && (
-                        <Link
-                            to={`/posts/details/${notification.replyMessageId}`}
-                            className="profile-notification-link"
+                    <p className="notification-message">
+                        {notification.message}
+                    </p>
+                    <div className="notification-options">
+                        {notification.isReply && (
+                            <Link
+                                to={`/posts/details/${notification.replyMessageId}`}
+                                className="profile-notification-link"
+                            >
+                                See Thread
+                            </Link>
+                        )}
+                        <button
+                            type="button"
+                            className="button"
+                            onClick={async () => {
+                                try {
+                                    const message = await deleteNotification(
+                                        notification._id
+                                    );
+                                    if (
+                                        typeof message === "string" &&
+                                        messageModal.current
+                                    ) {
+                                        setModalMessage(message);
+                                        messageModal.current.showModal();
+                                    }
+                                } catch (error) {
+                                    if (error instanceof Error) {
+                                        console.log(error.message);
+                                    }
+                                }
+                            }}
                         >
-                            See Thread
-                        </Link>
-                    )}
+                            Delete
+                        </button>
+                    </div>
                 </div>
             );
         }
