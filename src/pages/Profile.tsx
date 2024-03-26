@@ -262,7 +262,9 @@ export default function Profile() {
 
     return (
         <>
-            <h2>{username || "Something went wrong"}</h2>
+            <h2 className="username-heading">
+                {username || "Something went wrong"}
+            </h2>
             {isMod && (
                 <Link to="/moderation" className="button-link">
                     Moderation
@@ -270,9 +272,13 @@ export default function Profile() {
             )}
             <div className="profile-section-row">
                 <section className="profile-settings-section">
-                    <h3>Account Settings:</h3>
+                    <h3 className="account-settings-heading">
+                        Account Settings:
+                    </h3>
                     <div className="profile-image-info">
-                        <h4>Profile Image:</h4>
+                        <h4 className="profile-image-heading">
+                            Profile Image:
+                        </h4>
                         <img
                             src={`/profile-images/${profilePic.name}`}
                             alt={profilePic.alt}
@@ -330,7 +336,7 @@ export default function Profile() {
                     </div>
                 </section>
                 <section className="profile-notifications-section">
-                    <h3>Notifications:</h3>
+                    <h3 className="notifications-heading">Notifications:</h3>
                     {notificationElements.length > 0 ? (
                         <div className="notifications-container">
                             {notificationElements}
@@ -342,7 +348,7 @@ export default function Profile() {
             </div>
             <div className="profile-section-row">
                 <section className="profile-posts-section">
-                    <h3>Your Posts:</h3>
+                    <h3 className="your-posts-heading">Your Posts:</h3>
 
                     {postElements.length > 0 ? (
                         <div className="user-posts-container">
@@ -353,7 +359,7 @@ export default function Profile() {
                     )}
                 </section>
                 <section className="profile-comments-section">
-                    <h3>Your Comments:</h3>
+                    <h3 className="your-comments-heading">Your Comments:</h3>
                     {commentElements.length > 0 ? (
                         <div className="user-comments-container">
                             {commentElements}

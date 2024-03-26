@@ -6,7 +6,7 @@ body {
     margin: 0;
     font-family: "Segoe UI", "Helvetica Neue", sans-serif;
     color: black;
-    background-color: #fff;
+    background-color: rgb(215, 231, 236);
 }
 
 button,
@@ -85,6 +85,7 @@ background-color: rgb(25, 28, 160);
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    border-bottom: 1px solid black;
 }
 
 .user-message {
@@ -113,7 +114,10 @@ background-color: rgb(25, 28, 160);
 .results-posts-link-container {
     display: flex;
     flex-direction: column;
-    border-bottom: 1px solid black;
+    border: 1px solid black;
+    border-radius: 5px;
+    background-color: #fff;
+    margin: 1em 0;
 }
 
 .trending-post-link,
@@ -129,6 +133,7 @@ background-color: rgb(25, 28, 160);
 
 .footer {
     width: 100%;
+    background-color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -248,12 +253,14 @@ background-color: rgb(25, 28, 160);
 
 .topics-links-nav {
     width: 100%;
+    background-color: #fff;
+    border-bottom: 1px solid black;
     display: flex;
     justify-content: center;
 }
 
 .topic-link {
-    margin: 0.5em 1em;
+    margin: 0.75em 1em;
     text-decoration: none;
 }
 

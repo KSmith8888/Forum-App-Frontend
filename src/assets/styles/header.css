@@ -13,9 +13,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgb(183, 214, 214);
+    background-color: rgb(215, 231, 236);
     border-bottom: 1px solid black;
 }
+
+/*rgb(183, 214, 214)*/
 
 .header-info-container {
     margin: 0 1em;
