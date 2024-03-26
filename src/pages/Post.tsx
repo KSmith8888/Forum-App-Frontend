@@ -162,9 +162,9 @@ export default function Post() {
         relatedId: string
     ) {
         if (reportModal.current) {
-            reportModal.current.dataset.messageId = messageId;
-            reportModal.current.dataset.reportType = reportType;
-            reportModal.current.dataset.relatedId = relatedId;
+            reportModal.current.dataset.id = messageId;
+            reportModal.current.dataset.type = reportType;
+            reportModal.current.dataset.related = relatedId;
             reportModal.current.showModal();
         }
     }

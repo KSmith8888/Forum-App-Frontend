@@ -5,6 +5,7 @@ import { loaderActionInterface, reportInterface } from "../utils/interfaces.ts";
 import {
     deleteUsersAccount,
     deleteUsersPost,
+    deleteUsersComment,
     updateUsersRole,
     deleteReport,
 } from "../utils/moderation";
@@ -52,6 +53,7 @@ export async function moderationAction({ request }: loaderActionInterface) {
     const formData = await request.formData();
     const deleteAccountUsername = formData.get("delete-account-username");
     const deletePostId = formData.get("delete-post-id");
+    const deleteCommentId = formData.get("delete-comment-id");
     const updateRoleUsername = formData.get("change-role-username");
     const newAccountRole = formData.get("new-role-input");
     const deleteReportId = formData.get("delete-report-id");
@@ -65,6 +67,10 @@ export async function moderationAction({ request }: loaderActionInterface) {
     if (deletePostId && typeof deletePostId === "string") {
         const deletePostMsg = await deleteUsersPost(deletePostId);
         returnMessage = deletePostMsg;
+    }
+    if (deleteCommentId && typeof deleteCommentId === "string") {
+        const deleteCommentMsg = await deleteUsersComment(deleteCommentId);
+        returnMessage = deleteCommentMsg;
     }
     if (
         updateRoleUsername &&
@@ -98,6 +104,7 @@ export default function Moderation() {
     const actionMessage = useActionData();
     const deleteAccountForm = useRef<HTMLFormElement>(null);
     const deletePostForm = useRef<HTMLFormElement>(null);
+    const deleteCommentForm = useRef<HTMLFormElement>(null);
     const changeRoleForm = useRef<HTMLFormElement>(null);
     useEffect(() => {
         if (actionMessage) {
@@ -106,6 +113,9 @@ export default function Moderation() {
             }
             if (deletePostForm && deletePostForm.current) {
                 deletePostForm.current.reset();
+            }
+            if (deleteCommentForm && deleteCommentForm.current) {
+                deleteCommentForm.current.reset();
             }
             if (changeRoleForm && changeRoleForm.current) {
                 changeRoleForm.current.reset();
@@ -163,6 +173,29 @@ export default function Moderation() {
                         />
                         <button type="submit" className="button">
                             Delete Post
+                        </button>
+                    </Form>
+                    <Form
+                        method="DELETE"
+                        action="/moderation"
+                        className="moderation-form"
+                        ref={deleteCommentForm}
+                    >
+                        <h4 className="form-heading">Delete Comment</h4>
+                        <label htmlFor="comment-id-input">
+                            Id number of comment to be deleted:
+                        </label>
+                        <input
+                            id="comment-id-input"
+                            className="input"
+                            name="delete-comment-id"
+                            type="text"
+                            pattern="[a-zA-Z0-9]+"
+                            maxLength={25}
+                            required
+                        />
+                        <button type="submit" className="button">
+                            Delete Comment
                         </button>
                     </Form>
                     {userRole === "admin" && (

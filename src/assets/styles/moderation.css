@@ -1,15 +1,16 @@
 .moderation-main-container {
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 .section-heading {
+    text-align: center;
     margin: 0.5em 0 1em 0;
 }
 
 .moderation-forms-section {
-    margin: 0 0 2em 0;
+    margin: 0 2em 2em 2em;
 }
 
 .moderation-form {
@@ -28,6 +29,10 @@
 .moderation-main-heading,
 .moderation-form-message {
     margin: 0.5em 0;
+}
+
+.reports-section {
+    margin: 0 2em;
 }
 
 .report-text {
