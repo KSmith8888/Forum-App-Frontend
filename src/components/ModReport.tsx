@@ -18,7 +18,7 @@ export default function ModReport({ report }: modReportInterface) {
             <p className="report-text">{`Message Id: ${report.messageId}`}</p>
             <div className="button-container">
                 <Link to={`/posts/details/${linkId}`} className="button-link">
-                    Reported Message
+                    See Thread
                 </Link>
                 <Form action="/moderation" method="DELETE">
                     <input
