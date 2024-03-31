@@ -134,11 +134,13 @@ export default function Login() {
                 </button>
 
                 <p className="login-form-message">{loginMessage}</p>
+                <p className="new-account-text">
+                    Don{`'`}t have an account?{" "}
+                    <Link to="/register" className="link">
+                        Create a new account
+                    </Link>
+                </p>
             </Form>
-            <p className="new-account-text">
-                Don{`'`}t have an account?{" "}
-                <Link to="/register">Create a new account</Link>
-            </p>
         </section>
     );
 }

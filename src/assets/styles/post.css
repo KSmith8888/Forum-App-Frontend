@@ -130,6 +130,7 @@
 
 .post-history-container,
 .comment-history-container {
+    align-self: center;
     display: flex;
     flex-direction: column;
 }

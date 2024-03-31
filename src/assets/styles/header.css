@@ -72,10 +72,10 @@
     background-image: url("/icon-images/menu-icon.png");
     background-size: cover;
     background-repeat: no-repeat;
-    margin: 0.5em 1em;
+    margin: 0.5em;
     border: none;
     border-radius: 5px;
-    width: 34px;
+    width: 28px;
     height: 28px;
 }
 

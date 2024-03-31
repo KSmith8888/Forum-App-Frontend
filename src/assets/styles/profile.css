@@ -94,8 +94,26 @@
     border-bottom: 1px solid black;
 }
 
-.profile-notification-link {
-    margin: 0 0.5em;
+.notification-message {
+    margin: 0.5em 0;
+}
+
+.profile-notification-link,
+.profile-post-link,
+.related-post-link {
+    font-size: 1.1rem;
+    color: rgb(19, 26, 128);
+    text-decoration: none;
+    margin: 0.5em;
+}
+
+.profile-notification-link:hover,
+.profile-notification-link:focus,
+.profile-post-link:hover,
+.related-post-link:hover,
+.profile-post-link:focus,
+.related-post-link:focus {
+    color: rgb(8, 7, 46);
 }
 
 .post-link-container,
@@ -113,14 +131,6 @@
 .your-posts-heading,
 .your-comments-heading {
     margin: 0.5em 0;
-}
-
-.profile-post-link,
-.related-post-link {
-    margin: 0.5em 0;
-    font-size: 1.2rem;
-    color: rgb(15, 15, 121);
-    text-decoration: none;
 }
 
 .profile-section-row {

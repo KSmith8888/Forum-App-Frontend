@@ -118,7 +118,7 @@ export default function Register() {
                 />
                 <label htmlFor="accept-terms-input">
                     I agree to the{" "}
-                    <Link to="/terms" target="_blank">
+                    <Link to="/terms" target="_blank" className="link">
                         Terms of Service
                     </Link>
                 </label>

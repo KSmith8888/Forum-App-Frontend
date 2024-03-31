@@ -5,7 +5,9 @@ export default function Footer() {
         <footer className="footer">
             <p className="footer-text">
                 By using this service, you agree to our{" "}
-                <Link to="/terms">Terms of Service</Link>
+                <Link to="/terms" className="link">
+                    Terms of Service
+                </Link>
             </p>
             <p className="footer-text">
                 This service stores user account information in the browser for
