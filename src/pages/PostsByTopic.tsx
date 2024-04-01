@@ -89,6 +89,7 @@ export default function PostsByTopic() {
                     to={`/profile/create${
                         topic !== "" ? `?topic=${topic}` : ""
                     }`}
+                    className="button-link"
                 >
                     Create a post
                 </Link>

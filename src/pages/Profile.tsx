@@ -112,8 +112,7 @@ export async function profileAction({ request }: loaderActionInterface) {
 
 export default function Profile() {
     const username = sessionStorage.getItem("username");
-    const userRole = sessionStorage.getItem("role");
-    const isMod = userRole === "mod" || userRole === "admin";
+
     const loaderData = useLoaderData();
     let postsData = [];
     let commentsData = [];
@@ -265,74 +264,73 @@ export default function Profile() {
             <h2 className="username-heading">
                 {username || "Something went wrong"}
             </h2>
-            {isMod && (
-                <Link to="/moderation" className="button-link">
-                    Moderation
-                </Link>
-            )}
             <div className="profile-section-row">
                 <section className="profile-settings-section">
                     <h3 className="account-settings-heading">
                         Account Settings:
                     </h3>
-                    <div className="profile-image-info">
-                        <h4 className="profile-image-heading">
-                            Profile Image:
-                        </h4>
-                        <img
-                            src={`/profile-images/${profilePic.name}`}
-                            alt={profilePic.alt}
-                            className="profile-image"
-                        />
-                        <button
-                            onClick={() => {
-                                setIsPicModalOpen(true);
-                            }}
-                            className="button"
-                        >
-                            Change
-                        </button>
-                        <ProfilePicSelector
-                            isPicModalOpen={isPicModalOpen}
-                            setIsPicModalOpen={setIsPicModalOpen}
-                        />
-                    </div>
-                    <div className="delete-account-container">
-                        <h3 className="delete-account-heading">
-                            Delete Account:
-                        </h3>
-                        <p className="warning-message">
-                            This action will delete your account, along with all
-                            of your posts and comments
-                        </p>
-                        <button
-                            type="button"
-                            className="delete-account-button"
-                            onClick={async () => {
-                                const id = sessionStorage.getItem("_id");
-                                if (id) {
-                                    const deleteData = await deleteAccount(id);
-                                    if (
-                                        deleteData instanceof Error &&
-                                        messageModal.current
-                                    ) {
-                                        setModalMessage(deleteData.message);
-                                        messageModal.current.showModal();
+                    <div className="account-settings-container">
+                        <div className="profile-image-info">
+                            <h4 className="profile-image-heading">
+                                Profile Image:
+                            </h4>
+                            <img
+                                src={`/profile-images/${profilePic.name}`}
+                                alt={profilePic.alt}
+                                className="profile-image"
+                            />
+                            <button
+                                onClick={() => {
+                                    setIsPicModalOpen(true);
+                                }}
+                                className="button"
+                            >
+                                Change
+                            </button>
+                            <ProfilePicSelector
+                                isPicModalOpen={isPicModalOpen}
+                                setIsPicModalOpen={setIsPicModalOpen}
+                            />
+                        </div>
+                        <div className="delete-account-container">
+                            <h3 className="delete-account-heading">
+                                Delete Account:
+                            </h3>
+                            <p className="warning-message">
+                                This action will delete your account, along with
+                                all of your posts and comments
+                            </p>
+                            <button
+                                type="button"
+                                className="delete-account-button"
+                                onClick={async () => {
+                                    const id = sessionStorage.getItem("_id");
+                                    if (id) {
+                                        const deleteData = await deleteAccount(
+                                            id
+                                        );
+                                        if (
+                                            deleteData instanceof Error &&
+                                            messageModal.current
+                                        ) {
+                                            setModalMessage(deleteData.message);
+                                            messageModal.current.showModal();
+                                        } else {
+                                            localStorage.clear();
+                                            logoutUser(
+                                                "Your account has been deleted"
+                                            );
+                                        }
                                     } else {
-                                        localStorage.clear();
                                         logoutUser(
-                                            "Your account has been deleted"
+                                            "Something went wrong please log in and try again"
                                         );
                                     }
-                                } else {
-                                    logoutUser(
-                                        "Something went wrong please log in and try again"
-                                    );
-                                }
-                            }}
-                        >
-                            Delete
-                        </button>
+                                }}
+                            >
+                                Delete
+                            </button>
+                        </div>
                     </div>
                 </section>
                 <section className="profile-notifications-section">

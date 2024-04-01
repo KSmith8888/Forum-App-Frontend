@@ -106,9 +106,12 @@ img {
     margin: 1em 0;
 }
 
-.trending-post-link,
-.results-post-link,
 .link {
+    margin: 0;
+}
+
+.trending-post-link,
+.results-post-link {
     color: rgb(19, 26, 128);
     text-decoration: none;
 }

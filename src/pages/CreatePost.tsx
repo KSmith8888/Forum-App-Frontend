@@ -96,7 +96,7 @@ export default function CreatePost() {
                         setTypeOfPost("Text");
                     }}
                 >
-                    Text
+                    Text Post
                 </button>
                 <button
                     type="button"
@@ -106,7 +106,7 @@ export default function CreatePost() {
                         setTypeOfPost("Link");
                     }}
                 >
-                    Link
+                    Link Post
                 </button>
             </div>
             <label htmlFor="topic-input">Topic:</label>

@@ -22,6 +22,8 @@ export default function Header({
     const navigate = useNavigate();
     const newNotifications = numOfNotifications > 0 ? true : false;
     const navModal = useRef<HTMLDialogElement>(null);
+    const userRole = sessionStorage.getItem("role");
+    const isMod = userRole === "mod" || userRole === "admin";
 
     function closeNavModal() {
         if (navModal.current) {
@@ -129,6 +131,11 @@ export default function Header({
                             >
                                 Create Post
                             </Link>
+                            {isMod && (
+                                <Link to="/moderation" className="button-link">
+                                    Moderation
+                                </Link>
+                            )}
                             <button className="button" onClick={logoutUser}>
                                 Logout
                             </button>
