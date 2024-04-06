@@ -10,16 +10,24 @@
     margin: 0.5em;
 }
 
+.post-author,
+.post-time,
 .post-likes,
+.post-edited-time,
 .comment-author,
 .comment-time,
-.comment-likes {
-    margin: 0 0.5em;
+.comment-likes,
+.comment-edited-time {
+    margin: 0.25em;
 }
 
 .previous-post,
 .previous-comment {
-    margin: 0 2em;
+    background-color: #fff;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin: 0 2em 1em 2em;
+    padding: 0.5em 1em;
 }
 
 .post-text,
@@ -37,7 +45,7 @@
 .post,
 .comment {
     width: 100%;
-    padding: 1em 0.5em;
+    padding: 2em 0.5em;
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
@@ -57,14 +65,19 @@
 }
 
 .column-content {
+    background-color: #fff;
+    border: 1px solid black;
+    border-radius: 5px;
     width: 65%;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+/* secondary comment color??? #b6d4dd  old comment color rgb(173, 216, 230)*/
+
 .comment:nth-child(odd) {
-    background-color: rgb(173, 216, 230);
+    background-color: #ebf1f3;
 }
 
 .comment:nth-child(even) {
@@ -93,15 +106,6 @@
     font-weight: 600;
 }
 
-.post-author,
-.post-time,
-.post-edited-time,
-.comment-author,
-.comment-time,
-.comment-edited-time {
-    margin: 0.5em;
-}
-
 .author-info-container {
     display: flex;
     justify-content: space-between;
@@ -117,11 +121,7 @@
     padding-left: 5em;
 }
 
-.post-likes-container {
-    display: flex;
-    align-items: center;
-}
-
+.post-likes-container,
 .comment-likes-container {
     margin: 0.5em 0;
     display: flex;
@@ -163,7 +163,6 @@
 }
 
 .post-main-content-container {
-    padding: 0 0 1em 0;
     display: flex;
     align-items: center;
 }
@@ -191,6 +190,11 @@
     .column-info {
         width: 100%;
         align-items: center;
+        margin: 0.5em 0;
+    }
+    .post-likes-container,
+    .comment-likes-container {
+        flex-direction: column;
     }
     .comments-container {
         width: 100%;

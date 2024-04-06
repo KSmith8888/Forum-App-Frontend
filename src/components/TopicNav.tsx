@@ -28,7 +28,10 @@ export default function TopicNav() {
                     <Link to="/posts/news" className="topic-link">
                         News
                     </Link>
-                    <Link to="/posts/other" className="topic-link">
+                    <Link
+                        to="/posts/other"
+                        className="topic-link last-topic-link"
+                    >
                         Other
                     </Link>
                 </div>

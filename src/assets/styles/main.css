@@ -260,6 +260,7 @@ img {
 }
 
 .topics-links-nav {
+    padding: 0.5em 0;
     width: 100%;
     background-color: #fff;
     border-bottom: 1px solid black;
@@ -268,8 +269,15 @@ img {
 }
 
 .topic-link {
-    margin: 0.75em 1em;
+    text-align: center;
+    margin: 0.25em 1em 0.25em 0;
+    padding: 0 1em 0 0;
+    border-right: 1px solid black;
     text-decoration: none;
+}
+
+.last-topic-link {
+    border: none;
 }
 
 .topic-link:hover,
@@ -296,5 +304,8 @@ img {
     }
     .topics-link-container {
         flex-direction: column;
+    }
+    .topic-link {
+        border: none;
     }
 }

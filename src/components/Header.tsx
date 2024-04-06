@@ -132,7 +132,13 @@ export default function Header({
                                 Create Post
                             </Link>
                             {isMod && (
-                                <Link to="/moderation" className="button-link">
+                                <Link
+                                    to="/moderation"
+                                    className="button-link"
+                                    onClick={() => {
+                                        closeNavModal();
+                                    }}
+                                >
                                     Moderation
                                 </Link>
                             )}
