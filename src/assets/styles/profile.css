@@ -81,6 +81,10 @@
 
 .message-modal-text {
     font-size: 1.2rem;
+    background-color: #fff;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0.5em;
 }
 
 .profile-notification-container {

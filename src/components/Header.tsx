@@ -49,7 +49,7 @@ export default function Header({
         <header className="header">
             <h1 className="main-heading">
                 <Link to="/" className="main-heading-link">
-                    The Forum App
+                    4em
                 </Link>
             </h1>
             <div className="header-info-container">

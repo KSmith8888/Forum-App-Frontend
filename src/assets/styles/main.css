@@ -222,6 +222,10 @@ img {
     display: block;
 }
 
+.posts-topic-heading {
+    margin: 0.75em 0 0.25em 0;
+}
+
 .terms-container {
     max-width: 25em;
     margin: 1em 0;

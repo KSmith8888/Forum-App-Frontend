@@ -1,10 +1,16 @@
 .main-heading {
+    font-weight: 800;
     margin: 0.2em 0.5em;
 }
 
 .main-heading-link {
+    color: rgb(19, 26, 128);
     text-decoration: none;
-    color: black;
+}
+
+.main-heading-link:hover,
+.main-heading-link:focus {
+    color: rgb(8, 7, 46);
 }
 
 .header {
@@ -13,7 +19,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgb(215, 231, 236);
+    background-color: #ebf1f3;
     border-bottom: 1px solid black;
 }
 
