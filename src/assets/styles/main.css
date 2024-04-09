@@ -312,4 +312,13 @@ img {
     .topic-link {
         border: none;
     }
+    .trending-main-content-container,
+    .results-main-content-container {
+        flex-direction: column;
+    }
+    .trending-post-text,
+    .trending-post-title,
+    .results-post-text {
+        text-align: center;
+    }
 }
