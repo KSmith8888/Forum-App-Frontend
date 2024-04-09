@@ -4,7 +4,6 @@
     "description": "The frontend of a forum/social media app made with the MERN stack",
     "type": "module",
     "license": "MIT",
-    "private": "true",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "dev": "vite",
@@ -26,14 +25,14 @@
         "react-router-dom": "^6.22.3"
     },
     "devDependencies": {
-        "@types/react": "^18.2.64",
-        "@types/react-dom": "^18.2.21",
-        "@typescript-eslint/eslint-plugin": "^7.1.1",
-        "@typescript-eslint/parser": "^7.1.1",
+        "@types/react": "^18.2.75",
+        "@types/react-dom": "^18.2.24",
+        "@typescript-eslint/eslint-plugin": "^7.6.0",
+        "@typescript-eslint/parser": "^7.6.0",
         "@vitejs/plugin-react": "^4.2.1",
         "eslint": "^8.57.0",
-        "eslint-plugin-react": "^7.34.0",
-        "typescript": "^5.4.2",
-        "vite": "^5.1.5"
+        "eslint-plugin-react": "^7.34.1",
+        "typescript": "^5.4.4",
+        "vite": "^5.2.8"
     }
 }
