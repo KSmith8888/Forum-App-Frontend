@@ -81,7 +81,7 @@ img {
 .home-container {
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 .trending-posts-section,
@@ -100,9 +100,8 @@ img {
 .results-posts-link-container {
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
-    border-radius: 5px;
-    background-color: #fff;
+    background-color: #f3f3f3;
+    border: 1px solid #575454;
     margin: 1em 0;
 }
 

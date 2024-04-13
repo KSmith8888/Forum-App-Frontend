@@ -9,6 +9,7 @@ import Comment from "../components/Comment";
 import CommentForm from "../components/CommentForm.tsx";
 import PostHistory from "../components/PostHistory.tsx";
 import { likePost } from "../utils/like.ts";
+import { savePost } from "../utils/save-post.ts";
 import {
     outletInterface,
     commentInterface,
@@ -122,6 +123,7 @@ export default function Post() {
         : "";
     const { isUserLoggedIn } = useOutletContext<outletInterface>();
     let didUserAlreadyLike = false;
+    let didUserAlreadySave = false;
     const savedLikedPosts = localStorage.getItem("likedPosts");
     if (savedLikedPosts) {
         const parsedLikedPosts = JSON.parse(savedLikedPosts);
@@ -129,7 +131,15 @@ export default function Post() {
             didUserAlreadyLike = true;
         }
     }
+    const localSavedPosts = localStorage.getItem("saved-posts");
+    if (localSavedPosts) {
+        const parsedSavedPosts = JSON.parse(localSavedPosts);
+        if (parsedSavedPosts.includes(postData._id)) {
+            didUserAlreadySave = true;
+        }
+    }
     const [userLikedPost, setUserLikedPost] = useState(didUserAlreadyLike);
+    const [userSavedPost, setUserSavedPost] = useState(didUserAlreadySave);
     const [postLikes, setPostLikes] = useState(postData.likes);
     const [showHistory, setShowHistory] = useState(false);
     const [showCommentForm, setShowCommentForm] = useState(false);
@@ -386,6 +396,27 @@ export default function Post() {
                             </button>
                         </>
                     )}
+                    <button
+                        className={
+                            userSavedPost
+                                ? "save-post-button-selected"
+                                : "save-post-button"
+                        }
+                        onClick={async () => {
+                            try {
+                                const savePostData = await savePost(
+                                    postData._id
+                                );
+                                setUserSavedPost(savePostData.alreadySaved);
+                            } catch (error) {
+                                if (error instanceof Error) {
+                                    console.error(error.message);
+                                }
+                            }
+                        }}
+                    >
+                        Save
+                    </button>
                 </div>
             </article>
             {showHistory && (

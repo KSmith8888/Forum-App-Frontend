@@ -333,6 +333,9 @@ export default function Profile() {
                         </div>
                     </div>
                 </section>
+                <section className="profile-saved-posts-section">
+                    <h3 className="saved-posts-heading">Saved Posts:</h3>
+                </section>
                 <section className="profile-notifications-section">
                     <h3 className="notifications-heading">Notifications:</h3>
                     {notificationElements.length > 0 ? (

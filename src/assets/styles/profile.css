@@ -136,7 +136,8 @@
 .your-posts-heading,
 .your-comments-heading,
 .notifications-heading,
-.account-settings-heading {
+.account-settings-heading,
+.saved-posts-heading {
     margin: 0.5em 0;
 }
 
@@ -149,7 +150,8 @@
 .profile-settings-section,
 .profile-notifications-section,
 .profile-posts-section,
-.profile-comments-section {
+.profile-comments-section,
+.profile-saved-posts-section {
     width: 25em;
     margin: 0.5em;
     display: flex;

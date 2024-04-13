@@ -65,13 +65,21 @@
 }
 
 .column-content {
-    background-color: #fff;
-    border: 1px solid black;
-    border-radius: 5px;
+    background-color: #f3f3f3;
+    border: 1px solid #575454;
     width: 65%;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.save-post-button {
+    margin: 0.5em;
+}
+
+.save-post-button-selected {
+    margin: 0.5em;
+    background-color: rgb(15, 17, 129);
 }
 
 /* secondary comment color??? #b6d4dd  old comment color rgb(173, 216, 230)*/
