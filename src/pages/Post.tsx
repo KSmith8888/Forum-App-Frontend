@@ -405,9 +405,10 @@ export default function Post() {
                         onClick={async () => {
                             try {
                                 const savePostData = await savePost(
-                                    postData._id
+                                    postData._id,
+                                    postData.title
                                 );
-                                setUserSavedPost(savePostData.alreadySaved);
+                                setUserSavedPost(savePostData.didUserSave);
                             } catch (error) {
                                 if (error instanceof Error) {
                                     console.error(error.message);

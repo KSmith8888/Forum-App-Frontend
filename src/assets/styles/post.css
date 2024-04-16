@@ -74,12 +74,35 @@
 }
 
 .save-post-button {
+    cursor: pointer;
+    border: 1px solid black;
+    color: #1c1c1c;
+    background-color: rgb(218, 214, 214);
     margin: 0.5em;
+    padding: 0.2em 0.5em;
+    border-radius: 5px;
+    text-decoration: none;
 }
 
 .save-post-button-selected {
-    margin: 0.5em;
+    cursor: pointer;
+    border: 1px solid black;
     background-color: rgb(15, 17, 129);
+    color: #fff;
+    margin: 0.5em;
+    padding: 0.2em 0.5em;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.save-post-button:hover,
+.save-post-button:focus {
+    background-color: rgb(199, 192, 192);
+}
+
+.save-post-button-selected:hover,
+.save-post-button-selected:focus {
+    background-color: rgb(10, 11, 77);
 }
 
 /* secondary comment color??? #b6d4dd  old comment color rgb(173, 216, 230)*/

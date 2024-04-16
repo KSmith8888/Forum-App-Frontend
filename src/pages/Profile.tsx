@@ -116,6 +116,7 @@ export default function Profile() {
     const loaderData = useLoaderData();
     let postsData = [];
     let commentsData = [];
+    let savedPostsData = [];
     let notificationsData = [];
     if (loaderData && typeof loaderData === "object") {
         if ("posts" in loaderData && Array.isArray(loaderData.posts)) {
@@ -123,6 +124,12 @@ export default function Profile() {
         }
         if ("comments" in loaderData && Array.isArray(loaderData.comments)) {
             commentsData = loaderData.comments;
+        }
+        if (
+            "savedPosts" in loaderData &&
+            Array.isArray(loaderData.savedPosts)
+        ) {
+            savedPostsData = loaderData.savedPosts;
         }
         if (
             "notifications" in loaderData &&
@@ -190,6 +197,19 @@ export default function Profile() {
                         </button>
                     </Form>
                 </div>
+            </div>
+        );
+    });
+    const savedPostsElements = savedPostsData.map((savedPost) => {
+        return (
+            <div key={savedPost.id} className="saved-post-link-container">
+                <p className="saved-post-link-text">{savedPost.title}</p>
+                <Link
+                    to={`/posts/details/${savedPost.id}`}
+                    className="profile-notification-link"
+                >
+                    See Thread
+                </Link>
             </div>
         );
     });
@@ -335,6 +355,9 @@ export default function Profile() {
                 </section>
                 <section className="profile-saved-posts-section">
                     <h3 className="saved-posts-heading">Saved Posts:</h3>
+                    <div className="saved-posts-container">
+                        {savedPostsElements}
+                    </div>
                 </section>
                 <section className="profile-notifications-section">
                     <h3 className="notifications-heading">Notifications:</h3>

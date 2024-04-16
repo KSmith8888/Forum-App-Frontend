@@ -121,7 +121,8 @@
 }
 
 .post-link-container,
-.comment-link-container {
+.comment-link-container,
+.saved-post-link-container {
     background-color: #fff;
     width: 100%;
     margin: 0 0 1em 0;
@@ -137,7 +138,8 @@
 .your-comments-heading,
 .notifications-heading,
 .account-settings-heading,
-.saved-posts-heading {
+.saved-posts-heading,
+.saved-post-link-text {
     margin: 0.5em 0;
 }
 
@@ -192,7 +194,8 @@
     .profile-settings-section,
     .profile-notifications-section,
     .profile-posts-section,
-    .profile-comments-section {
+    .profile-comments-section,
+    .profile-saved-posts-section {
         width: 100%;
         margin: 1em 0;
     }
