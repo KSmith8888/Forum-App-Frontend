@@ -77,6 +77,13 @@ export default function Home() {
                                 )}
                             </p>
                         </div>
+                        {post.postType === "Text" && (
+                            <img
+                                src="/icon-images/text-post-icon.png"
+                                alt="A white sheet of paper with black text representing a text post"
+                                className="home-text-post-image"
+                            />
+                        )}
                         {post.postType === "Link" && (
                             <a
                                 href={post.content}

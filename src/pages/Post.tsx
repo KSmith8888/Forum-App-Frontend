@@ -396,28 +396,30 @@ export default function Post() {
                             </button>
                         </>
                     )}
-                    <button
-                        className={
-                            userSavedPost
-                                ? "save-post-button-selected"
-                                : "save-post-button"
-                        }
-                        onClick={async () => {
-                            try {
-                                const savePostData = await savePost(
-                                    postData._id,
-                                    postData.title
-                                );
-                                setUserSavedPost(savePostData.didUserSave);
-                            } catch (error) {
-                                if (error instanceof Error) {
-                                    console.error(error.message);
-                                }
+                    {isUserLoggedIn && (
+                        <button
+                            className={
+                                userSavedPost
+                                    ? "save-post-button-selected"
+                                    : "save-post-button"
                             }
-                        }}
-                    >
-                        Save
-                    </button>
+                            onClick={async () => {
+                                try {
+                                    const savePostData = await savePost(
+                                        postData._id,
+                                        postData.title
+                                    );
+                                    setUserSavedPost(savePostData.didUserSave);
+                                } catch (error) {
+                                    if (error instanceof Error) {
+                                        console.error(error.message);
+                                    }
+                                }
+                            }}
+                        >
+                            Save
+                        </button>
+                    )}
                 </div>
             </article>
             {showHistory && (

@@ -255,9 +255,10 @@ img {
 }
 
 .home-link-post-image,
-.results-link-post-image {
+.home-text-post-image,
+.results-link-post-image,
+.results-text-post-image {
     margin: 0 0.5em 0 1em;
-    border: 1px solid black;
     width: 55px;
     height: 55px;
 }
@@ -296,6 +297,15 @@ img {
 .topics-link-row {
     display: flex;
     justify-content: space-around;
+}
+
+.results-post-title {
+    text-align: center;
+}
+
+.results-post-text {
+    text-align: center;
+    max-width: 20em;
 }
 
 @media (max-width: 650px) {

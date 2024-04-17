@@ -67,6 +67,13 @@ export default function PostsByTopic() {
                             )}
                         </p>
                     </div>
+                    {post.postType === "Text" && (
+                        <img
+                            src="/icon-images/text-post-icon.png"
+                            alt="A white sheet of paper with black text representing a text post"
+                            className="results-text-post-image"
+                        />
+                    )}
                     {post.postType === "Link" && (
                         <a href={post.content} target="_blank" rel="noreferrer">
                             <img
