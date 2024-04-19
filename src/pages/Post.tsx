@@ -416,9 +416,11 @@ export default function Post() {
                                     }
                                 }
                             }}
-                        >
-                            Save
-                        </button>
+                            aria-label={
+                                userSavedPost ? "Save post" : "Unsave post"
+                            }
+                            title="Save or unsave post"
+                        ></button>
                     )}
                 </div>
             </article>
