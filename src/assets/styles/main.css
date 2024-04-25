@@ -321,6 +321,9 @@ img {
     .topic-link {
         border: none;
     }
+    .topics-link-row {
+        margin: 0.5em 0;
+    }
     .trending-main-content-container,
     .results-main-content-container {
         flex-direction: column;

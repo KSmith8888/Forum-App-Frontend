@@ -54,7 +54,7 @@ export default function Home() {
             return (
                 <div key={post._id} className="trending-posts-link-container">
                     <div className="trending-main-content-container">
-                        <div className="post-inner-content-container">
+                        <div className="home-post-content-container">
                             <Link
                                 to={`/posts/details/${post._id}`}
                                 className="trending-post-link"
