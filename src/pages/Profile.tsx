@@ -15,7 +15,6 @@ import {
     notificationInterface,
 } from "../utils/interfaces";
 import { deleteAccount } from "../utils/delete-account";
-import { deleteNotification } from "../utils/delete-notification";
 import ProfilePicSelector from "../components/ProfilePicSelector";
 
 import "../assets/styles/profile.css";
@@ -61,10 +60,11 @@ export async function profileAction({ request }: loaderActionInterface) {
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
         const formData = await request.formData();
-        let type = "";
         const id = formData.get("id");
         const post = formData.get("post");
         const comment = formData.get("comment");
+        const notification = formData.get("notification");
+        let reqUrl = "";
         if (
             (post && typeof post !== "string") ||
             (comment && typeof comment !== "string")
@@ -72,25 +72,30 @@ export async function profileAction({ request }: loaderActionInterface) {
             throw new Error("Post or comment data not provided");
         }
         if (post) {
-            type = post;
+            reqUrl = `${
+                import.meta.env.VITE_BACKEND_URL
+            }/api/v1/${post}/details/${id}`;
         } else if (comment) {
-            type = comment;
+            reqUrl = `${
+                import.meta.env.VITE_BACKEND_URL
+            }/api/v1/${comment}/details/${id}`;
+        } else if (notification) {
+            reqUrl = `${
+                import.meta.env.VITE_BACKEND_URL
+            }/api/v1/users/profile/notifications/${id}`;
         }
         if (!token || !userId) {
             throw new Error("You must log in before performing that action");
         }
-        const res = await fetch(
-            `${import.meta.env.VITE_BACKEND_URL}/api/v1/${type}/details/${id}`,
-            {
-                method: "DELETE",
-                body: JSON.stringify({ status: "Delete request" }),
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${token}`,
-                    "user_id": userId,
-                },
-            }
-        );
+        const res = await fetch(reqUrl, {
+            method: "DELETE",
+            body: JSON.stringify({ status: "Delete request" }),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+                "user_id": userId,
+            },
+        });
         if (!res.ok) {
             const errorData = await res.json();
             if (errorData && errorData.msg) {
@@ -148,14 +153,8 @@ export default function Profile() {
         }
     }, [actionMessage]);
     const [isPicModalOpen, setIsPicModalOpen] = useState(false);
-    const {
-        setIsUserLoggedIn,
-        profilePic,
-        setProfilePic,
-        numOfNotifications,
-        setNumOfNotifications,
-    } = useOutletContext<outletInterface>();
-    setNumOfNotifications(notificationsData.length);
+    const { setIsUserLoggedIn, profilePic, setProfilePic } =
+        useOutletContext<outletInterface>();
     const postElements = postsData.map((post: userProfilePost) => {
         return (
             <div key={post.id} className="post-link-container">
@@ -238,36 +237,19 @@ export default function Profile() {
                                 See Thread
                             </Link>
                         )}
-                        <button
-                            type="button"
-                            className="button"
-                            onClick={async () => {
-                                try {
-                                    const message = await deleteNotification(
-                                        notification._id
-                                    );
-                                    const newNotificationNum =
-                                        numOfNotifications - 1 >= 0
-                                            ? numOfNotifications - 1
-                                            : 0;
-
-                                    setNumOfNotifications(newNotificationNum);
-                                    if (
-                                        typeof message === "string" &&
-                                        messageModal.current
-                                    ) {
-                                        setModalMessage(message);
-                                        messageModal.current.showModal();
-                                    }
-                                } catch (error) {
-                                    if (error instanceof Error) {
-                                        console.log(error.message);
-                                    }
-                                }
-                            }}
-                        >
-                            Delete
-                        </button>
+                        <Form method="POST">
+                            <input
+                                type="hidden"
+                                name="notification"
+                                value="notifications"
+                            />
+                            <input
+                                type="hidden"
+                                name="id"
+                                value={notification._id}
+                            />
+                            <button className="button">Delete</button>
+                        </Form>
                     </div>
                 </div>
             );
@@ -375,7 +357,7 @@ export default function Profile() {
                 </section>
                 <section className="profile-notifications-section">
                     <h3 className="notifications-heading">
-                        Notifications ({numOfNotifications}):
+                        Notifications ({notificationsData.length}):
                     </h3>
                     {notificationElements.length > 0 ? (
                         <div className="notifications-container">
