@@ -143,13 +143,19 @@ export default function Profile() {
     const [modalMessage, setModalMessage] = useState("");
     useEffect(() => {
         if (typeof actionMessage === "string" && messageModal.current) {
-            console.log(actionMessage);
             setModalMessage(actionMessage);
             messageModal.current.showModal();
         }
     }, [actionMessage]);
-
     const [isPicModalOpen, setIsPicModalOpen] = useState(false);
+    const {
+        setIsUserLoggedIn,
+        profilePic,
+        setProfilePic,
+        numOfNotifications,
+        setNumOfNotifications,
+    } = useOutletContext<outletInterface>();
+    setNumOfNotifications(notificationsData.length);
     const postElements = postsData.map((post: userProfilePost) => {
         return (
             <div key={post.id} className="post-link-container">
@@ -240,6 +246,12 @@ export default function Profile() {
                                     const message = await deleteNotification(
                                         notification._id
                                     );
+                                    const newNotificationNum =
+                                        numOfNotifications - 1 >= 0
+                                            ? numOfNotifications - 1
+                                            : 0;
+
+                                    setNumOfNotifications(newNotificationNum);
                                     if (
                                         typeof message === "string" &&
                                         messageModal.current
@@ -262,8 +274,6 @@ export default function Profile() {
         }
     );
 
-    const { setIsUserLoggedIn, profilePic, setProfilePic } =
-        useOutletContext<outletInterface>();
     const navigate = useNavigate();
 
     function logoutUser(msg: string) {
@@ -355,12 +365,18 @@ export default function Profile() {
                 </section>
                 <section className="profile-saved-posts-section">
                     <h3 className="saved-posts-heading">Saved Posts:</h3>
-                    <div className="saved-posts-container">
-                        {savedPostsElements}
-                    </div>
+                    {savedPostsElements.length > 0 ? (
+                        <div className="saved-posts-container">
+                            {savedPostsElements}
+                        </div>
+                    ) : (
+                        <p>You have not saved any posts yet</p>
+                    )}
                 </section>
                 <section className="profile-notifications-section">
-                    <h3 className="notifications-heading">Notifications:</h3>
+                    <h3 className="notifications-heading">
+                        Notifications ({numOfNotifications}):
+                    </h3>
                     {notificationElements.length > 0 ? (
                         <div className="notifications-container">
                             {notificationElements}

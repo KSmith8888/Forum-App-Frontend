@@ -105,6 +105,11 @@ img {
     margin: 1em 0;
 }
 
+.home-post-content-container {
+    margin-right: 0.5em;
+    max-width: 18em;
+}
+
 .link {
     margin: 0;
 }

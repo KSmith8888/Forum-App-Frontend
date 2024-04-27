@@ -4,6 +4,8 @@ export interface outletInterface {
     setHasPicBeenUpdated: (hasPicBeenUpdated: boolean) => void;
     profilePic: profilePicInterface;
     setProfilePic: (pic: profilePicInterface) => void;
+    numOfNotifications: number;
+    setNumOfNotifications: (numOfNotifications: number) => void;
 }
 
 export interface loaderActionInterface {

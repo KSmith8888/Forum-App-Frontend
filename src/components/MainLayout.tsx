@@ -31,6 +31,7 @@ export default function Layout() {
                     context={{
                         isUserLoggedIn,
                         setIsUserLoggedIn,
+                        numOfNotifications,
                         setNumOfNotifications,
                         profilePic,
                         setProfilePic,
