@@ -23,7 +23,7 @@ export default function Comment({
         : "";
     const [commentLikes, setCommentLikes] = useState(commentData.likes);
     let didUserAlreadyLike = false;
-    const savedLikedComments = localStorage.getItem("likedComments");
+    const savedLikedComments = sessionStorage.getItem("likedComments");
     if (savedLikedComments) {
         const parsedLikedComments = JSON.parse(savedLikedComments);
         if (parsedLikedComments.includes(commentData._id)) {

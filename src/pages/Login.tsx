@@ -7,7 +7,11 @@ import {
     useOutletContext,
 } from "react-router-dom";
 
-import { outletInterface, loaderActionInterface } from "../utils/interfaces.ts";
+import {
+    outletInterface,
+    loaderActionInterface,
+    savedPostInterface,
+} from "../utils/interfaces.ts";
 
 export async function loginAction({ request }: loaderActionInterface) {
     try {
@@ -45,12 +49,28 @@ export async function loginAction({ request }: loaderActionInterface) {
             "role" in data &&
             "displayName" in data &&
             "_id" in data &&
-            "token" in data
+            "token" in data &&
+            "savedPosts" in data &&
+            "likedPosts" in data &&
+            "likedComments" in data
         ) {
             sessionStorage.setItem("role", data.role);
             sessionStorage.setItem("username", data.displayName);
             sessionStorage.setItem("_id", data._id);
             sessionStorage.setItem("token", data.token);
+            const savedPosts: string[] = [];
+            data.savedPosts.forEach((post: savedPostInterface) => {
+                savedPosts.push(post.id);
+            });
+            sessionStorage.setItem("saved-posts", JSON.stringify(savedPosts));
+            sessionStorage.setItem(
+                "likedPosts",
+                JSON.stringify(data.likedPosts)
+            );
+            sessionStorage.setItem(
+                "likedComments",
+                JSON.stringify(data.likedComments)
+            );
         } else {
             throw new Error("There has been an error, please try again later");
         }

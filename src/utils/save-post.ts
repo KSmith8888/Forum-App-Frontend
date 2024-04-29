@@ -28,11 +28,11 @@ export async function savePost(id: string, title: string) {
     if (!data) {
         throw new Error("Requested data is not present");
     }
-    const currentSavedPosts = localStorage.getItem("saved-posts");
+    const currentSavedPosts = sessionStorage.getItem("saved-posts");
     if (currentSavedPosts) {
         const prevSavedPosts = JSON.parse(currentSavedPosts);
         if (data.didUserSave) {
-            localStorage.setItem(
+            sessionStorage.setItem(
                 "saved-posts",
                 JSON.stringify([...prevSavedPosts, id])
             );
@@ -42,15 +42,15 @@ export async function savePost(id: string, title: string) {
                     return postId !== id;
                 }
             );
-            localStorage.setItem(
+            sessionStorage.setItem(
                 "saved-posts",
                 JSON.stringify(filteredSavedPosts)
             );
         } else if (!data.didUserSave && currentSavedPosts.length === 1) {
-            localStorage.removeItem("saved-posts");
+            sessionStorage.removeItem("saved-posts");
         }
     } else {
-        localStorage.setItem("saved-posts", JSON.stringify([id]));
+        sessionStorage.setItem("saved-posts", JSON.stringify([id]));
     }
     return data;
 }

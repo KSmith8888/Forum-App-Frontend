@@ -28,11 +28,11 @@ export async function likePost(id: string) {
     if (!data) {
         throw new Error("Requested data is not present");
     }
-    const savedLikedPosts = localStorage.getItem("likedPosts");
+    const savedLikedPosts = sessionStorage.getItem("likedPosts");
     if (savedLikedPosts) {
         const prevLikedPosts = JSON.parse(savedLikedPosts);
         if (data.didUserLike) {
-            localStorage.setItem(
+            sessionStorage.setItem(
                 "likedPosts",
                 JSON.stringify([...prevLikedPosts, id])
             );
@@ -42,15 +42,15 @@ export async function likePost(id: string) {
                     return postId !== id;
                 }
             );
-            localStorage.setItem(
+            sessionStorage.setItem(
                 "likedPosts",
                 JSON.stringify(filteredLikedPosts)
             );
         } else if (!data.didUserLike && savedLikedPosts.length === 1) {
-            localStorage.removeItem("likedPosts");
+            sessionStorage.removeItem("likedPosts");
         }
     } else {
-        localStorage.setItem("likedPosts", JSON.stringify([id]));
+        sessionStorage.setItem("likedPosts", JSON.stringify([id]));
     }
     return data;
 }
@@ -85,11 +85,11 @@ export async function likeComment(id: string) {
     if (!data) {
         throw new Error("Requested data is not present");
     }
-    const savedLikedComments = localStorage.getItem("likedComments");
+    const savedLikedComments = sessionStorage.getItem("likedComments");
     if (savedLikedComments) {
         const prevLikedComments = JSON.parse(savedLikedComments);
         if (data.didUserLike) {
-            localStorage.setItem(
+            sessionStorage.setItem(
                 "likedComments",
                 JSON.stringify([...prevLikedComments, id])
             );
@@ -99,15 +99,15 @@ export async function likeComment(id: string) {
                     return postId !== id;
                 }
             );
-            localStorage.setItem(
+            sessionStorage.setItem(
                 "likedComments",
                 JSON.stringify(filteredLikedComments)
             );
         } else if (!data.didUserLike && savedLikedComments.length === 1) {
-            localStorage.removeItem("likedComments");
+            sessionStorage.removeItem("likedComments");
         }
     } else {
-        localStorage.setItem("likedComments", JSON.stringify([id]));
+        sessionStorage.setItem("likedComments", JSON.stringify([id]));
     }
     return data;
 }

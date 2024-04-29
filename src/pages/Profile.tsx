@@ -208,12 +208,11 @@ export default function Profile() {
     const savedPostsElements = savedPostsData.map((savedPost) => {
         return (
             <div key={savedPost.id} className="saved-post-link-container">
-                <p className="saved-post-link-text">{savedPost.title}</p>
                 <Link
                     to={`/posts/details/${savedPost.id}`}
                     className="profile-notification-link"
                 >
-                    See Thread
+                    {savedPost.title}
                 </Link>
             </div>
         );

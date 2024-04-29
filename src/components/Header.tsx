@@ -33,10 +33,7 @@ export default function Header({
 
     function logoutUser() {
         closeNavModal();
-        sessionStorage.removeItem("role");
-        sessionStorage.removeItem("username");
-        sessionStorage.removeItem("_id");
-        sessionStorage.removeItem("token");
+        sessionStorage.clear();
         setIsUserLoggedIn(false);
         setProfilePic({
             name: "blank.png",

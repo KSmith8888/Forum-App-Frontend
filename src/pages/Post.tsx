@@ -124,14 +124,14 @@ export default function Post() {
     const { isUserLoggedIn } = useOutletContext<outletInterface>();
     let didUserAlreadyLike = false;
     let didUserAlreadySave = false;
-    const savedLikedPosts = localStorage.getItem("likedPosts");
+    const savedLikedPosts = sessionStorage.getItem("likedPosts");
     if (savedLikedPosts) {
         const parsedLikedPosts = JSON.parse(savedLikedPosts);
         if (parsedLikedPosts.includes(postData._id)) {
             didUserAlreadyLike = true;
         }
     }
-    const localSavedPosts = localStorage.getItem("saved-posts");
+    const localSavedPosts = sessionStorage.getItem("saved-posts");
     if (localSavedPosts) {
         const parsedSavedPosts = JSON.parse(localSavedPosts);
         if (parsedSavedPosts.includes(postData._id)) {
