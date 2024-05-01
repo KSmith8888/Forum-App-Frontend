@@ -5,6 +5,7 @@ import {
     useActionData,
     useNavigate,
     useOutletContext,
+    useSearchParams,
 } from "react-router-dom";
 
 import {
@@ -87,6 +88,8 @@ export async function loginAction({ request }: loaderActionInterface) {
 export default function Login() {
     const loginData = useActionData();
     const loginForm = useRef<HTMLFormElement>(null);
+    const [searchParams] = useSearchParams();
+    const paramsMessage = searchParams.get("message");
     const navigate = useNavigate();
     const [loginMessage, setLoginMessage] = useState("");
     const { setIsUserLoggedIn, setProfilePic } =
@@ -123,7 +126,8 @@ export default function Login() {
     return (
         <section className="login-section">
             <Form className="login-form" method="post" ref={loginForm}>
-                <h3>Enter Credentials</h3>
+                <p className="login-params-message">{paramsMessage}</p>
+                <h3 className="login-form-heading">Enter Credentials</h3>
                 <label htmlFor="username">Username:</label>
                 <input
                     id="username"

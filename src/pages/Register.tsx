@@ -43,7 +43,7 @@ export async function registerAction({ request }: loaderActionInterface) {
             }
         }
         return redirect(
-            "/?message=New account created successfully, please log in"
+            "/login/?message=New account created successfully, please log in"
         );
     } catch (error) {
         let errorMsg = "There has been an error, please try again later";
@@ -94,9 +94,7 @@ export default function Register() {
                 maxLength={18}
                 required
             />
-            <label htmlFor="register-password-confirm">
-                Confirm your password:
-            </label>
+            <label htmlFor="register-password-confirm">Confirm Password</label>
             <input
                 id="register-password-confirm"
                 className="input"

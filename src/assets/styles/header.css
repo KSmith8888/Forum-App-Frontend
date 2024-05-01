@@ -116,8 +116,7 @@
 
 @media (max-width: 650px) {
     .header {
-        flex-direction: column;
-        padding: 1em;
+        padding: 1em 0.5em;
     }
     .header-info-container {
         margin-top: 0.5em;

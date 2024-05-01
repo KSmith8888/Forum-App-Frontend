@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Link, useNavigate, Form } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { profilePicInterface } from "../utils/interfaces";
 
 import "../assets/styles/header.css";
@@ -15,12 +15,10 @@ interface headerProps {
 export default function Header({
     isUserLoggedIn,
     setIsUserLoggedIn,
-    numOfNotifications,
     profilePic,
     setProfilePic,
 }: headerProps) {
     const navigate = useNavigate();
-    const newNotifications = numOfNotifications > 0 ? true : false;
     const navModal = useRef<HTMLDialogElement>(null);
     const userRole = sessionStorage.getItem("role");
     const isMod = userRole === "mod" || userRole === "admin";
@@ -59,24 +57,9 @@ export default function Header({
                         }
                     }}
                 ></button>
-                <Form
-                    className="header-search-form"
-                    method="post"
-                    action="/search"
-                    autoComplete="false"
-                >
-                    <label htmlFor="search-input">Search:</label>
-                    <input
-                        id="search-input"
-                        type="search"
-                        name="search"
-                        className="header-search-input"
-                        maxLength={30}
-                    />
-                    <button type="submit" className="header-search-button">
-                        Search
-                    </button>
-                </Form>
+                <Link to="/search" className="button-link">
+                    Search
+                </Link>
             </div>
             <dialog ref={navModal} className="nav-modal">
                 <div className="profile-container">
@@ -85,9 +68,6 @@ export default function Header({
                         alt={profilePic.alt}
                         className="profile-image"
                     />
-                    {newNotifications && (
-                        <p>Notifications: {numOfNotifications}</p>
-                    )}
                 </div>
                 <nav className="main-nav">
                     <Link

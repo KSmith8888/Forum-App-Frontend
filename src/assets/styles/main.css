@@ -191,6 +191,14 @@ img {
     flex-direction: column;
 }
 
+.login-params-message {
+    margin: 0.5em 0;
+}
+
+.login-form-heading {
+    margin: 0.25em 0 0.5em 0;
+}
+
 .edit-post-container,
 .edit-comment-container {
     display: flex;
@@ -259,6 +267,11 @@ img {
     align-items: center;
 }
 
+.results-post-title,
+.results.post-text {
+    max-width: 18em;
+}
+
 .home-link-post-image,
 .home-text-post-image,
 .results-link-post-image,
@@ -319,6 +332,15 @@ img {
     }
     .home-container {
         flex-direction: column;
+    }
+    .posts-topic-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    .results-posts-link-container {
+        width: 95%;
     }
     .topics-link-container {
         flex-direction: column;
