@@ -342,14 +342,8 @@ img {
     .results-posts-link-container {
         width: 95%;
     }
-    .topics-link-container {
-        flex-direction: column;
-    }
-    .topic-link {
-        border: none;
-    }
-    .topics-link-row {
-        margin: 0.5em 0;
+    .topics-links-nav {
+        display: none;
     }
     .trending-main-content-container,
     .results-main-content-container {

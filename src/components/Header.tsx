@@ -20,12 +20,19 @@ export default function Header({
 }: headerProps) {
     const navigate = useNavigate();
     const navModal = useRef<HTMLDialogElement>(null);
+    const mobileTopicModal = useRef<HTMLDialogElement>(null);
     const userRole = sessionStorage.getItem("role");
     const isMod = userRole === "mod" || userRole === "admin";
 
     function closeNavModal() {
         if (navModal.current) {
             navModal.current.close();
+        }
+    }
+
+    function closeTopicModal() {
+        if (mobileTopicModal.current) {
+            mobileTopicModal.current.close();
         }
     }
 
@@ -60,6 +67,16 @@ export default function Header({
                 <Link to="/search" className="button-link">
                     Search
                 </Link>
+                <button
+                    className="button mobile-button"
+                    onClick={() => {
+                        if (mobileTopicModal.current) {
+                            mobileTopicModal.current.showModal();
+                        }
+                    }}
+                >
+                    Topics
+                </button>
             </div>
             <dialog ref={navModal} className="nav-modal">
                 <div className="profile-container">
@@ -154,6 +171,93 @@ export default function Header({
                 >
                     Close
                 </button>
+            </dialog>
+            <dialog className="mobile-topics-nav-modal" ref={mobileTopicModal}>
+                <div className="mobile-topics-link-container">
+                    <h2 className="mobile-topics-link-heading">Topics</h2>
+                    <nav className="mobile-topics-links-nav">
+                        <Link
+                            to="/posts/movies"
+                            className="button-link"
+                            onClick={() => {
+                                closeTopicModal();
+                            }}
+                        >
+                            Movies
+                        </Link>
+                        <Link
+                            to="/posts/space"
+                            className="button-link"
+                            onClick={() => {
+                                closeTopicModal();
+                            }}
+                        >
+                            Space
+                        </Link>
+                        <Link
+                            to="/posts/politics"
+                            className="button-link"
+                            onClick={() => {
+                                closeTopicModal();
+                            }}
+                        >
+                            Politics
+                        </Link>
+                        <Link
+                            to="/posts/books"
+                            className="button-link"
+                            onClick={() => {
+                                closeTopicModal();
+                            }}
+                        >
+                            Books
+                        </Link>
+                        <Link
+                            to="/posts/games"
+                            className="button-link"
+                            onClick={() => {
+                                closeTopicModal();
+                            }}
+                        >
+                            Games
+                        </Link>
+                        <Link
+                            to="/posts/programming"
+                            className="button-link"
+                            onClick={() => {
+                                closeTopicModal();
+                            }}
+                        >
+                            Programming
+                        </Link>
+                        <Link
+                            to="/posts/news"
+                            className="button-link"
+                            onClick={() => {
+                                closeTopicModal();
+                            }}
+                        >
+                            News
+                        </Link>
+                        <Link
+                            to="/posts/other"
+                            className="button-link"
+                            onClick={() => {
+                                closeTopicModal();
+                            }}
+                        >
+                            Other
+                        </Link>
+                    </nav>
+                    <button
+                        className="button"
+                        onClick={() => {
+                            closeTopicModal();
+                        }}
+                    >
+                        Close
+                    </button>
+                </div>
             </dialog>
         </header>
     );
