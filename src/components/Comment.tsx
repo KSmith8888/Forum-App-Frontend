@@ -169,7 +169,9 @@ export default function Comment({
             </article>
             {showHistory && (
                 <div className="comment-history-container">
-                    <h3>Previous Comment Versions</h3>
+                    <h3 className="comment-history-container-heading">
+                        Previous Comment Versions
+                    </h3>
                     {historyElements}
                 </div>
             )}

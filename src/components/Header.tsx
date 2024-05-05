@@ -89,7 +89,7 @@ export default function Header({
                 <nav className="main-nav">
                     <Link
                         to="/"
-                        className="button-link"
+                        className="main-menu-link"
                         onClick={() => {
                             closeNavModal();
                         }}
@@ -98,7 +98,7 @@ export default function Header({
                     </Link>
                     <Link
                         to="/search"
-                        className="button-link"
+                        className="main-menu-link"
                         onClick={() => {
                             closeNavModal();
                         }}
@@ -109,7 +109,7 @@ export default function Header({
                         <>
                             <Link
                                 to="/profile"
-                                className="button-link"
+                                className="main-menu-link"
                                 onClick={() => {
                                     closeNavModal();
                                 }}
@@ -118,7 +118,7 @@ export default function Header({
                             </Link>
                             <Link
                                 to="/profile/create"
-                                className="button-link"
+                                className="main-menu-link"
                                 onClick={() => {
                                     closeNavModal();
                                 }}
@@ -128,7 +128,7 @@ export default function Header({
                             {isMod && (
                                 <Link
                                     to="/moderation"
-                                    className="button-link"
+                                    className="main-menu-link"
                                     onClick={() => {
                                         closeNavModal();
                                     }}
@@ -136,15 +136,12 @@ export default function Header({
                                     Moderation
                                 </Link>
                             )}
-                            <button className="button" onClick={logoutUser}>
-                                Logout
-                            </button>
                         </>
                     ) : (
                         <>
                             <Link
                                 to="/register"
-                                className="button-link"
+                                className="main-menu-link"
                                 onClick={() => {
                                     closeNavModal();
                                 }}
@@ -153,7 +150,7 @@ export default function Header({
                             </Link>
                             <Link
                                 to="/login"
-                                className="button-link"
+                                className="main-menu-link"
                                 onClick={() => {
                                     closeNavModal();
                                 }}
@@ -163,14 +160,21 @@ export default function Header({
                         </>
                     )}
                 </nav>
-                <button
-                    className="button"
-                    onClick={() => {
-                        closeNavModal();
-                    }}
-                >
-                    Close
-                </button>
+                <div className="main-menu-button-container">
+                    <button
+                        className="button"
+                        onClick={() => {
+                            closeNavModal();
+                        }}
+                    >
+                        Close
+                    </button>
+                    {isUserLoggedIn && (
+                        <button className="button" onClick={logoutUser}>
+                            Logout
+                        </button>
+                    )}
+                </div>
             </dialog>
             <dialog className="mobile-topics-nav-modal" ref={mobileTopicModal}>
                 <div className="mobile-topics-link-container">
@@ -178,7 +182,7 @@ export default function Header({
                     <nav className="mobile-topics-links-nav">
                         <Link
                             to="/posts/movies"
-                            className="button-link"
+                            className="mobile-topic-link"
                             onClick={() => {
                                 closeTopicModal();
                             }}
@@ -187,7 +191,7 @@ export default function Header({
                         </Link>
                         <Link
                             to="/posts/space"
-                            className="button-link"
+                            className="mobile-topic-link"
                             onClick={() => {
                                 closeTopicModal();
                             }}
@@ -196,7 +200,7 @@ export default function Header({
                         </Link>
                         <Link
                             to="/posts/politics"
-                            className="button-link"
+                            className="mobile-topic-link"
                             onClick={() => {
                                 closeTopicModal();
                             }}
@@ -205,7 +209,7 @@ export default function Header({
                         </Link>
                         <Link
                             to="/posts/books"
-                            className="button-link"
+                            className="mobile-topic-link"
                             onClick={() => {
                                 closeTopicModal();
                             }}
@@ -214,7 +218,7 @@ export default function Header({
                         </Link>
                         <Link
                             to="/posts/games"
-                            className="button-link"
+                            className="mobile-topic-link"
                             onClick={() => {
                                 closeTopicModal();
                             }}
@@ -222,17 +226,8 @@ export default function Header({
                             Games
                         </Link>
                         <Link
-                            to="/posts/programming"
-                            className="button-link"
-                            onClick={() => {
-                                closeTopicModal();
-                            }}
-                        >
-                            Programming
-                        </Link>
-                        <Link
                             to="/posts/news"
-                            className="button-link"
+                            className="mobile-topic-link"
                             onClick={() => {
                                 closeTopicModal();
                             }}
@@ -240,8 +235,17 @@ export default function Header({
                             News
                         </Link>
                         <Link
+                            to="/posts/programming"
+                            className="mobile-topic-link"
+                            onClick={() => {
+                                closeTopicModal();
+                            }}
+                        >
+                            Programming
+                        </Link>
+                        <Link
                             to="/posts/other"
-                            className="button-link"
+                            className="mobile-topic-link"
                             onClick={() => {
                                 closeTopicModal();
                             }}

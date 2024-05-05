@@ -3,6 +3,7 @@ import {
     useLoaderData,
     useOutletContext,
     useActionData,
+    Link,
 } from "react-router-dom";
 
 import Comment from "../components/Comment";
@@ -365,6 +366,12 @@ export default function Post() {
                     )}
                 </div>
                 <div className="column-info">
+                    <Link
+                        to={`/posts/${postData.topic}`}
+                        className="post-topic-link"
+                    >
+                        {postData.topic}
+                    </Link>
                     <div className="author-info-container">
                         <img
                             src={`/profile-images/${postData.profileImageName}`}
@@ -426,7 +433,9 @@ export default function Post() {
             </article>
             {showHistory && (
                 <div className="post-history-container">
-                    <h3>Previous Post Versions</h3>
+                    <h3 className="post-history-container-heading">
+                        Previous Post Versions
+                    </h3>
                     {historyElements}
                 </div>
             )}
