@@ -370,7 +370,7 @@ export default function Post() {
                         to={`/posts/${postData.topic}`}
                         className="post-topic-link"
                     >
-                        {postData.topic}
+                        {postData.topic} Topic
                     </Link>
                     <div className="author-info-container">
                         <img

@@ -210,11 +210,24 @@ img {
     align-items: center;
 }
 
-.search-container,
-.search-form {
+.search-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.search-form {
+    padding: 1em 0.5em;
+    background-color: #f3f3f3;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#search-input {
+    border: 1px solid #575454;
+    border-radius: 5px;
 }
 
 .register-form,
@@ -279,42 +292,6 @@ img {
     margin: 0 0.5em 0 1em;
     width: 55px;
     height: 55px;
-}
-
-.topics-links-nav {
-    padding: 0.5em 0;
-    width: 100%;
-    background-color: #fff;
-    border-bottom: 1px solid black;
-    display: flex;
-    justify-content: center;
-}
-
-.topic-link {
-    text-align: center;
-    margin: 0.25em 1em 0.25em 0;
-    padding: 0 1em 0 0;
-    border-right: 1px solid black;
-    text-decoration: none;
-}
-
-.last-topic-link {
-    border: none;
-}
-
-.topic-link:hover,
-.topic-link:focus {
-    color: rgb(8, 7, 46);
-}
-
-.topics-link-container {
-    display: flex;
-    justify-content: center;
-}
-
-.topics-link-row {
-    display: flex;
-    justify-content: space-around;
 }
 
 .results-post-title {

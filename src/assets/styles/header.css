@@ -70,7 +70,7 @@
     background-color: rgb(199, 192, 192);
 }
 
-.profile-container {
+.menu-profile-container {
     margin: 0 1em;
     display: flex;
     align-items: center;
@@ -83,7 +83,7 @@
     align-items: center;
 }
 
-.profile-image {
+.menu-profile-image {
     object-fit: cover;
     width: 40px;
     height: 40px;
@@ -107,9 +107,16 @@
     animation-iteration-count: 1;
 }
 
+.main-menu-username {
+    margin: 0.5em;
+    font-size: 1.2rem;
+}
+
 .main-menu-button-container {
     border-top: 1px solid black;
-    padding-top: 0.5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .main-menu-link {
@@ -132,14 +139,14 @@
     align-items: stretch;
 }
 
-.mobile-topics-nav-modal {
+.topics-nav-modal {
     border: none;
     margin-top: 0;
     margin-right: 0;
     position: fixed;
     inset: 0;
 }
-.mobile-topics-nav-modal[open] {
+.topics-nav-modal[open] {
     background-color: #f3f3f3;
     border-left: 1px solid black;
     border-bottom: 1px solid black;
@@ -148,24 +155,50 @@
     animation-duration: 0.3s;
     animation-iteration-count: 1;
 }
-.mobile-topics-link-heading {
-    margin: 0.5em 0;
+.topics-link-heading {
+    margin: 0.5em 1.5em 0.5em 0.5em;
 }
-.mobile-topics-link-container,
-.mobile-topics-links-nav {
+.topics-link-container,
+.topics-links-nav {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.mobile-topic-link {
+.topic-link {
     text-decoration: none;
     width: 100%;
     border-top: 1px solid black;
     padding: 0.8em;
 }
 
-.mobile-topics-link {
+.topic-link:hover,
+.topic-link:focus {
     color: rgb(8, 7, 46);
+}
+
+.topics-modal-heading-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.close-topics-modal-button,
+.main-menu-close-button {
+    padding: 0.2em 0.5em;
+    margin: 0.5em;
+    cursor: pointer;
+    background-color: rgb(224, 19, 19);
+    color: #f3f3f3;
+    font-weight: 600;
+    border: 1px solid #575454;
+    border-radius: 5px;
+}
+
+.close-topics-modal-button:hover,
+.close-topics-modal-button:focus,
+.main-menu-close-button:hover,
+.main-menu-close-button:focus {
+    background-color: rgb(173, 17, 17);
 }
 
 @media (max-width: 650px) {
