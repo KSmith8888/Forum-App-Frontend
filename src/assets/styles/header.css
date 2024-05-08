@@ -70,11 +70,23 @@
     background-color: rgb(199, 192, 192);
 }
 
-.menu-profile-container {
-    margin: 0 1em;
+.menu-top-profile-container {
+    width: 100%;
     display: flex;
+    justify-content: space-between;
+}
+
+.menu-profile-container {
+    margin: 0.5em;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+#menu-logout-button {
+    font-size: 0.8rem;
+    margin: 0.25em 0;
 }
 
 .profile-image-info {
@@ -84,6 +96,7 @@
 }
 
 .menu-profile-image {
+    margin-top: 0.5em;
     object-fit: cover;
     width: 40px;
     height: 40px;
@@ -101,22 +114,23 @@
     background-color: #ebf1f3;
     border-left: 1px solid black;
     border-bottom: 1px solid black;
-    padding: 0.5em 0;
+    padding: 0;
     animation-name: menu-slide;
     animation-duration: 0.3s;
     animation-iteration-count: 1;
 }
 
 .main-menu-username {
-    margin: 0.5em;
-    font-size: 1.2rem;
+    margin: 0.25em 0;
+    font-size: 0.9rem;
 }
 
 .main-menu-button-container {
-    border-top: 1px solid black;
+    margin: 0.5em 0;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
 }
 
 .main-menu-link {
@@ -132,7 +146,6 @@
 }
 
 .main-nav {
-    margin: 1em 0 0 0;
     min-width: 10em;
     display: flex;
     flex-direction: column;

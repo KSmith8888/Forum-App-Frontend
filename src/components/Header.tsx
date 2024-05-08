@@ -80,13 +80,37 @@ export default function Header({
                 </button>
             </div>
             <dialog ref={navModal} className="nav-modal">
-                <div className="menu-profile-container">
-                    <p className="main-menu-username">{username || "User"}</p>
-                    <img
-                        src={`/profile-images/${profilePic.name}`}
-                        alt={profilePic.alt}
-                        className="menu-profile-image"
-                    />
+                <div className="menu-top-profile-container">
+                    <div className="menu-profile-container">
+                        <img
+                            src={`/profile-images/${profilePic.name}`}
+                            alt={profilePic.alt}
+                            className="menu-profile-image"
+                        />
+                        <p className="main-menu-username">
+                            {username || "User"}
+                        </p>
+                        {isUserLoggedIn && (
+                            <button
+                                id="menu-logout-button"
+                                className="button"
+                                onClick={logoutUser}
+                            >
+                                Logout
+                            </button>
+                        )}
+                    </div>
+                    <div className="main-menu-button-container">
+                        <button
+                            className="main-menu-close-button"
+                            aria-label="Close main menu"
+                            onClick={() => {
+                                closeNavModal();
+                            }}
+                        >
+                            X
+                        </button>
+                    </div>
                 </div>
                 <nav className="main-nav">
                     <Link
@@ -95,6 +119,7 @@ export default function Header({
                         onClick={() => {
                             closeNavModal();
                         }}
+                        autoFocus
                     >
                         Home
                     </Link>
@@ -162,22 +187,6 @@ export default function Header({
                         </>
                     )}
                 </nav>
-                <div className="main-menu-button-container">
-                    <button
-                        className="main-menu-close-button"
-                        aria-label="Close main menu"
-                        onClick={() => {
-                            closeNavModal();
-                        }}
-                    >
-                        X
-                    </button>
-                    {isUserLoggedIn && (
-                        <button className="button" onClick={logoutUser}>
-                            Logout
-                        </button>
-                    )}
-                </div>
             </dialog>
             <dialog className="topics-nav-modal" ref={mobileTopicModal}>
                 <div className="topics-modal-heading-container">
@@ -199,6 +208,7 @@ export default function Header({
                         onClick={() => {
                             closeTopicModal();
                         }}
+                        autoFocus
                     >
                         Movies
                     </Link>

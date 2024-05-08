@@ -166,6 +166,10 @@ export default function Post() {
         }
     }, [actionData]);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     const reportModal = useRef<HTMLDialogElement>(null);
     function openReportModal(
         messageId: string,
