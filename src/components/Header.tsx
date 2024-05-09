@@ -58,18 +58,16 @@ export default function Header({
             <div className="header-info-container">
                 <button
                     className="hamburger-menu-button"
-                    aria-label="Open main menu"
                     onClick={() => {
                         if (navModal.current) {
                             navModal.current.showModal();
                         }
                     }}
-                ></button>
-                <Link to="/search" className="button-link">
-                    Search
-                </Link>
+                >
+                    Menu
+                </button>
                 <button
-                    className="button mobile-button"
+                    className="header-topics-button"
                     onClick={() => {
                         if (mobileTopicModal.current) {
                             mobileTopicModal.current.showModal();

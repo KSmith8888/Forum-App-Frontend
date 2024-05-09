@@ -136,7 +136,7 @@ img {
 
 .footer {
     width: 100%;
-    background-color: #fff;
+    background-color: #ebf1f3;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -318,9 +318,6 @@ img {
     }
     .results-posts-link-container {
         width: 95%;
-    }
-    .topics-links-nav {
-        display: none;
     }
     .trending-main-content-container,
     .results-main-content-container {
