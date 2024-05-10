@@ -28,7 +28,7 @@
     justify-content: center;
     padding: 2em 2em 0.5em 2em;
     border: 1px solid black;
-    background-color: rgb(218, 214, 214);
+    background-color: #f3f3f3;
 }
 
 .profile-image-button {
@@ -74,27 +74,27 @@
 .message-modal[open] {
     max-width: 25em;
     background-color: rgb(215, 231, 236);
-    border: 2px solid black;
+    border: 1px solid black;
     text-align: center;
     padding: 1.5em 2em;
 }
 
 .message-modal-text {
     font-size: 1.2rem;
-    background-color: #fff;
-    border: 1px solid black;
+    background-color: #f3f3f3;
+    border: 1px solid #575454;
     border-radius: 5px;
     padding: 0.5em;
 }
 
 .profile-notification-container {
     width: 100%;
-    background-color: #fff;
     display: flex;
     flex-direction: column;
     margin: 0 0 1em 0;
     padding: 0.5em 1em;
-    border: 1px solid black;
+    background-color: #f3f3f3;
+    border: 1px solid #575454;
     border-radius: 5px;
 }
 
@@ -123,14 +123,14 @@
 .post-link-container,
 .comment-link-container,
 .saved-post-link-container {
-    background-color: #fff;
     width: 100%;
     margin: 0 0 1em 0;
     padding: 0.5em 1em;
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid black;
+    background-color: #f3f3f3;
+    border: 1px solid #575454;
     border-radius: 5px;
 }
 
@@ -165,8 +165,8 @@
 
 .profile-image-info {
     width: 100%;
-    background-color: #fff;
-    border-bottom: 1px solid black;
+    background-color: #f3f3f3;
+    border-bottom: 1px solid #575454;
     margin: 0 0 1em 0;
     padding-bottom: 1em;
     text-align: center;
@@ -184,8 +184,8 @@
 
 .account-settings-container {
     margin: 0 1em;
-    background-color: #fff;
-    border: 1px solid black;
+    background-color: #f3f3f3;
+    border: 1px solid #575454;
 }
 
 @media (max-width: 650px) {

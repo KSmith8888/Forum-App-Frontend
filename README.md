@@ -50,8 +50,6 @@ Guitar electric guitar by PIRO:
 https://pixabay.com/photos/guitar-electric-guitar-2925282/  
 Link hyperlink chain by inspire-studio:  
 https://pixabay.com/vectors/link-hyperlink-chain-linking-6931554/  
-Menu burger hamburger button by inspire-studio:  
-https://pixabay.com/vectors/menu-burger-hamburger-button-6681018/  
 File description outline document by Inspire-studio:  
 https://pixabay.com/vectors/file-description-outline-document-6472230/  
 Disk floppy file document memory bt Inspire-studio:  

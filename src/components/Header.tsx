@@ -57,7 +57,8 @@ export default function Header({
             </h1>
             <div className="header-info-container">
                 <button
-                    className="hamburger-menu-button"
+                    id="main-menu-button"
+                    className="header-menu-button"
                     onClick={() => {
                         if (navModal.current) {
                             navModal.current.showModal();
@@ -67,7 +68,8 @@ export default function Header({
                     Menu
                 </button>
                 <button
-                    className="header-topics-button"
+                    id="topics-menu-button"
+                    className="header-menu-button"
                     onClick={() => {
                         if (mobileTopicModal.current) {
                             mobileTopicModal.current.showModal();
@@ -91,7 +93,7 @@ export default function Header({
                         {isUserLoggedIn && (
                             <button
                                 id="menu-logout-button"
-                                className="button"
+                                className="header-menu-button"
                                 onClick={logoutUser}
                             >
                                 Logout
@@ -117,7 +119,7 @@ export default function Header({
                         onClick={() => {
                             closeNavModal();
                         }}
-                        autoFocus
+                        autoFocus={true}
                     >
                         Home
                     </Link>
@@ -206,7 +208,7 @@ export default function Header({
                         onClick={() => {
                             closeTopicModal();
                         }}
-                        autoFocus
+                        autoFocus={true}
                     >
                         Movies
                     </Link>

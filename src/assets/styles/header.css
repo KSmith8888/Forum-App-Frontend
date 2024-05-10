@@ -33,13 +33,16 @@
     align-items: center;
 }
 
-.header-topics-button,
-.hamburger-menu-button {
+#main-menu-button,
+#topics-menu-button {
+    font-size: 1.1rem;
+}
+
+.header-menu-button {
     cursor: pointer;
     border: none;
     color: rgb(10, 11, 77);
-    background-color: none;
-    font-size: 1.1rem;
+    background-color: transparent;
     font-weight: 700;
     margin: 0.5em 0.25em;
     padding: 0.2em 0.5em;
@@ -47,14 +50,10 @@
     text-decoration: none;
 }
 
-.header-topics-button:hover,
-.header-topics-button:focus,
-.hamburger-menu-button:hover,
-.hamburger-menu-button:focus {
+.header-menu-button:hover,
+.header-menu-button:focus {
     background-color: rgb(199, 192, 192);
 }
-
-/* background-color: rgb(10, 11, 77); */
 
 .menu-top-profile-container {
     width: 100%;
@@ -72,7 +71,8 @@
 
 #menu-logout-button {
     font-size: 0.8rem;
-    margin: 0.25em 0;
+    padding: 0.4em 0.6em;
+    margin: 0;
 }
 
 .profile-image-info {
@@ -109,6 +109,7 @@
 .main-menu-username {
     margin: 0.25em 0;
     font-size: 0.9rem;
+    text-decoration: underline;
 }
 
 .main-menu-button-container {
@@ -123,12 +124,14 @@
     text-decoration: none;
     width: 100%;
     border-top: 1px solid black;
-    padding: 1em 2em 1em 1em;
+    padding: 1em 1.5em;
+    margin-bottom: 0.25em;
 }
 
 .main-menu-link:hover,
 .main-menu-link:focus {
     color: rgb(8, 7, 46);
+    outline: 0.25em solid rgb(8, 7, 46);
 }
 
 .main-nav {
@@ -167,12 +170,14 @@
     text-decoration: none;
     width: 100%;
     border-top: 1px solid black;
+    margin-bottom: 0.25em;
     padding: 0.8em;
 }
 
 .topic-link:hover,
 .topic-link:focus {
     color: rgb(8, 7, 46);
+    outline: 0.25em solid rgb(8, 7, 46);
 }
 
 .topics-modal-heading-container {

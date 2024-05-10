@@ -96,13 +96,13 @@ export default function Search() {
 
     return (
         <div className="search-container">
-            <h2>Search posts by keyword</h2>
             <Form
                 className="search-form"
                 method="post"
                 ref={searchForm}
                 autoComplete="false"
             >
+                <h2>Search posts by keyword</h2>
                 <label htmlFor="search-input">Search Term:</label>
                 <input
                     id="search-input"
