@@ -2,39 +2,15 @@ import { useEffect } from "react";
 import {
     useLoaderData,
     useSearchParams,
-    redirect,
     Link,
     useOutletContext,
 } from "react-router-dom";
 
-import {
-    outletInterface,
-    postInterface,
-    loaderActionInterface,
-} from "../utils/interfaces.ts";
+import { outletInterface, postInterface } from "../utils/interfaces.ts";
 
 import "../assets/styles/main.css";
-
-export async function homeLoader({ request }: loaderActionInterface) {
-    const url = new URL(request.url);
-    const redirectRoute = url.searchParams.get("route");
-    if (redirectRoute) {
-        return redirect(redirectRoute);
-    }
-    const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/home`
-    );
-    if (!res.ok) {
-        const errorData = await res.json();
-        if (errorData && errorData.msg) {
-            throw new Error(errorData.msg);
-        } else {
-            throw new Error(`Response error: ${res.status}`);
-        }
-    }
-    const data = await res.json();
-    return data;
-}
+import textIconImg from "/icon-images/text-post-icon.png";
+import linkIconImg from "/icon-images/link-post-icon.png";
 
 export default function Home() {
     const [searchParams] = useSearchParams();
@@ -79,7 +55,7 @@ export default function Home() {
                         </div>
                         {post.postType === "Text" && (
                             <img
-                                src="/icon-images/text-post-icon.png"
+                                src={textIconImg}
                                 alt="A white sheet of paper with black text representing a text post"
                                 className="home-text-post-image"
                             />
@@ -91,7 +67,7 @@ export default function Home() {
                                 rel="noreferrer"
                             >
                                 <img
-                                    src="/icon-images/link-post-icon.png"
+                                    src={linkIconImg}
                                     alt={`A grey and blue chain link representing a hyperlink to ${post.content}`}
                                     className="home-link-post-image"
                                 />

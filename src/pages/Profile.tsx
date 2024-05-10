@@ -2,7 +2,6 @@ import { useRef, useState, useEffect } from "react";
 import {
     Link,
     useLoaderData,
-    redirect,
     Form,
     useActionData,
     useOutletContext,
@@ -22,37 +21,6 @@ import "../assets/styles/profile.css";
 interface userProfilePost {
     id: string;
     title: string;
-}
-
-export async function profileLoader() {
-    const token = sessionStorage.getItem("token");
-    const userId = sessionStorage.getItem("_id");
-    if (!userId || !token) {
-        return redirect("/?message=Please log in");
-    }
-    const res = await fetch(
-        `${
-            import.meta.env.VITE_BACKEND_URL
-        }/api/v1/users/profile/details/${userId}`,
-        {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
-                "user_id": userId,
-            },
-        }
-    );
-    if (!res.ok) {
-        const errorData = await res.json();
-        if (errorData && errorData.msg) {
-            throw new Error(errorData.msg);
-        } else {
-            throw new Error(`Response error: ${res.status}`);
-        }
-    }
-    const data = await res.json();
-    return data;
 }
 
 export async function profileAction({ request }: loaderActionInterface) {

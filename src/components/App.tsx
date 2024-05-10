@@ -8,26 +8,25 @@ import {
 import MainLayout from "./MainLayout.tsx";
 import ErrorElement from "./Error.tsx";
 //Pages
-import Home, { homeLoader } from "../pages/Home.tsx";
-import Search, { searchAction, resultsLoader } from "../pages/Search.tsx";
-import Post, { postLoader, commentAction } from "../pages/Post.tsx";
-import PostsByTopic, { postsTopicLoader } from "../pages/PostsByTopic.tsx";
+import Home from "../pages/Home.tsx";
+import homeLoader from "../loaders/home-loader.tsx";
+import Search, { searchAction } from "../pages/Search.tsx";
+import resultsLoader from "../loaders/search-loader.tsx";
+import Post, { commentAction } from "../pages/Post.tsx";
+import postLoader from "../loaders/post-loader.tsx";
+import PostsByTopic from "../pages/PostsByTopic.tsx";
+import postsTopicLoader from "../loaders/topic-posts-loader.tsx";
 import CreatePost, { createPostAction } from "../pages/CreatePost.tsx";
 import Register, { registerAction } from "../pages/Register.tsx";
-import Profile, { profileLoader, profileAction } from "../pages/Profile.tsx";
-import EditPost, {
-    editPostLoader,
-    editPostAction,
-} from "../pages/EditPost.tsx";
-import EditComment, {
-    editCommentLoader,
-    editCommentAction,
-} from "../pages/EditComment.tsx";
+import Profile, { profileAction } from "../pages/Profile.tsx";
+import profileLoader from "../loaders/profile-loader.tsx";
+import EditPost, { editPostAction } from "../pages/EditPost.tsx";
+import editPostLoader from "../loaders/edit-post-loader.tsx";
+import EditComment, { editCommentAction } from "../pages/EditComment.tsx";
+import editCommentLoader from "../loaders/edit-comment-loader.tsx";
 import Login, { loginAction } from "../pages/Login.tsx";
-import Moderation, {
-    moderationLoader,
-    moderationAction,
-} from "../pages/Moderation.tsx";
+import Moderation, { moderationAction } from "../pages/Moderation.tsx";
+import moderationLoader from "../loaders/moderation-loader.tsx";
 import Terms from "../pages/Terms.tsx";
 import NotFound from "../pages/NotFound.tsx";
 //Assets

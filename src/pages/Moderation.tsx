@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { redirect, Form, useActionData, useLoaderData } from "react-router-dom";
+import { Form, useActionData, useLoaderData } from "react-router-dom";
 
 import { loaderActionInterface, reportInterface } from "../utils/interfaces.ts";
 import {
@@ -12,42 +12,6 @@ import {
 import ModReport from "../components/ModReport.tsx";
 
 import "../assets/styles/moderation.css";
-
-export async function moderationLoader() {
-    const userId = sessionStorage.getItem("_id");
-    const userRole = sessionStorage.getItem("role");
-    const token = sessionStorage.getItem("token");
-    if (!userId) {
-        return redirect("/?message=Please log in");
-    }
-    if (userRole !== "mod" && userRole !== "admin") {
-        return redirect("/?message=Not Authorized");
-    }
-    if (!token || !userId) {
-        throw new Error("You must log in before reporting");
-    }
-    const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/v1/moderation/report`,
-        {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
-                "user_id": userId,
-            },
-        }
-    );
-    if (!res.ok) {
-        const errorData = await res.json();
-        if (errorData && errorData.msg) {
-            throw new Error(errorData.msg);
-        } else {
-            throw new Error(`Response error: ${res.status}`);
-        }
-    }
-    const data = await res.json();
-    return data;
-}
 
 export async function moderationAction({ request }: loaderActionInterface) {
     const formData = await request.formData();
