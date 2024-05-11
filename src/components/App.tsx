@@ -10,22 +10,31 @@ import ErrorElement from "./Error.tsx";
 //Pages
 import Home from "../pages/Home.tsx";
 import homeLoader from "../loaders/home-loader.tsx";
-import Search, { searchAction } from "../pages/Search.tsx";
+import Search from "../pages/Search.tsx";
+import searchAction from "../actions/search-action.tsx";
 import resultsLoader from "../loaders/search-loader.tsx";
-import Post, { commentAction } from "../pages/Post.tsx";
+import Post from "../pages/Post.tsx";
+import postAction from "../actions/post-action.tsx";
 import postLoader from "../loaders/post-loader.tsx";
 import PostsByTopic from "../pages/PostsByTopic.tsx";
 import postsTopicLoader from "../loaders/topic-posts-loader.tsx";
-import CreatePost, { createPostAction } from "../pages/CreatePost.tsx";
-import Register, { registerAction } from "../pages/Register.tsx";
-import Profile, { profileAction } from "../pages/Profile.tsx";
+import CreatePost from "../pages/CreatePost.tsx";
+import createPostAction from "../actions/create-post-action.tsx";
+import Register from "../pages/Register.tsx";
+import registerAction from "../actions/register-action.tsx";
+import Profile from "../pages/Profile.tsx";
+import profileAction from "../actions/profile-action.tsx";
 import profileLoader from "../loaders/profile-loader.tsx";
-import EditPost, { editPostAction } from "../pages/EditPost.tsx";
+import EditPost from "../pages/EditPost.tsx";
+import editPostAction from "../actions/edit-post-action.tsx";
 import editPostLoader from "../loaders/edit-post-loader.tsx";
-import EditComment, { editCommentAction } from "../pages/EditComment.tsx";
+import EditComment from "../pages/EditComment.tsx";
+import editCommentAction from "../actions/edit-comment-action.tsx";
 import editCommentLoader from "../loaders/edit-comment-loader.tsx";
-import Login, { loginAction } from "../pages/Login.tsx";
-import Moderation, { moderationAction } from "../pages/Moderation.tsx";
+import Login from "../pages/Login.tsx";
+import loginAction from "../actions/login-action.tsx";
+import Moderation from "../pages/Moderation.tsx";
+import moderationAction from "../actions/moderation-action.tsx";
 import moderationLoader from "../loaders/moderation-loader.tsx";
 import Terms from "../pages/Terms.tsx";
 import NotFound from "../pages/NotFound.tsx";
@@ -59,7 +68,7 @@ const router = createBrowserRouter(
                     path="details/:id"
                     element={<Post />}
                     loader={postLoader}
-                    action={commentAction}
+                    action={postAction}
                     errorElement={<ErrorElement />}
                 />
                 <Route

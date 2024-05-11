@@ -1,19 +1,10 @@
 import { useRef, useEffect } from "react";
-import {
-    Form,
-    useLoaderData,
-    Link,
-    redirect,
-    useSearchParams,
-} from "react-router-dom";
+import { Form, useLoaderData, Link, useSearchParams } from "react-router-dom";
 
-import { postInterface, loaderActionInterface } from "../utils/interfaces.ts";
+import { postInterface } from "../utils/interfaces.ts";
 
-export async function searchAction({ request }: loaderActionInterface) {
-    const formData = await request.formData();
-    const searchTerm = formData.get("search");
-    return redirect(`/search?query=${searchTerm}`);
-}
+import textIconImg from "/icon-images/text-post-icon.png";
+import linkIconImg from "/icon-images/link-post-icon.png";
 
 export default function Search() {
     const loader = useLoaderData();
@@ -54,7 +45,7 @@ export default function Search() {
                     </div>
                     {post.postType === "Text" && (
                         <img
-                            src="/icon-images/text-post-icon.png"
+                            src={textIconImg}
                             alt="A white sheet of paper with black text representing a text post"
                             className="results-text-post-image"
                         />
@@ -62,7 +53,7 @@ export default function Search() {
                     {post.postType === "Link" && (
                         <a href={post.content} target="_blank" rel="noreferrer">
                             <img
-                                src="/icon-images/link-post-icon.png"
+                                src={linkIconImg}
                                 alt={`A grey and blue chain link representing a hyperlink to ${post.content}`}
                                 className="results-link-post-image"
                             />
