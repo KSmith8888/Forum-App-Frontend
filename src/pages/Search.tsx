@@ -3,6 +3,7 @@ import { Form, useLoaderData, Link, useSearchParams } from "react-router-dom";
 
 import { postInterface } from "../utils/interfaces.ts";
 
+import "../assets/styles/search.css";
 import textIconImg from "/icon-images/text-post-icon.png";
 import linkIconImg from "/icon-images/link-post-icon.png";
 

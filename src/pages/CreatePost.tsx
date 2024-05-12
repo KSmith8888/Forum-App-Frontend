@@ -15,7 +15,7 @@ export default function CreatePost() {
             <div className="post-type-container">
                 <button
                     type="button"
-                    className="button post-button post-type-button"
+                    className="post-type-button"
                     disabled={typeOfPost === "Text" ? true : false}
                     onClick={() => {
                         setTypeOfPost("Text");
@@ -25,7 +25,7 @@ export default function CreatePost() {
                 </button>
                 <button
                     type="button"
-                    className="button post-button post-type-button"
+                    className="post-type-button"
                     disabled={typeOfPost === "Link" ? true : false}
                     onClick={() => {
                         setTypeOfPost("Link");

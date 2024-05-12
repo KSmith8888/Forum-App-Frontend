@@ -4,10 +4,9 @@ import {
     createRoutesFromElements,
     RouterProvider,
 } from "react-router-dom";
-//Components
+
 import MainLayout from "./MainLayout.tsx";
 import ErrorElement from "./Error.tsx";
-//Pages
 import Home from "../pages/Home.tsx";
 import homeLoader from "../loaders/home-loader.tsx";
 import Search from "../pages/Search.tsx";
@@ -38,8 +37,6 @@ import moderationAction from "../actions/moderation-action.tsx";
 import moderationLoader from "../loaders/moderation-loader.tsx";
 import Terms from "../pages/Terms.tsx";
 import NotFound from "../pages/NotFound.tsx";
-//Assets
-import "../assets/styles/main.css";
 
 const router = createBrowserRouter(
     createRoutesFromElements(

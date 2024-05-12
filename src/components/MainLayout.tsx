@@ -4,6 +4,7 @@ import Header from "./Header.tsx";
 import Footer from "./Footer.tsx";
 
 import { profilePicInterface } from "../utils/interfaces.ts";
+import "../assets/styles/main.css";
 
 export default function Layout() {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);

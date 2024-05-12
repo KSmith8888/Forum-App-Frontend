@@ -173,8 +173,8 @@ export default function Post() {
                                 <button
                                     className={
                                         userLikedPost
-                                            ? "like-button selected"
-                                            : "like-button"
+                                            ? "button selected"
+                                            : "button"
                                     }
                                     onClick={async () => {
                                         try {

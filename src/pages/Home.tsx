@@ -8,7 +8,7 @@ import {
 
 import { outletInterface, postInterface } from "../utils/interfaces.ts";
 
-import "../assets/styles/main.css";
+import "../assets/styles/home.css";
 import textIconImg from "/icon-images/text-post-icon.png";
 import linkIconImg from "/icon-images/link-post-icon.png";
 

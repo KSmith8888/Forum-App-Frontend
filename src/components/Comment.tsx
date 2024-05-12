@@ -73,8 +73,8 @@ export default function Comment({
                                     <button
                                         className={
                                             userLikedComment
-                                                ? "like-button selected"
-                                                : "like-button"
+                                                ? "button selected"
+                                                : "button"
                                         }
                                         onClick={async () => {
                                             try {

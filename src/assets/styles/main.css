@@ -11,6 +11,7 @@ body {
 
 button,
 input,
+select,
 textarea {
     font-family: inherit;
     font-size: 100%;
@@ -21,7 +22,6 @@ img {
 }
 
 .button,
-.like-button,
 .button-link {
     cursor: pointer;
     border: 1px solid black;
@@ -35,8 +35,6 @@ img {
 
 .button:hover,
 .button:focus,
-.like-button:hover,
-.like-button:focus,
 .button-link:hover,
 .button-link:focus {
     background-color: rgb(199, 192, 192);
@@ -74,61 +72,6 @@ img {
     border-bottom: 1px solid #575454;
 }
 
-.user-message {
-    margin: 0.25em 0;
-}
-
-.home-container {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.trending-posts-section,
-.new-posts-section {
-    padding: 0.5em;
-    margin: 0.5em;
-}
-
-.popular-posts-heading,
-.new-posts-heading {
-    margin: 0;
-    text-align: center;
-}
-
-.trending-posts-link-container,
-.results-posts-link-container {
-    display: flex;
-    flex-direction: column;
-    background-color: #f3f3f3;
-    border: 1px solid #575454;
-    margin: 1em 0;
-}
-
-.home-post-content-container {
-    margin-right: 0.5em;
-    max-width: 18em;
-}
-
-.link {
-    margin: 0;
-}
-
-.trending-post-link,
-.results-post-link {
-    color: rgb(19, 26, 128);
-    text-decoration: none;
-}
-
-.trending-post-link:hover,
-.trending-post-link:focus,
-.results-post-link:hover,
-.results-post-link:focus,
-.link:hover,
-.link:focus {
-    color: rgb(8, 7, 46);
-}
-
 .error-heading,
 .error-message {
     color: red;
@@ -149,6 +92,15 @@ img {
     text-align: center;
     font-size: 0.8rem;
     max-width: 45em;
+}
+
+.link {
+    margin: 0;
+}
+
+.link:hover,
+.link:focus {
+    color: rgb(8, 7, 46);
 }
 
 .button-container {
@@ -210,27 +162,6 @@ img {
     align-items: center;
 }
 
-.search-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.search-form {
-    margin-top: 0.5em;
-    padding: 1em 0.5em;
-    background-color: #f3f3f3;
-    border: 1px solid #575454;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#search-input {
-    border: 1px solid #575454;
-    border-radius: 5px;
-}
-
 .register-form,
 .login-section {
     max-width: 25em;
@@ -248,9 +179,7 @@ img {
     display: block;
 }
 
-.posts-topic-heading {
-    margin: 0.75em 0 0.25em 0;
-}
+/* Terms */
 
 .terms-container {
     max-width: 25em;
@@ -273,60 +202,8 @@ img {
     margin-right: 1em;
 }
 
-.trending-main-content-container,
-.results-main-content-container {
-    margin: 0.5em;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.results-post-title,
-.results.post-text {
-    max-width: 18em;
-}
-
-.home-link-post-image,
-.home-text-post-image,
-.results-link-post-image,
-.results-text-post-image {
-    margin: 0 0.5em 0 1em;
-    width: 55px;
-    height: 55px;
-}
-
-.results-post-title {
-    text-align: center;
-}
-
-.results-post-text {
-    text-align: center;
-    max-width: 20em;
-}
-
 @media (max-width: 650px) {
     .main-section {
         min-height: 65vh;
-    }
-    .home-container {
-        flex-direction: column;
-    }
-    .posts-topic-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-    .results-posts-link-container {
-        width: 95%;
-    }
-    .trending-main-content-container,
-    .results-main-content-container {
-        flex-direction: column;
-    }
-    .trending-post-text,
-    .trending-post-title,
-    .results-post-text {
-        text-align: center;
     }
 }
