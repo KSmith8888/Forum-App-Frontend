@@ -1,11 +1,15 @@
-.search-container {
+.search-container,
+.results-container,
+.posts-topic-container {
+    width: 24em;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .search-form {
-    margin-top: 0.5em;
+    width: 24em;
+    margin: 1em 0 0.5em 0;
     padding: 1em 0.5em;
     background-color: #f3f3f3;
     border: 1px solid #575454;
@@ -28,6 +32,7 @@
 
 .results-post-title,
 .results-post-text {
+    margin: 0.5em 0;
     text-align: center;
     max-width: 18em;
 }
@@ -43,25 +48,45 @@
 }
 
 .results-posts-link-container {
-    display: flex;
-    flex-direction: column;
-    background-color: #f3f3f3;
-    border: 1px solid #575454;
-    margin: 1em 0;
-}
-
-.results-main-content-container {
-    margin: 0.5em;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: #f3f3f3;
+    border: 1px solid #575454;
+    margin: 0.5em 0;
+    padding: 0.5em 1em;
+}
+
+.results-inner-content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 0.5em;
+}
+
+.link-result-inner-link {
+    margin: 0.5em 0;
 }
 
 @media (max-width: 650px) {
-    .results-posts-link-container {
+    .search-container,
+    .results-container,
+    .search-form,
+    .posts-topic-container {
         width: 95%;
     }
-    .results-main-content-container {
+    .results-posts-link-container {
         flex-direction: column;
+    }
+    .results-link-post-image,
+    .results-text-post-image {
+        margin: 0.5em 0;
+        width: 55px;
+        height: 55px;
+    }
+    .results-post-title,
+    .results-post-text {
+        margin: 0.5em 0;
     }
 }

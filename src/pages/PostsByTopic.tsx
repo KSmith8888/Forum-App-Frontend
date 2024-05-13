@@ -6,6 +6,9 @@ import {
 } from "react-router-dom";
 
 import { outletInterface, postInterface } from "../utils/interfaces";
+import textIconImg from "../assets/images/text-post-icon.png";
+import linkIconImg from "../assets/images/link-post-icon.png";
+import "../assets/styles/search.css";
 
 export default function PostsByTopic() {
     const { isUserLoggedIn } = useOutletContext<outletInterface>();
@@ -21,45 +24,43 @@ export default function PostsByTopic() {
         const startingChars = post.content.substring(0, 50);
         return (
             <div key={post._id} className="results-posts-link-container">
-                <div className="results-main-content-container">
-                    <div className="post-inner-content-container">
-                        <Link
-                            to={`/posts/details/${post._id}`}
-                            className="results-post-link"
-                        >
-                            <h3 className="results-post-title">{post.title}</h3>
-                        </Link>
-                        <p className="results-post-text">
-                            {post.postType === "Link" ? (
-                                <a
-                                    href={post.content}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                >
-                                    {post.content}
-                                </a>
-                            ) : (
-                                `${startingChars}...`
-                            )}
-                        </p>
-                    </div>
-                    {post.postType === "Text" && (
-                        <img
-                            src="/icon-images/text-post-icon.png"
-                            alt="A white sheet of paper with black text representing a text post"
-                            className="results-text-post-image"
-                        />
-                    )}
-                    {post.postType === "Link" && (
-                        <a href={post.content} target="_blank" rel="noreferrer">
-                            <img
-                                src="/icon-images/link-post-icon.png"
-                                alt={`A grey and blue chain link representing a hyperlink to ${post.content}`}
-                                className="results-link-post-image"
-                            />
-                        </a>
-                    )}
+                <div className="results-inner-content-container">
+                    <Link
+                        to={`/posts/details/${post._id}`}
+                        className="results-post-link"
+                    >
+                        <h3 className="results-post-title">{post.title}</h3>
+                    </Link>
+                    <p className="results-post-text">
+                        {post.postType === "Link" ? (
+                            <a
+                                href={post.content}
+                                target="_blank"
+                                rel="noreferrer"
+                            >
+                                {post.content}
+                            </a>
+                        ) : (
+                            `${startingChars}...`
+                        )}
+                    </p>
                 </div>
+                {post.postType === "Text" && (
+                    <img
+                        src={textIconImg}
+                        alt="A white sheet of paper with blue text representing a text post"
+                        className="results-text-post-image"
+                    />
+                )}
+                {post.postType === "Link" && (
+                    <a href={post.content} target="_blank" rel="noreferrer">
+                        <img
+                            src={linkIconImg}
+                            alt={`A grey and blue chain link representing a hyperlink to ${post.content}`}
+                            className="results-link-post-image"
+                        />
+                    </a>
+                )}
             </div>
         );
     });

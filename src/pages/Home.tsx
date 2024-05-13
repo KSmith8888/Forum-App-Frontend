@@ -9,8 +9,8 @@ import {
 import { outletInterface, postInterface } from "../utils/interfaces.ts";
 
 import "../assets/styles/home.css";
-import textIconImg from "/icon-images/text-post-icon.png";
-import linkIconImg from "/icon-images/link-post-icon.png";
+import textIconImg from "../assets/images/text-post-icon.png";
+import linkIconImg from "../assets/images/link-post-icon.png";
 
 export default function Home() {
     const [searchParams] = useSearchParams();
@@ -56,7 +56,7 @@ export default function Home() {
                         {post.postType === "Text" && (
                             <img
                                 src={textIconImg}
-                                alt="A white sheet of paper with black text representing a text post"
+                                alt="A white sheet of paper with blue text representing a text post"
                                 className="home-text-post-image"
                             />
                         )}

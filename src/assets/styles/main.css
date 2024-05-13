@@ -77,32 +77,6 @@ img {
     color: red;
 }
 
-.footer {
-    width: 100%;
-    background-color: #ebf1f3;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 1em;
-}
-
-.footer-text {
-    margin: 0.5em 0;
-    text-align: center;
-    font-size: 0.8rem;
-    max-width: 45em;
-}
-
-.link {
-    margin: 0;
-}
-
-.link:hover,
-.link:focus {
-    color: rgb(8, 7, 46);
-}
-
 .button-container {
     display: flex;
     justify-content: center;
@@ -126,6 +100,7 @@ img {
 
 .select {
     align-self: flex-start;
+    cursor: pointer;
 }
 
 .checkbox {
@@ -169,6 +144,10 @@ img {
     padding: 0 1em;
 }
 
+#accept-terms-input {
+    margin-right: 1em;
+}
+
 .new-account-text {
     text-align: center;
     margin: 0.2em;
@@ -196,10 +175,6 @@ img {
 
 #terms-input-container {
     margin: 0.5em 0;
-}
-
-#accept-terms-input {
-    margin-right: 1em;
 }
 
 @media (max-width: 650px) {
