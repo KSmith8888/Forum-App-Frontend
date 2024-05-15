@@ -1,5 +1,7 @@
 import { Form, useActionData, Link } from "react-router-dom";
 
+import "../assets/styles/register.css";
+
 export default function Register() {
     const registrationMessage = useActionData();
 

@@ -14,7 +14,7 @@ export default function EditPost() {
     }
 
     return (
-        <Form method="patch" className="post-form">
+        <Form method="patch" className="edit-post-form">
             <h2>Edit Post</h2>
             <label htmlFor="title-input">Title:</label>
             <input

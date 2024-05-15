@@ -21,6 +21,24 @@ img {
     max-width: 100%;
 }
 
+.top-level-container {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.main-section {
+    width: 100%;
+    min-height: 65vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid #575454;
+}
+
 .button,
 .button-link {
     cursor: pointer;
@@ -38,38 +56,6 @@ img {
 .button-link:hover,
 .button-link:focus {
     background-color: rgb(199, 192, 192);
-}
-
-.selected {
-    background-color: rgb(15, 17, 129);
-    color: #fff;
-}
-
-.selected:hover,
-.selected:focus {
-    background-color: rgb(10, 11, 77);
-}
-
-#root {
-    margin: 0;
-}
-
-.top-level-container {
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-}
-
-.main-section {
-    width: 100%;
-    min-height: 65vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    border-bottom: 1px solid #575454;
 }
 
 .error-heading,
@@ -107,13 +93,21 @@ img {
     cursor: pointer;
 }
 
-.login-form,
-.register-form {
+/* Login */
+
+.login-section {
+    display: flex;
+    justify-content: center;
+}
+
+.login-form {
+    max-width: 25em;
+    text-align: center;
     background-color: #f3f3f3;
     border: 1px solid #575454;
     border-radius: 5px;
     margin: 1em 0;
-    padding: 1em 0.5em;
+    padding: 0.5em;
     display: flex;
     flex-direction: column;
 }
@@ -126,36 +120,17 @@ img {
     margin: 0.25em 0 0.5em 0;
 }
 
-.edit-post-container,
-.edit-comment-container {
-    display: flex;
-}
+/* EditPost / EditComment */
 
+.edit-post-form,
 .edit-comment-form {
     display: flex;
     flex-direction: column;
-    align-items: center;
-}
-
-.register-form,
-.login-section {
-    max-width: 25em;
-    text-align: center;
-    padding: 0 1em;
-}
-
-#accept-terms-input {
-    margin-right: 1em;
-}
-
-.new-account-text {
-    text-align: center;
-    margin: 0.2em;
-}
-
-.block-label-text {
-    margin: 0 1em;
-    display: block;
+    background-color: #f3f3f3;
+    border: 1px solid #575454;
+    border-radius: 5px;
+    padding: 2em;
+    margin: 1em 0;
 }
 
 /* Terms */
@@ -173,12 +148,11 @@ img {
     margin: 0.5em 0;
 }
 
-#terms-input-container {
-    margin: 0.5em 0;
-}
-
 @media (max-width: 650px) {
-    .main-section {
-        min-height: 65vh;
+    .login-form,
+    .edit-post-form,
+    .edit-comment-form,
+    .terms-container {
+        width: 95%;
     }
 }
