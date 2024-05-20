@@ -295,9 +295,12 @@ export default function Post() {
                         />
                         <p className="post-author">
                             Author:{" "}
-                            <span className="post-author-span">
+                            <Link
+                                to={`/users/details/${postData.user}`}
+                                className="post-author-link"
+                            >
                                 {postData.user}
-                            </span>
+                            </Link>
                         </p>
                     </div>
                     <p className="post-time">{postDateString}</p>

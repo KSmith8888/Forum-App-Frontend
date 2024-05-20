@@ -71,6 +71,12 @@
     text-transform: capitalize;
 }
 
+.post-author-link {
+    text-decoration: none;
+}
+
+.post-author-link:hover,
+.post-author-link:focus,
 .post-topic-link:hover,
 .post-topic-link:focus {
     color: rgb(8, 7, 46);
@@ -152,7 +158,6 @@
     align-items: center;
 }
 
-.post-author-span,
 .comment-author-span {
     display: block;
 }

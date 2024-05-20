@@ -13,6 +13,7 @@ export interface loaderActionInterface {
     params: {
         id?: string;
         topic?: string;
+        username?: string;
     };
 }
 

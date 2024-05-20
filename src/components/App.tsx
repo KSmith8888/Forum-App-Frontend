@@ -24,6 +24,8 @@ import registerAction from "../actions/register-action.tsx";
 import Profile from "../pages/Profile.tsx";
 import profileAction from "../actions/profile-action.tsx";
 import profileLoader from "../loaders/profile-loader.tsx";
+import UserDetails from "../pages/UserDetails.tsx";
+import userDetailsLoader from "../loaders/user-details-loader.tsx";
 import EditPost from "../pages/EditPost.tsx";
 import editPostAction from "../actions/edit-post-action.tsx";
 import editPostLoader from "../loaders/edit-post-loader.tsx";
@@ -93,6 +95,12 @@ const router = createBrowserRouter(
                 path="/login"
                 element={<Login />}
                 action={loginAction}
+                errorElement={<ErrorElement />}
+            />
+            <Route
+                path="/users/details/:username"
+                element={<UserDetails />}
+                loader={userDetailsLoader}
                 errorElement={<ErrorElement />}
             />
             <Route path="/profile" errorElement={<ErrorElement />}>

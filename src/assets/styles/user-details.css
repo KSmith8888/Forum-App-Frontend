@@ -1,0 +1,34 @@
+.user-details-container {
+    margin: 1em 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-details-username {
+    margin: 0;
+    text-align: center;
+}
+
+.user-posts-comments-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.user-posts-section,
+.user-comments-section {
+    max-width: 40%;
+    margin: 0 2em;
+}
+
+@media (max-width: 650px) {
+    .user-posts-comments-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    .user-posts-section,
+    .user-comments-section {
+        max-width: 95%;
+        margin: 0;
+    }
+}
