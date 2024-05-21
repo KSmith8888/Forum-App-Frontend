@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import CommentForm from "./CommentForm.tsx";
 import { likeComment } from "../utils/like";
@@ -142,9 +143,16 @@ export default function Comment({
                         />
                         <p className="comment-author">
                             Author:{" "}
-                            <span className="comment-author-span">
-                                {commentData.user}
-                            </span>
+                            {commentData.user !== "Deleted" ? (
+                                <Link
+                                    to={`/users/details/${commentData.user}`}
+                                    className="comment-author-link"
+                                >
+                                    {commentData.user}
+                                </Link>
+                            ) : (
+                                <span className="deleted-author">Deleted</span>
+                            )}
                         </p>
                     </div>
                     <p className="comment-time">{commentDateString}</p>

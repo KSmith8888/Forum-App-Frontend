@@ -39,6 +39,19 @@
     margin: 0.25em 0.5em;
 }
 
+.profile-bio-container {
+    padding: 1em;
+    border-bottom: 1px solid black;
+}
+
+.profile-bio-heading {
+    margin: 0.5em 0;
+}
+
+.profile-bio-text {
+    margin: 1em 0;
+}
+
 .delete-account-container {
     width: 100%;
     text-align: center;
@@ -167,7 +180,6 @@
     width: 100%;
     background-color: #f3f3f3;
     border-bottom: 1px solid #575454;
-    margin: 0 0 1em 0;
     padding-bottom: 1em;
     text-align: center;
     display: flex;

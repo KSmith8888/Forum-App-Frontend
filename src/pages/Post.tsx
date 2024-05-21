@@ -295,12 +295,16 @@ export default function Post() {
                         />
                         <p className="post-author">
                             Author:{" "}
-                            <Link
-                                to={`/users/details/${postData.user}`}
-                                className="post-author-link"
-                            >
-                                {postData.user}
-                            </Link>
+                            {postData.user !== "Deleted" ? (
+                                <Link
+                                    to={`/users/details/${postData.user}`}
+                                    className="post-author-link"
+                                >
+                                    {postData.user}
+                                </Link>
+                            ) : (
+                                <span className="deleted-author">Deleted</span>
+                            )}
                         </p>
                     </div>
                     <p className="post-time">{postDateString}</p>

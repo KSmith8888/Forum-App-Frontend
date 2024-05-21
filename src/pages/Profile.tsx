@@ -27,6 +27,7 @@ export default function Profile() {
     let commentsData = [];
     let savedPostsData = [];
     let notificationsData = [];
+    let profileBio = "";
     if (loaderData && typeof loaderData === "object") {
         if ("posts" in loaderData && Array.isArray(loaderData.posts)) {
             postsData = loaderData.posts;
@@ -45,6 +46,9 @@ export default function Profile() {
             Array.isArray(loaderData.notifications)
         ) {
             notificationsData = loaderData.notifications;
+        }
+        if ("bio" in loaderData && typeof loaderData.bio === "string") {
+            profileBio = loaderData.bio;
         }
     }
     const messageModal = useRef<HTMLDialogElement>(null);
@@ -206,6 +210,13 @@ export default function Profile() {
                                 isPicModalOpen={isPicModalOpen}
                                 setIsPicModalOpen={setIsPicModalOpen}
                             />
+                        </div>
+                        <div className="profile-bio-container">
+                            <h4 className="profile-bio-heading">
+                                Profile Bio:
+                            </h4>
+                            <p className="profile-bio-text">{profileBio}</p>
+                            <button className="button">Change</button>
                         </div>
                         <div className="delete-account-container">
                             <h3 className="delete-account-heading">

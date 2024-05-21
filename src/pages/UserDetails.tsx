@@ -1,18 +1,36 @@
-import { useLoaderData, Link, useParams } from "react-router-dom";
+import { useLoaderData, Link } from "react-router-dom";
 
 import "../assets/styles/user-details.css";
 
 export default function UserDetails() {
-    const { username } = useParams();
     const loaderData = useLoaderData();
+    let username = "";
     let postsData = [];
     let commentsData = [];
+    let bio = "";
+    let profileImg = "";
+    let profileAlt = "";
     if (loaderData && typeof loaderData === "object") {
+        if (
+            "username" in loaderData &&
+            typeof loaderData.username === "string"
+        ) {
+            username = loaderData.username;
+        }
+        if ("bio" in loaderData && typeof loaderData.bio === "string") {
+            bio = loaderData.bio;
+        }
         if ("posts" in loaderData && Array.isArray(loaderData.posts)) {
             postsData = loaderData.posts;
         }
         if ("comments" in loaderData && Array.isArray(loaderData.comments)) {
             commentsData = loaderData.comments;
+        }
+        if ("image" in loaderData && typeof loaderData.image === "string") {
+            profileImg = loaderData.image;
+        }
+        if ("alt" in loaderData && typeof loaderData.alt === "string") {
+            profileAlt = loaderData.alt;
         }
     }
     const postElements = postsData.map((post) => {
@@ -37,7 +55,17 @@ export default function UserDetails() {
 
     return (
         <div className="user-details-container">
-            <h2 className="user-details-username">{username}</h2>
+            <div className="user-details-bio-container">
+                <div className="details-bio-inner-container">
+                    <h2 className="user-details-username">{username}</h2>
+                    <p className="user-details-bio">{bio}</p>
+                </div>
+                <img
+                    src={`/profile-images/${profileImg}`}
+                    alt={profileAlt}
+                    className="menu-profile-image"
+                />
+            </div>
             <div className="user-posts-comments-container">
                 <section className="user-posts-section">
                     <h3>Posts:</h3>

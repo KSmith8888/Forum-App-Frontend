@@ -58,6 +58,15 @@ img {
     background-color: rgb(199, 192, 192);
 }
 
+.error-message-container {
+    max-width: 25em;
+    text-align: center;
+    background-color: #f3f3f3;
+    border: 1px solid #575454;
+    margin: 1em 0;
+    padding: 0.5em 1em;
+}
+
 .error-heading,
 .error-message {
     color: red;

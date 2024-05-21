@@ -71,15 +71,23 @@
     text-transform: capitalize;
 }
 
-.post-author-link {
+.post-author-link,
+.comment-author-link {
     text-decoration: none;
+    display: block;
 }
 
 .post-author-link:hover,
 .post-author-link:focus,
 .post-topic-link:hover,
-.post-topic-link:focus {
+.post-topic-link:focus,
+.comment-author-link:hover,
+.comment-author-link:focus {
     color: rgb(8, 7, 46);
+}
+
+.deleted-author {
+    display: block;
 }
 
 .selected {
