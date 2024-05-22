@@ -8,6 +8,7 @@ import {
     useNavigate,
 } from "react-router-dom";
 
+import BioChangeForm from "../components/BioChangeForm";
 import { outletInterface, notificationInterface } from "../utils/interfaces";
 import { deleteAccount } from "../utils/delete-account";
 import ProfilePicSelector from "../components/ProfilePicSelector";
@@ -61,6 +62,7 @@ export default function Profile() {
         }
     }, [actionMessage]);
     const [isPicModalOpen, setIsPicModalOpen] = useState(false);
+    const [isBioModalOpen, setIsBioModalOpen] = useState(false);
     const { setIsUserLoggedIn, profilePic, setProfilePic } =
         useOutletContext<outletInterface>();
     const postElements = postsData.map((post: userProfilePost) => {
@@ -90,7 +92,7 @@ export default function Profile() {
         return (
             <div key={comment._id} className="comment-link-container">
                 <Link
-                    to={`/posts/details/${comment.relatedPost}`}
+                    to={`/posts/details/${comment.relatedPost}?commentId=${comment._id}`}
                     className="related-post-link"
                 >
                     {`${startingChars}...`}
@@ -216,7 +218,18 @@ export default function Profile() {
                                 Profile Bio:
                             </h4>
                             <p className="profile-bio-text">{profileBio}</p>
-                            <button className="button">Change</button>
+                            <button
+                                className="button"
+                                onClick={() => {
+                                    setIsBioModalOpen(true);
+                                }}
+                            >
+                                Change
+                            </button>
+                            <BioChangeForm
+                                isBioModalOpen={isBioModalOpen}
+                                setIsBioModalOpen={setIsBioModalOpen}
+                            />
                         </div>
                         <div className="delete-account-container">
                             <h3 className="delete-account-heading">

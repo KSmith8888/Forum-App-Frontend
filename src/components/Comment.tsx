@@ -62,6 +62,7 @@ export default function Comment({
     return (
         <>
             <article
+                id={commentData._id}
                 className={`comment ${commentData.commentReply ? "reply" : ""}`}
             >
                 <div className="column-content">

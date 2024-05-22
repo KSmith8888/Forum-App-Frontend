@@ -42,6 +42,34 @@
     margin: 0 2em;
 }
 
+.user-details-post-container,
+.user-details-comment-container {
+    width: 100%;
+    margin: 0 0 1em 0;
+    padding: 0.5em 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f3f3f3;
+    border: 1px solid #575454;
+    border-radius: 5px;
+}
+
+.user-details-post-link,
+.user-details-comment-link {
+    font-size: 1.1rem;
+    color: rgb(19, 26, 128);
+    text-decoration: none;
+    margin: 0.5em;
+}
+
+.user-details-post-link:hover,
+.user-details-post-link:focus,
+.user-details-comment-link:hover,
+.user-details-comment-link:focus {
+    color: rgb(8, 7, 46);
+}
+
 @media (max-width: 650px) {
     .user-posts-comments-container {
         flex-direction: column;

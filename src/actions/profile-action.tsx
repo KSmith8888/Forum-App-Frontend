@@ -11,7 +11,12 @@ export default async function profileAction({
         const post = formData.get("post");
         const comment = formData.get("comment");
         const notification = formData.get("notification");
+        const bio = formData.get("bio");
+        const bioContent = formData.get("bio-content");
+        let reqMethod = "DELETE";
+        let reqStatus = "Delete request";
         let reqUrl = "";
+        let reqBio = "none";
         if (
             (post && typeof post !== "string") ||
             (comment && typeof comment !== "string")
@@ -30,13 +35,20 @@ export default async function profileAction({
             reqUrl = `${
                 import.meta.env.VITE_BACKEND_URL
             }/api/v1/users/profile/notifications/${id}`;
+        } else if (bio && typeof bioContent === "string") {
+            reqUrl = `${
+                import.meta.env.VITE_BACKEND_URL
+            }/api/v1/users/profile/${id}/bio`;
+            reqMethod = "PATCH";
+            reqStatus = "Update user bio";
+            reqBio = bioContent;
         }
         if (!token || !userId) {
             throw new Error("You must log in before performing that action");
         }
         const res = await fetch(reqUrl, {
-            method: "DELETE",
-            body: JSON.stringify({ status: "Delete request" }),
+            method: reqMethod,
+            body: JSON.stringify({ status: reqStatus, bioContent: reqBio }),
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,

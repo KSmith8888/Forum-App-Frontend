@@ -21,14 +21,15 @@
     border: 3px solid rgb(7, 7, 77);
 }
 
-.profile-image-modal[open] {
+.profile-image-modal[open],
+.profile-bio-modal[open] {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 2em 2em 0.5em 2em;
     border: 1px solid black;
-    background-color: #f3f3f3;
+    background-color: #ebf1f3;
 }
 
 .profile-image-button {

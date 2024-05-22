@@ -3,6 +3,7 @@ import {
     useLoaderData,
     useOutletContext,
     useActionData,
+    useSearchParams,
     Link,
 } from "react-router-dom";
 
@@ -76,11 +77,20 @@ export default function Post() {
             setCommentErrorMsg(actionData);
         }
     }, [actionData]);
-
+    const [searchParams] = useSearchParams();
+    const commentId = searchParams.get("commentId");
     useEffect(() => {
-        window.scrollTo(0, 0);
+        if (commentId) {
+            const commentEl = document.getElementById(commentId);
+            if (commentEl) {
+                commentEl.scrollIntoView({ behavior: "smooth" });
+            } else {
+                window.scrollTo(0, 0);
+            }
+        } else {
+            window.scrollTo(0, 0);
+        }
     }, []);
-
     const reportModal = useRef<HTMLDialogElement>(null);
     function openReportModal(
         messageId: string,
@@ -130,7 +140,7 @@ export default function Post() {
             : [];
 
     return (
-        <div className="post-container">
+        <div id={postData._id} className="post-container">
             <article className="post">
                 <div className="column-content">
                     <div className="post-main-content-container">
