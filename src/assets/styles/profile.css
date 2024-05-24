@@ -21,8 +21,7 @@
     border: 3px solid rgb(7, 7, 77);
 }
 
-.profile-image-modal[open],
-.profile-bio-modal[open] {
+.profile-image-modal[open] {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,6 +29,36 @@
     padding: 2em 2em 0.5em 2em;
     border: 1px solid black;
     background-color: #ebf1f3;
+}
+
+.profile-bio-modal[open] {
+    display: flex;
+    flex-direction: column;
+    padding: 1em 1.5em;
+    border: 1px solid black;
+    background-color: #f3f3f3;
+}
+
+.update-bio-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.close-bio-modal-button {
+    padding: 0.2em 0.5em;
+    margin: 0;
+    align-self: flex-end;
+    cursor: pointer;
+    background-color: rgb(224, 19, 19);
+    color: #f3f3f3;
+    font-weight: 600;
+    border: 1px solid #575454;
+    border-radius: 5px;
+}
+
+.close-bio-modal-button:hover,
+.close-bio-modal-button:focus {
+    background-color: rgb(173, 17, 17);
 }
 
 .profile-image-button {
@@ -45,12 +74,18 @@
     border-bottom: 1px solid black;
 }
 
+.update-bio-form-heading,
 .profile-bio-heading {
     margin: 0.5em 0;
 }
 
 .profile-bio-text {
     margin: 1em 0;
+}
+
+#update-bio-input {
+    resize: none;
+    margin: 0 0.5em;
 }
 
 .delete-account-container {

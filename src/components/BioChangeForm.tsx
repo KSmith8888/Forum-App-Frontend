@@ -4,13 +4,16 @@ import { Form } from "react-router-dom";
 interface profileBioProps {
     isBioModalOpen: boolean;
     setIsBioModalOpen: (value: boolean) => void;
+    actionMessage: unknown;
 }
 
 export default function BioChangeForm({
     isBioModalOpen,
     setIsBioModalOpen,
+    actionMessage,
 }: profileBioProps) {
     const bioModal = useRef<HTMLDialogElement>(null);
+    const bioForm = useRef<HTMLFormElement>(null);
     function bioUpdated() {
         if (bioModal.current) {
             bioModal.current.close();
@@ -22,18 +25,44 @@ export default function BioChangeForm({
             bioModal.current.showModal();
         }
     }, [isBioModalOpen]);
+    useEffect(() => {
+        if (
+            bioForm.current &&
+            bioModal.current &&
+            typeof actionMessage === "string" &&
+            actionMessage.startsWith("Bio")
+        ) {
+            bioForm.current.reset();
+            bioModal.current.close();
+        }
+    }, [actionMessage]);
     return (
         <dialog className="profile-bio-modal" ref={bioModal}>
-            <Form method="POST">
-                <h3>Update Profile Bio:</h3>
-                <label htmlFor="update-bio-input">New Bio:</label>
+            <button
+                className="close-bio-modal-button"
+                type="button"
+                aria-label="Close update bio form"
+                onClick={() => {
+                    setIsBioModalOpen(false);
+                    if (bioModal.current) {
+                        bioModal.current.close();
+                    }
+                }}
+            >
+                X
+            </button>
+            <Form method="POST" className="update-bio-form" ref={bioForm}>
+                <h3 className="update-bio-form-heading">Update Profile Bio:</h3>
+                <label htmlFor="update-bio-input">
+                    New Bio (120 characters max):
+                </label>
                 <textarea
                     id="update-bio-input"
                     name="bio-content"
                     maxLength={120}
                     minLength={4}
-                    rows={6}
-                    cols={40}
+                    rows={5}
+                    cols={30}
                 ></textarea>
                 <input type="hidden" name="bio" value="bio" />
                 <button
@@ -46,18 +75,6 @@ export default function BioChangeForm({
                     Submit
                 </button>
             </Form>
-            <button
-                className="button"
-                type="button"
-                onClick={() => {
-                    setIsBioModalOpen(false);
-                    if (bioModal.current) {
-                        bioModal.current.close();
-                    }
-                }}
-            >
-                Close
-            </button>
         </dialog>
     );
 }

@@ -47,6 +47,18 @@
     border: 1px solid black;
 }
 
+.moderation-link {
+    font-size: 1.1rem;
+    color: rgb(19, 26, 128);
+    text-decoration: none;
+    margin: 0.5em;
+}
+
+.moderation-link:hover,
+.moderation-link:focus {
+    color: rgb(8, 7, 46);
+}
+
 @media (max-width: 650px) {
     .moderation-main-container {
         flex-direction: column;

@@ -229,6 +229,7 @@ export default function Profile() {
                             <BioChangeForm
                                 isBioModalOpen={isBioModalOpen}
                                 setIsBioModalOpen={setIsBioModalOpen}
+                                actionMessage={actionMessage}
                             />
                         </div>
                         <div className="delete-account-container">

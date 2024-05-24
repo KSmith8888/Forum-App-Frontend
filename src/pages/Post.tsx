@@ -143,6 +143,32 @@ export default function Post() {
         <div id={postData._id} className="post-container">
             <article className="post">
                 <div className="column-content">
+                    {isUserLoggedIn && (
+                        <button
+                            className={
+                                userSavedPost
+                                    ? "save-post-button-selected"
+                                    : "save-post-button"
+                            }
+                            onClick={async () => {
+                                try {
+                                    const savePostData = await savePost(
+                                        postData._id,
+                                        postData.title
+                                    );
+                                    setUserSavedPost(savePostData.didUserSave);
+                                } catch (error) {
+                                    if (error instanceof Error) {
+                                        console.error(error.message);
+                                    }
+                                }
+                            }}
+                            aria-label={
+                                userSavedPost ? "Save post" : "Unsave post"
+                            }
+                            title="Save or unsave post"
+                        ></button>
+                    )}
                     <div className="post-main-content-container">
                         <div className="post-inner-content-container">
                             <h2 className="post-title">{postData.title}</h2>
@@ -334,32 +360,6 @@ export default function Post() {
                                 Edit History
                             </button>
                         </>
-                    )}
-                    {isUserLoggedIn && (
-                        <button
-                            className={
-                                userSavedPost
-                                    ? "save-post-button-selected"
-                                    : "save-post-button"
-                            }
-                            onClick={async () => {
-                                try {
-                                    const savePostData = await savePost(
-                                        postData._id,
-                                        postData.title
-                                    );
-                                    setUserSavedPost(savePostData.didUserSave);
-                                } catch (error) {
-                                    if (error instanceof Error) {
-                                        console.error(error.message);
-                                    }
-                                }
-                            }}
-                            aria-label={
-                                userSavedPost ? "Save post" : "Unsave post"
-                            }
-                            title="Save or unsave post"
-                        ></button>
                     )}
                 </div>
             </article>

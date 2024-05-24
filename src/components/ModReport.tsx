@@ -10,15 +10,20 @@ interface modReportInterface {
 
 export default function ModReport({ report }: modReportInterface) {
     const linkId =
-        report.messageType === "Post" ? report.messageId : report.relatedPost;
+        report.messageType === "Post"
+            ? report.messageId
+            : `${report.relatedPost}?commentId=${report.messageId}`;
     const reportDateString = createDateString(report.createdAt, "Reported");
     return (
         <div className="report-container" key={report.messageId}>
             <p className="report-text">{`Report Type: ${report.messageType}`}</p>
             <p className="report-text">{`Message Id: ${report.messageId}`}</p>
             <div className="button-container">
-                <Link to={`/posts/details/${linkId}`} className="button-link">
-                    See Thread
+                <Link
+                    to={`/posts/details/${linkId}`}
+                    className="moderation-link"
+                >
+                    Reported Message
                 </Link>
                 <Form action="/moderation" method="DELETE">
                     <input

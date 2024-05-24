@@ -111,20 +111,22 @@
 }
 
 .save-post-button {
+    align-self: flex-end;
     width: 30px;
     height: 32px;
     cursor: pointer;
     border: none;
-    margin: 0.5em;
+    margin: 0 0 0 1em;
     background: url("/icon-images/save-post-icon.png");
 }
 
 .save-post-button-selected {
+    align-self: flex-end;
     width: 30px;
     height: 32px;
     cursor: pointer;
     border: none;
-    margin: 0.5em;
+    margin: 0 0 0 1em;
     background: url("/icon-images/unsave-post-icon.png");
 }
 
