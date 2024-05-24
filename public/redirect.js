@@ -1,7 +1,7 @@
 let params = null;
 const route = location.pathname ? `route=${location.pathname}` : null;
 const id = sessionStorage.getItem("_id");
-const isUserLoggedIn = id ? "status=logged in" : null;
+const isUserLoggedIn = id ? "status=loggedIn" : null;
 if (route && isUserLoggedIn) {
     params = `?${route}&${isUserLoggedIn}`;
 } else if (route && !isUserLoggedIn) {

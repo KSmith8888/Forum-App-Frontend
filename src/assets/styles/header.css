@@ -126,13 +126,12 @@
     width: 100%;
     border-top: 1px solid black;
     padding: 1em 1.5em;
-    margin-bottom: 0.25em;
 }
 
 .main-menu-link:hover,
 .main-menu-link:focus {
     color: rgb(8, 7, 46);
-    outline: 0.25em solid rgb(8, 7, 46);
+    background-color: #ebf1f3;
 }
 
 .main-nav {
@@ -171,14 +170,13 @@
     text-decoration: none;
     width: 100%;
     border-top: 1px solid black;
-    margin-bottom: 0.25em;
     padding: 0.8em;
 }
 
 .topic-link:hover,
 .topic-link:focus {
     color: rgb(8, 7, 46);
-    outline: 0.25em solid rgb(8, 7, 46);
+    background-color: #ebf1f3;
 }
 
 .topics-modal-heading-container {

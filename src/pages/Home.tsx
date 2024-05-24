@@ -18,7 +18,7 @@ export default function Home() {
     const message = searchParams.get("message");
     const status = searchParams.get("status");
     useEffect(() => {
-        if (status === "logged in") {
+        if (status === "loggedIn") {
             setIsUserLoggedIn(true);
         }
     }, []);

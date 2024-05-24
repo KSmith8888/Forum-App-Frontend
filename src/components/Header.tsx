@@ -21,19 +21,24 @@ export default function Header({
     const navigate = useNavigate();
     const navModal = useRef<HTMLDialogElement>(null);
     const mobileTopicModal = useRef<HTMLDialogElement>(null);
+    const mainHeading = useRef<HTMLAnchorElement>(null);
+    const homeMenuLink = useRef<HTMLAnchorElement>(null);
+    const firstTopicLink = useRef<HTMLAnchorElement>(null);
     const userRole = sessionStorage.getItem("role");
     const isMod = userRole === "mod" || userRole === "admin";
     const username = sessionStorage.getItem("username");
 
     function closeNavModal() {
-        if (navModal.current) {
+        if (navModal.current && mainHeading.current) {
             navModal.current.close();
+            mainHeading.current.focus();
         }
     }
 
     function closeTopicModal() {
-        if (mobileTopicModal.current) {
+        if (mobileTopicModal.current && mainHeading.current) {
             mobileTopicModal.current.close();
+            mainHeading.current.focus();
         }
     }
 
@@ -51,7 +56,7 @@ export default function Header({
     return (
         <header className="header">
             <h1 className="main-heading">
-                <Link to="/" className="main-heading-link">
+                <Link to="/" className="main-heading-link" ref={mainHeading}>
                     4em
                 </Link>
             </h1>
@@ -60,8 +65,9 @@ export default function Header({
                     id="main-menu-button"
                     className="header-menu-button"
                     onClick={() => {
-                        if (navModal.current) {
+                        if (navModal.current && homeMenuLink.current) {
                             navModal.current.showModal();
+                            homeMenuLink.current.focus();
                         }
                     }}
                 >
@@ -71,8 +77,12 @@ export default function Header({
                     id="topics-menu-button"
                     className="header-menu-button"
                     onClick={() => {
-                        if (mobileTopicModal.current) {
+                        if (
+                            mobileTopicModal.current &&
+                            firstTopicLink.current
+                        ) {
                             mobileTopicModal.current.showModal();
+                            firstTopicLink.current.focus();
                         }
                     }}
                 >
@@ -119,7 +129,7 @@ export default function Header({
                         onClick={() => {
                             closeNavModal();
                         }}
-                        autoFocus={true}
+                        ref={homeMenuLink}
                     >
                         Home
                     </Link>
@@ -208,7 +218,7 @@ export default function Header({
                         onClick={() => {
                             closeTopicModal();
                         }}
-                        autoFocus={true}
+                        ref={firstTopicLink}
                     >
                         Movies
                     </Link>
