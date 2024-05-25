@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useLoaderData, Link } from "react-router-dom";
 
 import "../assets/styles/user-details.css";
@@ -33,6 +34,9 @@ export default function UserDetails() {
             profileAlt = loaderData.alt;
         }
     }
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     const postElements = postsData.map((post) => {
         return (
             <div key={post.id} className="user-details-post-container">

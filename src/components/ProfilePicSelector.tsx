@@ -44,60 +44,66 @@ export default function ProfilePicSelector({
                 Select a Profile Picture:
             </h3>
             <div className="profile-image-grid">
-                <PicSelectorButton
-                    handlePicUpdate={handlePicUpdate}
-                    name="blank.png"
-                    alt="A generic, blank outline of a mans upper body"
-                    profilePic={profilePic}
-                />
-                <PicSelectorButton
-                    handlePicUpdate={handlePicUpdate}
-                    name="apple.jpg"
-                    alt="A red apple with sunlit trees in the background"
-                    profilePic={profilePic}
-                />
-                <PicSelectorButton
-                    handlePicUpdate={handlePicUpdate}
-                    name="coffee.jpg"
-                    alt="A white mug filled with coffee, surrounded by coffee beans"
-                    profilePic={profilePic}
-                />
-                <PicSelectorButton
-                    handlePicUpdate={handlePicUpdate}
-                    name="tree.jpg"
-                    alt="A green tree in an open field of grass, with hazy sky in the background"
-                    profilePic={profilePic}
-                />
-                <PicSelectorButton
-                    handlePicUpdate={handlePicUpdate}
-                    name="guitar.jpg"
-                    alt="A black, brown and white electric guitar, tilted diagonally"
-                    profilePic={profilePic}
-                />
-                <PicSelectorButton
-                    handlePicUpdate={handlePicUpdate}
-                    name="iced-tea.jpg"
-                    alt="A clear glass filled with iced tea, with two lemons next to it"
-                    profilePic={profilePic}
-                />
-                <PicSelectorButton
-                    handlePicUpdate={handlePicUpdate}
-                    name="laptop.jpg"
-                    alt="A grey and black laptop computer, displaying various charts and graphs"
-                    profilePic={profilePic}
-                />
-                <PicSelectorButton
-                    handlePicUpdate={handlePicUpdate}
-                    name="boat.jpg"
-                    alt="A white yacht on a blue body of water with clear sky in the background"
-                    profilePic={profilePic}
-                />
-                <PicSelectorButton
-                    handlePicUpdate={handlePicUpdate}
-                    name="globe.jpg"
-                    alt="A globe of the Earth sitting on a dark brown desk"
-                    profilePic={profilePic}
-                />
+                <div className="profile-image-grid-row">
+                    <PicSelectorButton
+                        handlePicUpdate={handlePicUpdate}
+                        name="blank.png"
+                        alt="A generic, blank outline of a mans upper body"
+                        profilePic={profilePic}
+                    />
+                    <PicSelectorButton
+                        handlePicUpdate={handlePicUpdate}
+                        name="apple.jpg"
+                        alt="A red apple with sunlit trees in the background"
+                        profilePic={profilePic}
+                    />
+                    <PicSelectorButton
+                        handlePicUpdate={handlePicUpdate}
+                        name="coffee.jpg"
+                        alt="A white mug filled with coffee, surrounded by coffee beans"
+                        profilePic={profilePic}
+                    />
+                </div>
+                <div className="profile-image-grid-row">
+                    <PicSelectorButton
+                        handlePicUpdate={handlePicUpdate}
+                        name="tree.jpg"
+                        alt="A green tree in an open field of grass, with hazy sky in the background"
+                        profilePic={profilePic}
+                    />
+                    <PicSelectorButton
+                        handlePicUpdate={handlePicUpdate}
+                        name="guitar.jpg"
+                        alt="A black, brown and white electric guitar, tilted diagonally"
+                        profilePic={profilePic}
+                    />
+                    <PicSelectorButton
+                        handlePicUpdate={handlePicUpdate}
+                        name="iced-tea.jpg"
+                        alt="A clear glass filled with iced tea, with two lemons next to it"
+                        profilePic={profilePic}
+                    />
+                </div>
+                <div className="profile-image-grid-row">
+                    <PicSelectorButton
+                        handlePicUpdate={handlePicUpdate}
+                        name="laptop.jpg"
+                        alt="A grey and black laptop computer, displaying various charts and graphs"
+                        profilePic={profilePic}
+                    />
+                    <PicSelectorButton
+                        handlePicUpdate={handlePicUpdate}
+                        name="boat.jpg"
+                        alt="A white yacht on a blue body of water with clear sky in the background"
+                        profilePic={profilePic}
+                    />
+                    <PicSelectorButton
+                        handlePicUpdate={handlePicUpdate}
+                        name="globe.jpg"
+                        alt="A globe of the Earth sitting on a dark brown desk"
+                        profilePic={profilePic}
+                    />
+                </div>
             </div>
             <button
                 className="button"

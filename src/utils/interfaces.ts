@@ -105,6 +105,7 @@ export interface notificationInterface {
     message: string;
     isReply: boolean;
     replyMessageId?: string;
+    commentId: string;
 }
 
 export interface savedPostInterface {

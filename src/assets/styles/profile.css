@@ -1,3 +1,7 @@
+.username-heading {
+    margin: 0.5em 0;
+}
+
 .profile-image-grid-item {
     width: 50px;
     height: 50px;
@@ -6,15 +10,14 @@
 }
 
 .profile-image-grid {
-    width: 200px;
+    padding: 1em;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin-bottom: 0.5em;
+    flex-direction: column;
+    align-items: center;
 }
 
 .profile-pic-modal-heading {
-    margin: 0 0 1em 0;
+    margin: 0.5em 0;
 }
 
 .profile-image-selected {
@@ -26,9 +29,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2em 2em 0.5em 2em;
+    padding: 0.5em 1em;
     border: 1px solid black;
-    background-color: #ebf1f3;
+    background-color: #f3f3f3;
 }
 
 .profile-bio-modal[open] {
@@ -225,7 +228,8 @@
 
 .user-posts-container,
 .user-comments-container,
-.notifications-container {
+.notifications-container,
+.saved-posts-container {
     width: 100%;
     padding: 0 1em;
 }
@@ -246,7 +250,6 @@
     .profile-comments-section,
     .profile-saved-posts-section {
         width: 100%;
-        margin: 1em 0;
     }
     .profile-notification-container {
         flex-direction: column;

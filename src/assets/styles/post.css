@@ -117,7 +117,7 @@
     cursor: pointer;
     border: none;
     margin: 0 0 0 1em;
-    background: url("/icon-images/save-post-icon.png");
+    background: url("../images/save-post-icon.png");
 }
 
 .save-post-button-selected {
@@ -127,7 +127,7 @@
     cursor: pointer;
     border: none;
     margin: 0 0 0 1em;
-    background: url("/icon-images/unsave-post-icon.png");
+    background: url("../images/unsave-post-icon.png");
 }
 
 .comment:nth-child(odd) {
