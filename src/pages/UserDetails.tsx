@@ -78,7 +78,7 @@ export default function UserDetails() {
             </div>
             <div className="user-posts-comments-container">
                 <section className="user-posts-section">
-                    <h3>Posts:</h3>
+                    <h3 className="user-details-section-heading">Posts:</h3>
                     {postElements.length > 0 ? (
                         postElements
                     ) : (
@@ -86,7 +86,7 @@ export default function UserDetails() {
                     )}
                 </section>
                 <section className="user-comments-section">
-                    <h3>Comments:</h3>
+                    <h3 className="user-details-section-heading">Comments:</h3>
                     {commentElements.length > 0 ? (
                         commentElements
                     ) : (

@@ -40,6 +40,18 @@ export default function ProfilePicSelector({
 
     return (
         <dialog className="profile-image-modal" ref={picModal}>
+            <button
+                className="close-profile-modal-button"
+                type="button"
+                onClick={() => {
+                    setIsPicModalOpen(false);
+                    if (picModal.current) {
+                        picModal.current.close();
+                    }
+                }}
+            >
+                X
+            </button>
             <h3 className="profile-pic-modal-heading">
                 Select a Profile Picture:
             </h3>
@@ -105,18 +117,6 @@ export default function ProfilePicSelector({
                     />
                 </div>
             </div>
-            <button
-                className="button"
-                type="button"
-                onClick={() => {
-                    setIsPicModalOpen(false);
-                    if (picModal.current) {
-                        picModal.current.close();
-                    }
-                }}
-            >
-                Close
-            </button>
             <p className="error-message">{profilePicErrorMsg}</p>
         </dialog>
     );

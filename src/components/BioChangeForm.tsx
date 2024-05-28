@@ -39,7 +39,7 @@ export default function BioChangeForm({
     return (
         <dialog className="profile-bio-modal" ref={bioModal}>
             <button
-                className="close-bio-modal-button"
+                className="close-profile-modal-button"
                 type="button"
                 aria-label="Close update bio form"
                 onClick={() => {

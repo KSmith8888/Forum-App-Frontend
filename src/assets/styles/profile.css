@@ -47,9 +47,9 @@
     flex-direction: column;
 }
 
-.close-bio-modal-button {
+.close-profile-modal-button {
     padding: 0.2em 0.5em;
-    margin: 0;
+    margin: 0 0.25em;
     align-self: flex-end;
     cursor: pointer;
     background-color: rgb(224, 19, 19);
@@ -59,8 +59,8 @@
     border-radius: 5px;
 }
 
-.close-bio-modal-button:hover,
-.close-bio-modal-button:focus {
+.close-profile-modal-button:hover,
+.close-profile-modal-button:focus {
     background-color: rgb(173, 17, 17);
 }
 
@@ -243,6 +243,7 @@
 @media (max-width: 650px) {
     .profile-section-row {
         flex-direction: column;
+        align-items: center;
     }
     .profile-settings-section,
     .profile-notifications-section,

@@ -20,7 +20,7 @@
     align-items: flex-start;
     margin: 0.5em 0;
     padding: 0.5em 1em;
-    border: 1px solid black;
+    border: 1px solid #575454;
 }
 
 .form-heading {
@@ -44,7 +44,7 @@
     background-color: #f3f3f3;
     margin: 0.5em 0;
     padding: 0.5em 0;
-    border: 1px solid black;
+    border: 1px solid #575454;
 }
 
 .moderation-link {
@@ -66,6 +66,6 @@
         justify-content: center;
     }
     .moderation-forms-section {
-        margin: 1em 0;
+        margin: 0 0 1em 0;
     }
 }

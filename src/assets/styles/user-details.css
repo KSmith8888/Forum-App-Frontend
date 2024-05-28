@@ -33,7 +33,11 @@
 .user-posts-comments-container {
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+}
+
+.user-details-section-heading {
+    text-align: center;
 }
 
 .user-posts-section,
