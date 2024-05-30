@@ -5,12 +5,11 @@ import {
     Form,
     useActionData,
     useOutletContext,
-    useNavigate,
 } from "react-router-dom";
 
 import BioChangeForm from "../components/BioChangeForm";
+import DeleteAccountModal from "../components/DeleteAccountModal";
 import { outletInterface, notificationInterface } from "../utils/interfaces";
-import { deleteAccount } from "../utils/delete-account";
 import ProfilePicSelector from "../components/ProfilePicSelector";
 
 import "../assets/styles/profile.css";
@@ -63,8 +62,8 @@ export default function Profile() {
     }, [actionMessage]);
     const [isPicModalOpen, setIsPicModalOpen] = useState(false);
     const [isBioModalOpen, setIsBioModalOpen] = useState(false);
-    const { setIsUserLoggedIn, profilePic, setProfilePic } =
-        useOutletContext<outletInterface>();
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const { profilePic } = useOutletContext<outletInterface>();
     const postElements = postsData.map((post: userProfilePost) => {
         return (
             <div key={post.id} className="post-link-container">
@@ -165,21 +164,6 @@ export default function Profile() {
         }
     );
 
-    const navigate = useNavigate();
-
-    function logoutUser(msg: string) {
-        sessionStorage.removeItem("role");
-        sessionStorage.removeItem("username");
-        sessionStorage.removeItem("_id");
-        sessionStorage.removeItem("token");
-        setIsUserLoggedIn(false);
-        setProfilePic({
-            name: "blank.png",
-            alt: "A generic, blank outline of a mans upper body",
-        });
-        navigate(`/?message=${msg}`);
-    }
-
     return (
         <>
             <h2 className="username-heading">
@@ -241,35 +225,17 @@ export default function Profile() {
                                 all of your posts and comments
                             </p>
                             <button
-                                type="button"
                                 className="delete-account-button"
-                                onClick={async () => {
-                                    const id = sessionStorage.getItem("_id");
-                                    if (id) {
-                                        const deleteData = await deleteAccount(
-                                            id
-                                        );
-                                        if (
-                                            deleteData instanceof Error &&
-                                            messageModal.current
-                                        ) {
-                                            setModalMessage(deleteData.message);
-                                            messageModal.current.showModal();
-                                        } else {
-                                            localStorage.clear();
-                                            logoutUser(
-                                                "Your account has been deleted"
-                                            );
-                                        }
-                                    } else {
-                                        logoutUser(
-                                            "Something went wrong please log in and try again"
-                                        );
-                                    }
+                                onClick={() => {
+                                    setIsDeleteModalOpen(true);
                                 }}
                             >
                                 Delete
                             </button>
+                            <DeleteAccountModal
+                                isDeleteModalOpen={isDeleteModalOpen}
+                                setIsDeleteModalOpen={setIsDeleteModalOpen}
+                            />
                         </div>
                     </div>
                 </section>

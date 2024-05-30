@@ -1,3 +1,5 @@
+import { redirect } from "react-router-dom";
+
 import { loaderActionInterface } from "../utils/interfaces";
 
 export default async function profileAction({
@@ -13,10 +15,14 @@ export default async function profileAction({
         const notification = formData.get("notification");
         const bio = formData.get("bio");
         const bioContent = formData.get("bio-content");
+        const deleteAccount = formData.get("delete-account");
         let reqMethod = "DELETE";
         let reqStatus = "Delete request";
-        let reqUrl = "";
+        let reqUrl = `${import.meta.env.VITE_BACKEND_URL}/api/v1/`;
         let reqBio = "none";
+        if (!token || !userId) {
+            throw new Error("You must log in before performing that action");
+        }
         if (
             (post && typeof post !== "string") ||
             (comment && typeof comment !== "string")
@@ -24,27 +30,18 @@ export default async function profileAction({
             throw new Error("Post or comment data not provided");
         }
         if (post) {
-            reqUrl = `${
-                import.meta.env.VITE_BACKEND_URL
-            }/api/v1/${post}/details/${id}`;
+            reqUrl = `${reqUrl}${post}/details/${id}`;
         } else if (comment) {
-            reqUrl = `${
-                import.meta.env.VITE_BACKEND_URL
-            }/api/v1/${comment}/details/${id}`;
+            reqUrl = `${reqUrl}${comment}/details/${id}`;
         } else if (notification) {
-            reqUrl = `${
-                import.meta.env.VITE_BACKEND_URL
-            }/api/v1/users/profile/notifications/${id}`;
+            reqUrl = `${reqUrl}users/profile/notifications/${id}`;
         } else if (bio && typeof bioContent === "string") {
-            reqUrl = `${
-                import.meta.env.VITE_BACKEND_URL
-            }/api/v1/users/profile/${id}/bio`;
+            reqUrl = `${reqUrl}users/profile/${id}/bio`;
             reqMethod = "PATCH";
             reqStatus = "Update user bio";
             reqBio = bioContent;
-        }
-        if (!token || !userId) {
-            throw new Error("You must log in before performing that action");
+        } else if (deleteAccount) {
+            reqUrl = `${reqUrl}users/profile/${userId}`;
         }
         const res = await fetch(reqUrl, {
             method: reqMethod,
@@ -64,7 +61,11 @@ export default async function profileAction({
             }
         }
         const data = await res.json();
-        return data.message;
+        if (data.message === "Account deleted successfully") {
+            return redirect("/?message=Account deleted successfully");
+        } else {
+            return data.message;
+        }
     } catch (error) {
         let errorMsg = "There has been an error, please try again later";
         if (error instanceof Error) {

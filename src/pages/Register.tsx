@@ -26,10 +26,9 @@ export default function Register() {
                 required
             />
             <label htmlFor="register-password">
-                Password{" "}
+                Password
                 <span className="block-label-text">
-                    (Letters, numbers and underscores only, between 4 and 18
-                    characters)
+                    (Between 8 and 18 characters)
                 </span>
             </label>
             <input
@@ -37,8 +36,7 @@ export default function Register() {
                 className="input"
                 type="password"
                 name="password"
-                pattern="[a-zA-Z0-9_]+"
-                minLength={4}
+                minLength={8}
                 maxLength={18}
                 required
             />
@@ -48,8 +46,7 @@ export default function Register() {
                 className="input"
                 type="password"
                 name="password-confirm"
-                pattern="[a-zA-Z0-9_]+"
-                minLength={4}
+                minLength={8}
                 maxLength={18}
                 required
             />

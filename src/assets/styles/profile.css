@@ -34,7 +34,8 @@
     background-color: #f3f3f3;
 }
 
-.profile-bio-modal[open] {
+.profile-bio-modal[open],
+.profile-delete-modal[open] {
     display: flex;
     flex-direction: column;
     padding: 1em 1.5em;
@@ -78,8 +79,14 @@
 }
 
 .update-bio-form-heading,
-.profile-bio-heading {
+.profile-bio-heading,
+.profile-delete-heading {
     margin: 0.5em 0;
+}
+
+.delete-profile-form-text {
+    font-size: 1.2rem;
+    max-width: 15em;
 }
 
 .profile-bio-text {

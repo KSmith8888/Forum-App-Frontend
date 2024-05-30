@@ -21,7 +21,13 @@ export default function Home() {
         if (status === "loggedIn") {
             setIsUserLoggedIn(true);
         }
+        if (message === "Account deleted successfully") {
+            sessionStorage.clear();
+            setIsUserLoggedIn(false);
+        }
+        window.scrollTo(0, 0);
     }, []);
+
     const loaderData = useLoaderData();
 
     function createPostElements(postEls: Array<postInterface>) {
