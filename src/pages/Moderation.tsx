@@ -15,12 +15,16 @@ export default function Moderation() {
     });
     const userRole = sessionStorage.getItem("role");
     const actionMessage = useActionData();
+    const notifyUserForm = useRef<HTMLFormElement>(null);
     const deleteAccountForm = useRef<HTMLFormElement>(null);
     const deletePostForm = useRef<HTMLFormElement>(null);
     const deleteCommentForm = useRef<HTMLFormElement>(null);
     const changeRoleForm = useRef<HTMLFormElement>(null);
     useEffect(() => {
         if (actionMessage) {
+            if (notifyUserForm && notifyUserForm.current) {
+                notifyUserForm.current.reset();
+            }
             if (deleteAccountForm && deleteAccountForm.current) {
                 deleteAccountForm.current.reset();
             }
@@ -42,6 +46,41 @@ export default function Moderation() {
             <div className="moderation-main-container">
                 <section className="moderation-forms-section">
                     <h3 className="section-heading">Moderation Actions</h3>
+                    <Form
+                        method="POST"
+                        action="/moderation"
+                        className="moderation-form"
+                        ref={notifyUserForm}
+                    >
+                        <h4 className="form-heading">Send User Notification</h4>
+                        <label htmlFor="notify-user-input">
+                            User to be notified:
+                        </label>
+                        <input
+                            id="notify-user-input"
+                            className="input"
+                            name="notification-user"
+                            type="text"
+                            pattern="[a-zA-Z0-9_]+"
+                            maxLength={18}
+                            required
+                        />
+                        <label htmlFor="notify-message-input">
+                            Notification Message:
+                        </label>
+                        <textarea
+                            id="notify-message-input"
+                            className="input textarea"
+                            name="notification-message"
+                            minLength={4}
+                            maxLength={120}
+                            rows={6}
+                            required
+                        ></textarea>
+                        <button type="submit" className="button">
+                            Send
+                        </button>
+                    </Form>
                     <Form
                         method="DELETE"
                         action="/moderation"

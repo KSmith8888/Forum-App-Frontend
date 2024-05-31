@@ -23,6 +23,10 @@
     border: 1px solid #575454;
 }
 
+#notify-message-input {
+    width: 100%;
+}
+
 .form-heading {
     margin: 0.5em 0;
 }
