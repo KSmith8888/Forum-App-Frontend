@@ -10,7 +10,7 @@ export default function Terms() {
                 </li>
                 <li className="terms-list-item">
                     You will not attempt to use this service for any illegal
-                    purpose
+                    purpose or to encourage others to break the law
                 </li>
                 <li className="terms-list-item">
                     You will not attempt to hold this service or its operators

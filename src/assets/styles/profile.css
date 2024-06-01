@@ -35,7 +35,8 @@
 }
 
 .profile-bio-modal[open],
-.profile-delete-modal[open] {
+.profile-delete-modal[open],
+.profile-password-modal[open] {
     display: flex;
     flex-direction: column;
     padding: 1em 1.5em;
@@ -43,7 +44,8 @@
     background-color: #f3f3f3;
 }
 
-.update-bio-form {
+.update-bio-form,
+.update-password-form {
     display: flex;
     flex-direction: column;
 }
@@ -73,7 +75,8 @@
     margin: 0.25em 0.5em;
 }
 
-.profile-bio-container {
+.profile-bio-container,
+.update-password-container {
     padding: 1em;
     border-bottom: 1px solid black;
 }

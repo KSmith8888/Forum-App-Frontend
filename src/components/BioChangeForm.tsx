@@ -64,7 +64,6 @@ export default function BioChangeForm({
                     rows={5}
                     cols={30}
                 ></textarea>
-                <input type="hidden" name="bio" value="bio" />
                 <button
                     type="submit"
                     className="button"

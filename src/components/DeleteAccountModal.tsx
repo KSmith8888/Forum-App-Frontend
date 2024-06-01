@@ -47,9 +47,9 @@ export default function DeleteAccountModal({
                 className="delete-profile-form"
                 ref={deleteForm}
             >
-                <h3 className="profile-delete-heading">Delete Profile</h3>
+                <h3 className="profile-delete-heading">Delete Account</h3>
                 <p className="delete-profile-form-text">
-                    Are you sure you want to delete your profile?
+                    Are you sure you want to delete your account?
                 </p>
                 <input
                     type="hidden"

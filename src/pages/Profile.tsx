@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 
 import BioChangeForm from "../components/BioChangeForm";
+import UpdatePassword from "../components/UpdatePassword";
 import DeleteAccountModal from "../components/DeleteAccountModal";
 import { outletInterface, notificationInterface } from "../utils/interfaces";
 import ProfilePicSelector from "../components/ProfilePicSelector";
@@ -62,6 +63,7 @@ export default function Profile() {
     }, [actionMessage]);
     const [isPicModalOpen, setIsPicModalOpen] = useState(false);
     const [isBioModalOpen, setIsBioModalOpen] = useState(false);
+    const [isPassModalOpen, setIsPassModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const { profilePic } = useOutletContext<outletInterface>();
     const postElements = postsData.map((post: userProfilePost) => {
@@ -190,7 +192,7 @@ export default function Profile() {
                                 }}
                                 className="button"
                             >
-                                Change
+                                Update
                             </button>
                             <ProfilePicSelector
                                 isPicModalOpen={isPicModalOpen}
@@ -208,11 +210,29 @@ export default function Profile() {
                                     setIsBioModalOpen(true);
                                 }}
                             >
-                                Change
+                                Update
                             </button>
                             <BioChangeForm
                                 isBioModalOpen={isBioModalOpen}
                                 setIsBioModalOpen={setIsBioModalOpen}
+                                actionMessage={actionMessage}
+                            />
+                        </div>
+                        <div className="update-password-container">
+                            <h4 className="profile-password-heading">
+                                Account Password:
+                            </h4>
+                            <button
+                                className="button"
+                                onClick={() => {
+                                    setIsPassModalOpen(true);
+                                }}
+                            >
+                                Update
+                            </button>
+                            <UpdatePassword
+                                isPassModalOpen={isPassModalOpen}
+                                setIsPassModalOpen={setIsPassModalOpen}
                                 actionMessage={actionMessage}
                             />
                         </div>
