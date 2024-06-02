@@ -62,8 +62,6 @@ export default function Login() {
                     minLength={4}
                     maxLength={18}
                     pattern="[a-zA-Z0-9_]+"
-                    title="Letters, numbers and underscores only, between 4 and 18
-                    characters"
                     required
                 />
                 <label htmlFor="password">Password:</label>
@@ -74,8 +72,6 @@ export default function Login() {
                     name="password"
                     minLength={8}
                     maxLength={18}
-                    title="Between 8 and 18
-                    characters"
                     required
                 />
 

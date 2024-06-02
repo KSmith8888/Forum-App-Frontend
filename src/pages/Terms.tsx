@@ -14,12 +14,12 @@ export default function Terms() {
                 </li>
                 <li className="terms-list-item">
                     You will not attempt to hold this service or its operators
-                    liable for third party content linked to from within the
-                    service
+                    liable for content created by other users or third party
+                    content linked to from within the service
                 </li>
                 <li className="terms-list-item">
                     If you create an account, you will use a strong password
-                    that is not used for any other service
+                    that is not used for any other service and keep it secured
                 </li>
             </ul>
         </div>

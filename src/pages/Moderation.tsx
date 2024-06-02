@@ -58,7 +58,7 @@ export default function Moderation() {
                         </label>
                         <input
                             id="notify-user-input"
-                            className="input"
+                            className="input moderation-input"
                             name="notification-user"
                             type="text"
                             pattern="[a-zA-Z0-9_]+"
@@ -70,7 +70,7 @@ export default function Moderation() {
                         </label>
                         <textarea
                             id="notify-message-input"
-                            className="input textarea"
+                            className="input textarea moderation-input"
                             name="notification-message"
                             minLength={4}
                             maxLength={120}
@@ -78,7 +78,7 @@ export default function Moderation() {
                             required
                         ></textarea>
                         <button type="submit" className="button">
-                            Send
+                            Send Message
                         </button>
                     </Form>
                     <Form
@@ -93,7 +93,7 @@ export default function Moderation() {
                         </label>
                         <input
                             id="username-input"
-                            className="input"
+                            className="input moderation-input"
                             name="delete-account-username"
                             type="text"
                             pattern="[a-zA-Z0-9_]+"
@@ -116,7 +116,7 @@ export default function Moderation() {
                         </label>
                         <input
                             id="post-id-input"
-                            className="input"
+                            className="input moderation-input"
                             name="delete-post-id"
                             type="text"
                             pattern="[a-zA-Z0-9]+"
@@ -139,7 +139,7 @@ export default function Moderation() {
                         </label>
                         <input
                             id="comment-id-input"
-                            className="input"
+                            className="input moderation-input"
                             name="delete-comment-id"
                             type="text"
                             pattern="[a-zA-Z0-9]+"
@@ -165,7 +165,7 @@ export default function Moderation() {
                             </label>
                             <input
                                 id="change-role-input"
-                                className="input"
+                                className="input moderation-input"
                                 name="change-role-username"
                                 type="text"
                                 pattern="[a-zA-Z0-9_]+"

@@ -23,8 +23,8 @@
     border: 1px solid #575454;
 }
 
-#notify-message-input {
-    width: 100%;
+.moderation-input {
+    width: 90%;
 }
 
 .form-heading {

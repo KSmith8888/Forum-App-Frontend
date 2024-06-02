@@ -84,7 +84,9 @@ export default function UpdatePassword({
                     maxLength={18}
                     required
                 />
-                <label htmlFor="confirm-password-input">Confirm Password</label>
+                <label htmlFor="confirm-password-input">
+                    Confirm New Password
+                </label>
                 <input
                     id="confirm-password-input"
                     className="input"
