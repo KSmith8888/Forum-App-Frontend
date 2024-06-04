@@ -10,7 +10,12 @@ export default function CreatePost() {
     const topicParam = searchParams.get("topic");
 
     return (
-        <Form action="/profile/create" method="post" className="post-form">
+        <Form
+            action="/profile/create"
+            method="post"
+            autoComplete="off"
+            className="post-form"
+        >
             <h2>Create a new post</h2>
             <div className="post-type-container">
                 <button

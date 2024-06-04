@@ -65,6 +65,7 @@ export default function UpdatePassword({
                     className="input"
                     type="password"
                     name="current-password"
+                    autoComplete="current-password"
                     minLength={8}
                     maxLength={18}
                     required
@@ -80,6 +81,7 @@ export default function UpdatePassword({
                     className="input"
                     type="password"
                     name="new-password"
+                    autoComplete="new-password"
                     minLength={8}
                     maxLength={18}
                     required
@@ -92,6 +94,7 @@ export default function UpdatePassword({
                     className="input"
                     type="password"
                     name="confirm-password"
+                    autoComplete="new-password"
                     minLength={8}
                     maxLength={18}
                     required

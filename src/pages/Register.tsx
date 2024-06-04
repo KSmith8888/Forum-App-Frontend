@@ -6,7 +6,7 @@ export default function Register() {
     const registrationMessage = useActionData();
 
     return (
-        <Form className="register-form" method="post">
+        <Form className="register-form" method="post" autoComplete="off">
             <h2>Create new account</h2>
             <label htmlFor="register-username">
                 Username

@@ -50,7 +50,12 @@ export default function Login() {
 
     return (
         <section className="login-section">
-            <Form className="login-form" method="post" ref={loginForm}>
+            <Form
+                className="login-form"
+                method="post"
+                autoComplete="on"
+                ref={loginForm}
+            >
                 <p className="login-params-message">{paramsMessage}</p>
                 <h3 className="login-form-heading">Enter Credentials</h3>
                 <label htmlFor="username">Username:</label>

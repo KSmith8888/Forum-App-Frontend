@@ -25,6 +25,7 @@ export default function CommentForm({
             action={`/posts/details/${postId}`}
             className="comment-form"
             method="POST"
+            autoComplete="off"
             ref={commentForm}
         >
             <label htmlFor="comment-input" className="comment-form-label">

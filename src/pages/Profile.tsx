@@ -29,6 +29,7 @@ export default function Profile() {
     let savedPostsData = [];
     let notificationsData = [];
     let profileBio = "";
+    let pswdLastUpdated = "";
     if (loaderData && typeof loaderData === "object") {
         if ("posts" in loaderData && Array.isArray(loaderData.posts)) {
             postsData = loaderData.posts;
@@ -50,6 +51,12 @@ export default function Profile() {
         }
         if ("bio" in loaderData && typeof loaderData.bio === "string") {
             profileBio = loaderData.bio;
+        }
+        if (
+            "pswdLastUpdated" in loaderData &&
+            typeof loaderData.pswdLastUpdated === "string"
+        ) {
+            pswdLastUpdated = loaderData.pswdLastUpdated;
         }
     }
     const messageModal = useRef<HTMLDialogElement>(null);
@@ -219,9 +226,15 @@ export default function Profile() {
                             />
                         </div>
                         <div className="update-password-container">
-                            <h4 className="profile-password-heading">
-                                Account Password:
+                            <h4 className="profile-security-heading">
+                                Account Security:
                             </h4>
+                            <h5 className="profile-password-heading">
+                                Password:
+                            </h5>
+                            <p className="update-password-text">
+                                {pswdLastUpdated}
+                            </p>
                             <button
                                 className="button"
                                 onClick={() => {

@@ -83,8 +83,19 @@
 
 .update-bio-form-heading,
 .profile-bio-heading,
-.profile-delete-heading {
+.profile-delete-heading,
+.profile-security-heading {
     margin: 0.5em 0;
+}
+
+.profile-password-heading {
+    margin: 1em 0 0.5em 0;
+    font-size: 0.9rem;
+}
+
+.update-password-text {
+    margin: 0.5em 0 1em 0;
+    font-size: 0.9rem;
 }
 
 .delete-profile-form-text {

@@ -70,16 +70,19 @@ export default function Search() {
                 className="search-form"
                 method="post"
                 ref={searchForm}
-                autoComplete="false"
+                autoComplete="on"
             >
                 <h2>Search posts by keyword</h2>
-                <label htmlFor="search-input">Search Term:</label>
+                <label htmlFor="search-input">
+                    Search Term (Topic, user or related term):
+                </label>
                 <input
                     id="search-input"
                     type="search"
                     name="search"
                     className="input"
                     maxLength={30}
+                    required
                 />
                 <button type="submit" className="button">
                     Search
