@@ -66,5 +66,6 @@ export default async function moderationAction({
     if (typeof returnMessage !== "string") {
         returnMessage = "Something went wrong, please try again later";
     }
-    return returnMessage;
+    const currentTime = new Date();
+    return `${returnMessage} - ${currentTime}`;
 }

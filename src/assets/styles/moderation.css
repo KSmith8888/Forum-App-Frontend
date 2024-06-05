@@ -63,6 +63,33 @@
     color: rgb(8, 7, 46);
 }
 
+#mod-response-modal[open] {
+    display: flex;
+    flex-direction: column;
+    max-width: 25em;
+    background-color: rgb(215, 231, 236);
+    border: 1px solid black;
+    text-align: center;
+    padding: 1.5em 2em;
+}
+
+.close-mod-modal-button {
+    padding: 0.2em 0.5em;
+    margin: 0 0.25em;
+    align-self: flex-end;
+    cursor: pointer;
+    background-color: rgb(224, 19, 19);
+    color: #f3f3f3;
+    font-weight: 600;
+    border: 1px solid #575454;
+    border-radius: 5px;
+}
+
+.close-mod-modal-button:hover,
+.close-mod-modal-button:focus {
+    background-color: rgb(173, 17, 17);
+}
+
 @media (max-width: 650px) {
     .moderation-main-container {
         flex-direction: column;

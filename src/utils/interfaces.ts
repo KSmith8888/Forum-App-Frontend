@@ -103,7 +103,7 @@ export interface reportInterface {
 export interface notificationInterface {
     _id: string;
     message: string;
-    isReply: boolean;
+    type: string;
     replyMessageId?: string;
     commentId: string;
 }

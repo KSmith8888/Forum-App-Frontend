@@ -49,7 +49,8 @@ export default function DeleteAccountModal({
             >
                 <h3 className="profile-delete-heading">Delete Account</h3>
                 <p className="delete-profile-form-text">
-                    Are you sure you want to delete your account?
+                    Are you sure you want to delete your account? This action is
+                    permanent and cannot be undone.
                 </p>
                 <input
                     type="hidden"

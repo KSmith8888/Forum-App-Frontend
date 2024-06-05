@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Form, useActionData, useLoaderData } from "react-router-dom";
 
 import { reportInterface } from "../utils/interfaces.ts";
@@ -20,6 +20,20 @@ export default function Moderation() {
     const deletePostForm = useRef<HTMLFormElement>(null);
     const deleteCommentForm = useRef<HTMLFormElement>(null);
     const changeRoleForm = useRef<HTMLFormElement>(null);
+
+    const messageModal = useRef<HTMLDialogElement>(null);
+    const [modalMessage, setModalMessage] = useState("");
+    useEffect(() => {
+        if (messageModal.current) {
+            if (typeof actionMessage === "string") {
+                setModalMessage(actionMessage);
+                messageModal.current.showModal();
+            } else if (actionMessage instanceof Error) {
+                setModalMessage(actionMessage.message);
+                messageModal.current.showModal();
+            }
+        }
+    }, [actionMessage]);
     useEffect(() => {
         if (actionMessage) {
             if (notifyUserForm && notifyUserForm.current) {
@@ -45,6 +59,23 @@ export default function Moderation() {
             <h2 className="moderation-main-heading">Moderation Page</h2>
             <div className="moderation-main-container">
                 <section className="moderation-forms-section">
+                    <dialog id="mod-response-modal" ref={messageModal}>
+                        <button
+                            className="close-mod-modal-button"
+                            aria-label="Close-moderation-dialog"
+                            onClick={() => {
+                                if (messageModal.current) {
+                                    messageModal.current.close();
+                                }
+                            }}
+                        >
+                            X
+                        </button>
+                        <p className="message-modal-text">
+                            {modalMessage ||
+                                "There has been an error, please try again later"}
+                        </p>
+                    </dialog>
                     <h3 className="section-heading">Moderation Actions</h3>
                     <Form
                         method="POST"
@@ -189,9 +220,6 @@ export default function Moderation() {
                             </button>
                         </Form>
                     )}
-                    <p className="moderation-form-message">
-                        {typeof actionMessage === "string" ? actionMessage : ""}
-                    </p>
                 </section>
                 <section className="reports-section">
                     <h3 className="section-heading">

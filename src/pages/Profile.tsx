@@ -146,12 +146,12 @@ export default function Profile() {
                         {notification.message}
                     </p>
                     <div className="notification-options">
-                        {notification.isReply && (
+                        {notification.type === "Reply" && (
                             <Link
                                 to={`/posts/details/${notification.replyMessageId}?commentId=${notification.commentId}`}
                                 className="profile-notification-link"
                             >
-                                See Thread
+                                See Reply
                             </Link>
                         )}
                         <Form method="POST">
