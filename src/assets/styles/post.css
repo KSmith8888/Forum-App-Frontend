@@ -236,27 +236,15 @@
 }
 
 .post-inner-content-container {
-    min-width: 20em;
-}
-
-.link-post-image {
-    width: 77px;
-    height: 77px;
-    margin: 0 1em;
+    width: 100%;
 }
 
 @media (max-width: 650px) {
-    .post-main-content-container {
-        flex-direction: column;
-    }
     .link-post-image {
         margin-top: 0.5em;
     }
     .post-text {
         margin: 0.5em;
-    }
-    .post-inner-content-container {
-        min-width: fit-content;
     }
     .post,
     .comment {

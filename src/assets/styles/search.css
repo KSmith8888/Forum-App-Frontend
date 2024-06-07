@@ -1,7 +1,7 @@
 .search-container,
 .results-container,
 .posts-topic-container {
-    width: 24em;
+    max-width: 25em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,7 +9,8 @@
 }
 
 .search-form {
-    width: 24em;
+    width: 100%;
+    max-width: 25em;
     margin: 1em 0 0.5em 0;
     padding: 1em 0.5em;
     background-color: #f3f3f3;
@@ -50,6 +51,7 @@
 
 .results-posts-link-container {
     width: 100%;
+    max-width: 25em;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -76,9 +78,6 @@
     .search-form,
     .posts-topic-container {
         width: 95%;
-    }
-    .results-posts-link-container {
-        flex-direction: column;
     }
     .results-link-post-image,
     .results-text-post-image {

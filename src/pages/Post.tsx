@@ -22,7 +22,6 @@ import {
 import { createDateString } from "../utils/create-date-string.ts";
 import { report } from "../utils/report.ts";
 
-import linkIconImg from "../assets/images/link-post-icon.png";
 import "../assets/styles/post.css";
 
 export default function Post() {
@@ -187,21 +186,6 @@ export default function Post() {
                                 )}
                             </p>
                         </div>
-                        {postData.postType === "Link" && (
-                            <a
-                                href={postData.content}
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                <img
-                                    src={linkIconImg}
-                                    alt={`A grey and blue chain link representing a hyperlink to ${postData.content}`}
-                                    className="link-post-image"
-                                    width="110"
-                                    height="110"
-                                />
-                            </a>
-                        )}
                     </div>
                     <div className="post-likes-container">
                         <p className="post-likes">Likes: {postLikes}</p>

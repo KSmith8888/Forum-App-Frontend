@@ -10,6 +10,9 @@
 
 .trending-posts-section,
 .new-posts-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 0.5em;
     margin: 0.5em;
 }
@@ -21,6 +24,7 @@
 }
 
 .trending-posts-link-container {
+    max-width: 25em;
     display: flex;
     flex-direction: column;
     background-color: #f3f3f3;
@@ -30,7 +34,7 @@
 
 .home-post-content-container {
     margin-right: 0.5em;
-    max-width: 18em;
+    max-width: 65%;
 }
 
 .trending-post-link {
@@ -59,9 +63,6 @@
 
 @media (max-width: 650px) {
     .home-container {
-        flex-direction: column;
-    }
-    .trending-main-content-container {
         flex-direction: column;
     }
     .trending-post-text,

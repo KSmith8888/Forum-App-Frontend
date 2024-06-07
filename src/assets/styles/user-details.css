@@ -75,12 +75,16 @@
 }
 
 @media (max-width: 650px) {
+    .user-details-bio-container {
+        width: 95%;
+    }
     .user-posts-comments-container {
         flex-direction: column;
         align-items: center;
     }
     .user-posts-section,
     .user-comments-section {
+        width: 95%;
         max-width: 95%;
         margin: 0;
     }
