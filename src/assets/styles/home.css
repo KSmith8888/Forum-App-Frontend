@@ -12,6 +12,7 @@
 .new-posts-section {
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
     padding: 0.5em;
     margin: 0.5em;
@@ -33,13 +34,33 @@
 }
 
 .home-post-content-container {
-    margin-right: 0.5em;
-    max-width: 65%;
+    text-align: center;
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5em 0.5em 0.5em 1em;
+}
+
+.home-post-image-container {
+    text-align: center;
+    width: 25%;
 }
 
 .trending-post-link {
+    margin: 0.5em 0;
     color: rgb(19, 26, 128);
     text-decoration: none;
+}
+
+.trending-post-title,
+.trending-post-text-type {
+    margin: 0.5em 0;
+}
+
+.trending-post-link-type {
+    word-break: break-all;
+    margin: 0.5em 0.5em 1em 0.5em;
 }
 
 .trending-post-link:hover,
@@ -49,13 +70,14 @@
 
 .home-link-post-image,
 .home-text-post-image {
-    margin: 0 0.5em 0 1em;
+    margin: 0;
     width: 55px;
     height: 55px;
 }
 
 .trending-main-content-container {
-    margin: 0.5em;
+    width: 25em;
+    margin: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -65,8 +87,7 @@
     .home-container {
         flex-direction: column;
     }
-    .trending-post-text,
-    .trending-post-title {
-        text-align: center;
+    .trending-main-content-container {
+        width: 95%;
     }
 }

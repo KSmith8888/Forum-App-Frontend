@@ -45,7 +45,13 @@ export default function Home() {
                                     {post.title}
                                 </h3>
                             </Link>
-                            <p className="trending-post-text">
+                            <p
+                                className={
+                                    post.postType === "Link"
+                                        ? "trending-post-link-type"
+                                        : "trending-post-text-type"
+                                }
+                            >
                                 {post.postType === "Link" ? (
                                     <a
                                         href={post.content}
@@ -59,26 +65,28 @@ export default function Home() {
                                 )}
                             </p>
                         </div>
-                        {post.postType === "Text" && (
-                            <img
-                                src={textIconImg}
-                                alt="A white sheet of paper with blue text representing a text post"
-                                className="home-text-post-image"
-                            />
-                        )}
-                        {post.postType === "Link" && (
-                            <a
-                                href={post.content}
-                                target="_blank"
-                                rel="noreferrer"
-                            >
+                        <div className="home-post-image-container">
+                            {post.postType === "Text" && (
                                 <img
-                                    src={linkIconImg}
-                                    alt={`A grey and blue chain link representing a hyperlink to ${post.content}`}
-                                    className="home-link-post-image"
+                                    src={textIconImg}
+                                    alt="A white sheet of paper with blue text representing a text post"
+                                    className="home-text-post-image"
                                 />
-                            </a>
-                        )}
+                            )}
+                            {post.postType === "Link" && (
+                                <a
+                                    href={post.content}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                >
+                                    <img
+                                        src={linkIconImg}
+                                        alt={`A grey and blue chain link representing a hyperlink to ${post.content}`}
+                                        className="home-link-post-image"
+                                    />
+                                </a>
+                            )}
+                        </div>
                     </div>
                 </div>
             );
