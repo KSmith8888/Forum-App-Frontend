@@ -1,7 +1,6 @@
 .search-container,
 .results-container,
 .posts-topic-container {
-    max-width: 25em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -10,7 +9,6 @@
 
 .search-form {
     width: 25em;
-    max-width: 100%;
     margin: 1em 0 0.5em 0;
     padding: 1em 0.5em;
     background-color: #f3f3f3;
@@ -54,7 +52,6 @@
 
 .results-posts-link-container {
     width: 25em;
-    max-width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -83,10 +80,11 @@
 }
 
 @media (max-width: 650px) {
-    .search-container,
-    .results-container,
+    .search-container {
+        width: 100%;
+    }
     .search-form,
-    .posts-topic-container {
+    .results-posts-link-container {
         width: 95%;
     }
     .results-post-title {

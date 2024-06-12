@@ -182,7 +182,7 @@ export default function Post() {
                                         {postData.content}
                                     </a>
                                 ) : (
-                                    postData.content
+                                    `    ${postData.content}`
                                 )}
                             </p>
                         </div>

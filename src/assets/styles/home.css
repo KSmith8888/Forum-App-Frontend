@@ -6,6 +6,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: flex-start;
 }
 
 .trending-posts-section,
@@ -14,8 +15,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 0.5em;
-    margin: 0.5em;
+    margin: 0.5em 1em;
 }
 
 .popular-posts-heading,
@@ -25,12 +25,12 @@
 }
 
 .trending-posts-link-container {
-    max-width: 25em;
+    width: 25em;
     display: flex;
     flex-direction: column;
     background-color: #f3f3f3;
     border: 1px solid #575454;
-    margin: 1em 0;
+    margin: 0.5em 0;
 }
 
 .home-post-content-container {
@@ -40,6 +40,14 @@
     flex-direction: column;
     align-items: center;
     padding: 0.5em 0.5em 0.5em 1em;
+}
+
+.trending-post-elements,
+.new-post-elements {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .home-post-image-container {
@@ -53,7 +61,9 @@
     text-decoration: none;
 }
 
-.trending-post-title,
+.trending-post-title {
+    margin: 0;
+}
 .trending-post-text-type {
     margin: 0.5em 0;
 }
@@ -76,7 +86,6 @@
 }
 
 .trending-main-content-container {
-    width: 25em;
     margin: 0;
     display: flex;
     justify-content: space-between;
@@ -86,8 +95,13 @@
 @media (max-width: 650px) {
     .home-container {
         flex-direction: column;
+        align-items: center;
     }
-    .trending-main-content-container {
+    .trending-posts-section,
+    .new-posts-section {
+        width: 100%;
+    }
+    .trending-posts-link-container {
         width: 95%;
     }
 }

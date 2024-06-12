@@ -66,7 +66,7 @@ export default function Comment({
                 className={`comment ${commentData.commentReply ? "reply" : ""}`}
             >
                 <div className="column-content">
-                    <p className="comment-text">{commentData.content}</p>
+                    <p className="comment-text">{`    ${commentData.content}`}</p>
                     <div className="comment-likes-container">
                         <p className="comment-likes">Likes: {commentLikes}</p>
                         {isUserLoggedIn && (
