@@ -352,15 +352,19 @@ export default function Post() {
                     <h3 className="post-history-container-heading">
                         Previous Post Versions
                     </h3>
-                    {historyElements}
+                    <div className="post-history-elements">
+                        {historyElements}
+                    </div>
                 </div>
             )}
             {showCommentForm && (
-                <CommentForm
-                    commentErrorMsg={commentErrorMsg}
-                    type={"post"}
-                    postId={postData._id}
-                />
+                <div className="comment-form-container">
+                    <CommentForm
+                        commentErrorMsg={commentErrorMsg}
+                        type={"post"}
+                        postId={postData._id}
+                    />
+                </div>
             )}
             <div className="comments-container">{commentElements}</div>
             {showRemainingComments

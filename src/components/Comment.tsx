@@ -181,16 +181,20 @@ export default function Comment({
                     <h3 className="comment-history-container-heading">
                         Previous Comment Versions
                     </h3>
-                    {historyElements}
+                    <div className="comment-history-elements">
+                        {historyElements}
+                    </div>
                 </div>
             )}
             {showReplyForm && (
-                <CommentForm
-                    commentErrorMsg={commentErrorMsg}
-                    type="comment"
-                    postId={commentData.relatedPost}
-                    commentId={commentData._id}
-                />
+                <div className="comment-form-container">
+                    <CommentForm
+                        commentErrorMsg={commentErrorMsg}
+                        type="comment"
+                        postId={commentData.relatedPost}
+                        commentId={commentData._id}
+                    />
+                </div>
             )}
         </>
     );
