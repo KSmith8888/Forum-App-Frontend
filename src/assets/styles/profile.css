@@ -37,6 +37,7 @@
 .profile-bio-modal[open],
 .profile-delete-modal[open],
 .profile-password-modal[open] {
+    width: 22em;
     display: flex;
     flex-direction: column;
     padding: 1em 1.5em;
@@ -88,6 +89,10 @@
     margin: 0.5em 0;
 }
 
+#confirm-password-input {
+    margin-bottom: 1em;
+}
+
 .profile-password-heading {
     margin: 1em 0 0.5em 0;
     font-size: 0.9rem;
@@ -110,7 +115,7 @@
 
 #update-bio-input {
     resize: none;
-    margin: 0 0.5em;
+    margin: 0 0.5em 0.5em 0.5em;
 }
 
 .delete-account-container {
@@ -276,5 +281,10 @@
     }
     .profile-notification-container {
         flex-direction: column;
+    }
+    .profile-bio-modal[open],
+    .profile-delete-modal[open],
+    .profile-password-modal[open] {
+        width: 95%;
     }
 }

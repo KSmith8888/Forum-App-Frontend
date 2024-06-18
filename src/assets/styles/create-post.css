@@ -1,4 +1,5 @@
 .post-form {
+    width: 30em;
     display: flex;
     flex-direction: column;
     background-color: #ebf1f3;
@@ -6,6 +7,10 @@
     border-radius: 5px;
     padding: 2em;
     margin: 1em 0;
+}
+
+.create-post-form-heading {
+    text-align: center;
 }
 
 .post-button {

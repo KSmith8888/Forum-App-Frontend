@@ -30,10 +30,14 @@
     padding: 0.5em 1em;
 }
 
-.post-text,
+.text-post-text,
 .comment-text {
     white-space: pre-wrap;
     margin: 1.5em 1.5em 0.5em 1.5em;
+}
+
+.link-post-text {
+    margin: 1.5em;
 }
 
 .link-post-anchor {
@@ -260,7 +264,7 @@
     .link-post-image {
         margin-top: 0.5em;
     }
-    .post-text {
+    .text-post-text {
         margin: 1em;
     }
     .post,

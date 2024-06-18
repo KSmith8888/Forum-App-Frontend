@@ -171,8 +171,9 @@ export default function Post() {
                     <div className="post-main-content-container">
                         <div className="post-inner-content-container">
                             <h2 className="post-title">{postData.title}</h2>
-                            <p className="post-text">
-                                {postData.postType === "Link" ? (
+
+                            {postData.postType === "Link" ? (
+                                <p className="link-post-text">
                                     <a
                                         href={postData.content}
                                         target="_blank"
@@ -181,10 +182,12 @@ export default function Post() {
                                     >
                                         {postData.content}
                                     </a>
-                                ) : (
-                                    `    ${postData.content}`
-                                )}
-                            </p>
+                                </p>
+                            ) : (
+                                <p className="text-post-text">
+                                    {` ${postData.content}`}
+                                </p>
+                            )}
                         </div>
                     </div>
                     <div className="post-likes-container">

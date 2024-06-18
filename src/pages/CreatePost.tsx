@@ -16,7 +16,7 @@ export default function CreatePost() {
             autoComplete="off"
             className="post-form"
         >
-            <h2>Create a new post</h2>
+            <h2 className="create-post-form-heading">Create a new post</h2>
             <div className="post-type-container">
                 <button
                     type="button"
@@ -79,10 +79,7 @@ export default function CreatePost() {
                 rows={typeOfPost === "Text" ? 12 : 1}
                 required
             ></textarea>
-            <label htmlFor="keywords-input">
-                Keywords (Words that relate to your post to help other users
-                find it):
-            </label>
+            <label htmlFor="keywords-input">Keywords:</label>
             <input
                 id="keywords-input"
                 className="input"
