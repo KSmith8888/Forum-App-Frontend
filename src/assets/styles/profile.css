@@ -267,6 +267,10 @@
     border: 1px solid #575454;
 }
 
+.warning {
+    color: #c70c0c;
+}
+
 @media (max-width: 650px) {
     .profile-section-row {
         flex-direction: column;

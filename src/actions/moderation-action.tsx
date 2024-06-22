@@ -14,6 +14,7 @@ export default async function moderationAction({
     const formData = await request.formData();
     const notificationUser = formData.get("notification-user");
     const notificationMessage = formData.get("notification-message");
+    const notificationWarning = formData.get("notification-warning");
     const deleteAccountUsername = formData.get("delete-account-username");
     const deletePostId = formData.get("delete-post-id");
     const deleteCommentId = formData.get("delete-comment-id");
@@ -27,9 +28,11 @@ export default async function moderationAction({
         notificationMessage &&
         typeof notificationMessage === "string"
     ) {
+        const isWarning = notificationWarning ? "Warning" : "";
         const notifyUserMsg = await notifyUser(
             notificationUser,
-            notificationMessage
+            notificationMessage,
+            isWarning
         );
         returnMessage = notifyUserMsg;
     }

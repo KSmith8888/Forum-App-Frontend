@@ -90,6 +90,17 @@
     background-color: rgb(173, 17, 17);
 }
 
+#notify-warning-input {
+    cursor: pointer;
+    margin: 0.25em 0 0 0.5em;
+}
+
+.checkbox-container {
+    padding: 0.25em 0;
+    display: flex;
+    align-items: center;
+}
+
 @media (max-width: 650px) {
     .moderation-main-container {
         flex-direction: column;

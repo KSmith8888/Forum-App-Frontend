@@ -142,7 +142,11 @@ export default function Profile() {
                     key={notification._id}
                     className="profile-notification-container"
                 >
-                    <p className="notification-message">
+                    <p
+                        className={`notification-message ${
+                            notification.type === "Warning" ? "warning" : ""
+                        }`}
+                    >
                         {notification.message}
                     </p>
                     <div className="notification-options">

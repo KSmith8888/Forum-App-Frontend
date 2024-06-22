@@ -1,6 +1,7 @@
 export async function notifyUser(
     notificationUser: string,
-    notificationMsg: string
+    notificationMsg: string,
+    isWarning: string
 ) {
     const token = sessionStorage.getItem("token");
     const userId = sessionStorage.getItem("_id");
@@ -17,6 +18,7 @@ export async function notifyUser(
                 status: "Create user notification request",
                 notificationUser,
                 notificationMsg,
+                isWarning,
             }),
             headers: {
                 "Content-Type": "application/json",

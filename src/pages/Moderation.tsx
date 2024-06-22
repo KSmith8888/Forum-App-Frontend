@@ -108,6 +108,16 @@ export default function Moderation() {
                             rows={6}
                             required
                         ></textarea>
+                        <div className="checkbox-container">
+                            <label htmlFor="notify-warning-input">
+                                Is notification a warning:
+                            </label>
+                            <input
+                                id="notify-warning-input"
+                                type="checkbox"
+                                name="notification-warning"
+                            />
+                        </div>
                         <button type="submit" className="button">
                             Send Message
                         </button>
