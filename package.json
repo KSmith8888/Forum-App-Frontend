@@ -22,15 +22,15 @@
     "dependencies": {
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
-        "react-router-dom": "^6.23.1"
+        "react-router-dom": "^6.24.0"
     },
     "devDependencies": {
         "@types/react": "^18.3.3",
         "@types/react-dom": "^18.3.0",
-        "@typescript-eslint/eslint-plugin": "^7.13.1",
-        "@typescript-eslint/parser": "^7.13.1",
+        "@typescript-eslint/eslint-plugin": "^7.14.1",
+        "@typescript-eslint/parser": "^7.14.1",
         "@vitejs/plugin-react": "^4.3.1",
-        "eslint": "^9.5.0",
+        "eslint": "8.57",
         "eslint-plugin-react": "^7.34.3",
         "typescript": "^5.5.2",
         "vite": "^5.3.1"
