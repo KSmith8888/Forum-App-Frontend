@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Form, useActionData, useLoaderData } from "react-router-dom";
 
-import { reportInterface } from "../utils/interfaces.ts";
+import { reportInterface, notificationInterface } from "../utils/interfaces.ts";
 
 import ModReport from "../components/ModReport.tsx";
 
@@ -15,6 +15,7 @@ export default function Moderation() {
     });
     const userRole = sessionStorage.getItem("role");
     const actionMessage = useActionData();
+    const warningsForm = useRef<HTMLFormElement>(null);
     const notifyUserForm = useRef<HTMLFormElement>(null);
     const deleteAccountForm = useRef<HTMLFormElement>(null);
     const deletePostForm = useRef<HTMLFormElement>(null);
@@ -22,20 +23,61 @@ export default function Moderation() {
     const changeRoleForm = useRef<HTMLFormElement>(null);
 
     const messageModal = useRef<HTMLDialogElement>(null);
-    const [modalMessage, setModalMessage] = useState("");
+    const [modalMessage, setModalMessage] = useState(
+        <p className="message-modal-text">
+            There has been an error, please try again later
+        </p>
+    );
+
     useEffect(() => {
         if (messageModal.current) {
             if (typeof actionMessage === "string") {
-                setModalMessage(actionMessage);
+                setModalMessage(
+                    <p className="message-modal-text">{actionMessage}</p>
+                );
                 messageModal.current.showModal();
             } else if (actionMessage instanceof Error) {
-                setModalMessage(actionMessage.message);
+                setModalMessage(
+                    <p className="message-modal-text">
+                        {actionMessage.message}
+                    </p>
+                );
+                messageModal.current.showModal();
+            } else if (
+                actionMessage &&
+                typeof actionMessage === "object" &&
+                "time" in actionMessage &&
+                "warnings" in actionMessage &&
+                Array.isArray(actionMessage.warnings) &&
+                "username" in actionMessage
+            ) {
+                const userWarnings = actionMessage.warnings.map(
+                    (warning: notificationInterface) => {
+                        return (
+                            <p key={warning._id} className="message-modal-text">
+                                {warning.message}
+                            </p>
+                        );
+                    }
+                );
+                setModalMessage(
+                    <div>
+                        <h3>{`Warnings issued to ${
+                            actionMessage.username || "User"
+                        }:`}</h3>
+                        {userWarnings}
+                        <p>{`Action taken at: ${actionMessage.time}`}</p>
+                    </div>
+                );
                 messageModal.current.showModal();
             }
         }
     }, [actionMessage]);
     useEffect(() => {
         if (actionMessage) {
+            if (warningsForm && warningsForm.current) {
+                warningsForm.current.reset();
+            }
             if (notifyUserForm && notifyUserForm.current) {
                 notifyUserForm.current.reset();
             }
@@ -71,12 +113,32 @@ export default function Moderation() {
                         >
                             X
                         </button>
-                        <p className="message-modal-text">
-                            {modalMessage ||
-                                "There has been an error, please try again later"}
-                        </p>
+                        {modalMessage}
                     </dialog>
                     <h3 className="section-heading">Moderation Actions</h3>
+                    <Form
+                        method="POST"
+                        action="/moderation"
+                        className="moderation-form"
+                        ref={warningsForm}
+                    >
+                        <h4 className="form-heading">Review User Warnings</h4>
+                        <label htmlFor="warning-user-input">
+                            User to review:
+                        </label>
+                        <input
+                            id="warning-user-input"
+                            className="input moderation-input"
+                            name="warning-list-user"
+                            type="text"
+                            pattern="[a-zA-Z0-9_]+"
+                            maxLength={18}
+                            required
+                        />
+                        <button type="submit" className="button">
+                            Send Message
+                        </button>
+                    </Form>
                     <Form
                         method="POST"
                         action="/moderation"

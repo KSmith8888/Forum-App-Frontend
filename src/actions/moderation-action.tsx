@@ -1,5 +1,6 @@
 import { loaderActionInterface } from "../utils/interfaces";
 import {
+    getUserWarnings,
     notifyUser,
     deleteUsersAccount,
     deleteUsersPost,
@@ -12,6 +13,7 @@ export default async function moderationAction({
     request,
 }: loaderActionInterface) {
     const formData = await request.formData();
+    const warningUser = formData.get("warning-list-user");
     const notificationUser = formData.get("notification-user");
     const notificationMessage = formData.get("notification-message");
     const notificationWarning = formData.get("notification-warning");
@@ -22,6 +24,10 @@ export default async function moderationAction({
     const newAccountRole = formData.get("new-role-input");
     const deleteReportId = formData.get("delete-report-id");
     let returnMessage = null;
+    if (warningUser && typeof warningUser === "string") {
+        const getWarningsMsg = await getUserWarnings(warningUser);
+        returnMessage = getWarningsMsg;
+    }
     if (
         notificationUser &&
         typeof notificationUser === "string" &&
@@ -66,9 +72,17 @@ export default async function moderationAction({
         const deleteReportMsg = await deleteReport(deleteReportId);
         returnMessage = deleteReportMsg;
     }
-    if (typeof returnMessage !== "string") {
+    if (typeof returnMessage !== "string" && !Array.isArray(returnMessage)) {
         returnMessage = "Something went wrong, please try again later";
     }
     const currentTime = new Date();
-    return `${returnMessage} - ${currentTime}`;
+    if (Array.isArray(returnMessage)) {
+        return {
+            warnings: returnMessage,
+            time: currentTime,
+            username: warningUser,
+        };
+    } else {
+        return `${returnMessage} - ${currentTime}`;
+    }
 }
