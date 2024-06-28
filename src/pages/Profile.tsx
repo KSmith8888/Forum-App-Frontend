@@ -64,7 +64,8 @@ export default function Profile() {
     const [modalMessage, setModalMessage] = useState("");
     useEffect(() => {
         if (typeof actionMessage === "string" && messageModal.current) {
-            setModalMessage(actionMessage);
+            const splitMessage = actionMessage.split("-Target ID-");
+            setModalMessage(splitMessage[0]);
             messageModal.current.showModal();
         }
     }, [actionMessage]);

@@ -32,8 +32,12 @@ export default function Moderation() {
     useEffect(() => {
         if (messageModal.current) {
             if (typeof actionMessage === "string") {
+                const splitMessage = actionMessage.split("-TIMESTAMP-");
                 setModalMessage(
-                    <p className="message-modal-text">{actionMessage}</p>
+                    <div>
+                        <p className="message-modal-text">{splitMessage[0]}</p>
+                        <p>{splitMessage[1]}</p>
+                    </div>
                 );
                 messageModal.current.showModal();
             } else if (actionMessage instanceof Error) {
@@ -64,7 +68,7 @@ export default function Moderation() {
                     <div>
                         <h3>{`Warnings issued to ${
                             actionMessage.username || "User"
-                        }:`}</h3>
+                        } (${actionMessage.warnings.length})`}</h3>
                         {userWarnings}
                         <p>{`Action taken at: ${actionMessage.time}`}</p>
                     </div>

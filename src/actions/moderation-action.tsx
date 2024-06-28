@@ -83,6 +83,6 @@ export default async function moderationAction({
             username: warningUser,
         };
     } else {
-        return `${returnMessage} - ${currentTime}`;
+        return `${returnMessage}-TIMESTAMP-Action taken at: ${currentTime}`;
     }
 }
