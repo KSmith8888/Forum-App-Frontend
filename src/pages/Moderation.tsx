@@ -199,6 +199,11 @@ export default function Moderation() {
                         ref={banUserForm}
                     >
                         <h4 className="form-heading">Ban User</h4>
+                        <p className="ban-form-note">
+                            Note - When banning a user, send a notification
+                            telling them why they are being banned and when the
+                            ban will end
+                        </p>
                         <label htmlFor="ban-user-input">
                             User to be banned:
                         </label>
@@ -212,32 +217,13 @@ export default function Moderation() {
                             required
                         />
                         <label htmlFor="ban-date-input">Ban user until:</label>
-                        <input type="date" name="ban-date" />
-                        <button type="submit" className="button">
-                            Submit
-                        </button>
-                    </Form>
-                    <Form
-                        method="DELETE"
-                        action="/moderation"
-                        className="moderation-form"
-                        ref={deleteAccountForm}
-                    >
-                        <h4 className="form-heading">Delete User Account</h4>
-                        <label htmlFor="username-input">
-                            Username of account to be deleted:
-                        </label>
                         <input
-                            id="username-input"
+                            type="date"
+                            name="ban-date"
                             className="input moderation-input"
-                            name="delete-account-username"
-                            type="text"
-                            pattern="[a-zA-Z0-9_]+"
-                            maxLength={18}
-                            required
                         />
                         <button type="submit" className="button">
-                            Delete Account
+                            Submit
                         </button>
                     </Form>
                     <Form
@@ -287,43 +273,70 @@ export default function Moderation() {
                         </button>
                     </Form>
                     {userRole === "admin" && (
-                        <Form
-                            method="patch"
-                            action="/moderation"
-                            className="moderation-form"
-                            ref={changeRoleForm}
-                        >
-                            <h4 className="form-heading">
-                                Change Account Role
-                            </h4>
-                            <label htmlFor="change-role-input">
-                                Username of account to be updated:
-                            </label>
-                            <input
-                                id="change-role-input"
-                                className="input moderation-input"
-                                name="change-role-username"
-                                type="text"
-                                pattern="[a-zA-Z0-9_]+"
-                                maxLength={18}
-                                required
-                            />
-                            <label htmlFor="new-role">New Role:</label>
-                            <select
-                                id="new-role"
-                                className="input select"
-                                name="new-role-input"
-                                required
+                        <>
+                            <Form
+                                method="patch"
+                                action="/moderation"
+                                className="moderation-form"
+                                ref={changeRoleForm}
                             >
-                                <option value="">Select new role:</option>
-                                <option value="user">User</option>
-                                <option value="mod">Mod</option>
-                                <option value="admin">Admin</option>
-                            </select>
-                            <button type="submit" className="button">
-                                Update Account
-                            </button>
-                        </Form>
+                                <h4 className="form-heading">
+                                    Change Account Role
+                                </h4>
+                                <label htmlFor="change-role-input">
+                                    Username of account to be updated:
+                                </label>
+                                <input
+                                    id="change-role-input"
+                                    className="input moderation-input"
+                                    name="change-role-username"
+                                    type="text"
+                                    pattern="[a-zA-Z0-9_]+"
+                                    maxLength={18}
+                                    required
+                                />
+                                <label htmlFor="new-role">New Role:</label>
+                                <select
+                                    id="new-role"
+                                    className="input select"
+                                    name="new-role-input"
+                                    required
+                                >
+                                    <option value="">Select new role:</option>
+                                    <option value="user">User</option>
+                                    <option value="mod">Mod</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                                <button type="submit" className="button">
+                                    Update Account
+                                </button>
+                            </Form>
+                            <Form
+                                method="DELETE"
+                                action="/moderation"
+                                className="moderation-form"
+                                ref={deleteAccountForm}
+                            >
+                                <h4 className="form-heading">
+                                    Delete User Account
+                                </h4>
+                                <label htmlFor="username-input">
+                                    Username of account to be deleted:
+                                </label>
+                                <input
+                                    id="username-input"
+                                    className="input moderation-input"
+                                    name="delete-account-username"
+                                    type="text"
+                                    pattern="[a-zA-Z0-9_]+"
+                                    maxLength={18}
+                                    required
+                                />
+                                <button type="submit" className="button">
+                                    Delete Account
+                                </button>
+                            </Form>
+                        </>
                     )}
                 </section>
                 <section className="reports-section">

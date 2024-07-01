@@ -14,6 +14,7 @@
 }
 
 .moderation-form {
+    max-width: 25em;
     background-color: #f3f3f3;
     display: flex;
     flex-direction: column;
@@ -21,6 +22,15 @@
     margin: 0.5em 0;
     padding: 0.5em 1em;
     border: 1px solid #575454;
+}
+
+.ban-form-note {
+    text-align: center;
+    border: 1px solid #575454;
+    background-color: #ebf1f3;
+    padding: 0.5em;
+    margin: 0.5em 0;
+    width: 20em;
 }
 
 .moderation-input {
