@@ -76,6 +76,44 @@ export async function notifyUser(
     return data.msg;
 }
 
+export async function addUserBan(banUser: string, banDate: string) {
+    const token = sessionStorage.getItem("token");
+    const userId = sessionStorage.getItem("_id");
+    if (!token || !userId) {
+        throw new Error("You must log in before performing that action");
+    }
+    const banTimestamp = new Date(banDate).getTime();
+    const res = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/moderation/ban/${banUser}`,
+        {
+            method: "POST",
+            body: JSON.stringify({
+                status: "Ban user",
+                banUser,
+                banTimestamp,
+            }),
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`,
+                "user_id": userId,
+            },
+        }
+    );
+    if (!res.ok) {
+        const errorData = await res.json();
+        if (errorData && errorData.msg) {
+            throw new Error(errorData.msg);
+        } else {
+            throw new Error(`Response error: ${res.status}`);
+        }
+    }
+    const data = await res.json();
+    if (!data.msg) {
+        throw new Error("Incorrect data format returned from server");
+    }
+    return data.msg;
+}
+
 export async function deleteUsersAccount(username: string) {
     const token = sessionStorage.getItem("token");
     const userId = sessionStorage.getItem("_id");

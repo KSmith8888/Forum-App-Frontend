@@ -148,6 +148,7 @@ export default function Profile() {
                             notification.type === "Warning" ? "warning" : ""
                         }`}
                     >
+                        {notification.type === "Warning" && "Warning - "}
                         {notification.message}
                     </p>
                     <div className="notification-options">

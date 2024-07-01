@@ -2,6 +2,7 @@ import { loaderActionInterface } from "../utils/interfaces";
 import {
     getUserWarnings,
     notifyUser,
+    addUserBan,
     deleteUsersAccount,
     deleteUsersPost,
     deleteUsersComment,
@@ -17,6 +18,8 @@ export default async function moderationAction({
     const notificationUser = formData.get("notification-user");
     const notificationMessage = formData.get("notification-message");
     const notificationWarning = formData.get("notification-warning");
+    const banUser = formData.get("ban-user");
+    const banDate = formData.get("ban-date");
     const deleteAccountUsername = formData.get("delete-account-username");
     const deletePostId = formData.get("delete-post-id");
     const deleteCommentId = formData.get("delete-comment-id");
@@ -41,6 +44,15 @@ export default async function moderationAction({
             isWarning
         );
         returnMessage = notifyUserMsg;
+    }
+    if (
+        banUser &&
+        typeof banUser === "string" &&
+        banDate &&
+        typeof banDate === "string"
+    ) {
+        const banUserMsg = await addUserBan(banUser, banDate);
+        returnMessage = banUserMsg;
     }
     if (deleteAccountUsername && typeof deleteAccountUsername === "string") {
         const deleteAccountMsg = await deleteUsersAccount(

@@ -17,6 +17,7 @@ export default function Moderation() {
     const actionMessage = useActionData();
     const warningsForm = useRef<HTMLFormElement>(null);
     const notifyUserForm = useRef<HTMLFormElement>(null);
+    const banUserForm = useRef<HTMLFormElement>(null);
     const deleteAccountForm = useRef<HTMLFormElement>(null);
     const deletePostForm = useRef<HTMLFormElement>(null);
     const deleteCommentForm = useRef<HTMLFormElement>(null);
@@ -84,6 +85,9 @@ export default function Moderation() {
             }
             if (notifyUserForm && notifyUserForm.current) {
                 notifyUserForm.current.reset();
+            }
+            if (banUserForm && banUserForm.current) {
+                banUserForm.current.reset();
             }
             if (deleteAccountForm && deleteAccountForm.current) {
                 deleteAccountForm.current.reset();
@@ -186,6 +190,31 @@ export default function Moderation() {
                         </div>
                         <button type="submit" className="button">
                             Send Message
+                        </button>
+                    </Form>
+                    <Form
+                        method="POST"
+                        action="/moderation"
+                        className="moderation-form"
+                        ref={banUserForm}
+                    >
+                        <h4 className="form-heading">Ban User</h4>
+                        <label htmlFor="ban-user-input">
+                            User to be banned:
+                        </label>
+                        <input
+                            id="ban-user-input"
+                            className="input moderation-input"
+                            name="ban-user"
+                            type="text"
+                            pattern="[a-zA-Z0-9_]+"
+                            maxLength={18}
+                            required
+                        />
+                        <label htmlFor="ban-date-input">Ban user until:</label>
+                        <input type="date" name="ban-date" />
+                        <button type="submit" className="button">
+                            Submit
                         </button>
                     </Form>
                     <Form
