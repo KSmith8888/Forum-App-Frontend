@@ -221,6 +221,9 @@ export default function Moderation() {
                             type="date"
                             name="ban-date"
                             className="input moderation-input"
+                            min="2024-01-01"
+                            max="2029-12-31"
+                            required
                         />
                         <button type="submit" className="button">
                             Submit

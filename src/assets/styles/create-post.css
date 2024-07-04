@@ -48,6 +48,13 @@
     color: rgb(104, 102, 102);
 }
 
+.create-post-error {
+    color: red;
+    text-align: center;
+    font-size: 1.2rem;
+    margin: 0.5em 0;
+}
+
 @media (max-width: 650px) {
     .post-form {
         width: 95%;

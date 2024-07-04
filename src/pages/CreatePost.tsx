@@ -90,7 +90,7 @@ export default function CreatePost() {
             <button type="submit" className="button post-button">
                 Post
             </button>
-            <p className="error-message">
+            <p className="create-post-error">
                 {typeof errorMessage === "string" ? errorMessage : ""}
             </p>
         </Form>
