@@ -155,6 +155,15 @@
     background-color: rgb(215, 231, 236);
     border: 1px solid black;
     text-align: center;
+    padding: 0;
+}
+
+#message-modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+    height: 100%;
     padding: 1.5em 2em;
 }
 

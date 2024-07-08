@@ -144,7 +144,7 @@ export default function Moderation() {
                             required
                         />
                         <button type="submit" className="button">
-                            Send Message
+                            Submit
                         </button>
                     </Form>
                     <Form
@@ -189,7 +189,7 @@ export default function Moderation() {
                             />
                         </div>
                         <button type="submit" className="button">
-                            Send Message
+                            Submit
                         </button>
                     </Form>
                     <Form
@@ -200,9 +200,9 @@ export default function Moderation() {
                     >
                         <h4 className="form-heading">Ban User</h4>
                         <p className="ban-form-note">
-                            Note - When banning a user, send a notification
-                            telling them why they are being banned and when the
-                            ban will end
+                            Note - After banning a user, send a notification
+                            telling them why they were banned and when it will
+                            end
                         </p>
                         <label htmlFor="ban-user-input">
                             User to be banned:
@@ -218,6 +218,7 @@ export default function Moderation() {
                         />
                         <label htmlFor="ban-date-input">Ban user until:</label>
                         <input
+                            id="ban-date-input"
                             type="date"
                             name="ban-date"
                             className="input moderation-input"
@@ -249,7 +250,7 @@ export default function Moderation() {
                             required
                         />
                         <button type="submit" className="button">
-                            Delete Post
+                            Submit
                         </button>
                     </Form>
                     <Form
@@ -272,7 +273,7 @@ export default function Moderation() {
                             required
                         />
                         <button type="submit" className="button">
-                            Delete Comment
+                            Submit
                         </button>
                     </Form>
                     {userRole === "admin" && (
@@ -311,7 +312,7 @@ export default function Moderation() {
                                     <option value="admin">Admin</option>
                                 </select>
                                 <button type="submit" className="button">
-                                    Update Account
+                                    Submit
                                 </button>
                             </Form>
                             <Form
@@ -336,7 +337,7 @@ export default function Moderation() {
                                     required
                                 />
                                 <button type="submit" className="button">
-                                    Delete Account
+                                    Submit
                                 </button>
                             </Form>
                         </>

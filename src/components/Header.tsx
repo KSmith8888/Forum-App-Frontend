@@ -89,7 +89,15 @@ export default function Header({
                     Topics
                 </button>
             </div>
-            <dialog ref={navModal} className="nav-modal">
+            <dialog
+                ref={navModal}
+                className="nav-modal"
+                onClick={(e) => {
+                    if (e.target === e.currentTarget) {
+                        closeNavModal();
+                    }
+                }}
+            >
                 <div className="menu-top-profile-container">
                     <div className="menu-profile-container">
                         <img
@@ -198,7 +206,15 @@ export default function Header({
                     )}
                 </nav>
             </dialog>
-            <dialog className="topics-nav-modal" ref={mobileTopicModal}>
+            <dialog
+                className="topics-nav-modal"
+                ref={mobileTopicModal}
+                onClick={(e) => {
+                    if (e.target === e.currentTarget) {
+                        closeTopicModal();
+                    }
+                }}
+            >
                 <div className="topics-modal-heading-container">
                     <h2 className="topics-link-heading">Topics</h2>
                     <button

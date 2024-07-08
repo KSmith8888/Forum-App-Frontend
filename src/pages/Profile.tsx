@@ -323,21 +323,35 @@ export default function Profile() {
                         <h4>You have not created any comments yet</h4>
                     )}
                 </section>
-                <dialog className="message-modal" ref={messageModal}>
-                    <p className="message-modal-text">
-                        {modalMessage ||
-                            "There has been an error, please try again later"}
-                    </p>
-                    <button
-                        className="button"
-                        onClick={() => {
-                            if (messageModal.current) {
-                                messageModal.current.close();
-                            }
-                        }}
-                    >
-                        Close
-                    </button>
+                <dialog
+                    className="message-modal"
+                    ref={messageModal}
+                    onClick={(e) => {
+                        if (
+                            e.target === e.currentTarget &&
+                            messageModal.current
+                        ) {
+                            messageModal.current.close();
+                        }
+                    }}
+                >
+                    <div id="message-modal-content">
+                        <button
+                            className="close-profile-modal-button"
+                            aria-label="Close"
+                            onClick={() => {
+                                if (messageModal.current) {
+                                    messageModal.current.close();
+                                }
+                            }}
+                        >
+                            X
+                        </button>
+                        <p className="message-modal-text">
+                            {modalMessage ||
+                                "There has been an error, please try again later"}
+                        </p>
+                    </div>
                 </dialog>
             </div>
         </>
