@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Form } from "react-router-dom";
+import { Form, useSubmit } from "react-router-dom";
 
 interface commentFormProps {
     commentErrorMsg: string | null;
@@ -14,6 +14,7 @@ export default function CommentForm({
     postId,
     commentId = "none",
 }: commentFormProps) {
+    const formSubmit = useSubmit();
     const commentForm = useRef<HTMLFormElement>(null);
     useEffect(() => {
         if (commentForm.current && commentErrorMsg === null) {
@@ -37,8 +38,12 @@ export default function CommentForm({
                 name="content"
                 maxLength={300}
                 minLength={4}
-                rows={6}
-                cols={40}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter" && commentForm.current) {
+                        e.preventDefault();
+                        formSubmit(commentForm.current);
+                    }
+                }}
             ></textarea>
             <input type="hidden" value={postId} name="postId" />
             <input type="hidden" value={commentId} name="commentId" />
