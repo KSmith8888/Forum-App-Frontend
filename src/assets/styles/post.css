@@ -277,10 +277,11 @@
     .post,
     .comment {
         flex-direction: column;
+        align-items: center;
     }
     .column-content,
     .column-info {
-        width: 100%;
+        width: 95%;
         align-items: center;
         margin: 0.5em 0;
     }
