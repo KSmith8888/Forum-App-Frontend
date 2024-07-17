@@ -2,7 +2,6 @@ import { useRef, useState, useEffect } from "react";
 import {
     Link,
     useLoaderData,
-    Form,
     useActionData,
     useOutletContext,
 } from "react-router-dom";
@@ -10,15 +9,18 @@ import {
 import BioChangeForm from "../components/BioChangeForm";
 import UpdatePassword from "../components/UpdatePassword";
 import DeleteAccountModal from "../components/DeleteAccountModal";
-import { outletInterface, notificationInterface } from "../utils/interfaces";
+import {
+    outletInterface,
+    notificationInterface,
+    userProfilePost,
+    userProfileComment,
+} from "../utils/interfaces";
 import ProfilePicSelector from "../components/ProfilePicSelector";
+import ProfileComment from "../components/ProfileComment";
+import ProfilePost from "../components/ProfilePost";
+import ProfileNotification from "../components/ProfileNotification";
 
 import "../assets/styles/profile.css";
-
-interface userProfilePost {
-    id: string;
-    title: string;
-}
 
 export default function Profile() {
     const username = sessionStorage.getItem("username");
@@ -75,53 +77,16 @@ export default function Profile() {
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const { profilePic } = useOutletContext<outletInterface>();
     const postElements = postsData.map((post: userProfilePost) => {
-        return (
-            <div key={post.id} className="post-link-container">
-                <Link
-                    to={`/posts/details/${post.id}`}
-                    className="profile-post-link"
-                >
-                    {post.title}
-                </Link>
-                <div className="button-container">
-                    <Link to={`/posts/edit/${post.id}`} className="button-link">
-                        Edit
-                    </Link>
-                    <Form method="POST">
-                        <input type="hidden" name="post" value="posts" />
-                        <input type="hidden" name="id" value={post.id} />
-                        <button className="button">Delete</button>
-                    </Form>
-                </div>
-            </div>
-        );
+        return <ProfilePost key={post.id} id={post.id} title={post.title} />;
     });
-    const commentElements = commentsData.map((comment) => {
-        const startingChars = comment.content.substring(0, 50);
+    const commentElements = commentsData.map((comment: userProfileComment) => {
         return (
-            <div key={comment._id} className="comment-link-container">
-                <Link
-                    to={`/posts/details/${comment.relatedPost}?commentId=${comment._id}`}
-                    className="related-post-link"
-                >
-                    {`${startingChars}...`}
-                </Link>
-                <div className="button-container">
-                    <Link
-                        to={`/posts/comments/edit/${comment._id}`}
-                        className="button-link"
-                    >
-                        Edit
-                    </Link>
-                    <Form method="POST">
-                        <input type="hidden" name="comment" value="comments" />
-                        <input type="hidden" name="id" value={comment._id} />
-                        <button type="submit" className="button">
-                            Delete
-                        </button>
-                    </Form>
-                </div>
-            </div>
+            <ProfileComment
+                key={comment._id}
+                _id={comment._id}
+                content={comment.content}
+                relatedPost={comment.relatedPost}
+            />
         );
     });
     const savedPostsElements = savedPostsData.map((savedPost) => {
@@ -139,42 +104,13 @@ export default function Profile() {
     const notificationElements = notificationsData.map(
         (notification: notificationInterface) => {
             return (
-                <div
+                <ProfileNotification
                     key={notification._id}
-                    className="profile-notification-container"
-                >
-                    <p
-                        className={`notification-message ${
-                            notification.type === "Warning" ? "warning" : ""
-                        }`}
-                    >
-                        {notification.type === "Warning" && "Warning - "}
-                        {notification.message}
-                    </p>
-                    <div className="notification-options">
-                        {notification.type === "Reply" && (
-                            <Link
-                                to={`/posts/details/${notification.replyMessageId}?commentId=${notification.commentId}`}
-                                className="profile-notification-link"
-                            >
-                                See Reply
-                            </Link>
-                        )}
-                        <Form method="POST">
-                            <input
-                                type="hidden"
-                                name="notification"
-                                value="notifications"
-                            />
-                            <input
-                                type="hidden"
-                                name="id"
-                                value={notification._id}
-                            />
-                            <button className="button">Delete</button>
-                        </Form>
-                    </div>
-                </div>
+                    _id={notification._id}
+                    message={notification.message}
+                    type={notification.type}
+                    commentId={notification.commentId}
+                />
             );
         }
     );

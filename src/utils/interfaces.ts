@@ -112,3 +112,14 @@ export interface savedPostInterface {
     id: string;
     title: string;
 }
+
+export interface userProfilePost {
+    id: string;
+    title: string;
+}
+
+export interface userProfileComment {
+    _id: string;
+    content: string;
+    relatedPost: string;
+}
