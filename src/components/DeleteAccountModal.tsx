@@ -33,7 +33,7 @@ export default function DeleteAccountModal({
     return (
         <dialog className="profile-delete-modal" ref={deleteModal}>
             <button
-                className="close-profile-modal-button"
+                className="close-modal-button"
                 aria-label="Close delete profile modal"
                 ref={deleteCloseBtn}
                 onClick={() => {

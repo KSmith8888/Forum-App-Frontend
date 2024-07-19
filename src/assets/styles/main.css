@@ -102,6 +102,23 @@ img {
     cursor: pointer;
 }
 
+.close-modal-button {
+    padding: 0.2em 0.5em;
+    margin: 0 0.25em;
+    align-self: flex-end;
+    cursor: pointer;
+    background-color: rgb(224, 19, 19);
+    color: #f3f3f3;
+    font-weight: 600;
+    border: 1px solid #575454;
+    border-radius: 5px;
+}
+
+.close-modal-button:hover,
+.close-modal-button:focus {
+    background-color: rgb(173, 17, 17);
+}
+
 /* Login */
 
 .login-section {

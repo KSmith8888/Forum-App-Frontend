@@ -242,7 +242,7 @@
 .report-modal[open] {
     max-width: 25em;
     background-color: rgb(215, 231, 236);
-    border: 2px solid black;
+    border: 1px solid black;
     text-align: center;
     padding: 1.5em 2em;
 }
@@ -252,7 +252,7 @@
     background-color: #f3f3f3;
     border: 1px solid #575454;
     border-radius: 5px;
-    padding: 0.25em;
+    padding: 0.25em 0.5em;
 }
 
 #report-form {

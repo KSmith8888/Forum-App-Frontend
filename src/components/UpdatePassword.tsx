@@ -39,7 +39,7 @@ export default function UpdatePassword({
     return (
         <dialog className="profile-password-modal" ref={passwordModal}>
             <button
-                className="close-profile-modal-button"
+                className="close-modal-button"
                 type="button"
                 aria-label="Close update password form"
                 onClick={() => {

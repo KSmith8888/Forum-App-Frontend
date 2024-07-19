@@ -51,23 +51,6 @@
     flex-direction: column;
 }
 
-.close-profile-modal-button {
-    padding: 0.2em 0.5em;
-    margin: 0 0.25em;
-    align-self: flex-end;
-    cursor: pointer;
-    background-color: rgb(224, 19, 19);
-    color: #f3f3f3;
-    font-weight: 600;
-    border: 1px solid #575454;
-    border-radius: 5px;
-}
-
-.close-profile-modal-button:hover,
-.close-profile-modal-button:focus {
-    background-color: rgb(173, 17, 17);
-}
-
 .profile-image-button {
     width: 50px;
     height: 50px;

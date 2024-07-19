@@ -6,6 +6,7 @@ import {
     useSearchParams,
     Link,
     Form,
+    useSubmit,
 } from "react-router-dom";
 
 import Comment from "../components/Comment";
@@ -93,6 +94,7 @@ export default function Post() {
             }
         }
     }, [actionData]);
+    const formSubmit = useSubmit();
     const [searchParams] = useSearchParams();
     const commentId = searchParams.get("commentId");
     useEffect(() => {
@@ -269,9 +271,24 @@ export default function Post() {
                     </div>
                     <dialog className="report-modal" ref={reportModal}>
                         <Form method="POST" ref={reportForm} id="report-form">
+                            <button
+                                className="close-modal-button"
+                                type="button"
+                                aria-label="Close report form"
+                                onClick={() => {
+                                    if (reportModal.current) {
+                                        reportModal.current.close();
+                                    }
+                                }}
+                            >
+                                X
+                            </button>
                             <p className="report-modal-text">
-                                Report this message to the moderation team?
+                                Report to the moderation team?
                             </p>
+                            <label htmlFor="report-message-input">
+                                Message:
+                            </label>
                             <textarea
                                 id="report-message-input"
                                 className="input textarea"
@@ -280,6 +297,15 @@ export default function Post() {
                                 maxLength={120}
                                 rows={6}
                                 required
+                                onKeyDown={(e) => {
+                                    if (
+                                        e.key === "Enter" &&
+                                        reportForm.current
+                                    ) {
+                                        e.preventDefault();
+                                        formSubmit(reportForm.current);
+                                    }
+                                }}
                             ></textarea>
                             <input
                                 type="hidden"
@@ -298,17 +324,6 @@ export default function Post() {
                             />
                             <button className="button" type="submit">
                                 Submit
-                            </button>
-                            <button
-                                className="button"
-                                type="button"
-                                onClick={() => {
-                                    if (reportModal.current) {
-                                        reportModal.current.close();
-                                    }
-                                }}
-                            >
-                                Close
                             </button>
                         </Form>
                     </dialog>

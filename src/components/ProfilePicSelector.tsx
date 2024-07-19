@@ -41,7 +41,7 @@ export default function ProfilePicSelector({
     return (
         <dialog className="profile-image-modal" ref={picModal}>
             <button
-                className="close-profile-modal-button"
+                className="close-modal-button"
                 type="button"
                 onClick={() => {
                     setIsPicModalOpen(false);
