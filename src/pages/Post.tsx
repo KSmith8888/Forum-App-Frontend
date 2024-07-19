@@ -5,6 +5,7 @@ import {
     useActionData,
     useSearchParams,
     Link,
+    Form,
 } from "react-router-dom";
 
 import Comment from "../components/Comment";
@@ -20,7 +21,6 @@ import {
     likeInterface,
 } from "../utils/interfaces.ts";
 import { createDateString } from "../utils/create-date-string.ts";
-import { report } from "../utils/report.ts";
 
 import "../assets/styles/post.css";
 
@@ -55,6 +55,9 @@ export default function Post() {
     const [postLikes, setPostLikes] = useState(postData.likes);
     const [showHistory, setShowHistory] = useState(false);
     const [showCommentForm, setShowCommentForm] = useState(false);
+    const [reportId, setReportId] = useState("none");
+    const [reportType, setReportType] = useState("none");
+    const [reportRelated, setReportRelated] = useState("none");
     const historyElements = postData.history.map(
         (prevVersion: postHistoryInterface) => {
             return (
@@ -74,6 +77,20 @@ export default function Post() {
             setShowCommentForm(false);
         } else if (typeof actionData === "string") {
             setCommentErrorMsg(actionData);
+        } else if (
+            actionData &&
+            typeof actionData === "object" &&
+            "msg" in actionData
+        ) {
+            if (
+                reportForm &&
+                reportForm.current &&
+                reportModal &&
+                reportModal.current
+            ) {
+                reportForm.current.reset();
+                reportModal.current.close();
+            }
         }
     }, [actionData]);
     const [searchParams] = useSearchParams();
@@ -91,15 +108,16 @@ export default function Post() {
         }
     }, []);
     const reportModal = useRef<HTMLDialogElement>(null);
+    const reportForm = useRef<HTMLFormElement>(null);
     function openReportModal(
         messageId: string,
         reportType: string,
         relatedId: string
     ) {
         if (reportModal.current) {
-            reportModal.current.dataset.id = messageId;
-            reportModal.current.dataset.type = reportType;
-            reportModal.current.dataset.related = relatedId;
+            setReportId(messageId);
+            setReportType(reportType);
+            setReportRelated(relatedId);
             reportModal.current.showModal();
         }
     }
@@ -249,55 +267,50 @@ export default function Post() {
                             </div>
                         )}
                     </div>
-                    <dialog
-                        className="report-modal"
-                        ref={reportModal}
-                        data-type="none"
-                        data-id="none"
-                        data-related="none"
-                    >
-                        <p className="report-modal-text">
-                            Report this message to the moderation team?
-                        </p>
-                        <button
-                            className="button"
-                            onClick={async () => {
-                                if (reportModal.current) {
-                                    try {
-                                        if (
-                                            reportModal.current.dataset.id &&
-                                            reportModal.current.dataset.type &&
-                                            reportModal.current.dataset.related
-                                        ) {
-                                            await report(
-                                                reportModal.current.dataset.id,
-                                                reportModal.current.dataset
-                                                    .type,
-                                                reportModal.current.dataset
-                                                    .related
-                                            );
-                                        }
-                                    } catch (error) {
-                                        if (error instanceof Error) {
-                                            console.log(error.message);
-                                        }
+                    <dialog className="report-modal" ref={reportModal}>
+                        <Form method="POST" ref={reportForm} id="report-form">
+                            <p className="report-modal-text">
+                                Report this message to the moderation team?
+                            </p>
+                            <textarea
+                                id="report-message-input"
+                                className="input textarea"
+                                name="report-content"
+                                minLength={4}
+                                maxLength={120}
+                                rows={6}
+                                required
+                            ></textarea>
+                            <input
+                                type="hidden"
+                                name="report-related-id"
+                                value={reportRelated}
+                            />
+                            <input
+                                type="hidden"
+                                name="report-message-id"
+                                value={reportId}
+                            />
+                            <input
+                                type="hidden"
+                                name="report-type"
+                                value={reportType}
+                            />
+                            <button className="button" type="submit">
+                                Submit
+                            </button>
+                            <button
+                                className="button"
+                                type="button"
+                                onClick={() => {
+                                    if (reportModal.current) {
+                                        reportModal.current.close();
                                     }
-                                    reportModal.current.close();
-                                }
-                            }}
-                        >
-                            Submit
-                        </button>
-                        <button
-                            className="button"
-                            onClick={() => {
-                                if (reportModal.current) {
-                                    reportModal.current.close();
-                                }
-                            }}
-                        >
-                            Close
-                        </button>
+                                }}
+                            >
+                                Close
+                            </button>
+                        </Form>
                     </dialog>
                     {!isUserLoggedIn && (
                         <p>Log in or create an account to comment</p>

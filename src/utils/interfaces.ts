@@ -94,6 +94,7 @@ export interface reportInterface {
     _id: string;
     messageId: string;
     messageType: string;
+    messageContent: string;
     reportedBy: string;
     relatedPost: string;
     createdAt: string;

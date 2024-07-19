@@ -168,7 +168,7 @@
 #comment-input {
     width: 95%;
     height: 8em;
-    padding: 0.5em;
+    padding: 0.25em;
 }
 
 .comment-form-label {
@@ -248,11 +248,16 @@
 }
 
 .report-modal-text {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     background-color: #f3f3f3;
     border: 1px solid #575454;
     border-radius: 5px;
-    padding: 0.5em;
+    padding: 0.25em;
+}
+
+#report-form {
+    display: flex;
+    flex-direction: column;
 }
 
 .post-main-content-container {

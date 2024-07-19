@@ -18,6 +18,7 @@ export default function ModReport({ report }: modReportInterface) {
         <div className="report-container" key={report.messageId}>
             <p className="report-text">{`Report Type: ${report.messageType}`}</p>
             <p className="report-text">{`Message Id: ${report.messageId}`}</p>
+            <p className="report-text">{report.messageContent}</p>
             <div className="button-container">
                 <Link
                     to={`/posts/details/${linkId}`}
