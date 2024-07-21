@@ -273,7 +273,7 @@ export default function Profile() {
                 >
                     <div id="message-modal-content">
                         <button
-                            className="close-profile-modal-button"
+                            className="close-modal-button"
                             aria-label="Close"
                             onClick={() => {
                                 if (messageModal.current) {

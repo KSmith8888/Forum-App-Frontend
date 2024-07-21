@@ -1,18 +1,13 @@
 import { loaderActionInterface } from "../utils/interfaces";
-import {
-    getUserWarnings,
-    notifyUser,
-    addUserBan,
-    deleteUsersAccount,
-    deleteUsersPost,
-    deleteUsersComment,
-    updateUsersRole,
-    deleteReport,
-} from "../utils/moderation.ts";
 
 export default async function moderationAction({
     request,
 }: loaderActionInterface) {
+    const token = sessionStorage.getItem("token");
+    const userId = sessionStorage.getItem("_id");
+    if (!token || !userId) {
+        throw new Error("You must log in before performing that action");
+    }
     const formData = await request.formData();
     const warningUser = formData.get("warning-list-user");
     const notificationUser = formData.get("notification-user");
@@ -26,10 +21,14 @@ export default async function moderationAction({
     const updateRoleUsername = formData.get("change-role-username");
     const newAccountRole = formData.get("new-role-input");
     const deleteReportId = formData.get("delete-report-id");
+    let fetchUrl = `${import.meta.env.VITE_BACKEND_URL}/api/v1/default`;
+    let fetchMethod = "GET";
+    let fetchBody = {};
     let returnMessage = null;
     if (warningUser && typeof warningUser === "string") {
-        const getWarningsMsg = await getUserWarnings(warningUser);
-        returnMessage = getWarningsMsg;
+        fetchUrl = `${
+            import.meta.env.VITE_BACKEND_URL
+        }/api/v1/moderation/notifications/${warningUser}`;
     }
     if (
         notificationUser &&
@@ -37,13 +36,17 @@ export default async function moderationAction({
         notificationMessage &&
         typeof notificationMessage === "string"
     ) {
+        fetchUrl = `${
+            import.meta.env.VITE_BACKEND_URL
+        }/api/v1/moderation/notifications/${notificationUser}`;
+        fetchMethod = "POST";
         const isWarning = notificationWarning ? "Warning" : "";
-        const notifyUserMsg = await notifyUser(
+        fetchBody = {
+            status: "Create user notification request",
             notificationUser,
-            notificationMessage,
-            isWarning
-        );
-        returnMessage = notifyUserMsg;
+            notificationMsg: notificationMessage,
+            isWarning,
+        };
     }
     if (
         banUser &&
@@ -51,22 +54,34 @@ export default async function moderationAction({
         banDate &&
         typeof banDate === "string"
     ) {
-        const banUserMsg = await addUserBan(banUser, banDate);
-        returnMessage = banUserMsg;
+        fetchUrl = `${
+            import.meta.env.VITE_BACKEND_URL
+        }/api/v1/moderation/ban/${banUser}`;
+        fetchMethod = "POST";
+        const banTimestamp = new Date(banDate).getTime();
+        fetchBody = {
+            status: "Ban user",
+            banUser,
+            banTimestamp,
+        };
     }
     if (deleteAccountUsername && typeof deleteAccountUsername === "string") {
-        const deleteAccountMsg = await deleteUsersAccount(
-            deleteAccountUsername
-        );
-        returnMessage = deleteAccountMsg;
+        fetchUrl = `${
+            import.meta.env.VITE_BACKEND_URL
+        }/api/v1/moderation/profile/${deleteAccountUsername}`;
+        fetchMethod = "DELETE";
     }
     if (deletePostId && typeof deletePostId === "string") {
-        const deletePostMsg = await deleteUsersPost(deletePostId);
-        returnMessage = deletePostMsg;
+        fetchUrl = `${
+            import.meta.env.VITE_BACKEND_URL
+        }/api/v1/moderation/posts/${deletePostId}`;
+        fetchMethod = "DELETE";
     }
     if (deleteCommentId && typeof deleteCommentId === "string") {
-        const deleteCommentMsg = await deleteUsersComment(deleteCommentId);
-        returnMessage = deleteCommentMsg;
+        fetchUrl = `${
+            import.meta.env.VITE_BACKEND_URL
+        }/api/v1/moderation/comments/${deleteCommentId}`;
+        fetchMethod = "DELETE";
     }
     if (
         updateRoleUsername &&
@@ -74,27 +89,67 @@ export default async function moderationAction({
         newAccountRole &&
         typeof newAccountRole === "string"
     ) {
-        const updateRoleMsg = await updateUsersRole(
-            updateRoleUsername,
-            newAccountRole
-        );
-        returnMessage = updateRoleMsg;
+        fetchUrl = `${
+            import.meta.env.VITE_BACKEND_URL
+        }/api/v1/moderation/profile/${updateRoleUsername}/role`;
+        fetchMethod = "PATCH";
+        fetchBody = { newRole: newAccountRole };
     }
     if (deleteReportId && typeof deleteReportId === "string") {
-        const deleteReportMsg = await deleteReport(deleteReportId);
-        returnMessage = deleteReportMsg;
+        fetchUrl = `${
+            import.meta.env.VITE_BACKEND_URL
+        }/api/v1/moderation/report/${deleteReportId}`;
+        fetchMethod = "DELETE";
     }
-    if (typeof returnMessage !== "string" && !Array.isArray(returnMessage)) {
-        returnMessage = "Something went wrong, please try again later";
+    const fetchReq =
+        fetchMethod === "POST" || fetchMethod === "PATCH"
+            ? new Request(fetchUrl, {
+                  method: fetchMethod,
+                  headers: {
+                      "Content-Type": "application/json",
+                      "Authorization": `Bearer ${token}`,
+                      "user_id": userId,
+                  },
+                  body: JSON.stringify(fetchBody),
+              })
+            : new Request(fetchUrl, {
+                  method: fetchMethod,
+                  headers: {
+                      "Content-Type": "application/json",
+                      "Authorization": `Bearer ${token}`,
+                      "user_id": userId,
+                  },
+              });
+
+    const res = await fetch(fetchReq);
+    if (!res.ok) {
+        const errorData = await res.json();
+        if (errorData && errorData.msg) {
+            throw new Error(errorData.msg);
+        } else {
+            throw new Error(`Response error: ${res.status}`);
+        }
     }
+    const data = await res.json();
+    returnMessage = data;
     const currentTime = new Date();
-    if (Array.isArray(returnMessage)) {
-        return {
-            warnings: returnMessage,
-            time: currentTime,
-            username: warningUser,
-        };
+    if (returnMessage && typeof returnMessage === "object") {
+        if (
+            "warnings" in returnMessage &&
+            Array.isArray(returnMessage.warnings)
+        ) {
+            return {
+                warnings: returnMessage.warnings,
+                time: currentTime,
+                username: warningUser,
+            };
+        } else if (
+            "msg" in returnMessage &&
+            typeof returnMessage.msg === "string"
+        ) {
+            return `${returnMessage.msg}-TIMESTAMP-Action taken at: ${currentTime}`;
+        }
     } else {
-        return `${returnMessage}-TIMESTAMP-Action taken at: ${currentTime}`;
+        return `Something went wrong, please try again later-TIMESTAMP-Action taken at: ${currentTime}`;
     }
 }
