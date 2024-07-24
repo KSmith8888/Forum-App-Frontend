@@ -18,12 +18,11 @@ export default async function profileAction({
         const newPass = formData.get("new-password");
         const confirmPass = formData.get("confirm-password");
         const deleteAccount = formData.get("delete-account");
+        const pfpImage = formData.get("pfp");
+        const pfpAlt = formData.get("pfp-alt");
         let reqMethod = "DELETE";
-        let reqStatus = "Delete request";
         let reqUrl = `${import.meta.env.VITE_BACKEND_URL}/api/v1/`;
-        let reqBio = "none";
-        let reqCurrentPass = "none";
-        let reqNewPass = "none";
+        let reqBody = null;
         if (!token || !userId) {
             throw new Error("You must log in before performing that action");
         }
@@ -42,10 +41,20 @@ export default async function profileAction({
         } else if (bioContent && typeof bioContent === "string") {
             reqUrl = `${reqUrl}users/profile/${id}/bio`;
             reqMethod = "PATCH";
-            reqStatus = "Update user bio";
-            reqBio = bioContent;
+            reqBody = {
+                status: "Update user bio",
+                bioContent,
+            };
         } else if (deleteAccount) {
             reqUrl = `${reqUrl}users/profile/${userId}`;
+        } else if (pfpImage && pfpAlt) {
+            reqUrl = `${reqUrl}users/profile/${userId}/image`;
+            reqMethod = "PATCH";
+            reqBody = {
+                status: "Update user pfp",
+                pfpName: pfpImage,
+                pfpAlt,
+            };
         } else if (
             typeof currentPass === "string" &&
             typeof newPass === "string" &&
@@ -58,18 +67,15 @@ export default async function profileAction({
             }
             reqUrl = `${reqUrl}users/profile/${id}/password`;
             reqMethod = "PATCH";
-            reqStatus = "Update password request";
-            reqCurrentPass = currentPass;
-            reqNewPass = newPass;
+            reqBody = {
+                status: "Update password request",
+                reqCurrentPass: currentPass,
+                reqNewPass: newPass,
+            };
         }
         const res = await fetch(reqUrl, {
             method: reqMethod,
-            body: JSON.stringify({
-                status: reqStatus,
-                bioContent: reqBio,
-                reqCurrentPass,
-                reqNewPass,
-            }),
+            body: JSON.stringify(reqBody),
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,
@@ -87,6 +93,12 @@ export default async function profileAction({
         const data = await res.json();
         if (data.message === "Account deleted successfully") {
             return redirect("/?message=Account deleted successfully");
+        } else if (
+            typeof data === "object" &&
+            "newProfilePicName" in data &&
+            "newProfilePicAlt" in data
+        ) {
+            return data;
         } else {
             return data.message;
         }

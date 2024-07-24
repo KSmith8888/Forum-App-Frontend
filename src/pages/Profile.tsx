@@ -64,18 +64,34 @@ export default function Profile() {
     const messageModal = useRef<HTMLDialogElement>(null);
     const actionMessage = useActionData();
     const [modalMessage, setModalMessage] = useState("");
+    const { profilePic, setProfilePic } = useOutletContext<outletInterface>();
+    const [isPicModalOpen, setIsPicModalOpen] = useState(false);
     useEffect(() => {
         if (typeof actionMessage === "string" && messageModal.current) {
             const splitMessage = actionMessage.split("-Target ID-");
             setModalMessage(splitMessage[0]);
             messageModal.current.showModal();
+        } else if (
+            actionMessage &&
+            typeof actionMessage === "object" &&
+            "newProfilePicName" in actionMessage &&
+            "newProfilePicAlt" in actionMessage
+        ) {
+            if (
+                typeof actionMessage.newProfilePicName === "string" &&
+                typeof actionMessage.newProfilePicAlt === "string"
+            ) {
+                setIsPicModalOpen(false);
+                setProfilePic({
+                    name: actionMessage.newProfilePicName,
+                    alt: actionMessage.newProfilePicAlt,
+                });
+            }
         }
     }, [actionMessage]);
-    const [isPicModalOpen, setIsPicModalOpen] = useState(false);
     const [isBioModalOpen, setIsBioModalOpen] = useState(false);
     const [isPassModalOpen, setIsPassModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-    const { profilePic } = useOutletContext<outletInterface>();
     const postElements = postsData.map((post: userProfilePost) => {
         return <ProfilePost key={post.id} id={post.id} title={post.title} />;
     });
