@@ -5,8 +5,11 @@
 .pfp-image-label {
     display: flex;
     flex-direction: column;
+    align-items: center;
     cursor: pointer;
     margin: 0.5em 0.5em 0 0.5em;
+    font-size: 0.9rem;
+    font-weight: 600;
 }
 
 .pfp-selector-input {
@@ -21,14 +24,17 @@
 }
 
 .profile-image-grid {
-    padding: 0 1em 0.5em 1em;
+    width: 100%;
+    padding: 0.5em 2em 1em 2em;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .profile-image-grid-row {
+    text-align: center;
+    width: 100%;
     display: flex;
+    justify-content: space-between;
 }
 
 .profile-pic-modal-heading {
@@ -39,12 +45,17 @@
     outline: thick double #32a1ce;
 }
 
+#profile-image-form {
+    width: 100%;
+}
+
 .profile-image-modal[open] {
+    background-color: #f3f3f3;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0.5em 1em;
+    padding: 0.5em 0 0 0;
     border: 1px solid black;
     background-color: #ebf1f3;
 }

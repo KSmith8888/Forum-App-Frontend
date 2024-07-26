@@ -43,7 +43,7 @@ export default function ProfilePicSelector({
             <h3 className="profile-pic-modal-heading">
                 Select a Profile Picture:
             </h3>
-            <Form method="POST">
+            <Form method="POST" id="profile-image-form">
                 <div className="profile-image-grid">
                     <div className="profile-image-grid-row">
                         <label

@@ -93,14 +93,14 @@ export default async function profileAction({
         const data = await res.json();
         if (data.message === "Account deleted successfully") {
             return redirect("/?message=Account deleted successfully");
-        } else if (
-            typeof data === "object" &&
-            "newProfilePicName" in data &&
-            "newProfilePicAlt" in data
-        ) {
-            return data;
+        } else if (typeof data === "object") {
+            if ("newProfilePicName" in data && "newProfilePicAlt" in data) {
+                return data;
+            } else if ("message" in data) {
+                return data.message;
+            }
         } else {
-            return data.message;
+            return "Unspecified profile action completed";
         }
     } catch (error) {
         let errorMsg = "There has been an error, please try again later";

@@ -51,6 +51,7 @@ export interface postInterface {
     keywords: string[];
     comments: string[];
     hasBeenEdited: boolean;
+    lastEditedAt: string;
     history: Array<postHistoryInterface>;
     createdAt: string;
     updatedAt: string;

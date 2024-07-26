@@ -29,7 +29,7 @@ export default function Post() {
     const postDateString = createDateString(postData.createdAt, "Posted");
     const postHasBeenEdited = postData.hasBeenEdited;
     const editDateString = postHasBeenEdited
-        ? createDateString(postData.updatedAt, "Edited")
+        ? createDateString(postData.lastEditedAt, "Edited")
         : "";
     const { isUserLoggedIn } = useOutletContext<outletInterface>();
     let didUserAlreadyLike = false;
