@@ -12,14 +12,11 @@ import {
 import Comment from "../components/Comment";
 import CommentForm from "../components/CommentForm.tsx";
 import PostHistory from "../components/PostHistory.tsx";
-import { likePost } from "../utils/like.ts";
-import { savePost } from "../utils/save-post.ts";
 import {
     outletInterface,
     commentInterface,
     postHistoryInterface,
     postRelatedComments,
-    likeInterface,
 } from "../utils/interfaces.ts";
 import { createDateString } from "../utils/create-date-string.ts";
 
@@ -78,11 +75,21 @@ export default function Post() {
             setShowCommentForm(false);
         } else if (typeof actionData === "string") {
             setCommentErrorMsg(actionData);
-        } else if (
-            actionData &&
-            typeof actionData === "object" &&
-            "msg" in actionData
-        ) {
+        } else if (actionData && typeof actionData === "object") {
+            if (
+                "didUserSave" in actionData &&
+                typeof actionData.didUserSave === "boolean"
+            ) {
+                setUserSavedPost(actionData.didUserSave);
+            } else if (
+                "didUserLike" in actionData &&
+                typeof actionData.didUserLike === "boolean" &&
+                "likes" in actionData &&
+                typeof actionData.likes === "number"
+            ) {
+                setPostLikes(actionData.likes);
+                setUserLikedPost(actionData.didUserLike);
+            }
             if (
                 reportForm &&
                 reportForm.current &&
@@ -163,30 +170,30 @@ export default function Post() {
             <article className="post">
                 <div className="column-content">
                     {isUserLoggedIn && (
-                        <button
-                            className={
-                                userSavedPost
-                                    ? "save-post-button-selected"
-                                    : "save-post-button"
-                            }
-                            onClick={async () => {
-                                try {
-                                    const savePostData = await savePost(
-                                        postData._id,
-                                        postData.title
-                                    );
-                                    setUserSavedPost(savePostData.didUserSave);
-                                } catch (error) {
-                                    if (error instanceof Error) {
-                                        console.error(error.message);
-                                    }
+                        <Form method="POST" id="save-post-form">
+                            <input
+                                type="hidden"
+                                name="save-post-id"
+                                value={postData._id}
+                            />
+                            <input
+                                type="hidden"
+                                name="save-post-title"
+                                value={postData.title}
+                            />
+                            <button
+                                className={
+                                    userSavedPost
+                                        ? "save-post-button-selected"
+                                        : "save-post-button"
                                 }
-                            }}
-                            aria-label={
-                                userSavedPost ? "Save post" : "Unsave post"
-                            }
-                            title="Save or unsave post"
-                        ></button>
+                                aria-label={
+                                    userSavedPost ? "Save post" : "Unsave post"
+                                }
+                                title="Save or unsave post"
+                                type="submit"
+                            ></button>
+                        </Form>
                     )}
                     <div className="post-main-content-container">
                         <div className="post-inner-content-container">
@@ -214,29 +221,23 @@ export default function Post() {
                         <p className="post-likes">Likes: {postLikes}</p>
                         {isUserLoggedIn && (
                             <div className="button-container">
-                                <button
-                                    className={
-                                        userLikedPost
-                                            ? "button selected"
-                                            : "button"
-                                    }
-                                    onClick={async () => {
-                                        try {
-                                            const likesData: likeInterface =
-                                                await likePost(postData._id);
-                                            setPostLikes(likesData.likes);
-                                            setUserLikedPost(
-                                                likesData.didUserLike
-                                            );
-                                        } catch (error) {
-                                            if (error instanceof Error) {
-                                                console.error(error.message);
-                                            }
+                                <Form method="POST">
+                                    <input
+                                        type="hidden"
+                                        name="like-post-id"
+                                        value={postData._id}
+                                    />
+                                    <button
+                                        type="submit"
+                                        className={
+                                            userLikedPost
+                                                ? "button selected"
+                                                : "button"
                                         }
-                                    }}
-                                >
-                                    Like
-                                </button>
+                                    >
+                                        Like
+                                    </button>
+                                </Form>
                                 <button
                                     type="button"
                                     className="button"

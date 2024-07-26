@@ -21,7 +21,7 @@
 }
 
 .profile-image-grid {
-    padding: 0 1em 1em 1em;
+    padding: 0 1em 0.5em 1em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,7 +36,7 @@
 }
 
 .profile-image-selected {
-    border: 3px solid rgb(7, 7, 77);
+    outline: thick double #32a1ce;
 }
 
 .profile-image-modal[open] {
@@ -46,7 +46,7 @@
     justify-content: center;
     padding: 0.5em 1em;
     border: 1px solid black;
-    background-color: #f3f3f3;
+    background-color: #ebf1f3;
 }
 
 .profile-bio-modal[open],
@@ -66,10 +66,10 @@
     flex-direction: column;
 }
 
-.profile-image-button {
+.profile-image {
     width: 50px;
     height: 50px;
-    border: none;
+    object-fit: cover;
     padding: 0;
     margin: 0.25em 0.5em;
 }

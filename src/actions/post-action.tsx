@@ -16,9 +16,14 @@ export default async function postAction({ request }: loaderActionInterface) {
         const reportId = postForm.get("report-message-id");
         const reportType = postForm.get("report-type");
         const reportContent = postForm.get("report-content");
+        const savePostId = postForm.get("save-post-id");
+        const savePostTitle = postForm.get("save-post-title");
+        const likePostId = postForm.get("like-post-id");
+        const likeCommentId = postForm.get("like-comment-id");
         let dataUrl = `${
             import.meta.env.VITE_BACKEND_URL
         }/api/v1/comments/create`;
+        let dataMethod = "POST";
         let dataBody = null;
         if (
             content &&
@@ -57,12 +62,30 @@ export default async function postAction({ request }: loaderActionInterface) {
                 reportRelated,
                 reportContent,
             });
+        } else if (savePostId && savePostTitle) {
+            dataMethod = "PATCH";
+            dataUrl = `${
+                import.meta.env.VITE_BACKEND_URL
+            }/api/v1/posts/save/${savePostId}`;
+            dataBody = JSON.stringify({ postTitle: savePostTitle });
+        } else if (likePostId) {
+            dataUrl = `${
+                import.meta.env.VITE_BACKEND_URL
+            }/api/v1/posts/likes/${likePostId}`;
+            dataMethod = "PATCH";
+            dataBody = JSON.stringify({ status: "Update like count" });
+        } else if (likeCommentId) {
+            dataUrl = `${
+                import.meta.env.VITE_BACKEND_URL
+            }/api/v1/comments/likes/${likeCommentId}`;
+            dataMethod = "PATCH";
+            dataBody = JSON.stringify({ status: "Update like count" });
         } else {
             throw new Error("Proper data not provided");
         }
 
         const res = await fetch(dataUrl, {
-            method: "POST",
+            method: dataMethod,
             body: dataBody,
             headers: {
                 "Content-Type": "application/json",
@@ -79,6 +102,115 @@ export default async function postAction({ request }: loaderActionInterface) {
             }
         }
         const data = await res.json();
+        if (
+            data &&
+            typeof data === "object" &&
+            "didUserSave" in data &&
+            "postId" in data
+        ) {
+            const currentSavedPosts = sessionStorage.getItem("saved-posts");
+            if (currentSavedPosts) {
+                const prevSavedPosts = JSON.parse(currentSavedPosts);
+                if (data.didUserSave) {
+                    sessionStorage.setItem(
+                        "saved-posts",
+                        JSON.stringify([...prevSavedPosts, data.postId])
+                    );
+                } else if (!data.didUserSave && currentSavedPosts.length > 1) {
+                    const filteredSavedPosts = prevSavedPosts.filter(
+                        (savedId: string) => {
+                            return savedId !== data.postId;
+                        }
+                    );
+                    sessionStorage.setItem(
+                        "saved-posts",
+                        JSON.stringify(filteredSavedPosts)
+                    );
+                } else if (
+                    !data.didUserSave &&
+                    currentSavedPosts.length === 1
+                ) {
+                    sessionStorage.removeItem("saved-posts");
+                }
+            } else {
+                sessionStorage.setItem(
+                    "saved-posts",
+                    JSON.stringify([data.postId])
+                );
+            }
+        } else if (
+            data &&
+            typeof data === "object" &&
+            "didUserLike" in data &&
+            "likePostId" in data
+        ) {
+            const savedLikedPosts = sessionStorage.getItem("likedPosts");
+            if (savedLikedPosts) {
+                const prevLikedPosts = JSON.parse(savedLikedPosts);
+                if (data.didUserLike) {
+                    sessionStorage.setItem(
+                        "likedPosts",
+                        JSON.stringify([...prevLikedPosts, data.likePostId])
+                    );
+                } else if (!data.didUserLike && savedLikedPosts.length > 1) {
+                    const filteredLikedPosts = prevLikedPosts.filter(
+                        (likeId: string) => {
+                            return likeId !== data.likePostId;
+                        }
+                    );
+                    sessionStorage.setItem(
+                        "likedPosts",
+                        JSON.stringify(filteredLikedPosts)
+                    );
+                } else if (!data.didUserLike && savedLikedPosts.length === 1) {
+                    sessionStorage.removeItem("likedPosts");
+                }
+            } else {
+                sessionStorage.setItem(
+                    "likedPosts",
+                    JSON.stringify([data.likePostId])
+                );
+            }
+        } else if (
+            data &&
+            typeof data === "object" &&
+            "didLikeComment" in data &&
+            "likeCommentId" in data
+        ) {
+            const savedLikedComments = sessionStorage.getItem("likedComments");
+            if (savedLikedComments) {
+                const prevLikedComments = JSON.parse(savedLikedComments);
+                if (data.didUserLike) {
+                    sessionStorage.setItem(
+                        "likedComments",
+                        JSON.stringify([
+                            ...prevLikedComments,
+                            data.likeCommentId,
+                        ])
+                    );
+                } else if (!data.didUserLike && savedLikedComments.length > 1) {
+                    const filteredLikedComments = prevLikedComments.filter(
+                        (likeComment: string) => {
+                            return likeComment !== data.likeCommentId;
+                        }
+                    );
+                    sessionStorage.setItem(
+                        "likedComments",
+                        JSON.stringify(filteredLikedComments)
+                    );
+                } else if (
+                    !data.didUserLike &&
+                    savedLikedComments.length === 1
+                ) {
+                    sessionStorage.removeItem("likedComments");
+                }
+            } else {
+                sessionStorage.setItem(
+                    "likedComments",
+                    JSON.stringify([data.likeCommentId])
+                );
+            }
+        }
         return data;
     } catch (error) {
         let message = "There was an error, please try again later";

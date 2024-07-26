@@ -1,13 +1,8 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Form } from "react-router-dom";
 
 import CommentForm from "./CommentForm.tsx";
-import { likeComment } from "../utils/like";
-import {
-    commentHistoryInterface,
-    likeInterface,
-    commentProps,
-} from "../utils/interfaces";
+import { commentHistoryInterface, commentProps } from "../utils/interfaces";
 import { createDateString } from "../utils/create-date-string";
 
 export default function Comment({
@@ -38,6 +33,19 @@ export default function Comment({
     useEffect(() => {
         if (showReplyForm && Array.isArray(actionData)) {
             setShowReplyForm(false);
+        } else if (
+            actionData &&
+            typeof actionData === "object" &&
+            "didLikeComment" in actionData &&
+            typeof actionData.didLikeComment === "boolean" &&
+            "commentLikes" in actionData &&
+            typeof actionData.commentLikes === "number" &&
+            "likeCommentId" in actionData
+        ) {
+            if (actionData.likeCommentId === commentData._id) {
+                setUserLikedComment(actionData.didLikeComment);
+                setCommentLikes(actionData.commentLikes);
+            }
         }
     }, [actionData]);
     const historyElements = commentData.history.map(
@@ -72,35 +80,22 @@ export default function Comment({
                         {isUserLoggedIn && (
                             <>
                                 <div className="button-container">
-                                    <button
-                                        className={
-                                            userLikedComment
-                                                ? "button selected"
-                                                : "button"
-                                        }
-                                        onClick={async () => {
-                                            try {
-                                                const likesData: likeInterface =
-                                                    await likeComment(
-                                                        commentData._id
-                                                    );
-                                                setCommentLikes(
-                                                    likesData.likes
-                                                );
-                                                setUserLikedComment(
-                                                    likesData.didUserLike
-                                                );
-                                            } catch (error) {
-                                                if (error instanceof Error) {
-                                                    console.error(
-                                                        error.message
-                                                    );
-                                                }
+                                    <Form method="POST">
+                                        <input
+                                            type="hidden"
+                                            name="like-comment-id"
+                                            value={commentData._id}
+                                        />
+                                        <button
+                                            className={
+                                                userLikedComment
+                                                    ? "button selected"
+                                                    : "button"
                                             }
-                                        }}
-                                    >
-                                        Like
-                                    </button>
+                                        >
+                                            Like
+                                        </button>
+                                    </Form>
                                     <button
                                         type="button"
                                         className="button"

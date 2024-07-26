@@ -114,6 +114,13 @@
     padding: 0.5em;
 }
 
+#save-post-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .save-post-button {
     align-self: flex-end;
     width: 30px;
