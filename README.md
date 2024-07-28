@@ -53,7 +53,9 @@ https://pixabay.com/vectors/link-hyperlink-chain-linking-6931554/
 File description outline document by Inspire-studio:  
 https://pixabay.com/vectors/file-description-outline-document-6472230/  
 Disk floppy file document memory bt Inspire-studio:  
-https://pixabay.com/vectors/disk-floppy-file-document-memory-6780403/
+https://pixabay.com/vectors/disk-floppy-file-document-memory-6780403/  
+Inventory check list checklist by Inspire-studio:  
+https://pixabay.com/vectors/inventory-check-list-checklist-6817561/
 
 ## License
 

@@ -30,20 +30,26 @@ export default function ProfilePicSelector({
         <dialog className="profile-image-modal" ref={picModal}>
             <button
                 className="close-modal-button"
+                aria-label="Close profile image form"
                 type="button"
                 onClick={() => {
                     setIsPicModalOpen(false);
                     if (picModal.current) {
                         picModal.current.close();
+                        setCurrentImage(profilePic.name);
+                        setCurrentAlt(profilePic.alt);
                     }
                 }}
             >
                 X
             </button>
-            <h3 className="profile-pic-modal-heading">
-                Select a Profile Picture:
-            </h3>
             <Form method="POST" id="profile-image-form">
+                <h3
+                    className="profile-pic-modal-heading"
+                    id="profile-pic-modal-heading"
+                >
+                    Select a Profile Picture:
+                </h3>
                 <div className="profile-image-grid">
                     <div className="profile-image-grid-row">
                         <label

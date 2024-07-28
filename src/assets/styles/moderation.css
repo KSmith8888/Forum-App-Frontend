@@ -62,6 +62,24 @@
     border: 1px solid #575454;
 }
 
+.report-id-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.clipboard-button {
+    margin: 0 0.5em;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.clipboard-image {
+    width: 24px;
+    height: 33px;
+}
+
 .moderation-link {
     font-size: 1.1rem;
     color: rgb(19, 26, 128);

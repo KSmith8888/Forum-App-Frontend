@@ -2,6 +2,7 @@ import { Link, Form } from "react-router-dom";
 
 import { reportInterface } from "../utils/interfaces.ts";
 import { createDateString } from "../utils/create-date-string.ts";
+import clipboardImg from "../assets/images/clipboard-icon.png";
 
 interface modReportInterface {
     key: string;
@@ -17,7 +18,23 @@ export default function ModReport({ report }: modReportInterface) {
     return (
         <div className="report-container" key={report.messageId}>
             <p className="report-text">{`Report Type: ${report.messageType}`}</p>
-            <p className="report-text">{`Message Id: ${report.messageId}`}</p>
+            <div className="report-id-container">
+                <p className="report-text">{`Id: ${report.messageId}`}</p>
+                <button
+                    className="clipboard-button"
+                    title="Copy ID to clipboard"
+                    type="button"
+                    onClick={async () => {
+                        await navigator.clipboard.writeText(report.messageId);
+                    }}
+                >
+                    <img
+                        className="clipboard-image"
+                        src={clipboardImg}
+                        alt="A grey and blue clipboard with white paper on it, signifying copy to clipboard functionality"
+                    />
+                </button>
+            </div>
             <p className="report-text">{report.messageContent}</p>
             <div className="button-container">
                 <Link
