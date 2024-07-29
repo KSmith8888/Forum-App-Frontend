@@ -33,6 +33,10 @@
     width: 20em;
 }
 
+::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+}
+
 .moderation-input {
     width: 90%;
 }
@@ -69,10 +73,21 @@
 }
 
 .clipboard-button {
+    width: 24px;
+    height: 33px;
     margin: 0 0.5em;
     border: none;
     padding: 0;
     cursor: pointer;
+}
+
+.clipboard-button:hover,
+.clipboard-button:focus {
+    outline: thick double #32a1ce;
+}
+
+.clipboard-button:active {
+    outline: thick double rgb(19, 26, 128);
 }
 
 .clipboard-image {
