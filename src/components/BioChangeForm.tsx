@@ -1,11 +1,7 @@
 import { useRef, useEffect } from "react";
 import { Form } from "react-router-dom";
 
-interface profileBioProps {
-    isBioModalOpen: boolean;
-    setIsBioModalOpen: (value: boolean) => void;
-    actionMessage: unknown;
-}
+import { profileBioProps } from "../utils/interfaces.ts";
 
 export default function BioChangeForm({
     isBioModalOpen,

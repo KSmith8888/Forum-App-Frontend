@@ -4,28 +4,30 @@ import { reportInterface } from "../utils/interfaces.ts";
 import { createDateString } from "../utils/create-date-string.ts";
 import clipboardImg from "../assets/images/clipboard-icon.png";
 
-interface modReportInterface {
-    key: string;
-    report: reportInterface;
-}
-
-export default function ModReport({ report }: modReportInterface) {
+export default function ModReport({
+    messageId,
+    messageType,
+    relatedPost,
+    createdAt,
+    messageContent,
+    _id,
+}: reportInterface) {
     const linkId =
-        report.messageType === "Post"
-            ? report.messageId
-            : `${report.relatedPost}?commentId=${report.messageId}`;
-    const reportDateString = createDateString(report.createdAt, "Reported");
+        messageType === "Post"
+            ? messageId
+            : `${relatedPost}?commentId=${messageId}`;
+    const reportDateString = createDateString(createdAt, "Reported");
     return (
-        <div className="report-container" key={report.messageId}>
-            <p className="report-text">{`Report Type: ${report.messageType}`}</p>
+        <div className="report-container" key={messageId}>
+            <p className="report-text">{`Report Type: ${messageType}`}</p>
             <div className="report-id-container">
-                <p className="report-text">{`Id: ${report.messageId}`}</p>
+                <p className="report-text">{`Id: ${messageId}`}</p>
                 <button
                     className="clipboard-button"
                     title="Copy ID to clipboard"
                     type="button"
                     onClick={async () => {
-                        await navigator.clipboard.writeText(report.messageId);
+                        await navigator.clipboard.writeText(messageId);
                     }}
                 >
                     <img
@@ -35,7 +37,7 @@ export default function ModReport({ report }: modReportInterface) {
                     />
                 </button>
             </div>
-            <p className="report-text">{report.messageContent}</p>
+            <p className="report-text">{messageContent}</p>
             <div className="button-container">
                 <Link
                     to={`/posts/details/${linkId}`}
@@ -44,11 +46,7 @@ export default function ModReport({ report }: modReportInterface) {
                     Reported Message
                 </Link>
                 <Form action="/moderation" method="DELETE">
-                    <input
-                        type="hidden"
-                        value={report._id}
-                        name="delete-report-id"
-                    />
+                    <input type="hidden" value={_id} name="delete-report-id" />
                     <button type="submit" className="button">
                         Delete
                     </button>

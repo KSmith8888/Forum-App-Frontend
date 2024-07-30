@@ -1,12 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Form, useSubmit } from "react-router-dom";
 
-interface commentFormProps {
-    commentErrorMsg: string | null;
-    type: "post" | "comment";
-    postId: string;
-    commentId?: string;
-}
+import { commentFormProps } from "../utils/interfaces.ts";
 
 export default function CommentForm({
     commentErrorMsg,

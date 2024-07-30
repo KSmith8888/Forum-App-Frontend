@@ -144,10 +144,10 @@ export default async function moderationAction({
                 username: warningUser,
             };
         } else if (
-            "msg" in returnMessage &&
-            typeof returnMessage.msg === "string"
+            "message" in returnMessage &&
+            typeof returnMessage.message === "string"
         ) {
-            return `${returnMessage.msg}-TIMESTAMP-Action taken at: ${currentTime}`;
+            return `${returnMessage.message}-TIMESTAMP-Action taken at: ${currentTime}`;
         }
     } else {
         return `Something went wrong, please try again later-TIMESTAMP-Action taken at: ${currentTime}`;

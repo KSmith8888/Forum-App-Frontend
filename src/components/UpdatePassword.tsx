@@ -1,11 +1,7 @@
 import { useRef, useEffect } from "react";
 import { Form } from "react-router-dom";
 
-interface updatePasswordProps {
-    isPassModalOpen: boolean;
-    setIsPassModalOpen: (value: boolean) => void;
-    actionMessage: unknown;
-}
+import { updatePasswordProps } from "../utils/interfaces.ts";
 
 export default function UpdatePassword({
     isPassModalOpen,

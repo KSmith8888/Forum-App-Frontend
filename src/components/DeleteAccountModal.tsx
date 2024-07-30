@@ -1,10 +1,7 @@
 import { useRef, useEffect } from "react";
 import { Form } from "react-router-dom";
 
-interface profileDeleteProps {
-    isDeleteModalOpen: boolean;
-    setIsDeleteModalOpen: (value: boolean) => void;
-}
+import { profileDeleteProps } from "../utils/interfaces.ts";
 
 export default function DeleteAccountModal({
     isDeleteModalOpen,

@@ -1,16 +1,9 @@
 import { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { profilePicInterface } from "../utils/interfaces";
 
 import "../assets/styles/header.css";
 
-interface headerProps {
-    isUserLoggedIn: boolean;
-    setIsUserLoggedIn: (isUserLoggedIn: boolean) => void;
-    numOfNotifications: number;
-    profilePic: profilePicInterface;
-    setProfilePic: (pic: profilePicInterface) => void;
-}
+import { headerProps } from "../utils/interfaces.ts";
 
 export default function Header({
     isUserLoggedIn,

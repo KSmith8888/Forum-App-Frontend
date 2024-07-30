@@ -11,7 +11,19 @@ export default function Moderation() {
     const loader = useLoaderData();
     const reportedMessages = Array.isArray(loader) ? loader : [];
     const reportElements = reportedMessages.map((report: reportInterface) => {
-        return <ModReport key={report._id} report={report} />;
+        return (
+            <ModReport
+                key={report._id}
+                _id={report._id}
+                messageId={report.messageId}
+                messageType={report.messageType}
+                messageContent={report.messageContent}
+                reportedBy={report.reportedBy}
+                relatedPost={report.relatedPost}
+                createdAt={report.createdAt}
+                updatedAt={report.updatedAt}
+            />
+        );
     });
     const userRole = sessionStorage.getItem("role");
     const actionMessage = useActionData();

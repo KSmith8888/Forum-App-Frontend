@@ -1,36 +1,35 @@
-import { profilePicInterface } from "../utils/interfaces";
-
-type picSelectorProps = {
-    handlePicUpdate: ({ name, alt }: { name: string; alt: string }) => void;
-    name: string;
-    alt: string;
-    profilePic: profilePicInterface;
-};
+import { picSelectorBtnProps } from "../utils/interfaces.ts";
 
 export default function PicSelectorButton({
-    handlePicUpdate,
-    name,
-    alt,
-    profilePic,
-}: picSelectorProps) {
+    currentImage,
+    setCurrentImage,
+    setCurrentAlt,
+    imageName,
+    imageAlt,
+    labelText,
+}: picSelectorBtnProps) {
     return (
-        <button
-            type="button"
-            className="profile-image-button"
+        <label
+            className="pfp-image-label"
             onClick={() => {
-                handlePicUpdate({
-                    name: name,
-                    alt: alt,
-                });
+                setCurrentImage(imageName);
+                setCurrentAlt(imageAlt);
             }}
         >
             <img
-                src={`/profile-images/${name}`}
-                alt={alt}
+                src={`/profile-images/${imageName}`}
+                alt={imageAlt}
                 className={`profile-image-grid-item ${
-                    profilePic.name === name ? "profile-image-selected" : ""
+                    currentImage === imageName ? "profile-image-selected" : ""
                 }`}
             />
-        </button>
+            <input
+                type="radio"
+                name="pfp"
+                value={imageName}
+                className="pfp-selector-input"
+            />
+            {labelText}
+        </label>
     );
 }

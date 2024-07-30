@@ -125,3 +125,56 @@ export interface userProfileComment {
     content: string;
     relatedPost: string;
 }
+
+export interface picSelectorProps {
+    isPicModalOpen: boolean;
+    setIsPicModalOpen: (value: boolean) => void;
+}
+
+export interface picSelectorBtnProps {
+    currentImage: string;
+    setCurrentImage: (image: string) => void;
+    setCurrentAlt: (alt: string) => void;
+    imageName: string;
+    imageAlt: string;
+    labelText: string;
+}
+
+export interface profileBioProps {
+    isBioModalOpen: boolean;
+    setIsBioModalOpen: (value: boolean) => void;
+    actionMessage: unknown;
+}
+
+export interface commentFormProps {
+    commentErrorMsg: string | null;
+    type: "post" | "comment";
+    postId: string;
+    commentId?: string;
+}
+
+export interface profileDeleteProps {
+    isDeleteModalOpen: boolean;
+    setIsDeleteModalOpen: (value: boolean) => void;
+}
+
+export interface headerProps {
+    isUserLoggedIn: boolean;
+    setIsUserLoggedIn: (isUserLoggedIn: boolean) => void;
+    numOfNotifications: number;
+    profilePic: profilePicInterface;
+    setProfilePic: (pic: profilePicInterface) => void;
+}
+
+export interface postHistoryProps {
+    key: string;
+    timestamp: string;
+    title: string;
+    content: string;
+}
+
+export interface updatePasswordProps {
+    isPassModalOpen: boolean;
+    setIsPassModalOpen: (value: boolean) => void;
+    actionMessage: unknown;
+}
