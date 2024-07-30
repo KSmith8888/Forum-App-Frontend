@@ -26,8 +26,8 @@ export default async function moderationLoader() {
     );
     if (!res.ok) {
         const errorData = await res.json();
-        if (errorData && errorData.msg) {
-            throw new Error(errorData.msg);
+        if (errorData && errorData.message) {
+            throw new Error(errorData.message);
         } else {
             throw new Error(`Response error: ${res.status}`);
         }
