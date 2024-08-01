@@ -24,7 +24,7 @@ export default async function postAction({ request }: loaderActionInterface) {
             import.meta.env.VITE_BACKEND_URL
         }/api/v1/comments/create`;
         let dataMethod = "POST";
-        let dataBody = null;
+        let dataBody = {};
         if (
             content &&
             typeof content === "string" &&
@@ -56,37 +56,37 @@ export default async function postAction({ request }: loaderActionInterface) {
             dataUrl = `${
                 import.meta.env.VITE_BACKEND_URL
             }/api/v1/moderation/report`;
-            dataBody = JSON.stringify({
+            dataBody = {
                 reportId,
                 reportType,
                 reportRelated,
                 reportContent,
-            });
+            };
         } else if (savePostId && savePostTitle) {
             dataMethod = "PATCH";
             dataUrl = `${
                 import.meta.env.VITE_BACKEND_URL
             }/api/v1/posts/save/${savePostId}`;
-            dataBody = JSON.stringify({ postTitle: savePostTitle });
+            dataBody = { postTitle: savePostTitle };
         } else if (likePostId) {
             dataUrl = `${
                 import.meta.env.VITE_BACKEND_URL
             }/api/v1/posts/likes/${likePostId}`;
             dataMethod = "PATCH";
-            dataBody = JSON.stringify({ status: "Update like count" });
+            dataBody = { status: "Update like count" };
         } else if (likeCommentId) {
             dataUrl = `${
                 import.meta.env.VITE_BACKEND_URL
             }/api/v1/comments/likes/${likeCommentId}`;
             dataMethod = "PATCH";
-            dataBody = JSON.stringify({ status: "Update like count" });
+            dataBody = { status: "Update like count" };
         } else {
             throw new Error("Proper data not provided");
         }
 
         const res = await fetch(dataUrl, {
             method: dataMethod,
-            body: dataBody,
+            body: JSON.stringify(dataBody),
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,

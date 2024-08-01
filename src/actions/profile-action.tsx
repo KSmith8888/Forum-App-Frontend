@@ -22,7 +22,7 @@ export default async function profileAction({
         const pfpAlt = formData.get("pfp-alt");
         let reqMethod = "DELETE";
         let reqUrl = `${import.meta.env.VITE_BACKEND_URL}/api/v1/`;
-        let reqBody = null;
+        let reqBody = {};
         if (!token || !userId) {
             throw new Error("You must log in before performing that action");
         }
@@ -73,15 +73,26 @@ export default async function profileAction({
                 reqNewPass: newPass,
             };
         }
-        const res = await fetch(reqUrl, {
-            method: reqMethod,
-            body: JSON.stringify(reqBody),
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`,
-                "user_id": userId,
-            },
-        });
+        const fetchReq =
+            reqMethod === "POST" || reqMethod === "PATCH"
+                ? new Request(reqUrl, {
+                      method: reqMethod,
+                      headers: {
+                          "Content-Type": "application/json",
+                          "Authorization": `Bearer ${token}`,
+                          "user_id": userId,
+                      },
+                      body: JSON.stringify(reqBody),
+                  })
+                : new Request(reqUrl, {
+                      method: reqMethod,
+                      headers: {
+                          "Content-Type": "application/json",
+                          "Authorization": `Bearer ${token}`,
+                          "user_id": userId,
+                      },
+                  });
+        const res = await fetch(fetchReq);
         if (!res.ok) {
             const errorData = await res.json();
             if (errorData && errorData.message) {

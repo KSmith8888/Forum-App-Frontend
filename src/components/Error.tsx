@@ -9,8 +9,8 @@ export default function ErrorElement() {
 
     return (
         <div className="error-message-container">
-            <h2 className="error-heading">{message}</h2>
-            <p className="error-message">Sorry, an error has occurred</p>
+            <h2 className="error-heading">Sorry, an error has occurred</h2>
+            <p className="error-message">{message}</p>
         </div>
     );
 }
