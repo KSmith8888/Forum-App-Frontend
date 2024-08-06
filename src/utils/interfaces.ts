@@ -143,7 +143,6 @@ export interface picSelectorBtnProps {
 export interface profileBioProps {
     isBioModalOpen: boolean;
     setIsBioModalOpen: (value: boolean) => void;
-    actionMessage: unknown;
 }
 
 export interface commentFormProps {

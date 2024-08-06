@@ -1,0 +1,40 @@
+body {
+    margin: 0;
+    background-color: rgb(215, 231, 236);
+}
+
+#loading-area {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#loading-spinner {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    border-left: solid rgb(19, 26, 128) 10px;
+    border-right: solid rgb(19, 26, 128) 10px;
+    border-top: solid transparent 10px;
+    border-bottom: solid transparent 10px;
+    animation-name: rotate-loader;
+    animation-duration: 1.3s;
+    animation-iteration-count: infinite;
+}
+
+#loading-text {
+    font-size: 1.2rem;
+    color: rgb(19, 26, 128);
+}
+
+@keyframes rotate-loader {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

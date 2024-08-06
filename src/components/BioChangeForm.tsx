@@ -6,7 +6,6 @@ import { profileBioProps } from "../utils/interfaces.ts";
 export default function BioChangeForm({
     isBioModalOpen,
     setIsBioModalOpen,
-    actionMessage,
 }: profileBioProps) {
     const bioModal = useRef<HTMLDialogElement>(null);
     const bioForm = useRef<HTMLFormElement>(null);
@@ -17,21 +16,14 @@ export default function BioChangeForm({
         setIsBioModalOpen(false);
     }
     useEffect(() => {
-        if (isBioModalOpen && bioModal.current) {
-            bioModal.current.showModal();
+        if (bioModal.current && bioForm.current) {
+            if (isBioModalOpen) {
+                bioModal.current.showModal();
+            } else {
+                bioModal.current.close();
+            }
         }
     }, [isBioModalOpen]);
-    useEffect(() => {
-        if (
-            bioForm.current &&
-            bioModal.current &&
-            typeof actionMessage === "string" &&
-            actionMessage.startsWith("Bio")
-        ) {
-            bioForm.current.reset();
-            bioModal.current.close();
-        }
-    }, [actionMessage]);
     return (
         <dialog className="profile-bio-modal" ref={bioModal}>
             <button

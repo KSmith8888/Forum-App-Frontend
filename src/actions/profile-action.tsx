@@ -107,6 +107,8 @@ export default async function profileAction({
         } else if (typeof data === "object") {
             if ("newProfilePicName" in data && "newProfilePicAlt" in data) {
                 return data;
+            } else if ("bioUpdatedAt" in data) {
+                return data;
             } else if ("message" in data) {
                 return data.message;
             }

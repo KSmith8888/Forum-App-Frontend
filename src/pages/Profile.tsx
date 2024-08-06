@@ -66,18 +66,18 @@ export default function Profile() {
     const [modalMessage, setModalMessage] = useState("");
     const { profilePic, setProfilePic } = useOutletContext<outletInterface>();
     const [isPicModalOpen, setIsPicModalOpen] = useState(false);
+    const [isBioModalOpen, setIsBioModalOpen] = useState(false);
+    const [isPassModalOpen, setIsPassModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     useEffect(() => {
         if (typeof actionMessage === "string" && messageModal.current) {
             const splitMessage = actionMessage.split("-Target ID-");
             setModalMessage(splitMessage[0]);
             messageModal.current.showModal();
-        } else if (
-            actionMessage &&
-            typeof actionMessage === "object" &&
-            "newProfilePicName" in actionMessage &&
-            "newProfilePicAlt" in actionMessage
-        ) {
+        } else if (actionMessage && typeof actionMessage === "object") {
             if (
+                "newProfilePicName" in actionMessage &&
+                "newProfilePicAlt" in actionMessage &&
                 typeof actionMessage.newProfilePicName === "string" &&
                 typeof actionMessage.newProfilePicAlt === "string"
             ) {
@@ -86,12 +86,11 @@ export default function Profile() {
                     name: actionMessage.newProfilePicName,
                     alt: actionMessage.newProfilePicAlt,
                 });
+            } else if ("bioUpdatedAt" in actionMessage) {
+                setIsBioModalOpen(false);
             }
         }
     }, [actionMessage]);
-    const [isBioModalOpen, setIsBioModalOpen] = useState(false);
-    const [isPassModalOpen, setIsPassModalOpen] = useState(false);
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const postElements = postsData.map((post: userProfilePost) => {
         return <ProfilePost key={post.id} id={post.id} title={post.title} />;
     });
@@ -180,7 +179,6 @@ export default function Profile() {
                             <BioChangeForm
                                 isBioModalOpen={isBioModalOpen}
                                 setIsBioModalOpen={setIsBioModalOpen}
-                                actionMessage={actionMessage}
                             />
                         </div>
                         <div className="update-password-container">
