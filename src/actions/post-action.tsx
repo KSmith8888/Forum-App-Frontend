@@ -38,12 +38,12 @@ export default async function postAction({ request }: loaderActionInterface) {
                     "Please do not include special characters in your message"
                 );
             }
-            dataBody = JSON.stringify({
+            dataBody = {
                 content,
                 postId,
                 commentId,
                 replyType,
-            });
+            };
         } else if (
             typeof reportId === "string" &&
             typeof reportRelated === "string" &&
