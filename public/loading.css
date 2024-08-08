@@ -1,5 +1,7 @@
 body {
     margin: 0;
+    font-family: "Segoe UI", "Helvetica Neue", sans-serif;
+    color: black;
     background-color: rgb(215, 231, 236);
 }
 

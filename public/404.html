@@ -32,15 +32,18 @@
             type="image/png"
             sizes="180x180"
         />
+        <link rel="stylesheet" href="/loading.css" />
         <script src="/redirect.js"></script>
         <title>4em</title>
     </head>
     <body>
-        <p>Redirecting to homepage...</p>
-        <p>
-            If the page does not redirect in a few seconds, follow this link
-            back to the
-            <a href="https://4em.pages.dev/">homepage</a>
-        </p>
+        <div id="loading-area">
+            <div id="loading-spinner"></div>
+            <p id="loading-text">
+                If the page does not redirect in a few seconds, follow the link
+                below:
+            </p>
+            <a href="https://4em.pages.dev/">https://4em.pages.dev/</a>
+        </div>
     </body>
 </html>
