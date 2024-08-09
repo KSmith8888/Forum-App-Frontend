@@ -6,6 +6,7 @@
     justify-content: center;
     align-items: center;
     padding: 1em;
+    border-top: 1px solid #575454;
 }
 
 .footer-text {

@@ -26,7 +26,7 @@ img {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
 }
 
 .main-section {
@@ -36,7 +36,6 @@ img {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    border-bottom: 1px solid #575454;
 }
 
 .button,
