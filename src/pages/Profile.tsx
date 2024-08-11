@@ -4,6 +4,7 @@ import {
     useLoaderData,
     useActionData,
     useOutletContext,
+    Form,
 } from "react-router-dom";
 
 import BioChangeForm from "../components/BioChangeForm";
@@ -32,6 +33,7 @@ export default function Profile() {
     let notificationsData = [];
     let profileBio = "";
     let pswdLastUpdated = "";
+    let replySettingText = "";
     if (loaderData && typeof loaderData === "object") {
         if ("posts" in loaderData && Array.isArray(loaderData.posts)) {
             postsData = loaderData.posts;
@@ -59,6 +61,12 @@ export default function Profile() {
             typeof loaderData.pswdLastUpdated === "string"
         ) {
             pswdLastUpdated = loaderData.pswdLastUpdated;
+        }
+        if (
+            "replySetting" in loaderData &&
+            typeof loaderData.replySetting === "boolean"
+        ) {
+            replySettingText = loaderData.replySetting ? "Turn Off" : "Turn On";
         }
     }
     const messageModal = useRef<HTMLDialogElement>(null);
@@ -88,6 +96,13 @@ export default function Profile() {
                 });
             } else if ("bioUpdatedAt" in actionMessage) {
                 setIsBioModalOpen(false);
+            } else if (
+                "message" in actionMessage &&
+                typeof actionMessage.message === "string" &&
+                messageModal.current
+            ) {
+                setModalMessage(actionMessage.message);
+                messageModal.current.showModal();
             }
         }
     }, [actionMessage]);
@@ -204,6 +219,28 @@ export default function Profile() {
                                 setIsPassModalOpen={setIsPassModalOpen}
                                 actionMessage={actionMessage}
                             />
+                        </div>
+                        <div className="notification-setting-container">
+                            <h4 className="notification-setting-heading">
+                                Notifications:
+                            </h4>
+                            <p className="reply-setting-text">
+                                Get notifications when a user replies to your
+                                post or comment
+                            </p>
+                            <Form
+                                method="POST"
+                                className="notification-setting-form"
+                            >
+                                <input
+                                    type="hidden"
+                                    name="notification-setting"
+                                    value="update"
+                                />
+                                <button type="submit" className="button">
+                                    {replySettingText}
+                                </button>
+                            </Form>
                         </div>
                         <div className="delete-account-container">
                             <h3 className="delete-account-heading">

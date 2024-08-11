@@ -20,6 +20,7 @@ export default async function profileAction({
         const deleteAccount = formData.get("delete-account");
         const pfpImage = formData.get("pfp");
         const pfpAlt = formData.get("pfp-alt");
+        const replySetting = formData.get("notification-setting");
         let reqMethod = "DELETE";
         let reqUrl = `${import.meta.env.VITE_BACKEND_URL}/api/v1/`;
         let reqBody = {};
@@ -72,6 +73,12 @@ export default async function profileAction({
                 reqCurrentPass: currentPass,
                 reqNewPass: newPass,
             };
+        } else if (replySetting) {
+            reqUrl = `${reqUrl}users/profile/${userId}/notifications`;
+            reqMethod = "PATCH";
+            reqBody = {
+                status: "Update notification setting request",
+            };
         }
         const fetchReq =
             reqMethod === "POST" || reqMethod === "PATCH"
@@ -108,6 +115,8 @@ export default async function profileAction({
             if ("newProfilePicName" in data && "newProfilePicAlt" in data) {
                 return data;
             } else if ("bioUpdatedAt" in data) {
+                return data;
+            } else if ("replySetting" in data) {
                 return data;
             } else if ("message" in data) {
                 return data.message;
