@@ -59,6 +59,13 @@ export interface postInterface {
     profileImageAlt: string;
 }
 
+export interface homePostInfo {
+    _id: string;
+    title: string;
+    postType: string;
+    content: string;
+}
+
 export interface commentInterface {
     _id: string;
     content: string;

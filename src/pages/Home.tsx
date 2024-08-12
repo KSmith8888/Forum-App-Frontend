@@ -6,7 +6,7 @@ import {
     useOutletContext,
 } from "react-router-dom";
 
-import { outletInterface, postInterface } from "../utils/interfaces.ts";
+import { outletInterface, homePostInfo } from "../utils/interfaces.ts";
 
 import "../assets/styles/home.css";
 import textIconImg from "../assets/images/text-post-icon.png";
@@ -30,8 +30,8 @@ export default function Home() {
 
     const loaderData = useLoaderData();
 
-    function createPostElements(postEls: Array<postInterface>) {
-        return postEls.map((post: postInterface) => {
+    function createPostElements(postEls: Array<homePostInfo>) {
+        return postEls.map((post: homePostInfo) => {
             const startingChars = post.content.substring(0, 50);
             return (
                 <div key={post._id} className="trending-posts-link-container">
@@ -93,8 +93,8 @@ export default function Home() {
         });
     }
 
-    let popularPosts: Array<postInterface> = [];
-    let newPosts: Array<postInterface> = [];
+    let popularPosts: Array<homePostInfo> = [];
+    let newPosts: Array<homePostInfo> = [];
     if (loaderData && typeof loaderData === "object") {
         if ("popular" in loaderData && Array.isArray(loaderData.popular)) {
             popularPosts = [...loaderData.popular];

@@ -5,9 +5,12 @@ body {
     background-color: rgb(215, 231, 236);
 }
 
-#loading-area {
+.loading-area {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
