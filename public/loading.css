@@ -5,7 +5,7 @@ body {
     background-color: rgb(215, 231, 236);
 }
 
-.loading-area {
+#loading-area {
     position: fixed;
     top: 0;
     left: 0;
