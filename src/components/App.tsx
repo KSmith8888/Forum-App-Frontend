@@ -9,6 +9,7 @@ import MainLayout from "./MainLayout.tsx";
 import ErrorElement from "./Error.tsx";
 import Home from "../pages/Home.tsx";
 import homeLoader from "../loaders/home-loader.tsx";
+import Attribution from "../pages/Attribution.tsx";
 import Search from "../pages/Search.tsx";
 import searchAction from "../actions/search-action.tsx";
 import resultsLoader from "../loaders/search-loader.tsx";
@@ -54,6 +55,11 @@ const router = createBrowserRouter(
                 element={<Search />}
                 loader={resultsLoader}
                 action={searchAction}
+                errorElement={<ErrorElement />}
+            />
+            <Route
+                path="/attribution"
+                element={<Attribution />}
                 errorElement={<ErrorElement />}
             />
             <Route path="/posts">

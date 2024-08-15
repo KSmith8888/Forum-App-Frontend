@@ -12,8 +12,9 @@ export default function Footer() {
                 </Link>
             </p>
             <p className="footer-text">
-                This service stores user account information in the browser for
-                necessary functionality and to improve user experience
+                See the <Link to="/attribution">Attribution Page</Link> for
+                information about the tools and assets used in the development
+                of this project
             </p>
         </footer>
     );
