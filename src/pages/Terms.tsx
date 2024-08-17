@@ -28,6 +28,10 @@ export default function Terms() {
                     deleting your account and all of the content associated with
                     it.
                 </li>
+                <li className="terms-list-item">
+                    If you provide any content to this service, you grant it a
+                    nonexclusive, royalty-free right to use that content
+                </li>
             </ul>
         </div>
     );

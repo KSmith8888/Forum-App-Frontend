@@ -8,6 +8,7 @@ export default function CreatePost() {
     const [typeOfPost, setTypeOfPost] = useState("Text");
     const [searchParams] = useSearchParams();
     const topicParam = searchParams.get("topic");
+    const userRole = sessionStorage.getItem("role");
 
     return (
         <Form
@@ -87,6 +88,16 @@ export default function CreatePost() {
                 name="keywords"
                 maxLength={60}
             />
+            {userRole === "admin" && (
+                <div className="pinned-input-container">
+                    <label htmlFor="pinned-input">Pinned:</label>
+                    <input
+                        id="pinned-input"
+                        type="checkbox"
+                        name="pinned-post"
+                    />
+                </div>
+            )}
             <button type="submit" className="button post-button">
                 Post
             </button>

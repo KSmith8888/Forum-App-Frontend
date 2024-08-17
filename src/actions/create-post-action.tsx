@@ -11,6 +11,8 @@ export default async function createPostAction({
         const postType = postData.get("post-type");
         const content = postData.get("content");
         const keywords = postData.get("keywords");
+        const pinned = postData.get("pinned-post");
+        const isPinned = pinned ? "pinned" : "";
         if (
             typeof topic !== "string" ||
             typeof title !== "string" ||
@@ -45,6 +47,7 @@ export default async function createPostAction({
                     postType,
                     content,
                     keywords,
+                    isPinned,
                 }),
                 headers: {
                     "Content-Type": "application/json",
