@@ -12,6 +12,7 @@ import {
 import Comment from "../components/Comment";
 import CommentForm from "../components/CommentForm.tsx";
 import PostHistory from "../components/PostHistory.tsx";
+import InnerContent from "../components/InnerContent.tsx";
 import {
     outletInterface,
     commentInterface,
@@ -211,9 +212,10 @@ export default function Post() {
                                     </a>
                                 </p>
                             ) : (
-                                <p className="text-post-text">
-                                    {` ${postData.content}`}
-                                </p>
+                                <InnerContent
+                                    content={postData.content}
+                                    type="Post"
+                                />
                             )}
                         </div>
                     </div>

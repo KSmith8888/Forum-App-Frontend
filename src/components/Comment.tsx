@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, Form } from "react-router-dom";
 
 import CommentForm from "./CommentForm.tsx";
+import InnerContent from "./InnerContent.tsx";
 import { commentHistoryInterface, commentProps } from "../utils/interfaces";
 import { createDateString } from "../utils/create-date-string";
 
@@ -30,34 +31,7 @@ export default function Comment({
         useState(didUserAlreadyLike);
     const [showHistory, setShowHistory] = useState(false);
     const [showReplyForm, setShowReplyForm] = useState(false);
-    const [content, setContent] = useState(
-        <p className="comment-text">{`    ${commentData.content}`}</p>
-    );
-    useEffect(() => {
-        if (commentData.content.includes("https://")) {
-            const contentWords = commentData.content.split(" ");
-            const createContent = (words: Array<string>) => {
-                return (
-                    <p className="comment-text">
-                        {words.map((word) => {
-                            if (word.startsWith("https://")) {
-                                return (
-                                    <a
-                                        href={word}
-                                        className="content-link"
-                                    >{`${word} `}</a>
-                                );
-                            } else {
-                                return <>{`${word} `}</>;
-                            }
-                        })}
-                    </p>
-                );
-            };
-            const newContent = createContent(contentWords);
-            setContent(newContent);
-        }
-    }, []);
+
     useEffect(() => {
         if (showReplyForm && Array.isArray(actionData)) {
             setShowReplyForm(false);
@@ -102,7 +76,10 @@ export default function Comment({
                 className={`comment ${commentData.commentReply ? "reply" : ""}`}
             >
                 <div className="column-content">
-                    {content}
+                    <InnerContent
+                        content={commentData.content}
+                        type="Comment"
+                    />
                     <div className="comment-likes-container">
                         <p className="comment-likes">Likes: {commentLikes}</p>
                         {isUserLoggedIn && (

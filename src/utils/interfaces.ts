@@ -184,3 +184,8 @@ export interface updatePasswordProps {
     setIsPassModalOpen: (value: boolean) => void;
     actionMessage: unknown;
 }
+
+export interface innerContentProps {
+    content: string;
+    type: "Post" | "Comment";
+}
