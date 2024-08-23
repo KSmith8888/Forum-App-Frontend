@@ -4,7 +4,11 @@ export default function ErrorElement() {
     const error = useRouteError();
     let message = "Please try again later";
     if (error instanceof Error) {
-        message = error.message;
+        if (error.message === "Failed to fetch") {
+            message = "Network connection error, please try again later";
+        } else {
+            message = error.message;
+        }
     }
 
     return (

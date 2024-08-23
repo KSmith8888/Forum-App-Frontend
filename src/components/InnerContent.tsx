@@ -1,38 +1,51 @@
+import { Fragment } from "react/jsx-runtime";
 import { innerContentProps } from "../utils/interfaces.ts";
 
 export default function InnerContent({ content, type }: innerContentProps) {
     const contentClass = type === "Post" ? "text-post-text" : "comment-text";
     function createSubstrings(content: string) {
         const contentWords = content.split(" ");
-        const subStrings: string[][] = [];
+        const subStrings: string[] = [];
         let combinedString = "";
         contentWords.forEach((word) => {
             if (word.startsWith("https://")) {
-                subStrings.push([combinedString]);
+                subStrings.push(combinedString);
                 combinedString = "";
-                subStrings.push([word]);
+                subStrings.push(word);
             } else {
-                combinedString += `${word} `;
+                combinedString += word + " ";
             }
         });
         if (combinedString.length > 0) {
-            subStrings.push([combinedString]);
+            subStrings.push(combinedString);
         }
         return subStrings;
     }
-    function createContent(words: string[][]) {
+    function createContent(words: string[]) {
         return (
             <p className={contentClass}>
-                {words.map((word) => {
-                    if (word[0].startsWith("https://")) {
+                {words.map((word, index) => {
+                    if (word.startsWith("https://")) {
+                        let validUrl = "#";
+                        try {
+                            const testUrl = new URL(word);
+                            validUrl = testUrl.href;
+                        } catch (error) {
+                            if (error instanceof Error) {
+                                console.error(error.message);
+                            }
+                        }
                         return (
                             <a
-                                href={word[0]}
+                                href={validUrl}
                                 className="content-link"
-                            >{`${word[0]} `}</a>
+                                key={index}
+                            >
+                                {validUrl + " "}
+                            </a>
                         );
                     } else {
-                        return `${word[0]} `;
+                        return <Fragment key={index}>{word + " "}</Fragment>;
                     }
                 })}
             </p>

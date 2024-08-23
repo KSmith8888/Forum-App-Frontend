@@ -106,19 +106,25 @@ export default function Profile() {
             }
         }
     }, [actionMessage]);
-    const postElements = postsData.map((post: userProfilePost) => {
-        return <ProfilePost key={post.id} id={post.id} title={post.title} />;
-    });
-    const commentElements = commentsData.map((comment: userProfileComment) => {
-        return (
-            <ProfileComment
-                key={comment._id}
-                _id={comment._id}
-                content={comment.content}
-                relatedPost={comment.relatedPost}
-            />
-        );
-    });
+    const postElements = postsData
+        .map((post: userProfilePost) => {
+            return (
+                <ProfilePost key={post.id} id={post.id} title={post.title} />
+            );
+        })
+        .slice(0, 5);
+    const commentElements = commentsData
+        .map((comment: userProfileComment) => {
+            return (
+                <ProfileComment
+                    key={comment._id}
+                    _id={comment._id}
+                    content={comment.content}
+                    relatedPost={comment.relatedPost}
+                />
+            );
+        })
+        .slice(0, 5);
     const savedPostsElements = savedPostsData.map((savedPost) => {
         return (
             <div key={savedPost.id} className="saved-post-link-container">
