@@ -24,6 +24,9 @@ export default async function createPostAction({
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
         const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!-]+$", "m");
+        if (!token || !userId) {
+            throw new Error("You must log in before creating a post");
+        }
         if (
             !reg.test(title) ||
             !reg.test(content) ||
@@ -34,8 +37,10 @@ export default async function createPostAction({
                 "Please do not include special characters in your message"
             );
         }
-        if (!token || !userId) {
-            throw new Error("You must log in before creating a post");
+        if (postType === "Link" && content.includes(" ")) {
+            throw new Error(
+                "Please do not include special characters in your message"
+            );
         }
         const res = await fetch(
             `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/create`,

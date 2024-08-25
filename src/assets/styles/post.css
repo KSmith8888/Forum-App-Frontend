@@ -279,6 +279,10 @@
     align-items: center;
 }
 
+.show-more {
+    align-self: center;
+}
+
 @media (max-width: 650px) {
     .link-post-image {
         margin-top: 0.5em;

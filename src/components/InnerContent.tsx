@@ -26,22 +26,16 @@ export default function InnerContent({ content, type }: innerContentProps) {
             <p className={contentClass}>
                 {words.map((word, index) => {
                     if (word.startsWith("https://")) {
-                        let validUrl = "#";
-                        try {
-                            const testUrl = new URL(word);
-                            validUrl = testUrl.href;
-                        } catch (error) {
-                            if (error instanceof Error) {
-                                console.error(error.message);
-                            }
-                        }
+                        const isValid = URL.canParse(word);
+                        const validHref = isValid ? word : "#";
+                        const linkText = isValid ? word + " " : "Invalid";
                         return (
                             <a
-                                href={validUrl}
+                                href={validHref}
                                 className="content-link"
                                 key={index}
                             >
-                                {validUrl + " "}
+                                {linkText}
                             </a>
                         );
                     } else {

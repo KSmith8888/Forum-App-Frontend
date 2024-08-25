@@ -106,15 +106,22 @@ export default function Profile() {
             }
         }
     }, [actionMessage]);
-    const postElements = postsData
-        .map((post: userProfilePost) => {
-            return (
-                <ProfilePost key={post.id} id={post.id} title={post.title} />
-            );
-        })
-        .slice(0, 5);
-    const commentElements = commentsData
-        .map((comment: userProfileComment) => {
+    const [showRemainingPosts, setShowRemainingPosts] = useState(false);
+    const [showRemainingComments, setShowRemainingComments] = useState(false);
+    const firstFivePosts =
+        postsData.length > 0 ? postsData.reverse().slice(0, 5) : [];
+    const firstFivePostEls = firstFivePosts.map((post: userProfilePost) => {
+        return <ProfilePost key={post.id} id={post.id} title={post.title} />;
+    });
+    const remainingPosts =
+        postsData.length > 5 ? postsData.reverse().slice(5) : [];
+    const remainingPostEls = remainingPosts.map((post: userProfilePost) => {
+        return <ProfilePost key={post.id} id={post.id} title={post.title} />;
+    });
+    const firstFiveComments =
+        commentsData.length > 0 ? commentsData.reverse().slice(0, 5) : [];
+    const firstFiveCommentEls = firstFiveComments.map(
+        (comment: userProfileComment) => {
             return (
                 <ProfileComment
                     key={comment._id}
@@ -123,8 +130,22 @@ export default function Profile() {
                     relatedPost={comment.relatedPost}
                 />
             );
-        })
-        .slice(0, 5);
+        }
+    );
+    const remainingComments =
+        commentsData.length > 5 ? commentsData.reverse().slice(5) : [];
+    const remainingCommentEls = remainingComments.map(
+        (comment: userProfileComment) => {
+            return (
+                <ProfileComment
+                    key={comment._id}
+                    _id={comment._id}
+                    content={comment.content}
+                    relatedPost={comment.relatedPost}
+                />
+            );
+        }
+    );
     const savedPostsElements = savedPostsData.map((savedPost) => {
         return (
             <div key={savedPost.id} className="saved-post-link-container">
@@ -298,9 +319,22 @@ export default function Profile() {
                 <section className="profile-posts-section">
                     <h3 className="your-posts-heading">Your Posts:</h3>
 
-                    {postElements.length > 0 ? (
+                    {firstFivePostEls.length > 0 ? (
                         <div className="user-posts-container">
-                            {postElements}
+                            {firstFivePostEls}
+                            {showRemainingPosts
+                                ? remainingPostEls
+                                : remainingPostEls.length > 0 && (
+                                      <button
+                                          className="button"
+                                          type="button"
+                                          onClick={() => {
+                                              setShowRemainingPosts(true);
+                                          }}
+                                      >
+                                          Show more
+                                      </button>
+                                  )}
                         </div>
                     ) : (
                         <h4>You have not created any posts yet</h4>
@@ -308,9 +342,22 @@ export default function Profile() {
                 </section>
                 <section className="profile-comments-section">
                     <h3 className="your-comments-heading">Your Comments:</h3>
-                    {commentElements.length > 0 ? (
+                    {firstFiveCommentEls.length > 0 ? (
                         <div className="user-comments-container">
-                            {commentElements}
+                            {firstFiveCommentEls}
+                            {showRemainingComments
+                                ? remainingCommentEls
+                                : remainingCommentEls.length > 0 && (
+                                      <button
+                                          className="button"
+                                          type="button"
+                                          onClick={() => {
+                                              setShowRemainingComments(true);
+                                          }}
+                                      >
+                                          Show more
+                                      </button>
+                                  )}
                         </div>
                     ) : (
                         <h4>You have not created any comments yet</h4>

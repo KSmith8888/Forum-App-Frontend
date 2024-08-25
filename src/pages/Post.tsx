@@ -406,7 +406,7 @@ export default function Post() {
                 : remainingCommentElements.length > 0 && (
                       <button
                           type="button"
-                          className="button"
+                          className="button show-more"
                           onClick={() => {
                               setShowRemainingComments(true);
                           }}
