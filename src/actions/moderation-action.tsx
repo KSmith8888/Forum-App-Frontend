@@ -25,15 +25,13 @@ export default async function moderationAction({
     let fetchMethod = "GET";
     let fetchBody = {};
     let returnMessage = null;
-    if (warningUser && typeof warningUser === "string") {
+    if (typeof warningUser === "string") {
         fetchUrl = `${
             import.meta.env.VITE_BACKEND_URL
         }/api/v1/moderation/notifications/${warningUser}`;
     }
     if (
-        notificationUser &&
         typeof notificationUser === "string" &&
-        notificationMessage &&
         typeof notificationMessage === "string"
     ) {
         fetchUrl = `${
@@ -48,12 +46,7 @@ export default async function moderationAction({
             isWarning,
         };
     }
-    if (
-        banUser &&
-        typeof banUser === "string" &&
-        banDate &&
-        typeof banDate === "string"
-    ) {
+    if (typeof banUser === "string" && typeof banDate === "string") {
         fetchUrl = `${
             import.meta.env.VITE_BACKEND_URL
         }/api/v1/moderation/ban/${banUser}`;
@@ -65,28 +58,26 @@ export default async function moderationAction({
             banTimestamp,
         };
     }
-    if (deleteAccountUsername && typeof deleteAccountUsername === "string") {
+    if (typeof deleteAccountUsername === "string") {
         fetchUrl = `${
             import.meta.env.VITE_BACKEND_URL
         }/api/v1/moderation/profile/${deleteAccountUsername}`;
         fetchMethod = "DELETE";
     }
-    if (deletePostId && typeof deletePostId === "string") {
+    if (typeof deletePostId === "string") {
         fetchUrl = `${
             import.meta.env.VITE_BACKEND_URL
         }/api/v1/moderation/posts/${deletePostId}`;
         fetchMethod = "DELETE";
     }
-    if (deleteCommentId && typeof deleteCommentId === "string") {
+    if (typeof deleteCommentId === "string") {
         fetchUrl = `${
             import.meta.env.VITE_BACKEND_URL
         }/api/v1/moderation/comments/${deleteCommentId}`;
         fetchMethod = "DELETE";
     }
     if (
-        updateRoleUsername &&
         typeof updateRoleUsername === "string" &&
-        newAccountRole &&
         typeof newAccountRole === "string"
     ) {
         fetchUrl = `${
@@ -95,7 +86,7 @@ export default async function moderationAction({
         fetchMethod = "PATCH";
         fetchBody = { newRole: newAccountRole };
     }
-    if (deleteReportId && typeof deleteReportId === "string") {
+    if (typeof deleteReportId === "string") {
         fetchUrl = `${
             import.meta.env.VITE_BACKEND_URL
         }/api/v1/moderation/report/${deleteReportId}`;

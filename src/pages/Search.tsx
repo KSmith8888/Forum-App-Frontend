@@ -93,6 +93,7 @@ export default function Search() {
                     type="search"
                     name="search"
                     className="input"
+                    pattern="[a-zA-Z0-9 _]+"
                     maxLength={30}
                     required
                 />

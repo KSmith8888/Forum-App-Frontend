@@ -109,43 +109,67 @@ export default function Profile() {
     const [showRemainingPosts, setShowRemainingPosts] = useState(false);
     const [showRemainingComments, setShowRemainingComments] = useState(false);
     const firstFivePosts =
-        postsData.length > 0 ? postsData.reverse().slice(0, 5) : [];
-    const firstFivePostEls = firstFivePosts.map((post: userProfilePost) => {
-        return <ProfilePost key={post.id} id={post.id} title={post.title} />;
-    });
+        postsData.length > 0
+            ? postsData
+                  .reverse()
+                  .slice(0, 5)
+                  .map((post: userProfilePost) => {
+                      return (
+                          <ProfilePost
+                              key={post.id}
+                              id={post.id}
+                              title={post.title}
+                          />
+                      );
+                  })
+            : [];
     const remainingPosts =
-        postsData.length > 5 ? postsData.reverse().slice(5) : [];
-    const remainingPostEls = remainingPosts.map((post: userProfilePost) => {
-        return <ProfilePost key={post.id} id={post.id} title={post.title} />;
-    });
+        postsData.length > 5
+            ? postsData
+                  .reverse()
+                  .slice(5)
+                  .map((post: userProfilePost) => {
+                      return (
+                          <ProfilePost
+                              key={post.id}
+                              id={post.id}
+                              title={post.title}
+                          />
+                      );
+                  })
+            : [];
     const firstFiveComments =
-        commentsData.length > 0 ? commentsData.reverse().slice(0, 5) : [];
-    const firstFiveCommentEls = firstFiveComments.map(
-        (comment: userProfileComment) => {
-            return (
-                <ProfileComment
-                    key={comment._id}
-                    _id={comment._id}
-                    content={comment.content}
-                    relatedPost={comment.relatedPost}
-                />
-            );
-        }
-    );
+        commentsData.length > 0
+            ? commentsData
+                  .reverse()
+                  .slice(0, 5)
+                  .map((comment: userProfileComment) => {
+                      return (
+                          <ProfileComment
+                              key={comment._id}
+                              _id={comment._id}
+                              content={comment.content}
+                              relatedPost={comment.relatedPost}
+                          />
+                      );
+                  })
+            : [];
     const remainingComments =
-        commentsData.length > 5 ? commentsData.reverse().slice(5) : [];
-    const remainingCommentEls = remainingComments.map(
-        (comment: userProfileComment) => {
-            return (
-                <ProfileComment
-                    key={comment._id}
-                    _id={comment._id}
-                    content={comment.content}
-                    relatedPost={comment.relatedPost}
-                />
-            );
-        }
-    );
+        commentsData.length > 5
+            ? commentsData
+                  .reverse()
+                  .slice(5)
+                  .map((comment: userProfileComment) => {
+                      return (
+                          <ProfileComment
+                              key={comment._id}
+                              _id={comment._id}
+                              content={comment.content}
+                              relatedPost={comment.relatedPost}
+                          />
+                      );
+                  })
+            : [];
     const savedPostsElements = savedPostsData.map((savedPost) => {
         return (
             <div key={savedPost.id} className="saved-post-link-container">
@@ -319,12 +343,12 @@ export default function Profile() {
                 <section className="profile-posts-section">
                     <h3 className="your-posts-heading">Your Posts:</h3>
 
-                    {firstFivePostEls.length > 0 ? (
+                    {firstFivePosts.length > 0 ? (
                         <div className="user-posts-container">
-                            {firstFivePostEls}
+                            {firstFivePosts}
                             {showRemainingPosts
-                                ? remainingPostEls
-                                : remainingPostEls.length > 0 && (
+                                ? remainingPosts
+                                : remainingPosts.length > 0 && (
                                       <button
                                           className="button"
                                           type="button"
@@ -342,12 +366,12 @@ export default function Profile() {
                 </section>
                 <section className="profile-comments-section">
                     <h3 className="your-comments-heading">Your Comments:</h3>
-                    {firstFiveCommentEls.length > 0 ? (
+                    {firstFiveComments.length > 0 ? (
                         <div className="user-comments-container">
-                            {firstFiveCommentEls}
+                            {firstFiveComments}
                             {showRemainingComments
-                                ? remainingCommentEls
-                                : remainingCommentEls.length > 0 && (
+                                ? remainingComments
+                                : remainingComments.length > 0 && (
                                       <button
                                           className="button"
                                           type="button"

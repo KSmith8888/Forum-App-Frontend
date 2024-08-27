@@ -127,13 +127,6 @@ export default function Attribution() {
                     >
                         https://github.com/Automattic/mongoose
                     </Link>
-                    <p className="attribution-text">dotenv:</p>
-                    <Link
-                        to="https://github.com/motdotla/dotenv"
-                        className="attribution-link"
-                    >
-                        https://github.com/motdotla/dotenv
-                    </Link>
                     <p className="attribution-text">express-rate-limit:</p>
                     <Link
                         to="https://github.com/express-rate-limit/express-rate-limit"

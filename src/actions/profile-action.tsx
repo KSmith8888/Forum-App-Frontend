@@ -27,28 +27,22 @@ export default async function profileAction({
         if (!token || !userId) {
             throw new Error("You must log in before performing that action");
         }
-        if (
-            (post && typeof post !== "string") ||
-            (comment && typeof comment !== "string")
-        ) {
-            throw new Error("Post or comment data not provided");
-        }
-        if (post) {
+        if (typeof post === "string") {
             reqUrl = `${reqUrl}${post}/details/${id}`;
-        } else if (comment) {
+        } else if (typeof comment === "string") {
             reqUrl = `${reqUrl}${comment}/details/${id}`;
-        } else if (notification) {
+        } else if (typeof notification === "string") {
             reqUrl = `${reqUrl}users/profile/notifications/${id}`;
-        } else if (bioContent && typeof bioContent === "string") {
+        } else if (typeof bioContent === "string") {
             reqUrl = `${reqUrl}users/profile/${id}/bio`;
             reqMethod = "PATCH";
             reqBody = {
                 status: "Update user bio",
                 bioContent,
             };
-        } else if (deleteAccount) {
+        } else if (typeof deleteAccount === "string") {
             reqUrl = `${reqUrl}users/profile/${userId}`;
-        } else if (pfpImage && pfpAlt) {
+        } else if (typeof pfpImage === "string" && typeof pfpAlt === "string") {
             reqUrl = `${reqUrl}users/profile/${userId}/image`;
             reqMethod = "PATCH";
             reqBody = {
@@ -73,7 +67,7 @@ export default async function profileAction({
                 reqCurrentPass: currentPass,
                 reqNewPass: newPass,
             };
-        } else if (replySetting) {
+        } else if (typeof replySetting === "string") {
             reqUrl = `${reqUrl}users/profile/${userId}/notifications`;
             reqMethod = "PATCH";
             reqBody = {

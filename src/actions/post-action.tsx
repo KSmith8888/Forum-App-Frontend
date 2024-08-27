@@ -62,19 +62,22 @@ export default async function postAction({ request }: loaderActionInterface) {
                 reportRelated,
                 reportContent,
             };
-        } else if (savePostId && savePostTitle) {
+        } else if (
+            typeof savePostId === "string" &&
+            typeof savePostTitle === "string"
+        ) {
             dataMethod = "PATCH";
             dataUrl = `${
                 import.meta.env.VITE_BACKEND_URL
             }/api/v1/posts/save/${savePostId}`;
             dataBody = { postTitle: savePostTitle };
-        } else if (likePostId) {
+        } else if (typeof likePostId === "string") {
             dataUrl = `${
                 import.meta.env.VITE_BACKEND_URL
             }/api/v1/posts/likes/${likePostId}`;
             dataMethod = "PATCH";
             dataBody = { status: "Update like count" };
-        } else if (likeCommentId) {
+        } else if (typeof likeCommentId === "string") {
             dataUrl = `${
                 import.meta.env.VITE_BACKEND_URL
             }/api/v1/comments/likes/${likeCommentId}`;
