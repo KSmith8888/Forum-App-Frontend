@@ -133,11 +133,6 @@ export interface userProfileComment {
     relatedPost: string;
 }
 
-export interface picSelectorProps {
-    isPicModalOpen: boolean;
-    setIsPicModalOpen: (value: boolean) => void;
-}
-
 export interface picSelectorBtnProps {
     currentImage: string;
     setCurrentImage: (image: string) => void;
@@ -148,8 +143,7 @@ export interface picSelectorBtnProps {
 }
 
 export interface profileBioProps {
-    isBioModalOpen: boolean;
-    setIsBioModalOpen: (value: boolean) => void;
+    profileBio: string;
 }
 
 export interface commentFormProps {
@@ -180,8 +174,7 @@ export interface postHistoryProps {
 }
 
 export interface updatePasswordProps {
-    isPassModalOpen: boolean;
-    setIsPassModalOpen: (value: boolean) => void;
+    pswdLastUpdated: string;
     actionMessage: unknown;
 }
 

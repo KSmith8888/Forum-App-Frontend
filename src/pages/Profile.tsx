@@ -27,8 +27,8 @@ export default function Profile() {
     const username = sessionStorage.getItem("username");
 
     const loaderData = useLoaderData();
-    let postsData = [];
-    let commentsData = [];
+    let postsData: Array<userProfilePost> = [];
+    let commentsData: Array<userProfileComment> = [];
     let savedPostsData = [];
     let notificationsData = [];
     let profileBio = "";
@@ -36,10 +36,10 @@ export default function Profile() {
     let replySettingText = "";
     if (loaderData && typeof loaderData === "object") {
         if ("posts" in loaderData && Array.isArray(loaderData.posts)) {
-            postsData = loaderData.posts;
+            postsData = [...loaderData.posts];
         }
         if ("comments" in loaderData && Array.isArray(loaderData.comments)) {
-            commentsData = loaderData.comments;
+            commentsData = [...loaderData.comments];
         }
         if (
             "savedPosts" in loaderData &&
@@ -73,10 +73,6 @@ export default function Profile() {
     const actionMessage = useActionData();
     const [modalMessage, setModalMessage] = useState("");
     const { profilePic, setProfilePic } = useOutletContext<outletInterface>();
-    const [isPicModalOpen, setIsPicModalOpen] = useState(false);
-    const [isBioModalOpen, setIsBioModalOpen] = useState(false);
-    const [isPassModalOpen, setIsPassModalOpen] = useState(false);
-    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     useEffect(() => {
         if (typeof actionMessage === "string" && messageModal.current) {
             const splitMessage = actionMessage.split("-Target ID-");
@@ -89,13 +85,10 @@ export default function Profile() {
                 typeof actionMessage.newProfilePicName === "string" &&
                 typeof actionMessage.newProfilePicAlt === "string"
             ) {
-                setIsPicModalOpen(false);
                 setProfilePic({
                     name: actionMessage.newProfilePicName,
                     alt: actionMessage.newProfilePicAlt,
                 });
-            } else if ("bioUpdatedAt" in actionMessage) {
-                setIsBioModalOpen(false);
             } else if (
                 "message" in actionMessage &&
                 typeof actionMessage.message === "string" &&
@@ -108,67 +101,66 @@ export default function Profile() {
     }, [actionMessage]);
     const [showRemainingPosts, setShowRemainingPosts] = useState(false);
     const [showRemainingComments, setShowRemainingComments] = useState(false);
+    const reversedPosts = postsData.length > 0 ? postsData.reverse() : [];
     const firstFivePosts =
-        postsData.length > 0
-            ? postsData
-                  .reverse()
-                  .slice(0, 5)
-                  .map((post: userProfilePost) => {
-                      return (
-                          <ProfilePost
-                              key={post.id}
-                              id={post.id}
-                              title={post.title}
-                          />
-                      );
-                  })
+        reversedPosts.length > 0 ? reversedPosts.slice(0, 5) : [];
+    const firstFivePostEls =
+        firstFivePosts.length > 0
+            ? firstFivePosts.map((post: userProfilePost) => {
+                  return (
+                      <ProfilePost
+                          key={post.id}
+                          id={post.id}
+                          title={post.title}
+                      />
+                  );
+              })
             : [];
     const remainingPosts =
-        postsData.length > 5
-            ? postsData
-                  .reverse()
-                  .slice(5)
-                  .map((post: userProfilePost) => {
-                      return (
-                          <ProfilePost
-                              key={post.id}
-                              id={post.id}
-                              title={post.title}
-                          />
-                      );
-                  })
+        reversedPosts.length > 5 ? reversedPosts.slice(5) : [];
+    const remainingPostEls =
+        remainingPosts.length > 0
+            ? remainingPosts.map((post: userProfilePost) => {
+                  return (
+                      <ProfilePost
+                          key={post.id}
+                          id={post.id}
+                          title={post.title}
+                      />
+                  );
+              })
             : [];
+    const reversedComments =
+        commentsData.length > 0 ? commentsData.reverse() : [];
     const firstFiveComments =
-        commentsData.length > 0
-            ? commentsData
-                  .reverse()
-                  .slice(0, 5)
-                  .map((comment: userProfileComment) => {
-                      return (
-                          <ProfileComment
-                              key={comment._id}
-                              _id={comment._id}
-                              content={comment.content}
-                              relatedPost={comment.relatedPost}
-                          />
-                      );
-                  })
+        reversedComments.length > 0 ? reversedComments.slice(0, 5) : [];
+    const firstFiveCommentEls =
+        firstFiveComments.length > 0
+            ? firstFiveComments.map((comment: userProfileComment) => {
+                  return (
+                      <ProfileComment
+                          key={comment._id}
+                          _id={comment._id}
+                          content={comment.content}
+                          relatedPost={comment.relatedPost}
+                      />
+                  );
+              })
             : [];
     const remainingComments =
-        commentsData.length > 5
-            ? commentsData
-                  .reverse()
-                  .slice(5)
-                  .map((comment: userProfileComment) => {
-                      return (
-                          <ProfileComment
-                              key={comment._id}
-                              _id={comment._id}
-                              content={comment.content}
-                              relatedPost={comment.relatedPost}
-                          />
-                      );
-                  })
+        reversedComments.length > 5 ? reversedComments.slice(5) : [];
+    const remainingCommentEls =
+        remainingComments.length > 0
+            ? remainingComments.map((comment: userProfileComment) => {
+                  return (
+                      <ProfileComment
+                          key={comment._id}
+                          _id={comment._id}
+                          content={comment.content}
+                          relatedPost={comment.relatedPost}
+                      />
+                  );
+              })
             : [];
     const savedPostsElements = savedPostsData.map((savedPost) => {
         return (
@@ -216,58 +208,14 @@ export default function Profile() {
                                 alt={profilePic.alt}
                                 className="profile-image"
                             />
-                            <button
-                                onClick={() => {
-                                    setIsPicModalOpen(true);
-                                }}
-                                className="button"
-                            >
-                                Update
-                            </button>
-                            <ProfilePicSelector
-                                isPicModalOpen={isPicModalOpen}
-                                setIsPicModalOpen={setIsPicModalOpen}
-                            />
+                            <ProfilePicSelector />
                         </div>
                         <div className="profile-bio-container">
-                            <h4 className="profile-bio-heading">
-                                Profile Bio:
-                            </h4>
-                            <p className="profile-bio-text">{profileBio}</p>
-                            <button
-                                className="button"
-                                onClick={() => {
-                                    setIsBioModalOpen(true);
-                                }}
-                            >
-                                Update
-                            </button>
-                            <BioChangeForm
-                                isBioModalOpen={isBioModalOpen}
-                                setIsBioModalOpen={setIsBioModalOpen}
-                            />
+                            <BioChangeForm profileBio={profileBio} />
                         </div>
                         <div className="update-password-container">
-                            <h4 className="profile-security-heading">
-                                Account Security:
-                            </h4>
-                            <h5 className="profile-password-heading">
-                                Password:
-                            </h5>
-                            <p className="update-password-text">
-                                {pswdLastUpdated}
-                            </p>
-                            <button
-                                className="button"
-                                onClick={() => {
-                                    setIsPassModalOpen(true);
-                                }}
-                            >
-                                Update
-                            </button>
                             <UpdatePassword
-                                isPassModalOpen={isPassModalOpen}
-                                setIsPassModalOpen={setIsPassModalOpen}
+                                pswdLastUpdated={pswdLastUpdated}
                                 actionMessage={actionMessage}
                             />
                         </div>
@@ -294,25 +242,7 @@ export default function Profile() {
                             </Form>
                         </div>
                         <div className="delete-account-container">
-                            <h3 className="delete-account-heading">
-                                Delete Account:
-                            </h3>
-                            <p className="warning-message">
-                                This action will delete your account, along with
-                                all of your posts and comments
-                            </p>
-                            <button
-                                className="delete-account-button"
-                                onClick={() => {
-                                    setIsDeleteModalOpen(true);
-                                }}
-                            >
-                                Delete
-                            </button>
-                            <DeleteAccountModal
-                                isDeleteModalOpen={isDeleteModalOpen}
-                                setIsDeleteModalOpen={setIsDeleteModalOpen}
-                            />
+                            <DeleteAccountModal />
                         </div>
                     </div>
                 </section>
@@ -343,12 +273,12 @@ export default function Profile() {
                 <section className="profile-posts-section">
                     <h3 className="your-posts-heading">Your Posts:</h3>
 
-                    {firstFivePosts.length > 0 ? (
+                    {firstFivePostEls.length > 0 ? (
                         <div className="user-posts-container">
-                            {firstFivePosts}
+                            {firstFivePostEls}
                             {showRemainingPosts
-                                ? remainingPosts
-                                : remainingPosts.length > 0 && (
+                                ? remainingPostEls
+                                : remainingPostEls.length > 0 && (
                                       <button
                                           className="button"
                                           type="button"
@@ -366,12 +296,12 @@ export default function Profile() {
                 </section>
                 <section className="profile-comments-section">
                     <h3 className="your-comments-heading">Your Comments:</h3>
-                    {firstFiveComments.length > 0 ? (
+                    {firstFiveCommentEls.length > 0 ? (
                         <div className="user-comments-container">
-                            {firstFiveComments}
+                            {firstFiveCommentEls}
                             {showRemainingComments
-                                ? remainingComments
-                                : remainingComments.length > 0 && (
+                                ? remainingCommentEls
+                                : remainingCommentEls.length > 0 && (
                                       <button
                                           className="button"
                                           type="button"

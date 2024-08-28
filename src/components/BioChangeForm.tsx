@@ -1,67 +1,66 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { Form } from "react-router-dom";
 
 import { profileBioProps } from "../utils/interfaces.ts";
 
-export default function BioChangeForm({
-    isBioModalOpen,
-    setIsBioModalOpen,
-}: profileBioProps) {
+export default function BioChangeForm({ profileBio }: profileBioProps) {
     const bioModal = useRef<HTMLDialogElement>(null);
     const bioForm = useRef<HTMLFormElement>(null);
-    function bioUpdated() {
-        if (bioModal.current) {
-            bioModal.current.close();
-        }
-        setIsBioModalOpen(false);
-    }
-    useEffect(() => {
-        if (bioModal.current && bioForm.current) {
-            if (isBioModalOpen) {
-                bioModal.current.showModal();
-            } else {
-                bioModal.current.close();
-            }
-        }
-    }, [isBioModalOpen]);
     return (
-        <dialog className="profile-bio-modal" ref={bioModal}>
+        <>
+            <h4 className="profile-bio-heading">Profile Bio:</h4>
+            <p className="profile-bio-text">{profileBio}</p>
             <button
-                className="close-modal-button"
-                type="button"
-                aria-label="Close update bio form"
+                className="button"
                 onClick={() => {
-                    setIsBioModalOpen(false);
                     if (bioModal.current) {
-                        bioModal.current.close();
+                        bioModal.current.showModal();
                     }
                 }}
             >
-                X
+                Update
             </button>
-            <Form method="POST" className="update-bio-form" ref={bioForm}>
-                <h3 className="update-bio-form-heading">Update Profile Bio:</h3>
-                <label htmlFor="update-bio-input">
-                    New Bio (120 characters max):
-                </label>
-                <textarea
-                    id="update-bio-input"
-                    name="bio-content"
-                    maxLength={120}
-                    minLength={4}
-                    rows={5}
-                    cols={30}
-                ></textarea>
+            <dialog className="profile-bio-modal" ref={bioModal}>
                 <button
-                    type="submit"
-                    className="button"
+                    className="close-modal-button"
+                    type="button"
+                    aria-label="Close update bio form"
                     onClick={() => {
-                        bioUpdated();
+                        if (bioModal.current) {
+                            bioModal.current.close();
+                        }
                     }}
                 >
-                    Submit
+                    X
                 </button>
-            </Form>
-        </dialog>
+                <Form method="POST" className="update-bio-form" ref={bioForm}>
+                    <h3 className="update-bio-form-heading">
+                        Update Profile Bio:
+                    </h3>
+                    <label htmlFor="update-bio-input">
+                        New Bio (120 characters max):
+                    </label>
+                    <textarea
+                        id="update-bio-input"
+                        name="bio-content"
+                        maxLength={120}
+                        minLength={4}
+                        rows={5}
+                        cols={30}
+                    ></textarea>
+                    <button
+                        type="submit"
+                        className="button"
+                        onClick={() => {
+                            if (bioModal.current) {
+                                bioModal.current.close();
+                            }
+                        }}
+                    >
+                        Submit
+                    </button>
+                </Form>
+            </dialog>
+        </>
     );
 }
