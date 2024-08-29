@@ -39,9 +39,9 @@ export default function UserDetails() {
     }, []);
     const postElements = postsData.map((post) => {
         return (
-            <div key={post.id} className="user-details-post-container">
+            <div key={post.postId} className="user-details-post-container">
                 <Link
-                    to={`/posts/details/${post.id}`}
+                    to={`/posts/details/${post.postId}`}
                     className="user-details-post-link"
                 >
                     {post.title}
@@ -51,10 +51,13 @@ export default function UserDetails() {
     });
     const commentElements = commentsData.map((comment) => {
         return (
-            <div key={comment._id} className="user-details-comment-container">
+            <div
+                key={comment.commentId}
+                className="user-details-comment-container"
+            >
                 <p>{comment.content}</p>
                 <Link
-                    to={`/posts/details/${comment.relatedPost}?commentId=${comment._id}`}
+                    to={`/posts/details/${comment.relatedPost}?commentId=${comment.commentId}`}
                     className="user-details-comment-link"
                 >
                     Related Post

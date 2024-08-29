@@ -113,7 +113,7 @@ export interface notificationInterface {
     _id: string;
     message: string;
     type: string;
-    replyMessageId?: string;
+    replyMessageId: string;
     commentId: string;
 }
 
@@ -123,12 +123,12 @@ export interface savedPostInterface {
 }
 
 export interface userProfilePost {
-    id: string;
+    postId: string;
     title: string;
 }
 
 export interface userProfileComment {
-    _id: string;
+    commentId: string;
     content: string;
     relatedPost: string;
 }

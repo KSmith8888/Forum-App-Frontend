@@ -109,8 +109,8 @@ export default function Profile() {
             ? firstFivePosts.map((post: userProfilePost) => {
                   return (
                       <ProfilePost
-                          key={post.id}
-                          id={post.id}
+                          key={post.postId}
+                          postId={post.postId}
                           title={post.title}
                       />
                   );
@@ -123,8 +123,8 @@ export default function Profile() {
             ? remainingPosts.map((post: userProfilePost) => {
                   return (
                       <ProfilePost
-                          key={post.id}
-                          id={post.id}
+                          key={post.postId}
+                          postId={post.postId}
                           title={post.title}
                       />
                   );
@@ -139,8 +139,8 @@ export default function Profile() {
             ? firstFiveComments.map((comment: userProfileComment) => {
                   return (
                       <ProfileComment
-                          key={comment._id}
-                          _id={comment._id}
+                          key={comment.commentId}
+                          commentId={comment.commentId}
                           content={comment.content}
                           relatedPost={comment.relatedPost}
                       />
@@ -154,26 +154,31 @@ export default function Profile() {
             ? remainingComments.map((comment: userProfileComment) => {
                   return (
                       <ProfileComment
-                          key={comment._id}
-                          _id={comment._id}
+                          key={comment.commentId}
+                          commentId={comment.commentId}
                           content={comment.content}
                           relatedPost={comment.relatedPost}
                       />
                   );
               })
             : [];
-    const savedPostsElements = savedPostsData.map((savedPost) => {
-        return (
-            <div key={savedPost.id} className="saved-post-link-container">
-                <Link
-                    to={`/posts/details/${savedPost.id}`}
-                    className="profile-notification-link"
+    const savedPostsElements = savedPostsData.map(
+        (savedPost: userProfilePost) => {
+            return (
+                <div
+                    key={savedPost.postId}
+                    className="saved-post-link-container"
                 >
-                    {savedPost.title}
-                </Link>
-            </div>
-        );
-    });
+                    <Link
+                        to={`/posts/details/${savedPost.postId}`}
+                        className="profile-notification-link"
+                    >
+                        {savedPost.title}
+                    </Link>
+                </div>
+            );
+        }
+    );
     const notificationElements = notificationsData.map(
         (notification: notificationInterface) => {
             return (
@@ -181,6 +186,7 @@ export default function Profile() {
                     key={notification._id}
                     _id={notification._id}
                     message={notification.message}
+                    replyMessageId={notification.replyMessageId}
                     type={notification.type}
                     commentId={notification.commentId}
                 />
