@@ -7,17 +7,11 @@ export default async function editPostAction({
 }: loaderActionInterface) {
     const postId = params.id;
     const postData = await request.formData();
-    const title = postData.get("title");
     const content = postData.get("content");
     const token = sessionStorage.getItem("token");
     const userId = sessionStorage.getItem("_id");
     const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!-]+$", "m");
-    if (
-        typeof title !== "string" ||
-        typeof content !== "string" ||
-        !reg.test(title) ||
-        !reg.test(content)
-    ) {
+    if (typeof content !== "string" || !reg.test(content)) {
         throw new Error(
             "Please do not include special characters in your message"
         );
@@ -29,7 +23,7 @@ export default async function editPostAction({
         `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/details/${postId}`,
         {
             method: "PATCH",
-            body: JSON.stringify({ title, content }),
+            body: JSON.stringify({ content }),
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,

@@ -158,6 +158,16 @@ img {
     margin: 1em 0;
 }
 
+.edit-post-title {
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 0.5em 0;
+}
+
+.edit-post-form-heading {
+    margin: 0.5em 0;
+}
+
 /* Terms */
 
 .terms-container {

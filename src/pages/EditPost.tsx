@@ -2,11 +2,11 @@ import { useLoaderData, Form } from "react-router-dom";
 
 export default function EditPost() {
     const loaderData = useLoaderData();
-    let prevPostTitle = "";
+    let postTitle = "";
     let prevPostContent = "";
     if (loaderData && typeof loaderData === "object") {
         if ("title" in loaderData && typeof loaderData.title === "string") {
-            prevPostTitle = loaderData.title;
+            postTitle = loaderData.title;
         }
         if ("content" in loaderData && typeof loaderData.content === "string") {
             prevPostContent = loaderData.content;
@@ -15,17 +15,8 @@ export default function EditPost() {
 
     return (
         <Form method="patch" className="edit-post-form">
-            <h2>Edit Post</h2>
-            <label htmlFor="title-input">Title:</label>
-            <input
-                id="title-input"
-                name="title"
-                className="input"
-                type="text"
-                minLength={4}
-                maxLength={60}
-                defaultValue={prevPostTitle}
-            ></input>
+            <h2 className="edit-post-form-heading">Edit Post</h2>
+            <p className="edit-post-title">{postTitle}</p>
             <label htmlFor="content-input">Content:</label>
             <textarea
                 id="content-input"
