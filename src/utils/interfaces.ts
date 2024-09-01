@@ -18,10 +18,9 @@ export interface loaderActionInterface {
 }
 
 export interface postHistoryInterface {
-    title: string;
     content: string;
     timestamp: string;
-    id: string;
+    editNumber: string;
 }
 
 export interface commentHistoryInterface {
@@ -164,13 +163,6 @@ export interface headerProps {
     numOfNotifications: number;
     profilePic: profilePicInterface;
     setProfilePic: (pic: profilePicInterface) => void;
-}
-
-export interface postHistoryProps {
-    key: string;
-    timestamp: string;
-    title: string;
-    content: string;
 }
 
 export interface updatePasswordProps {

@@ -61,10 +61,10 @@ export default function Post() {
         (prevVersion: postHistoryInterface) => {
             return (
                 <PostHistory
-                    key={prevVersion.id}
+                    key={prevVersion.editNumber}
                     timestamp={prevVersion.timestamp}
-                    title={prevVersion.title}
                     content={prevVersion.content}
+                    editNumber={prevVersion.editNumber}
                 />
             );
         }
