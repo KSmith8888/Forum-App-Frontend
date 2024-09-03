@@ -9,7 +9,7 @@ import linkIconImg from "../assets/images/link-post-icon.png";
 
 export default function Search() {
     const loader = useLoaderData();
-    const searchResults = loader instanceof Array ? loader : [];
+    const searchResults = Array.isArray(loader) ? loader : [];
     const searchForm = useRef<HTMLFormElement>(null);
     const [searchParams] = useSearchParams();
     const query = searchParams.get("query");

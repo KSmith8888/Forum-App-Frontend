@@ -16,8 +16,5 @@ export default async function postsTopicLoader({
         }
     }
     const data = await res.json();
-    if (!Array.isArray(data)) {
-        throw new Error("Invalid data returned from server");
-    }
     return data;
 }

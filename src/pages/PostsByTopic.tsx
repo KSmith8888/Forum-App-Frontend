@@ -19,7 +19,7 @@ export default function PostsByTopic() {
         topic = `${firstLetter}${restOfTopic}`;
     }
     const loader = useLoaderData();
-    const postData = loader instanceof Array ? loader : [];
+    const postData = Array.isArray(loader) ? loader : [];
     const postEls = postData.map((post: postInterface) => {
         const startingChars = post.content.substring(0, 50);
         return (

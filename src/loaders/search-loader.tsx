@@ -1,4 +1,4 @@
-import { loaderActionInterface, postInterface } from "../utils/interfaces";
+import { loaderActionInterface } from "../utils/interfaces";
 
 export default async function resultsLoader({
     request,
@@ -19,6 +19,6 @@ export default async function resultsLoader({
             throw new Error(`Response error: ${res.status}`);
         }
     }
-    const resultsData: Array<postInterface> = await res.json();
-    return resultsData;
+    const data = await res.json();
+    return data;
 }

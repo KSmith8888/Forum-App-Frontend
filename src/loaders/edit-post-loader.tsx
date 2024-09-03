@@ -21,9 +21,8 @@ export default async function editPostLoader({
         }
     }
     const data = await res.json();
-    if (typeof data === "object" && "post" in data) {
-        return data.post;
-    } else {
+    if (!data || typeof data !== "object" || !("post" in data)) {
         throw new Error("Something went wrong, please try again later");
     }
+    return data.post;
 }
