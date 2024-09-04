@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useLoaderData, Link } from "react-router-dom";
 
+import { userProfilePost, userProfileComment } from "../utils/interfaces.ts";
 import "../assets/styles/user-details.css";
 
 export default function UserDetails() {
@@ -37,7 +38,7 @@ export default function UserDetails() {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
-    const postElements = postsData.map((post) => {
+    const postElements = postsData.map((post: userProfilePost) => {
         return (
             <div key={post.postId} className="user-details-post-container">
                 <Link
@@ -49,7 +50,7 @@ export default function UserDetails() {
             </div>
         );
     });
-    const commentElements = commentsData.map((comment) => {
+    const commentElements = commentsData.map((comment: userProfileComment) => {
         return (
             <div
                 key={comment.commentId}

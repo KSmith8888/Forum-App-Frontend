@@ -101,9 +101,8 @@ export default function Profile() {
     }, [actionMessage]);
     const [showRemainingPosts, setShowRemainingPosts] = useState(false);
     const [showRemainingComments, setShowRemainingComments] = useState(false);
-    const reversedPosts = postsData.length > 0 ? postsData.reverse() : [];
-    const firstFivePosts =
-        reversedPosts.length > 0 ? reversedPosts.slice(0, 5) : [];
+    const allPosts = postsData.length > 0 ? postsData : [];
+    const firstFivePosts = allPosts.length > 0 ? allPosts.slice(0, 5) : [];
     const firstFivePostEls =
         firstFivePosts.length > 0
             ? firstFivePosts.map((post: userProfilePost) => {
@@ -116,8 +115,7 @@ export default function Profile() {
                   );
               })
             : [];
-    const remainingPosts =
-        reversedPosts.length > 5 ? reversedPosts.slice(5) : [];
+    const remainingPosts = allPosts.length > 5 ? allPosts.slice(5) : [];
     const remainingPostEls =
         remainingPosts.length > 0
             ? remainingPosts.map((post: userProfilePost) => {
@@ -130,10 +128,9 @@ export default function Profile() {
                   );
               })
             : [];
-    const reversedComments =
-        commentsData.length > 0 ? commentsData.reverse() : [];
+    const allComments = commentsData.length > 0 ? commentsData : [];
     const firstFiveComments =
-        reversedComments.length > 0 ? reversedComments.slice(0, 5) : [];
+        allComments.length > 0 ? allComments.slice(0, 5) : [];
     const firstFiveCommentEls =
         firstFiveComments.length > 0
             ? firstFiveComments.map((comment: userProfileComment) => {
@@ -148,7 +145,7 @@ export default function Profile() {
               })
             : [];
     const remainingComments =
-        reversedComments.length > 5 ? reversedComments.slice(5) : [];
+        allComments.length > 5 ? allComments.slice(5) : [];
     const remainingCommentEls =
         remainingComments.length > 0
             ? remainingComments.map((comment: userProfileComment) => {
