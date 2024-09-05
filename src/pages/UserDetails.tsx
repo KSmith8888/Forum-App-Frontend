@@ -1,11 +1,15 @@
-import { useEffect } from "react";
-import { useLoaderData, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLoaderData } from "react-router-dom";
 
+import DetailsPost from "../components/DetailsPost.tsx";
+import DetailsComment from "../components/DetailsComment.tsx";
 import { userProfilePost, userProfileComment } from "../utils/interfaces.ts";
 import "../assets/styles/user-details.css";
 
 export default function UserDetails() {
     const loaderData = useLoaderData();
+    const [showRemainingPosts, setShowRemainingPosts] = useState(false);
+    const [showRemainingComments, setShowRemainingComments] = useState(false);
     let username = "";
     let postsData = [];
     let commentsData = [];
@@ -38,34 +42,57 @@ export default function UserDetails() {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
-    const postElements = postsData.map((post: userProfilePost) => {
+    const firstTenPosts = postsData.length > 0 ? postsData.slice(0, 10) : [];
+    const firstTenPostEls = firstTenPosts.map((post: userProfilePost) => {
         return (
-            <div key={post.postId} className="user-details-post-container">
-                <Link
-                    to={`/posts/details/${post.postId}`}
-                    className="user-details-post-link"
-                >
-                    {post.title}
-                </Link>
-            </div>
+            <DetailsPost
+                key={post.postId}
+                postId={post.postId}
+                title={post.title}
+            />
         );
     });
-    const commentElements = commentsData.map((comment: userProfileComment) => {
-        return (
-            <div
-                key={comment.commentId}
-                className="user-details-comment-container"
-            >
-                <p>{comment.content}</p>
-                <Link
-                    to={`/posts/details/${comment.relatedPost}?commentId=${comment.commentId}`}
-                    className="user-details-comment-link"
-                >
-                    Related Post
-                </Link>
-            </div>
-        );
-    });
+    const remainingPosts = postsData.length > 5 ? postsData.slice(10) : [];
+    const remainingPostEls =
+        remainingPosts.length > 0
+            ? remainingPosts.map((post: userProfilePost) => {
+                  return (
+                      <DetailsPost
+                          key={post.postId}
+                          postId={post.postId}
+                          title={post.title}
+                      />
+                  );
+              })
+            : [];
+    const firstTenComments =
+        commentsData.length > 0 ? commentsData.slice(0, 10) : [];
+    const firstTenCommentEls = firstTenComments.map(
+        (comment: userProfileComment) => {
+            return (
+                <DetailsComment
+                    key={comment.commentId}
+                    commentId={comment.commentId}
+                    content={comment.content}
+                    relatedPost={comment.relatedPost}
+                />
+            );
+        }
+    );
+    const remainingComments =
+        commentsData.length > 5 ? commentsData.slice(10) : [];
+    const remainingCommentEls = remainingComments.map(
+        (comment: userProfileComment) => {
+            return (
+                <DetailsComment
+                    key={comment.commentId}
+                    commentId={comment.commentId}
+                    content={comment.content}
+                    relatedPost={comment.relatedPost}
+                />
+            );
+        }
+    );
 
     return (
         <div className="user-details-container">
@@ -83,16 +110,46 @@ export default function UserDetails() {
             <div className="user-posts-comments-container">
                 <section className="user-posts-section">
                     <h3 className="user-details-section-heading">Posts:</h3>
-                    {postElements.length > 0 ? (
-                        postElements
+                    {firstTenPostEls.length > 0 ? (
+                        <div className="details-posts-container">
+                            {firstTenPostEls}
+                            {showRemainingPosts
+                                ? remainingPostEls
+                                : remainingPostEls.length > 0 && (
+                                      <button
+                                          className="button"
+                                          type="button"
+                                          onClick={() => {
+                                              setShowRemainingPosts(true);
+                                          }}
+                                      >
+                                          Show more
+                                      </button>
+                                  )}
+                        </div>
                     ) : (
                         <p>No posts for this user</p>
                     )}
                 </section>
                 <section className="user-comments-section">
                     <h3 className="user-details-section-heading">Comments:</h3>
-                    {commentElements.length > 0 ? (
-                        commentElements
+                    {firstTenCommentEls.length > 0 ? (
+                        <div className="details-comments-container">
+                            {firstTenCommentEls}
+                            {showRemainingComments
+                                ? remainingCommentEls
+                                : remainingCommentEls.length > 0 && (
+                                      <button
+                                          className="button"
+                                          type="button"
+                                          onClick={() => {
+                                              setShowRemainingComments(true);
+                                          }}
+                                      >
+                                          Show more
+                                      </button>
+                                  )}
+                        </div>
                     ) : (
                         <p>No comments for this user</p>
                     )}

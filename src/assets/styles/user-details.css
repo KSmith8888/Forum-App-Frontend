@@ -76,6 +76,15 @@
     color: rgb(8, 7, 46);
 }
 
+.details-comment-text {
+    margin: 0.5em 0;
+}
+
+.details-posts-container,
+.details-comments-container {
+    text-align: center;
+}
+
 @media (max-width: 650px) {
     .user-posts-comments-container {
         flex-direction: column;

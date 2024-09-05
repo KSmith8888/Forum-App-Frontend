@@ -8,6 +8,8 @@ export default function ProfileNotification({
     replyMessageId,
     commentId,
 }: notificationInterface) {
+    const userRole = sessionStorage.getItem("role");
+    const canDelete = type !== "Warning" || userRole === "admin";
     return (
         <div key={_id} className="profile-notification-container">
             <p
@@ -27,15 +29,17 @@ export default function ProfileNotification({
                         See Reply
                     </Link>
                 )}
-                <Form method="POST">
-                    <input
-                        type="hidden"
-                        name="notification"
-                        value="notifications"
-                    />
-                    <input type="hidden" name="id" value={_id} />
-                    <button className="button">Delete</button>
-                </Form>
+                {canDelete && (
+                    <Form method="POST">
+                        <input
+                            type="hidden"
+                            name="notification"
+                            value="notifications"
+                        />
+                        <input type="hidden" name="id" value={_id} />
+                        <button className="button">Delete</button>
+                    </Form>
+                )}
             </div>
         </div>
     );
