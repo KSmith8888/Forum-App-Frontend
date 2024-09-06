@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect } from "react";
 import {
-    Link,
     useLoaderData,
     useActionData,
     useOutletContext,
@@ -14,11 +13,13 @@ import {
     outletInterface,
     notificationInterface,
     userProfilePost,
+    savedPostInterface,
     userProfileComment,
 } from "../utils/interfaces";
 import ProfilePicSelector from "../components/ProfilePicSelector";
 import ProfileComment from "../components/ProfileComment";
 import ProfilePost from "../components/ProfilePost";
+import ProfileSaved from "../components/ProfileSaved";
 import ProfileNotification from "../components/ProfileNotification";
 
 import "../assets/styles/profile.css";
@@ -101,20 +102,19 @@ export default function Profile() {
     }, [actionMessage]);
     const [showRemainingPosts, setShowRemainingPosts] = useState(false);
     const [showRemainingComments, setShowRemainingComments] = useState(false);
+    const [showRemainingSaved, setShowRemainingSaved] = useState(false);
+    const [showRemainingNotes, setShowRemainingNotes] = useState(false);
     const allPosts = postsData.length > 0 ? postsData : [];
     const firstFivePosts = allPosts.length > 0 ? allPosts.slice(0, 5) : [];
-    const firstFivePostEls =
-        firstFivePosts.length > 0
-            ? firstFivePosts.map((post: userProfilePost) => {
-                  return (
-                      <ProfilePost
-                          key={post.postId}
-                          postId={post.postId}
-                          title={post.title}
-                      />
-                  );
-              })
-            : [];
+    const firstFivePostEls = firstFivePosts.map((post: userProfilePost) => {
+        return (
+            <ProfilePost
+                key={post.postId}
+                postId={post.postId}
+                title={post.title}
+            />
+        );
+    });
     const remainingPosts = allPosts.length > 5 ? allPosts.slice(5) : [];
     const remainingPostEls =
         remainingPosts.length > 0
@@ -131,19 +131,18 @@ export default function Profile() {
     const allComments = commentsData.length > 0 ? commentsData : [];
     const firstFiveComments =
         allComments.length > 0 ? allComments.slice(0, 5) : [];
-    const firstFiveCommentEls =
-        firstFiveComments.length > 0
-            ? firstFiveComments.map((comment: userProfileComment) => {
-                  return (
-                      <ProfileComment
-                          key={comment.commentId}
-                          commentId={comment.commentId}
-                          content={comment.content}
-                          relatedPost={comment.relatedPost}
-                      />
-                  );
-              })
-            : [];
+    const firstFiveCommentEls = firstFiveComments.map(
+        (comment: userProfileComment) => {
+            return (
+                <ProfileComment
+                    key={comment.commentId}
+                    commentId={comment.commentId}
+                    content={comment.content}
+                    relatedPost={comment.relatedPost}
+                />
+            );
+        }
+    );
     const remainingComments =
         allComments.length > 5 ? allComments.slice(5) : [];
     const remainingCommentEls =
@@ -159,24 +158,35 @@ export default function Profile() {
                   );
               })
             : [];
-    const savedPostsElements = savedPostsData.map(
-        (savedPost: userProfilePost) => {
+    const allSaved = savedPostsData.length > 0 ? savedPostsData : [];
+    const firstTenSaved = allSaved.length > 0 ? allSaved.slice(0, 10) : [];
+    const firstTenSavedEls = firstTenSaved.map(
+        (savedPost: savedPostInterface) => {
             return (
-                <div
+                <ProfileSaved
                     key={savedPost.postId}
-                    className="saved-post-link-container"
-                >
-                    <Link
-                        to={`/posts/details/${savedPost.postId}`}
-                        className="profile-notification-link"
-                    >
-                        {savedPost.title}
-                    </Link>
-                </div>
+                    postId={savedPost.postId}
+                    title={savedPost.title}
+                />
             );
         }
     );
-    const notificationElements = notificationsData.map(
+    const remainingSaved = allSaved.length > 10 ? allSaved.slice(10) : [];
+    const remainingSavedEls =
+        remainingSaved.length > 0
+            ? remainingSaved.map((savedPost: savedPostInterface) => {
+                  return (
+                      <ProfileSaved
+                          key={savedPost.postId}
+                          postId={savedPost.postId}
+                          title={savedPost.title}
+                      />
+                  );
+              })
+            : [];
+    const allNotes = notificationsData.length > 0 ? notificationsData : [];
+    const firstFiveNotes = allNotes.length > 0 ? allNotes.slice(0, 5) : [];
+    const firstFiveNoteEls = firstFiveNotes.map(
         (notification: notificationInterface) => {
             return (
                 <ProfileNotification
@@ -190,6 +200,22 @@ export default function Profile() {
             );
         }
     );
+    const remainingNotes = allNotes.length > 5 ? allNotes.slice(5) : [];
+    const remainingNoteEls =
+        remainingNotes.length > 0
+            ? remainingNotes.map((notification: notificationInterface) => {
+                  return (
+                      <ProfileNotification
+                          key={notification._id}
+                          _id={notification._id}
+                          message={notification.message}
+                          replyMessageId={notification.replyMessageId}
+                          type={notification.type}
+                          commentId={notification.commentId}
+                      />
+                  );
+              })
+            : [];
 
     return (
         <>
@@ -251,9 +277,22 @@ export default function Profile() {
                 </section>
                 <section className="profile-saved-posts-section">
                     <h3 className="saved-posts-heading">Saved Posts:</h3>
-                    {savedPostsElements.length > 0 ? (
+                    {firstTenSavedEls.length > 0 ? (
                         <div className="saved-posts-container">
-                            {savedPostsElements}
+                            {firstTenSavedEls}
+                            {showRemainingSaved
+                                ? remainingSavedEls
+                                : remainingSavedEls.length > 0 && (
+                                      <button
+                                          className="button"
+                                          type="button"
+                                          onClick={() => {
+                                              setShowRemainingSaved(true);
+                                          }}
+                                      >
+                                          Show more
+                                      </button>
+                                  )}
                         </div>
                     ) : (
                         <p>You have not saved any posts yet</p>
@@ -263,9 +302,22 @@ export default function Profile() {
                     <h3 className="notifications-heading">
                         Notifications ({notificationsData.length}):
                     </h3>
-                    {notificationElements.length > 0 ? (
+                    {firstFiveNoteEls.length > 0 ? (
                         <div className="notifications-container">
-                            {notificationElements}
+                            {firstFiveNoteEls}
+                            {showRemainingNotes
+                                ? remainingNoteEls
+                                : remainingNoteEls.length > 0 && (
+                                      <button
+                                          className="button"
+                                          type="button"
+                                          onClick={() => {
+                                              setShowRemainingNotes(true);
+                                          }}
+                                      >
+                                          Show more
+                                      </button>
+                                  )}
                         </div>
                     ) : (
                         <p>No notifications at this time</p>

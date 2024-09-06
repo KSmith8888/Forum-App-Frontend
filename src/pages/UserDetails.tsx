@@ -52,7 +52,7 @@ export default function UserDetails() {
             />
         );
     });
-    const remainingPosts = postsData.length > 5 ? postsData.slice(10) : [];
+    const remainingPosts = postsData.length > 10 ? postsData.slice(10) : [];
     const remainingPostEls =
         remainingPosts.length > 0
             ? remainingPosts.map((post: userProfilePost) => {
@@ -80,7 +80,7 @@ export default function UserDetails() {
         }
     );
     const remainingComments =
-        commentsData.length > 5 ? commentsData.slice(10) : [];
+        commentsData.length > 10 ? commentsData.slice(10) : [];
     const remainingCommentEls = remainingComments.map(
         (comment: userProfileComment) => {
             return (

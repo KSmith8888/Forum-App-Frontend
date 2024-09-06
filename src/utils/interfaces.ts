@@ -117,7 +117,7 @@ export interface notificationInterface {
 }
 
 export interface savedPostInterface {
-    id: string;
+    postId: string;
     title: string;
 }
 
