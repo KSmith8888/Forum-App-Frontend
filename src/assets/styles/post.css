@@ -36,18 +36,24 @@
 }
 
 .comment-text {
+    max-width: 100%;
     word-wrap: break-word;
     margin: 1.5em 1.5em 0.5em 1.5em;
 }
 
+.content-link {
+    word-break: break-word;
+}
+
 .link-post-text {
-    margin: 1.5em;
+    margin: 0.5em 1em;
 }
 
 .link-post-anchor {
     display: block;
     width: 100%;
     text-align: center;
+    word-break: break-word;
 }
 
 .post,

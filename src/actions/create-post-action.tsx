@@ -37,10 +37,18 @@ export default async function createPostAction({
                 "Please do not include special characters in your message"
             );
         }
-        if (postType === "Link" && content.includes(" ")) {
-            throw new Error(
-                "Please do not include special characters in your message"
-            );
+        if (postType === "Link") {
+            const isValid = URL.canParse(content);
+            if (
+                isValid ||
+                content.includes(" ") ||
+                !content.startsWith("https://") ||
+                !content.includes(".")
+            ) {
+                throw new Error(
+                    "Please do not include special characters in your message"
+                );
+            }
         }
         const res = await fetch(
             `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/create`,

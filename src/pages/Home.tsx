@@ -52,17 +52,9 @@ export default function Home() {
                                         : "trending-post-text-type"
                                 }
                             >
-                                {post.postType === "Link" ? (
-                                    <a
-                                        href={post.content}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                    >
-                                        {post.content}
-                                    </a>
-                                ) : (
-                                    `${startingChars}...`
-                                )}
+                                {post.postType === "Link"
+                                    ? `${post.content}`
+                                    : `${startingChars}...`}
                             </p>
                         </div>
                         <div className="home-post-image-container">
