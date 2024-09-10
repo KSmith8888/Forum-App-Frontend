@@ -10,8 +10,13 @@ export default async function editPostAction({
     const content = postData.get("content");
     const token = sessionStorage.getItem("token");
     const userId = sessionStorage.getItem("_id");
-    const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!-]+$", "m");
-    if (typeof content !== "string" || !reg.test(content)) {
+    const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@-]+$", "m");
+    if (
+        typeof content !== "string" ||
+        !reg.test(content) ||
+        content.toLowerCase().includes("javascript:") ||
+        content.toLowerCase().includes("data:")
+    ) {
         throw new Error(
             "Please do not include special characters in your message"
         );

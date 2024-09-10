@@ -10,8 +10,13 @@ export default async function editCommentAction({
     const userId = sessionStorage.getItem("_id");
     const commentData = await request.formData();
     const content = commentData.get("content");
-    const reg = new RegExp("^[a-zA-Z0-9 .:,?'!-]+$", "m");
-    if (typeof content === "string" && !reg.test(content)) {
+    const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@-]+$", "m");
+    if (
+        typeof content !== "string" ||
+        !reg.test(content) ||
+        content.toLowerCase().includes("javascript:") ||
+        content.toLowerCase().includes("data:")
+    ) {
         throw new Error(
             "Please do not include special characters in your message"
         );

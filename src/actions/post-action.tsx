@@ -32,8 +32,12 @@ export default async function postAction({ request }: loaderActionInterface) {
             typeof replyType === "string" &&
             typeof commentId === "string"
         ) {
-            const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!-]+$", "m");
-            if (!reg.test(content)) {
+            const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@-]+$", "m");
+            if (
+                !reg.test(content) ||
+                content.toLowerCase().includes("javascript:") ||
+                content.toLowerCase().includes("data:")
+            ) {
                 throw new Error(
                     "Please do not include special characters in your message"
                 );

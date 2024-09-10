@@ -23,7 +23,7 @@ export default async function createPostAction({
         }
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
-        const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!-]+$", "m");
+        const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@-]+$", "m");
         if (!token || !userId) {
             throw new Error("You must log in before creating a post");
         }
@@ -31,7 +31,9 @@ export default async function createPostAction({
             !reg.test(title) ||
             !reg.test(content) ||
             !reg.test(topic) ||
-            !reg.test(postType)
+            !reg.test(postType) ||
+            content.toLowerCase().includes("javascript:") ||
+            content.toLowerCase().includes("data:")
         ) {
             throw new Error(
                 "Please do not include special characters in your message"
@@ -39,9 +41,10 @@ export default async function createPostAction({
         }
         if (postType === "Link") {
             const isValid = URL.canParse(content);
+            const reg = new RegExp("^[a-zA-Z0-9.:/_-]+$");
             if (
-                isValid ||
-                content.includes(" ") ||
+                !isValid ||
+                !reg.test(content) ||
                 !content.startsWith("https://") ||
                 !content.includes(".")
             ) {
