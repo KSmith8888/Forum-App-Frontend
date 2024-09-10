@@ -32,7 +32,7 @@ export default async function postAction({ request }: loaderActionInterface) {
             typeof replyType === "string" &&
             typeof commentId === "string"
         ) {
-            const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@-]+$", "m");
+            const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@\r\n-]+$");
             if (
                 !reg.test(content) ||
                 content.toLowerCase().includes("javascript:") ||

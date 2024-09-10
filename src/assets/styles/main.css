@@ -168,6 +168,13 @@ img {
     margin: 0.5em 0;
 }
 
+.edit-error-message {
+    margin: 0.5em 0;
+    color: red;
+    max-width: 20em;
+    text-align: center;
+}
+
 /* Terms */
 
 .terms-container {

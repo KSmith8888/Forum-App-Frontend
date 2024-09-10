@@ -1,15 +1,20 @@
-import { useLoaderData, Form } from "react-router-dom";
+import { useLoaderData, Form, useActionData } from "react-router-dom";
 
 export default function EditPost() {
     const loaderData = useLoaderData();
+    const errorMessage = useActionData();
     let postTitle = "";
     let prevPostContent = "";
+    let typeOfPost = "Text";
     if (loaderData && typeof loaderData === "object") {
         if ("title" in loaderData && typeof loaderData.title === "string") {
             postTitle = loaderData.title;
         }
         if ("content" in loaderData && typeof loaderData.content === "string") {
             prevPostContent = loaderData.content;
+        }
+        if ("postType" in loaderData && loaderData.postType === "Link") {
+            typeOfPost = "Link";
         }
     }
 
@@ -23,8 +28,8 @@ export default function EditPost() {
                 className="input textarea"
                 name="content"
                 minLength={4}
-                maxLength={900}
-                rows={12}
+                maxLength={typeOfPost === "Text" ? 900 : 90}
+                rows={typeOfPost === "Text" ? 12 : 1}
                 cols={50}
                 defaultValue={prevPostContent}
                 required
@@ -32,6 +37,9 @@ export default function EditPost() {
             <button type="submit" className="button">
                 Update
             </button>
+            <p className="edit-error-message">
+                {typeof errorMessage === "string" ? errorMessage : ""}
+            </p>
         </Form>
     );
 }

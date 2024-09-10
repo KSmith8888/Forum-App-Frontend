@@ -1,7 +1,8 @@
-import { useLoaderData, Form } from "react-router-dom";
+import { useLoaderData, Form, useActionData } from "react-router-dom";
 
 export default function EditComment() {
     const loaderData = useLoaderData();
+    const errorMessage = useActionData();
     const prevContent = typeof loaderData === "string" ? loaderData : "";
 
     return (
@@ -22,6 +23,9 @@ export default function EditComment() {
             <button type="submit" className="button">
                 Update
             </button>
+            <p className="edit-error-message">
+                {typeof errorMessage === "string" ? errorMessage : ""}
+            </p>
         </Form>
     );
 }

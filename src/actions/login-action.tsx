@@ -47,7 +47,7 @@ export default async function loginAction({ request }: loaderActionInterface) {
             sessionStorage.setItem("token", data.token);
             const savedPosts: string[] = [];
             data.savedPosts.forEach((post: savedPostInterface) => {
-                savedPosts.push(post.id);
+                savedPosts.push(post.postId);
             });
             sessionStorage.setItem("saved-posts", JSON.stringify(savedPosts));
             sessionStorage.setItem(

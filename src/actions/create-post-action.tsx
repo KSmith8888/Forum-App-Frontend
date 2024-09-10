@@ -17,13 +17,14 @@ export default async function createPostAction({
             typeof topic !== "string" ||
             typeof title !== "string" ||
             typeof content !== "string" ||
-            typeof postType !== "string"
+            typeof postType !== "string" ||
+            typeof keywords !== "string"
         ) {
             throw new Error("There has been an error");
         }
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
-        const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@-]+$", "m");
+        const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@\r\n-]+$");
         if (!token || !userId) {
             throw new Error("You must log in before creating a post");
         }
