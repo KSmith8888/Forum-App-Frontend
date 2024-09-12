@@ -2,7 +2,24 @@ import { redirect } from "react-router-dom";
 import { loaderActionInterface } from "../utils/interfaces";
 
 export default async function searchAction({ request }: loaderActionInterface) {
-    const formData = await request.formData();
-    const searchTerm = formData.get("search");
-    return redirect(`/search?query=${searchTerm}`);
+    try {
+        const formData = await request.formData();
+        const searchTerm = formData.get("search");
+        const reg = new RegExp("^[a-zA-Z0-9 _]+$");
+        if (
+            !searchTerm ||
+            typeof searchTerm !== "string" ||
+            searchTerm === " " ||
+            !reg.test(searchTerm)
+        ) {
+            throw new Error("Please enter a valid search term");
+        }
+        return redirect(`/search?query=${searchTerm}`);
+    } catch (error) {
+        let errorMsg = "There has been an error, please try again later";
+        if (error instanceof Error) {
+            errorMsg = error.message;
+        }
+        return errorMsg;
+    }
 }

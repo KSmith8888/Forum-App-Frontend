@@ -160,10 +160,6 @@
     background-color: rgb(215, 231, 236);
 }
 
-.comment:last-child {
-    border-bottom: none;
-}
-
 .comment-form-container {
     width: 100%;
     display: flex;
@@ -241,6 +237,11 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+}
+
+.previous-post-content,
+.previous-comment-content {
+    word-break: break-word;
 }
 
 .post-history-container-heading,

@@ -42,6 +42,24 @@ export default async function postAction({ request }: loaderActionInterface) {
                     "Please do not include special characters in your message"
                 );
             }
+            if (content.includes("https://")) {
+                const attemptedLinks: string[] = [];
+                const contentWords = content.split(" ");
+                const reg = new RegExp("^[a-zA-Z0-9.:/_-]+$");
+                contentWords.forEach((word) => {
+                    if (word.startsWith("https://")) {
+                        attemptedLinks.push(word);
+                    }
+                });
+                attemptedLinks.forEach((link) => {
+                    const isValid = URL.canParse(link);
+                    if (!isValid || !reg.test(link) || !link.includes(".")) {
+                        throw new Error(
+                            "Bad Request Error: Invalid link content provided"
+                        );
+                    }
+                });
+            }
             dataBody = {
                 content,
                 postId,

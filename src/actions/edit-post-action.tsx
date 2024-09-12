@@ -9,6 +9,7 @@ export default async function editPostAction({
         const postId = params.id;
         const postData = await request.formData();
         const content = postData.get("content");
+        const postType = postData.get("post-type");
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
         const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@\r\n-]+$");
@@ -21,6 +22,20 @@ export default async function editPostAction({
             throw new Error(
                 "Please do not include special characters in your message"
             );
+        }
+        if (postType === "Link") {
+            const isValid = URL.canParse(content);
+            const reg = new RegExp("^[a-zA-Z0-9.:/_-]+$");
+            if (
+                !isValid ||
+                !reg.test(content) ||
+                !content.startsWith("https://") ||
+                !content.includes(".")
+            ) {
+                throw new Error(
+                    "Please do not include special characters in your message"
+                );
+            }
         }
         if (!token || !userId) {
             throw new Error("You must log in before creating a post");

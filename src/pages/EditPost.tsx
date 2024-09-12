@@ -34,6 +34,7 @@ export default function EditPost() {
                 defaultValue={prevPostContent}
                 required
             ></textarea>
+            <input type="hidden" name="post-type" value={typeOfPost} />
             <button type="submit" className="button">
                 Update
             </button>

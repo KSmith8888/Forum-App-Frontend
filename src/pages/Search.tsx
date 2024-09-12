@@ -1,5 +1,11 @@
 import { useRef, useEffect } from "react";
-import { Form, useLoaderData, Link, useSearchParams } from "react-router-dom";
+import {
+    Form,
+    useLoaderData,
+    Link,
+    useSearchParams,
+    useActionData,
+} from "react-router-dom";
 
 import { postInterface } from "../utils/interfaces.ts";
 
@@ -9,10 +15,12 @@ import linkIconImg from "../assets/images/link-post-icon.png";
 
 export default function Search() {
     const loader = useLoaderData();
+    const actionData = useActionData();
     const searchResults = Array.isArray(loader) ? loader : [];
     const searchForm = useRef<HTMLFormElement>(null);
     const [searchParams] = useSearchParams();
     const query = searchParams.get("query");
+    const errorMessage = typeof actionData === "string" ? actionData : "";
     useEffect(() => {
         if (searchForm.current) {
             searchForm.current.reset();
@@ -93,13 +101,13 @@ export default function Search() {
                     type="search"
                     name="search"
                     className="input"
-                    pattern="[a-zA-Z0-9 _]+"
                     maxLength={30}
                     required
                 />
                 <button type="submit" className="button">
                     Search
                 </button>
+                <p className="error-message">{errorMessage}</p>
             </Form>
             <div className="results-container">
                 {searchResults.length > 0 ? (
