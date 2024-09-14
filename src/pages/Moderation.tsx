@@ -48,7 +48,15 @@ export default function Moderation() {
                 const splitMessage = actionMessage.split("-TIMESTAMP-");
                 setModalMessage(
                     <div>
-                        <p className="message-modal-text">{splitMessage[0]}</p>
+                        <p
+                            className={
+                                actionMessage.startsWith("Error:")
+                                    ? "error-message message-modal-text"
+                                    : "message-modal-text"
+                            }
+                        >
+                            {splitMessage[0]}
+                        </p>
                         <p>{splitMessage[1]}</p>
                     </div>
                 );

@@ -10,9 +10,10 @@ export default async function createPostAction({
         const title = postData.get("title");
         const postType = postData.get("post-type");
         const content = postData.get("content");
-        const keywords = postData.get("keywords");
+        const initKeywords = postData.get("keywords");
+        const keywords = initKeywords ? initKeywords : "none";
         const pinned = postData.get("pinned-post");
-        const isPinned = pinned ? "pinned" : "";
+        const isPinned = pinned ? "pinned" : "not-pinned";
         if (
             typeof topic !== "string" ||
             typeof title !== "string" ||
@@ -33,6 +34,7 @@ export default async function createPostAction({
             !reg.test(content) ||
             !reg.test(topic) ||
             !reg.test(postType) ||
+            !reg.test(keywords) ||
             content.toLowerCase().includes("javascript:") ||
             content.toLowerCase().includes("data:")
         ) {

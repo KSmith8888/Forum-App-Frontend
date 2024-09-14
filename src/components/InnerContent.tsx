@@ -26,8 +26,8 @@ export default function InnerContent({ content, type }: innerContentProps) {
             <p className={contentClass}>
                 {words.map((word, index) => {
                     if (word.startsWith("https://")) {
-                        //const reg = new RegExp("^[a-zA-Z0-9.:/_-]+$"); && reg.test(word)
-                        const isValid = URL.canParse(word);
+                        const reg = new RegExp("^[a-zA-Z0-9.:/_-]+$");
+                        const isValid = URL.canParse(word) && reg.test(word);
                         const validHref = isValid ? word : "#";
                         const linkText = isValid ? word : "Invalid";
                         return (
@@ -40,7 +40,7 @@ export default function InnerContent({ content, type }: innerContentProps) {
                             </a>
                         );
                     } else {
-                        return <Fragment key={index}>{word + " "}</Fragment>;
+                        return <Fragment key={index}>{word} </Fragment>;
                     }
                 })}
             </p>
