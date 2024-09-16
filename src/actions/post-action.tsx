@@ -54,9 +54,7 @@ export default async function postAction({ request }: loaderActionInterface) {
                 attemptedLinks.forEach((link) => {
                     const isValid = URL.canParse(link);
                     if (!isValid || !reg.test(link) || !link.includes(".")) {
-                        throw new Error(
-                            "Bad Request Error: Invalid link content provided"
-                        );
+                        throw new Error("Invalid link provided");
                     }
                 });
             }
@@ -73,7 +71,7 @@ export default async function postAction({ request }: loaderActionInterface) {
             typeof reportContent === "string"
         ) {
             if (reportId === "none" || reportType === "none") {
-                throw new Error("Invalid non value");
+                throw new Error("Report information not provided");
             }
             dataUrl = `${
                 import.meta.env.VITE_BACKEND_URL
@@ -123,7 +121,7 @@ export default async function postAction({ request }: loaderActionInterface) {
             if (errorData && errorData.message) {
                 throw new Error(errorData.message);
             } else {
-                throw new Error(`Response error: ${res.status}`);
+                throw new Error(`Status ${res.status}`);
             }
         }
         const data = await res.json();
@@ -240,7 +238,6 @@ export default async function postAction({ request }: loaderActionInterface) {
     } catch (error) {
         let message = "There was an error, please try again later";
         if (error instanceof Error) {
-            console.error(error.message);
             message = error.message;
         }
         return `Error: ${message}`;

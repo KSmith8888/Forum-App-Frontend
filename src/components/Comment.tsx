@@ -51,13 +51,13 @@ export default function Comment({
         }
     }, [actionData]);
     const historyElements = commentData.history.map(
-        (prevComment: commentHistoryInterface, index: number) => {
+        (prevComment: commentHistoryInterface) => {
             const prevCommentDateString = createDateString(
                 prevComment.timestamp,
                 "Posted"
             );
             return (
-                <div key={index} className="previous-comment">
+                <div key={prevComment.editNumber} className="previous-comment">
                     <p className="previous-comment-content">
                         {prevComment.content}
                     </p>

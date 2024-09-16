@@ -42,19 +42,21 @@ export default async function createPostAction({
                 "Please do not include special characters in your message"
             );
         }
-        if (postType === "Link") {
-            const isValid = URL.canParse(content);
+        if (content.includes("https://")) {
+            const attemptedLinks: string[] = [];
+            const contentWords = content.split(" ");
             const reg = new RegExp("^[a-zA-Z0-9.:/_-]+$");
-            if (
-                !isValid ||
-                !reg.test(content) ||
-                !content.startsWith("https://") ||
-                !content.includes(".")
-            ) {
-                throw new Error(
-                    "Please do not include special characters in your message"
-                );
-            }
+            contentWords.forEach((word) => {
+                if (word.startsWith("https://")) {
+                    attemptedLinks.push(word);
+                }
+            });
+            attemptedLinks.forEach((link) => {
+                const isValid = URL.canParse(link);
+                if (!isValid || !reg.test(link) || !link.includes(".")) {
+                    throw new Error("Invalid link provided");
+                }
+            });
         }
         const res = await fetch(
             `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/create`,

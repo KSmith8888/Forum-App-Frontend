@@ -20,12 +20,13 @@ export interface loaderActionInterface {
 export interface postHistoryInterface {
     content: string;
     timestamp: string;
-    editNumber: string;
+    editNumber: number;
 }
 
 export interface commentHistoryInterface {
     content: string;
     timestamp: string;
+    editNumber: number;
 }
 
 export interface postRelatedComments {

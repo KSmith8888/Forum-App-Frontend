@@ -315,7 +315,7 @@
     }
     .post-likes-container,
     .comment-likes-container {
-        flex-direction: column;
+        flex-direction: column-reverse;
     }
     .comments-container {
         width: 100%;

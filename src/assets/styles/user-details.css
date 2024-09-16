@@ -78,6 +78,7 @@
 
 .details-comment-text {
     margin: 0.5em 0;
+    word-break: break-word;
 }
 
 .details-posts-container,
