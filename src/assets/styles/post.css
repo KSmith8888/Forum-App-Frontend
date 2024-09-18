@@ -260,18 +260,15 @@
 
 .report-modal[open] {
     max-width: 25em;
-    background-color: rgb(215, 231, 236);
+    background-color: #f3f3f3;
     border: 1px solid black;
     text-align: center;
     padding: 1.5em 2em;
 }
 
-.report-modal-text {
-    font-size: 1.1rem;
-    background-color: #f3f3f3;
-    border: 1px solid #575454;
-    border-radius: 5px;
-    padding: 0.25em 0.5em;
+.report-modal-heading,
+.report-sent-message {
+    margin: 0.5em 0;
 }
 
 #report-form {

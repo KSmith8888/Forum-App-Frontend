@@ -92,13 +92,15 @@ export default function Post() {
                 setUserLikedPost(actionData.didUserLike);
             }
             if (
-                reportForm &&
-                reportForm.current &&
-                reportModal &&
-                reportModal.current
+                "message" in actionData &&
+                actionData.message === "Message reported successfully"
             ) {
-                reportForm.current.reset();
-                reportModal.current.close();
+                reportSentMsg.current?.classList.remove("not-visible");
+                setTimeout(() => {
+                    reportForm.current?.reset();
+                    reportModal.current?.close();
+                    reportSentMsg.current?.classList.add("not-visible");
+                }, 2000);
             }
         }
     }, [actionData]);
@@ -119,6 +121,7 @@ export default function Post() {
     }, []);
     const reportModal = useRef<HTMLDialogElement>(null);
     const reportForm = useRef<HTMLFormElement>(null);
+    const reportSentMsg = useRef<HTMLParagraphElement>(null);
     function openReportModal(
         messageId: string,
         reportType: string,
@@ -286,9 +289,9 @@ export default function Post() {
                             >
                                 X
                             </button>
-                            <p className="report-modal-text">
+                            <h3 className="report-modal-heading">
                                 Report to the moderation team?
-                            </p>
+                            </h3>
                             <label htmlFor="report-message-input">
                                 Message:
                             </label>
@@ -328,6 +331,12 @@ export default function Post() {
                             <button className="button" type="submit">
                                 Submit
                             </button>
+                            <p
+                                ref={reportSentMsg}
+                                className="not-visible report-sent-message"
+                            >
+                                Your report has been sent
+                            </p>
                         </Form>
                     </dialog>
                     {!isUserLoggedIn && (
