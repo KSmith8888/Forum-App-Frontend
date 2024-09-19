@@ -79,6 +79,7 @@ export default function UpdatePassword({
                         minLength={8}
                         maxLength={18}
                         required
+                        autoFocus
                     />
                     <label htmlFor="new-password-input">
                         New Password

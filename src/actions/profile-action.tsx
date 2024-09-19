@@ -33,7 +33,7 @@ export default async function profileAction({
             reqUrl = `${reqUrl}${comment}/details/${id}`;
         } else if (typeof notification === "string") {
             reqUrl = `${reqUrl}users/profile/notifications/${id}`;
-        } else if (typeof bioContent === "string") {
+        } else if (typeof bioContent === "string" && bioContent !== "") {
             reqUrl = `${reqUrl}users/profile/${id}/bio`;
             reqMethod = "PATCH";
             reqBody = {
@@ -73,6 +73,8 @@ export default async function profileAction({
             reqBody = {
                 status: "Update notification setting request",
             };
+        } else {
+            throw new Error("No profile action selected");
         }
         const fetchReq =
             reqMethod === "POST" || reqMethod === "PATCH"
