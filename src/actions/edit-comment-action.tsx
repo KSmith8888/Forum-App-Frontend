@@ -12,7 +12,12 @@ export default async function editCommentAction({
         const commentData = await request.formData();
         const content = commentData.get("content");
         const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@\r\n-]+$");
+        if (!token || !userId) {
+            throw new Error("You must log in before creating a post");
+        }
         if (
+            typeof commentId !== "string" ||
+            commentId === "" ||
             typeof content !== "string" ||
             !reg.test(content) ||
             content.toLowerCase().includes("javascript:") ||
@@ -39,9 +44,6 @@ export default async function editCommentAction({
                     );
                 }
             });
-        }
-        if (!token || !userId) {
-            throw new Error("You must log in before creating a post");
         }
         const res = await fetch(
             `${

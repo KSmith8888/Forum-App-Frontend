@@ -10,15 +10,19 @@ export default async function registerAction({
         const password = loginData.get("password");
         const terms = loginData.get("terms");
         const passwordConfirm = loginData.get("password-confirm");
-        if (!username || !password || !terms) {
+        const reg = new RegExp("^[a-zA-Z0-9.:,?/_'!@-]+$");
+        if (
+            typeof username !== "string" ||
+            typeof password !== "string" ||
+            typeof passwordConfirm !== "string" ||
+            terms !== "terms"
+        ) {
             throw new Error(
                 "You must provide a valid username and password and agree to the terms of service"
             );
         }
-        if (typeof username !== "string" || typeof password !== "string") {
-            throw new Error(
-                "Please do not include special characters in your credentials"
-            );
+        if (!reg.test(password) || !reg.test(passwordConfirm)) {
+            throw new Error("Please do not include special characters");
         }
         if (password !== passwordConfirm) {
             throw new Error(
@@ -42,6 +46,17 @@ export default async function registerAction({
             } else {
                 throw new Error(`Response error: ${res.status}`);
             }
+        }
+        const data = await res.json();
+        if (
+            !data ||
+            typeof data !== "object" ||
+            !("message" in data) ||
+            data.message !== "New account created successfully"
+        ) {
+            throw new Error(
+                "There has been an error creating your account, please try again later"
+            );
         }
         return redirect(
             "/login/?message=New account created successfully, please log in"
