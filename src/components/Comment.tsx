@@ -142,21 +142,25 @@ export default function Comment({
                             alt={commentData.profileImageAlt}
                             className="comment-profile-image"
                         />
-                        <p className="comment-author">
-                            Author:{" "}
-                            {commentData.user !== "Deleted" ? (
-                                <Link
-                                    to={`/users/details/${commentData.user}`}
-                                    className="comment-author-link"
-                                >
-                                    {commentData.user}
-                                </Link>
-                            ) : (
-                                <span className="deleted-author">Deleted</span>
-                            )}
-                        </p>
+                        <div className="author-time-text">
+                            <p className="comment-author">
+                                Author:{" "}
+                                {commentData.user !== "Deleted" ? (
+                                    <Link
+                                        to={`/users/details/${commentData.user}`}
+                                        className="comment-author-link"
+                                    >
+                                        {commentData.user}
+                                    </Link>
+                                ) : (
+                                    <span className="deleted-author">
+                                        Deleted
+                                    </span>
+                                )}
+                            </p>
+                            <p className="comment-time">{commentDateString}</p>
+                        </div>
                     </div>
-                    <p className="comment-time">{commentDateString}</p>
                     {commentHasBeenEdited && (
                         <>
                             <p className="comment-edited-time">

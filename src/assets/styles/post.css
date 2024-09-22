@@ -1,4 +1,5 @@
 .post-container {
+    background-color: #f3f3f3;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -10,12 +11,8 @@
     margin: 0.5em;
 }
 
-.post-author,
-.post-time,
 .post-likes,
 .post-edited-time,
-.comment-author,
-.comment-time,
 .comment-likes,
 .comment-edited-time {
     margin: 0.25em;
@@ -57,10 +54,30 @@
     word-break: break-word;
 }
 
-.post,
+.post-author,
+.comment-author {
+    margin: 0.25em 0;
+}
+
+.comment-time,
+.post-time {
+    font-family: "Times New Roman", Times, serif;
+    margin: 0.25em 0;
+    font-size: 0.9em;
+}
+
+.post {
+    background-color: rgb(215, 231, 236);
+    width: 100%;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    align-items: flex-start;
+    border-bottom: 1px solid #575454;
+}
+
 .comment {
     width: 100%;
-    padding: 2em 0.5em;
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
@@ -74,13 +91,13 @@
 
 .column-info {
     width: 35%;
+    margin: 2em 0.5em;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
 .post-topic-link {
-    margin: 0 0.5em;
     font-size: 1.3rem;
     text-decoration: none;
     text-transform: capitalize;
@@ -89,7 +106,6 @@
 .post-author-link,
 .comment-author-link {
     text-decoration: none;
-    display: block;
 }
 
 .post-author-link:hover,
@@ -99,10 +115,6 @@
 .comment-author-link:hover,
 .comment-author-link:focus {
     color: rgb(8, 7, 46);
-}
-
-.deleted-author {
-    display: block;
 }
 
 .selected {
@@ -118,11 +130,19 @@
 .column-content {
     background-color: #f3f3f3;
     width: 65%;
+    margin: 2em 0.5em;
     display: flex;
     flex-direction: column;
     align-items: center;
     border: 1px solid #575454;
     padding: 0.5em;
+}
+
+.content-top-line {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5em 0.5em 0 0.5em;
 }
 
 #save-post-form {
@@ -138,7 +158,6 @@
     height: 32px;
     cursor: pointer;
     border: none;
-    margin: 0 0 0 1em;
     background: url("../images/save-post-icon.png");
 }
 
@@ -148,7 +167,6 @@
     height: 32px;
     cursor: pointer;
     border: none;
-    margin: 0 0 0 1em;
     background: url("../images/unsave-post-icon.png");
 }
 
@@ -304,11 +322,16 @@
         flex-direction: column;
         align-items: center;
     }
+    .post-main-content-container {
+        background-color: #f3f3f3;
+    }
     .column-content,
     .column-info {
-        width: 95%;
+        background-color: transparent;
+        width: 100%;
         align-items: center;
-        margin: 0.5em 0;
+        margin: 0 0 0.5em 0;
+        border: none;
     }
     .post-likes-container,
     .comment-likes-container {

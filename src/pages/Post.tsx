@@ -173,32 +173,42 @@ export default function Post() {
         <div id={postData._id} className="post-container">
             <article className="post">
                 <div className="column-content">
-                    {isUserLoggedIn && (
-                        <Form method="POST" id="save-post-form">
-                            <input
-                                type="hidden"
-                                name="save-post-id"
-                                value={postData._id}
-                            />
-                            <input
-                                type="hidden"
-                                name="save-post-title"
-                                value={postData.title}
-                            />
-                            <button
-                                className={
-                                    userSavedPost
-                                        ? "save-post-button-selected"
-                                        : "save-post-button"
-                                }
-                                aria-label={
-                                    userSavedPost ? "Save post" : "Unsave post"
-                                }
-                                title="Save or unsave post"
-                                type="submit"
-                            ></button>
-                        </Form>
-                    )}
+                    <div className="content-top-line">
+                        <Link
+                            to={`/posts/${postData.topic}`}
+                            className="post-topic-link"
+                        >
+                            {postData.topic}
+                        </Link>
+                        {isUserLoggedIn && (
+                            <Form method="POST" id="save-post-form">
+                                <input
+                                    type="hidden"
+                                    name="save-post-id"
+                                    value={postData._id}
+                                />
+                                <input
+                                    type="hidden"
+                                    name="save-post-title"
+                                    value={postData.title}
+                                />
+                                <button
+                                    className={
+                                        userSavedPost
+                                            ? "save-post-button-selected"
+                                            : "save-post-button"
+                                    }
+                                    aria-label={
+                                        userSavedPost
+                                            ? "Save post"
+                                            : "Unsave post"
+                                    }
+                                    title="Save or unsave post"
+                                    type="submit"
+                                ></button>
+                            </Form>
+                        )}
+                    </div>
                     <div className="post-main-content-container">
                         <div className="post-inner-content-container">
                             <h2 className="post-title">{postData.title}</h2>
@@ -344,33 +354,31 @@ export default function Post() {
                     )}
                 </div>
                 <div className="column-info">
-                    <Link
-                        to={`/posts/${postData.topic}`}
-                        className="post-topic-link"
-                    >
-                        {postData.topic} Topic
-                    </Link>
                     <div className="author-info-container">
                         <img
                             src={`/profile-images/${postData.profileImageName}`}
                             alt={postData.profileImageAlt}
                             className="post-profile-image"
                         />
-                        <p className="post-author">
-                            Author:{" "}
-                            {postData.user !== "Deleted" ? (
-                                <Link
-                                    to={`/users/details/${postData.user}`}
-                                    className="post-author-link"
-                                >
-                                    {postData.user}
-                                </Link>
-                            ) : (
-                                <span className="deleted-author">Deleted</span>
-                            )}
-                        </p>
+                        <div className="author-time-text">
+                            <p className="post-author">
+                                Author:{" "}
+                                {postData.user !== "Deleted" ? (
+                                    <Link
+                                        to={`/users/details/${postData.user}`}
+                                        className="post-author-link"
+                                    >
+                                        {postData.user}
+                                    </Link>
+                                ) : (
+                                    <span className="deleted-author">
+                                        Deleted
+                                    </span>
+                                )}
+                            </p>
+                            <p className="post-time">{postDateString}</p>
+                        </div>
                     </div>
-                    <p className="post-time">{postDateString}</p>
 
                     {postHasBeenEdited && (
                         <>
