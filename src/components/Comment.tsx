@@ -159,13 +159,15 @@ export default function Comment({
                                 )}
                             </p>
                             <p className="comment-time">{commentDateString}</p>
+                            {commentHasBeenEdited && (
+                                <p className="comment-edited-time">
+                                    {editDateString}
+                                </p>
+                            )}
                         </div>
                     </div>
                     {commentHasBeenEdited && (
                         <>
-                            <p className="comment-edited-time">
-                                {editDateString}
-                            </p>
                             <button
                                 className="button"
                                 onClick={() => {

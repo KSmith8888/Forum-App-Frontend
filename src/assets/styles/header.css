@@ -123,6 +123,7 @@
 
 .main-menu-link {
     text-decoration: none;
+    font-size: 1.1rem;
     width: 100%;
     border-top: 1px solid black;
     padding: 1em 1.5em;
@@ -168,9 +169,10 @@
 }
 .topic-link {
     text-decoration: none;
+    font-size: 1.1rem;
     width: 100%;
     border-top: 1px solid black;
-    padding: 0.8em;
+    padding: 1em;
 }
 
 .topic-link:hover,
@@ -206,7 +208,8 @@
 
 @media (max-width: 650px) {
     .header {
-        padding: 1em 0.5em;
+        padding: 1em 0;
+        justify-content: center;
     }
     .header-info-container {
         margin-top: 0.5em;

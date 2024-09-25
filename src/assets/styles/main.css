@@ -58,7 +58,8 @@ img {
 }
 
 .error-message-container {
-    max-width: 25em;
+    width: 25em;
+    max-width: 90%;
     text-align: center;
     background-color: #f3f3f3;
     border: 1px solid #575454;

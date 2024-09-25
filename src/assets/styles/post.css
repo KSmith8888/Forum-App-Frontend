@@ -44,12 +44,13 @@
 }
 
 .link-post-text {
+    text-align: center;
     margin: 0.5em 1em;
+    padding: 0 1em;
 }
 
 .link-post-anchor {
     display: block;
-    width: 100%;
     text-align: center;
     word-break: break-word;
 }
@@ -60,7 +61,9 @@
 }
 
 .comment-time,
-.post-time {
+.post-time,
+.post-edited-time,
+.comment-edited-time {
     font-family: "Times New Roman", Times, serif;
     margin: 0.25em 0;
     font-size: 0.9em;
@@ -139,6 +142,7 @@
 }
 
 .content-top-line {
+    background-color: #f3f3f3;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -168,6 +172,18 @@
     cursor: pointer;
     border: none;
     background: url("../images/unsave-post-icon.png");
+}
+
+.no-comments-text-container {
+    width: 100%;
+    padding: 1em;
+    background-color: rgb(215, 231, 236);
+    text-align: center;
+}
+
+.no-comments-text {
+    margin: 0.5em 0;
+    font-size: 1.2rem;
 }
 
 .comment:nth-child(odd) {
@@ -319,32 +335,24 @@
     }
     .post,
     .comment {
+        padding: 0.5em 0;
         flex-direction: column;
         align-items: center;
     }
     .post-main-content-container {
+        width: 100%;
         background-color: #f3f3f3;
     }
     .column-content,
     .column-info {
-        background-color: transparent;
-        width: 100%;
+        width: 90%;
         align-items: center;
-        margin: 0 0 0.5em 0;
-        border: none;
+        margin: 0.5em 0;
+        padding: 0;
     }
     .post-likes-container,
     .comment-likes-container {
         flex-direction: column-reverse;
-    }
-    .comments-container {
-        width: 100%;
-    }
-    .post-time,
-    .post-edited-time,
-    .comment-time,
-    .comment-edited-time {
-        display: block;
     }
     .previous-post,
     .previous-comment {

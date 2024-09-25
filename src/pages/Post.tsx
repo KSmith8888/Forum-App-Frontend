@@ -377,12 +377,16 @@ export default function Post() {
                                 )}
                             </p>
                             <p className="post-time">{postDateString}</p>
+                            {postHasBeenEdited && (
+                                <p className="post-edited-time">
+                                    {editDateString}
+                                </p>
+                            )}
                         </div>
                     </div>
 
                     {postHasBeenEdited && (
                         <>
-                            <p className="post-edited-time">{editDateString}</p>
                             <button
                                 className="button"
                                 type="button"
@@ -417,7 +421,18 @@ export default function Post() {
                     />
                 </div>
             )}
-            <div className="comments-container">{commentElements}</div>
+            <div className="comments-container">
+                {commentElements.length > 0 ? (
+                    commentElements
+                ) : (
+                    <div className="no-comments-text-container">
+                        <p className="no-comments-text">No comments yet</p>
+                        <p className="no-comments-text">
+                            Click reply to create one
+                        </p>
+                    </div>
+                )}
+            </div>
             {showRemainingComments
                 ? remainingCommentElements
                 : remainingCommentElements.length > 0 && (
