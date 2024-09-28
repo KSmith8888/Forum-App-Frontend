@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import "../assets/styles/attribution.css";
+
 export default function Attribution() {
     useEffect(() => {
         window.scrollTo(0, 0);
