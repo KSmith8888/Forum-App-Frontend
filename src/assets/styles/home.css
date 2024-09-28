@@ -30,6 +30,7 @@
     flex-direction: column;
     background-color: #f3f3f3;
     border: 1px solid #575454;
+    border-radius: 5px;
     margin: 0.5em 0;
 }
 

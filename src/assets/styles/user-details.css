@@ -82,7 +82,8 @@
 }
 
 .details-posts-container,
-.details-comments-container {
+.details-comments-container,
+.default-text {
     text-align: center;
 }
 

@@ -33,9 +33,7 @@ export default function Comment({
     const [showReplyForm, setShowReplyForm] = useState(false);
 
     useEffect(() => {
-        if (showReplyForm && Array.isArray(actionData)) {
-            setShowReplyForm(false);
-        } else if (
+        if (
             actionData &&
             typeof actionData === "object" &&
             "didLikeComment" in actionData &&

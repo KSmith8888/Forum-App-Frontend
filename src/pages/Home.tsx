@@ -52,9 +52,7 @@ export default function Home() {
                                         : "trending-post-text-type"
                                 }
                             >
-                                {post.postType === "Link"
-                                    ? `${post.content}`
-                                    : `${startingChars}...`}
+                                {`${startingChars}...`}
                             </p>
                         </div>
                         <div className="home-post-image-container">
@@ -66,17 +64,11 @@ export default function Home() {
                                 />
                             )}
                             {post.postType === "Link" && (
-                                <a
-                                    href={post.content}
-                                    target="_blank"
-                                    rel="noreferrer"
-                                >
-                                    <img
-                                        src={linkIconImg}
-                                        alt={`A grey and blue chain link representing a hyperlink to ${post.content}`}
-                                        className="home-link-post-image"
-                                    />
-                                </a>
+                                <img
+                                    src={linkIconImg}
+                                    alt={`A grey and blue chain link representing a hyperlink to ${post.content}`}
+                                    className="home-link-post-image"
+                                />
                             )}
                         </div>
                     </div>

@@ -128,7 +128,7 @@ export default function UserDetails() {
                                   )}
                         </div>
                     ) : (
-                        <p>No posts for this user</p>
+                        <p className="default-text">No posts for this user</p>
                     )}
                 </section>
                 <section className="user-comments-section">
@@ -151,7 +151,9 @@ export default function UserDetails() {
                                   )}
                         </div>
                     ) : (
-                        <p>No comments for this user</p>
+                        <p className="default-text">
+                            No comments for this user
+                        </p>
                     )}
                 </section>
             </div>

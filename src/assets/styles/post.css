@@ -196,6 +196,7 @@
 
 .comment-form-container {
     width: 100%;
+    background-color: #ebf1f3;
     display: flex;
     justify-content: center;
     border-bottom: 1px solid #575454;
