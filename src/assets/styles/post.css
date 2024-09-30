@@ -294,11 +294,33 @@
 }
 
 .report-modal[open] {
-    max-width: 25em;
+    width: 25em;
+    max-width: 95%;
     background-color: #f3f3f3;
     border: 1px solid black;
     text-align: center;
     padding: 1.5em 2em;
+}
+
+.error-modal[open] {
+    width: 25em;
+    max-width: 95%;
+    background-color: #ebf1f3;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.error-modal-text {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: red;
+    background-color: #f3f3f3;
+    border: 1px solid #575454;
+    border-radius: 5px;
+    padding: 0.5em;
 }
 
 .report-modal-heading,

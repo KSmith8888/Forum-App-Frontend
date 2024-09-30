@@ -1,27 +1,27 @@
-import { useEffect, useRef } from "react";
+//import { useEffect, useRef } from "react";
 import { Form } from "react-router-dom";
 
 import { commentFormProps } from "../utils/interfaces.ts";
 
 export default function CommentForm({
-    commentErrorMsg,
     type,
     postId,
     commentId = "none",
 }: commentFormProps) {
+    /*
     const commentForm = useRef<HTMLFormElement>(null);
     useEffect(() => {
         if (commentForm.current && commentErrorMsg === null) {
             commentForm.current.reset();
         }
     }, [commentErrorMsg]);
+    */
     return (
         <Form
             action={`/posts/details/${postId}`}
             className="comment-form"
             method="POST"
             autoComplete="off"
-            ref={commentForm}
         >
             <label htmlFor="comment-input" className="comment-form-label">
                 Leave a comment:
@@ -39,9 +39,6 @@ export default function CommentForm({
             <button type="submit" className="button">
                 Submit
             </button>
-            <p className="error-message">
-                {typeof commentErrorMsg === "string" ? commentErrorMsg : ""}
-            </p>
         </Form>
     );
 }

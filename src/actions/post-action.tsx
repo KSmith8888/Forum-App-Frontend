@@ -237,9 +237,10 @@ export default async function postAction({ request }: loaderActionInterface) {
         return data;
     } catch (error) {
         let message = "There was an error, please try again later";
+        const errorTime = new Date();
         if (error instanceof Error) {
             message = error.message;
         }
-        return `Error: ${message}`;
+        return `Error: ${message}-TIMESTAMP-${errorTime}`;
     }
 }

@@ -201,10 +201,18 @@ img {
     padding: 5em 0;
     width: 100%;
     height: 100%;
+    position: fixed;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+}
+
+#outlet-loading-background {
+    background-color: #f3f3f3;
+    padding: 1em 2em 0 2em;
+    border-radius: 5px;
+    border: 1px solid #575454;
 }
 
 #outlet-loading-spinner {
@@ -221,7 +229,9 @@ img {
 }
 
 #outlet-loading-text {
-    font-size: 1.2rem;
+    margin: 1em 0;
+    font-size: 1.3rem;
+    font-weight: 600;
     color: rgb(19, 26, 128);
 }
 

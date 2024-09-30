@@ -70,12 +70,15 @@ export default function Post() {
         }
     );
     const actionData = useActionData();
-    const [commentErrorMsg, setCommentErrorMsg] = useState<null | string>(null);
+    const errorModal = useRef<HTMLDialogElement>(null);
+    const [errorMessage, setErrorMessage] = useState("");
     useEffect(() => {
         if (Array.isArray(actionData)) {
             setShowCommentForm(false);
-        } else if (typeof actionData === "string") {
-            setCommentErrorMsg(actionData);
+        } else if (typeof actionData === "string" && errorModal.current) {
+            const splitMessage = actionData.split("-TIMESTAMP-");
+            setErrorMessage(splitMessage[0]);
+            errorModal.current.showModal();
         } else if (actionData && typeof actionData === "object") {
             if (
                 "didUserSave" in actionData &&
@@ -144,7 +147,6 @@ export default function Post() {
                       <Comment
                           key={comment._id}
                           commentData={comment}
-                          commentErrorMsg={commentErrorMsg}
                           actionData={actionData}
                           isUserLoggedIn={isUserLoggedIn}
                           openReportModal={openReportModal}
@@ -160,7 +162,6 @@ export default function Post() {
                       <Comment
                           key={comment._id}
                           commentData={comment}
-                          commentErrorMsg={commentErrorMsg}
                           actionData={actionData}
                           isUserLoggedIn={isUserLoggedIn}
                           openReportModal={openReportModal}
@@ -171,6 +172,31 @@ export default function Post() {
 
     return (
         <div id={postData._id} className="post-container">
+            <dialog
+                className="error-modal"
+                ref={errorModal}
+                onClick={(e) => {
+                    if (e.target === e.currentTarget && errorModal.current) {
+                        errorModal.current.close();
+                    }
+                }}
+            >
+                <button
+                    className="close-modal-button"
+                    aria-label="Close"
+                    onClick={() => {
+                        if (errorModal.current) {
+                            errorModal.current.close();
+                        }
+                    }}
+                >
+                    X
+                </button>
+                <p className="error-modal-text">
+                    {errorMessage ||
+                        "There has been an error, please try again later"}
+                </p>
+            </dialog>
             <article className="post">
                 <div className="column-content">
                     <div className="content-top-line">
@@ -414,11 +440,7 @@ export default function Post() {
             )}
             {showCommentForm && (
                 <div className="comment-form-container">
-                    <CommentForm
-                        commentErrorMsg={commentErrorMsg}
-                        type={"post"}
-                        postId={postData._id}
-                    />
+                    <CommentForm type={"post"} postId={postData._id} />
                 </div>
             )}
             <div className="comments-container">

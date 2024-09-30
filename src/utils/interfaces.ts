@@ -83,7 +83,6 @@ export interface commentInterface {
 
 export interface commentProps {
     commentData: commentInterface;
-    commentErrorMsg: string | null;
     actionData: unknown;
     isUserLoggedIn: boolean;
     openReportModal: (
@@ -147,7 +146,6 @@ export interface profileBioProps {
 }
 
 export interface commentFormProps {
-    commentErrorMsg: string | null;
     type: "post" | "comment";
     postId: string;
     commentId?: string;

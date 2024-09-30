@@ -27,23 +27,24 @@ export default function Layout() {
                 setProfilePic={setProfilePic}
             />
             <main className="main-section">
-                {navState.state !== "idle" ? (
+                {navState.state !== "idle" && (
                     <div id="outlet-loading-area">
-                        <div id="outlet-loading-spinner"></div>
-                        <p id="outlet-loading-text">Loading</p>
+                        <div id="outlet-loading-background">
+                            <div id="outlet-loading-spinner"></div>
+                            <p id="outlet-loading-text">Loading</p>
+                        </div>
                     </div>
-                ) : (
-                    <Outlet
-                        context={{
-                            isUserLoggedIn,
-                            setIsUserLoggedIn,
-                            numOfNotifications,
-                            setNumOfNotifications,
-                            profilePic,
-                            setProfilePic,
-                        }}
-                    />
                 )}
+                <Outlet
+                    context={{
+                        isUserLoggedIn,
+                        setIsUserLoggedIn,
+                        numOfNotifications,
+                        setNumOfNotifications,
+                        profilePic,
+                        setProfilePic,
+                    }}
+                />
             </main>
             <Footer />
         </div>

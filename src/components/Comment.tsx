@@ -9,7 +9,6 @@ import { createDateString } from "../utils/create-date-string";
 export default function Comment({
     commentData,
     isUserLoggedIn,
-    commentErrorMsg,
     actionData,
     openReportModal,
 }: commentProps) {
@@ -193,7 +192,6 @@ export default function Comment({
             {showReplyForm && (
                 <div className="comment-form-container">
                     <CommentForm
-                        commentErrorMsg={commentErrorMsg}
                         type="comment"
                         postId={commentData.relatedPost}
                         commentId={commentData._id}
