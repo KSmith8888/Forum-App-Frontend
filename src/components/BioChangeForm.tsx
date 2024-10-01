@@ -47,6 +47,7 @@ export default function BioChangeForm({ profileBio }: profileBioProps) {
                         minLength={4}
                         rows={5}
                         cols={30}
+                        required
                         autoFocus
                     ></textarea>
                     <button

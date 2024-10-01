@@ -458,15 +458,17 @@ export default function Post() {
             {showRemainingComments
                 ? remainingCommentElements
                 : remainingCommentElements.length > 0 && (
-                      <button
-                          type="button"
-                          className="button show-more"
-                          onClick={() => {
-                              setShowRemainingComments(true);
-                          }}
-                      >
-                          Show More
-                      </button>
+                      <div className="show-more-area">
+                          <button
+                              type="button"
+                              className="button show-more"
+                              onClick={() => {
+                                  setShowRemainingComments(true);
+                              }}
+                          >
+                              Show More
+                          </button>
+                      </div>
                   )}
         </div>
     );

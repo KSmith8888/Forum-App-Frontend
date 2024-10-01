@@ -202,6 +202,12 @@
     border-bottom: 1px solid #575454;
 }
 
+.show-more-area {
+    width: 100%;
+    background-color: rgb(215, 231, 236);
+    text-align: center;
+}
+
 .comment-form {
     width: 22em;
     margin: 1em 0;
@@ -368,7 +374,7 @@
     }
     .column-content,
     .column-info {
-        width: 90%;
+        width: 95%;
         align-items: center;
         margin: 0.5em 0;
         padding: 0;

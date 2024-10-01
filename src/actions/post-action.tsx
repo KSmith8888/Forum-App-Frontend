@@ -25,6 +25,7 @@ export default async function postAction({ request }: loaderActionInterface) {
         }/api/v1/comments/create`;
         let dataMethod = "POST";
         let dataBody = {};
+        const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@\r\n-]+$");
         if (
             content &&
             typeof content === "string" &&
@@ -32,7 +33,6 @@ export default async function postAction({ request }: loaderActionInterface) {
             typeof replyType === "string" &&
             typeof commentId === "string"
         ) {
-            const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@\r\n-]+$");
             if (
                 !reg.test(content) ||
                 content.toLowerCase().includes("javascript:") ||
@@ -45,7 +45,7 @@ export default async function postAction({ request }: loaderActionInterface) {
             if (content.includes("https://")) {
                 const attemptedLinks: string[] = [];
                 const contentWords = content.split(" ");
-                const reg = new RegExp("^[a-zA-Z0-9.:/_-]+$");
+                const linkReg = new RegExp("^[a-zA-Z0-9.:/_-]+$");
                 contentWords.forEach((word) => {
                     if (word.startsWith("https://")) {
                         attemptedLinks.push(word);
@@ -53,7 +53,11 @@ export default async function postAction({ request }: loaderActionInterface) {
                 });
                 attemptedLinks.forEach((link) => {
                     const isValid = URL.canParse(link);
-                    if (!isValid || !reg.test(link) || !link.includes(".")) {
+                    if (
+                        !isValid ||
+                        !linkReg.test(link) ||
+                        !link.includes(".")
+                    ) {
                         throw new Error("Invalid link provided");
                     }
                 });
@@ -72,6 +76,11 @@ export default async function postAction({ request }: loaderActionInterface) {
         ) {
             if (reportId === "none" || reportType === "none") {
                 throw new Error("Report information not provided");
+            }
+            if (!reg.test(reportContent)) {
+                throw new Error(
+                    "Please do not include special characters in your message"
+                );
             }
             dataUrl = `${
                 import.meta.env.VITE_BACKEND_URL

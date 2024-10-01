@@ -27,14 +27,21 @@ export default async function profileAction({
         if (!token || !userId) {
             throw new Error("You must log in before performing that action");
         }
-        if (typeof post === "string") {
+        if (typeof post === "string" && typeof id === "string") {
             reqUrl = `${reqUrl}${post}/details/${id}`;
-        } else if (typeof comment === "string") {
+        } else if (typeof comment === "string" && typeof id === "string") {
             reqUrl = `${reqUrl}${comment}/details/${id}`;
-        } else if (typeof notification === "string") {
+        } else if (typeof notification === "string" && typeof id === "string") {
             reqUrl = `${reqUrl}users/profile/notifications/${id}`;
-        } else if (typeof bioContent === "string" && bioContent !== "") {
-            reqUrl = `${reqUrl}users/profile/${id}/bio`;
+        } else if (typeof bioContent === "string") {
+            const bioReg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@\r\n-]+$");
+            if (!bioReg.test(bioContent)) {
+                throw new Error(
+                    "Please do not include special characters in your message"
+                );
+            }
+            console.log(userId);
+            reqUrl = `${reqUrl}users/profile/${userId}/bio`;
             reqMethod = "PATCH";
             reqBody = {
                 status: "Update user bio",
@@ -60,7 +67,13 @@ export default async function profileAction({
                     "The values in the password and confirm password fields must match"
                 );
             }
-            reqUrl = `${reqUrl}users/profile/${id}/password`;
+            const passReg = new RegExp("^[a-zA-Z0-9.:,?/_'!@-]+$");
+            if (!passReg.test(newPass)) {
+                throw new Error(
+                    "Please do not include special characters in your message"
+                );
+            }
+            reqUrl = `${reqUrl}users/profile/${userId}/password`;
             reqMethod = "PATCH";
             reqBody = {
                 status: "Update password request",
@@ -122,9 +135,10 @@ export default async function profileAction({
         }
     } catch (error) {
         let errorMsg = "There has been an error, please try again later";
+        const errorTime = new Date();
         if (error instanceof Error) {
             errorMsg = error.message;
         }
-        return errorMsg;
+        return `Error: ${errorMsg}-Target ID-${errorTime}`;
     }
 }

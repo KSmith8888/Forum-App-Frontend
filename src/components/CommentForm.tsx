@@ -1,4 +1,3 @@
-//import { useEffect, useRef } from "react";
 import { Form } from "react-router-dom";
 
 import { commentFormProps } from "../utils/interfaces.ts";
@@ -8,14 +7,6 @@ export default function CommentForm({
     postId,
     commentId = "none",
 }: commentFormProps) {
-    /*
-    const commentForm = useRef<HTMLFormElement>(null);
-    useEffect(() => {
-        if (commentForm.current && commentErrorMsg === null) {
-            commentForm.current.reset();
-        }
-    }, [commentErrorMsg]);
-    */
     return (
         <Form
             action={`/posts/details/${postId}`}
