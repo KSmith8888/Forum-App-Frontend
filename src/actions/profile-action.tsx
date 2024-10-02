@@ -40,7 +40,6 @@ export default async function profileAction({
                     "Please do not include special characters in your message"
                 );
             }
-            console.log(userId);
             reqUrl = `${reqUrl}users/profile/${userId}/bio`;
             reqMethod = "PATCH";
             reqBody = {

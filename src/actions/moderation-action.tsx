@@ -132,14 +132,14 @@ export default async function moderationAction({
             ) {
                 return {
                     warnings: returnMessage.warnings,
-                    time: currentTime,
+                    time: `Action taken: ${currentTime}`,
                     username: warningUser,
                 };
             } else if (
                 "message" in returnMessage &&
                 typeof returnMessage.message === "string"
             ) {
-                return `${returnMessage.message}-TIMESTAMP-Action taken at: ${currentTime}`;
+                return `${returnMessage.message}-TIMESTAMP-Action taken: ${currentTime}`;
             }
         } else {
             throw new Error("Data not returned in correct format");
@@ -150,6 +150,6 @@ export default async function moderationAction({
         if (error instanceof Error) {
             errorMsg = error.message;
         }
-        return `Error: ${errorMsg}-TIMESTAMP-Action taken at: ${errorTime}`;
+        return `Error: ${errorMsg}-TIMESTAMP-Action taken: ${errorTime}`;
     }
 }

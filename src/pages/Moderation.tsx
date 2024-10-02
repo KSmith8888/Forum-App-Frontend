@@ -72,6 +72,7 @@ export default function Moderation() {
                 actionMessage &&
                 typeof actionMessage === "object" &&
                 "time" in actionMessage &&
+                typeof actionMessage.time === "string" &&
                 "warnings" in actionMessage &&
                 Array.isArray(actionMessage.warnings) &&
                 "username" in actionMessage
@@ -91,7 +92,7 @@ export default function Moderation() {
                             actionMessage.username || "User"
                         } (${actionMessage.warnings.length})`}</h3>
                         {userWarnings}
-                        <p>{`Action taken at: ${actionMessage.time}`}</p>
+                        <p>{actionMessage.time}</p>
                     </div>
                 );
                 messageModal.current.showModal();
