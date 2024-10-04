@@ -52,7 +52,9 @@ export default function Home() {
                                         : "trending-post-text-type"
                                 }
                             >
-                                {`${startingChars}...`}
+                                {post.postType === "Link"
+                                    ? post.content
+                                    : `${startingChars}...`}
                             </p>
                         </div>
                         <div className="home-post-image-container">

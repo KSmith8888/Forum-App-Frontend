@@ -73,6 +73,7 @@ export interface commentInterface {
     user: string;
     relatedPost: string;
     hasBeenEdited: boolean;
+    lastEditedAt: string;
     history: Array<commentHistoryInterface>;
     createdAt: string;
     updatedAt: string;

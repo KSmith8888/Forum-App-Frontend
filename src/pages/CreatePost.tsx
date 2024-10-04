@@ -66,7 +66,7 @@ export default function CreatePost() {
                 className="input"
                 type="text"
                 name="title"
-                minLength={4}
+                minLength={8}
                 maxLength={60}
                 required
             />
@@ -75,7 +75,7 @@ export default function CreatePost() {
                 id="content-input"
                 className="input textarea"
                 name="content"
-                minLength={4}
+                minLength={typeOfPost === "Text" ? 50 : 12}
                 maxLength={typeOfPost === "Text" ? 900 : 90}
                 rows={typeOfPost === "Text" ? 12 : 1}
                 required

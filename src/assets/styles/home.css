@@ -26,6 +26,7 @@
 
 .trending-posts-link-container {
     width: 25em;
+    min-height: 8em;
     display: flex;
     flex-direction: column;
     background-color: #f3f3f3;

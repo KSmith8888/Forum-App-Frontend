@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Form, useActionData, useLoaderData } from "react-router-dom";
 
 import { reportInterface, notificationInterface } from "../utils/interfaces.ts";
+import { createDateString } from "../utils/create-date-string.ts";
 
 import ModReport from "../components/ModReport.tsx";
 
@@ -46,6 +47,10 @@ export default function Moderation() {
         if (messageModal.current) {
             if (typeof actionMessage === "string") {
                 const splitMessage = actionMessage.split("-TIMESTAMP-");
+                const dateString = createDateString(
+                    splitMessage[1],
+                    "Action taken"
+                );
                 setModalMessage(
                     <div>
                         <p
@@ -57,15 +62,8 @@ export default function Moderation() {
                         >
                             {splitMessage[0]}
                         </p>
-                        <p>{splitMessage[1]}</p>
+                        <p>{dateString}</p>
                     </div>
-                );
-                messageModal.current.showModal();
-            } else if (actionMessage instanceof Error) {
-                setModalMessage(
-                    <p className="message-modal-text">
-                        {actionMessage.message}
-                    </p>
                 );
                 messageModal.current.showModal();
             } else if (
@@ -86,13 +84,17 @@ export default function Moderation() {
                         );
                     }
                 );
+                const dateString = createDateString(
+                    actionMessage.time,
+                    "Action taken"
+                );
                 setModalMessage(
                     <div>
                         <h3>{`Warnings issued to ${
                             actionMessage.username || "User"
                         } (${actionMessage.warnings.length})`}</h3>
                         {userWarnings}
-                        <p>{actionMessage.time}</p>
+                        <p>{dateString}</p>
                     </div>
                 );
                 messageModal.current.showModal();
