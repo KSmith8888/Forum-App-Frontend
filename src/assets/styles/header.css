@@ -60,15 +60,8 @@
 .menu-top-profile-container {
     width: 100%;
     display: flex;
-    justify-content: space-between;
-}
-
-.menu-profile-container {
-    margin: 0.5em;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 }
 
 #menu-logout-button {
@@ -83,8 +76,13 @@
     align-items: center;
 }
 
+.main-menu-username {
+    margin: 0.5em;
+    font-size: 1.1rem;
+}
+
 .menu-profile-image {
-    margin-top: 0.5em;
+    margin: 0.5em;
     object-fit: cover;
     width: 40px;
     height: 40px;
@@ -108,20 +106,8 @@
     animation-iteration-count: 1;
 }
 
-.main-menu-username {
-    margin: 0.25em 0;
-    font-size: 0.9rem;
-}
-
-.main-menu-button-container {
-    margin: 0.5em 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-end;
-}
-
 .main-menu-link {
+    color: rgb(19, 26, 128);
     text-decoration: none;
     font-size: 1.1rem;
     width: 100%;
@@ -129,8 +115,21 @@
     padding: 1em 1.5em;
 }
 
+.main-menu-button-link {
+    text-align: left;
+    color: rgb(19, 26, 128);
+    cursor: pointer;
+    border: none;
+    font-size: 1.1rem;
+    width: 100%;
+    border-top: 1px solid black;
+    padding: 1em 1.5em;
+}
+
 .main-menu-link:hover,
-.main-menu-link:focus {
+.main-menu-link:focus,
+.main-menu-button-link:hover,
+.main-menu-button-link:focus {
     color: rgb(8, 7, 46);
     background-color: #ebf1f3;
 }
@@ -158,9 +157,13 @@
     animation-duration: 0.3s;
     animation-iteration-count: 1;
 }
+
 .topics-link-heading {
-    margin: 0.5em 1.5em 0.5em 0.5em;
+    font-size: 1.1rem;
+    margin: 0.5em;
+    text-align: center;
 }
+
 .topics-link-container,
 .topics-links-nav {
     display: flex;
@@ -172,38 +175,13 @@
     font-size: 1.1rem;
     width: 100%;
     border-top: 1px solid black;
-    padding: 1em;
+    padding: 1em 1.5em;
 }
 
 .topic-link:hover,
 .topic-link:focus {
     color: rgb(8, 7, 46);
     background-color: #ebf1f3;
-}
-
-.topics-modal-heading-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.close-topics-modal-button,
-.main-menu-close-button {
-    padding: 0.2em 0.5em;
-    margin: 0.5em;
-    cursor: pointer;
-    background-color: rgb(224, 19, 19);
-    color: #f3f3f3;
-    font-weight: 600;
-    border: 1px solid #575454;
-    border-radius: 5px;
-}
-
-.close-topics-modal-button:hover,
-.close-topics-modal-button:focus,
-.main-menu-close-button:hover,
-.main-menu-close-button:focus {
-    background-color: rgb(173, 17, 17);
 }
 
 @media (max-width: 650px) {

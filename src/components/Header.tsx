@@ -37,13 +37,13 @@ export default function Header({
 
     function logoutUser() {
         closeNavModal();
+        navigate("/?message=You have logged out successfully");
         sessionStorage.clear();
         setIsUserLoggedIn(false);
         setProfilePic({
             name: "blank.png",
             alt: "A generic, blank outline of a mans upper body",
         });
-        navigate("/?message=You have logged out successfully");
     }
 
     return (
@@ -92,36 +92,12 @@ export default function Header({
                 }}
             >
                 <div className="menu-top-profile-container">
-                    <div className="menu-profile-container">
-                        <img
-                            src={`/profile-images/${profilePic.name}`}
-                            alt={profilePic.alt}
-                            className="menu-profile-image"
-                        />
-                        <p className="main-menu-username">
-                            {username || "User"}
-                        </p>
-                        {isUserLoggedIn && (
-                            <button
-                                id="menu-logout-button"
-                                className="header-menu-button"
-                                onClick={logoutUser}
-                            >
-                                Logout
-                            </button>
-                        )}
-                    </div>
-                    <div className="main-menu-button-container">
-                        <button
-                            className="main-menu-close-button"
-                            aria-label="Close main menu"
-                            onClick={() => {
-                                closeNavModal();
-                            }}
-                        >
-                            X
-                        </button>
-                    </div>
+                    <p className="main-menu-username">{username || "User"}</p>
+                    <img
+                        src={`/profile-images/${profilePic.name}`}
+                        alt={profilePic.alt}
+                        className="menu-profile-image"
+                    />
                 </div>
                 <nav className="main-nav">
                     <Link
@@ -174,6 +150,22 @@ export default function Header({
                                     Moderation
                                 </Link>
                             )}
+                            <button
+                                className="main-menu-button-link"
+                                onClick={() => {
+                                    logoutUser();
+                                }}
+                            >
+                                Logout
+                            </button>
+                            <button
+                                className="main-menu-button-link"
+                                onClick={() => {
+                                    closeNavModal();
+                                }}
+                            >
+                                Close
+                            </button>
                         </>
                     ) : (
                         <>
@@ -195,6 +187,14 @@ export default function Header({
                             >
                                 Login
                             </Link>
+                            <button
+                                className="main-menu-button-link"
+                                onClick={() => {
+                                    closeNavModal();
+                                }}
+                            >
+                                Close
+                            </button>
                         </>
                     )}
                 </nav>
@@ -208,19 +208,8 @@ export default function Header({
                     }
                 }}
             >
-                <div className="topics-modal-heading-container">
-                    <h2 className="topics-link-heading">Topics</h2>
-                    <button
-                        className="close-topics-modal-button"
-                        aria-label="Close topics menu"
-                        onClick={() => {
-                            closeTopicModal();
-                        }}
-                    >
-                        X
-                    </button>
-                </div>
                 <nav className="topics-links-nav">
+                    <h2 className="topics-link-heading">Topics</h2>
                     <Link
                         to="/posts/movies"
                         className="topic-link"
@@ -294,6 +283,14 @@ export default function Header({
                     >
                         Other
                     </Link>
+                    <button
+                        className="main-menu-button-link"
+                        onClick={() => {
+                            closeTopicModal();
+                        }}
+                    >
+                        Close
+                    </button>
                 </nav>
             </dialog>
         </header>

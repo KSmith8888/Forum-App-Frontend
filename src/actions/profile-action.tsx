@@ -117,20 +117,19 @@ export default async function profileAction({
             }
         }
         const data = await res.json();
-        if (data.message === "Account deleted successfully") {
-            return redirect("/?message=Account deleted successfully");
-        } else if (typeof data === "object") {
-            if ("newProfilePicName" in data && "newProfilePicAlt" in data) {
+        if (data && typeof data === "object" && "message" in data) {
+            if (data.message === "Account deleted successfully") {
+                return redirect("/?message=Account deleted successfully");
+            } else if (
+                "newProfilePicName" in data &&
+                "newProfilePicAlt" in data
+            ) {
                 return data;
-            } else if ("bioUpdatedAt" in data) {
-                return data;
-            } else if ("replySetting" in data) {
-                return data;
-            } else if ("message" in data) {
+            } else {
                 return data.message;
             }
         } else {
-            return "Unspecified profile action completed";
+            throw new Error("Unspecified profile action completed");
         }
     } catch (error) {
         let errorMsg = "There has been an error, please try again later";

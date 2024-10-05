@@ -90,13 +90,6 @@ export default function Profile() {
                     name: actionMessage.newProfilePicName,
                     alt: actionMessage.newProfilePicAlt,
                 });
-            } else if (
-                "message" in actionMessage &&
-                typeof actionMessage.message === "string" &&
-                messageModal.current
-            ) {
-                setModalMessage(actionMessage.message);
-                messageModal.current.showModal();
             }
         }
     }, [actionMessage]);
