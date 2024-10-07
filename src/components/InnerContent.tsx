@@ -34,6 +34,8 @@ export default function InnerContent({ content, type }: innerContentProps) {
                             <a
                                 href={validHref}
                                 className="content-link"
+                                target="_blank"
+                                rel="noreferrer"
                                 key={index}
                             >
                                 {linkText}{" "}

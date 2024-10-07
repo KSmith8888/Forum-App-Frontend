@@ -109,7 +109,7 @@
 .main-menu-link {
     color: rgb(19, 26, 128);
     text-decoration: none;
-    font-size: 1.1rem;
+    font-size: 1rem;
     width: 100%;
     border-top: 1px solid black;
     padding: 1em 1.5em;
@@ -120,7 +120,7 @@
     color: rgb(19, 26, 128);
     cursor: pointer;
     border: none;
-    font-size: 1.1rem;
+    font-size: 1rem;
     width: 100%;
     border-top: 1px solid black;
     padding: 1em 1.5em;
@@ -172,7 +172,7 @@
 }
 .topic-link {
     text-decoration: none;
-    font-size: 1.1rem;
+    font-size: 1rem;
     width: 100%;
     border-top: 1px solid black;
     padding: 1em 1.5em;

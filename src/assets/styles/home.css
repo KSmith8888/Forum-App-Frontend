@@ -26,9 +26,10 @@
 
 .trending-posts-link-container {
     width: 25em;
-    min-height: 8em;
+    min-height: 9em;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     background-color: #f3f3f3;
     border: 1px solid #575454;
     border-radius: 5px;
@@ -58,6 +59,7 @@
 }
 
 .trending-post-link {
+    font-size: 1rem;
     margin: 0.5em 0;
     color: rgb(19, 26, 128);
     text-decoration: none;
@@ -67,12 +69,12 @@
     margin: 0;
 }
 .trending-post-text-type {
-    margin: 0.5em 0;
+    margin: 0.25em 0;
 }
 
 .trending-post-link-type {
     word-break: break-all;
-    margin: 0.5em 0.5em 1em 0.5em;
+    margin: 0.25em 0.5em;
 }
 
 .trending-post-link:hover,

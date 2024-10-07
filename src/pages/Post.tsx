@@ -96,14 +96,10 @@ export default function Post() {
             }
             if (
                 "message" in actionData &&
-                actionData.message === "Message reported successfully"
+                actionData.message === "Message reported successfully" &&
+                reportModal.current
             ) {
-                reportSentMsg.current?.classList.remove("not-visible");
-                setTimeout(() => {
-                    reportForm.current?.reset();
-                    reportModal.current?.close();
-                    reportSentMsg.current?.classList.add("not-visible");
-                }, 2000);
+                reportModal.current.close();
             }
         }
     }, [actionData]);
@@ -124,7 +120,6 @@ export default function Post() {
     }, []);
     const reportModal = useRef<HTMLDialogElement>(null);
     const reportForm = useRef<HTMLFormElement>(null);
-    const reportSentMsg = useRef<HTMLParagraphElement>(null);
     function openReportModal(
         messageId: string,
         reportType: string,
@@ -367,12 +362,6 @@ export default function Post() {
                             <button className="button" type="submit">
                                 Submit
                             </button>
-                            <p
-                                ref={reportSentMsg}
-                                className="not-visible report-sent-message"
-                            >
-                                Your report has been sent
-                            </p>
                         </Form>
                     </dialog>
                     {!isUserLoggedIn && (

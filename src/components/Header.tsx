@@ -37,13 +37,13 @@ export default function Header({
 
     function logoutUser() {
         closeNavModal();
-        navigate("/?message=You have logged out successfully");
         sessionStorage.clear();
         setIsUserLoggedIn(false);
         setProfilePic({
             name: "blank.png",
             alt: "A generic, blank outline of a mans upper body",
         });
+        navigate("/?message=You have logged out successfully");
     }
 
     return (
