@@ -3,17 +3,16 @@ import { userProfileComment } from "../utils/interfaces.ts";
 
 export default function ProfileComment({
     commentId,
-    content,
+    previewText,
     relatedPost,
 }: userProfileComment) {
-    const startingChars = content.substring(0, 50);
     return (
         <div key={commentId} className="comment-link-container">
             <Link
                 to={`/posts/details/${relatedPost}?commentId=${commentId}`}
                 className="related-post-link"
             >
-                {`${startingChars}...`}
+                {previewText}
             </Link>
             <div className="button-container">
                 <Link

@@ -32,7 +32,6 @@ export default function Home() {
 
     function createPostElements(postEls: Array<homePostInfo>) {
         return postEls.map((post: homePostInfo) => {
-            const startingChars = post.content.substring(0, 50);
             return (
                 <div key={post._id} className="trending-posts-link-container">
                     <div className="trending-main-content-container">
@@ -52,9 +51,7 @@ export default function Home() {
                                         : "trending-post-text-type"
                                 }
                             >
-                                {post.postType === "Link"
-                                    ? post.content
-                                    : `${startingChars}...`}
+                                {post.previewText}
                             </p>
                         </div>
                         <div className="home-post-image-container">
@@ -68,7 +65,7 @@ export default function Home() {
                             {post.postType === "Link" && (
                                 <img
                                     src={linkIconImg}
-                                    alt={`A grey and blue chain link representing a hyperlink to ${post.content}`}
+                                    alt={`A grey and blue chain link representing a hyperlink to ${post.previewText}`}
                                     className="home-link-post-image"
                                 />
                             )}

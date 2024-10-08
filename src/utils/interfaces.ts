@@ -45,6 +45,7 @@ export interface postInterface {
     title: string;
     postType: string;
     content: string;
+    previewText: string;
     topic: string;
     likes: number;
     user: string;
@@ -63,12 +64,13 @@ export interface homePostInfo {
     _id: string;
     title: string;
     postType: string;
-    content: string;
+    previewText: string;
 }
 
 export interface commentInterface {
     _id: string;
     content: string;
+    previewText: string;
     likes: number;
     user: string;
     relatedPost: string;
@@ -129,7 +131,7 @@ export interface userProfilePost {
 
 export interface userProfileComment {
     commentId: string;
-    content: string;
+    previewText: string;
     relatedPost: string;
 }
 
