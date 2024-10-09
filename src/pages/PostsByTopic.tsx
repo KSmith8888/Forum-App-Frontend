@@ -5,7 +5,7 @@ import {
     useOutletContext,
 } from "react-router-dom";
 
-import { outletInterface, postInterface } from "../utils/interfaces";
+import { outletInterface, searchResultPost } from "../utils/interfaces";
 import textIconImg from "../assets/images/text-post-icon.png";
 import linkIconImg from "../assets/images/link-post-icon.png";
 import "../assets/styles/search.css";
@@ -20,8 +20,7 @@ export default function PostsByTopic() {
     }
     const loader = useLoaderData();
     const postData = Array.isArray(loader) ? loader : [];
-    const postEls = postData.map((post: postInterface) => {
-        const startingChars = post.content.substring(0, 50);
+    const postEls = postData.map((post: searchResultPost) => {
         return (
             <div key={post._id} className="results-posts-link-container">
                 <div className="results-inner-content-container">
@@ -38,17 +37,7 @@ export default function PostsByTopic() {
                                 : "results-post-text-type"
                         }
                     >
-                        {post.postType === "Link" ? (
-                            <a
-                                href={post.content}
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                {post.content}
-                            </a>
-                        ) : (
-                            `${startingChars}...`
-                        )}
+                        {post.previewText}
                     </p>
                 </div>
                 <div className="results-inner-image-container">
@@ -60,18 +49,11 @@ export default function PostsByTopic() {
                         />
                     )}
                     {post.postType === "Link" && (
-                        <a
-                            href={post.content}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="link-result-image-link"
-                        >
-                            <img
-                                src={linkIconImg}
-                                alt={`A grey and blue chain link representing a hyperlink to ${post.content}`}
-                                className="results-link-post-image"
-                            />
-                        </a>
+                        <img
+                            src={linkIconImg}
+                            alt="A grey and blue chain link representing a hyperlink"
+                            className="results-link-post-image"
+                        />
                     )}
                 </div>
             </div>

@@ -34,7 +34,7 @@ export default async function profileAction({
         } else if (typeof notification === "string" && typeof id === "string") {
             reqUrl = `${reqUrl}users/profile/notifications/${id}`;
         } else if (typeof bioContent === "string") {
-            const bioReg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@\r\n-]+$");
+            const bioReg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@=%\r\n-]+$");
             if (!bioReg.test(bioContent)) {
                 throw new Error(
                     "Please do not include special characters in your message"

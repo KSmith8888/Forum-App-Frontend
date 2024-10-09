@@ -7,7 +7,7 @@ import {
     useActionData,
 } from "react-router-dom";
 
-import { postInterface } from "../utils/interfaces.ts";
+import { searchResultPost } from "../utils/interfaces.ts";
 
 import "../assets/styles/search.css";
 import textIconImg from "../assets/images/text-post-icon.png";
@@ -26,8 +26,7 @@ export default function Search() {
             searchForm.current.reset();
         }
     }, [searchResults]);
-    const postEls = searchResults.map((post: postInterface) => {
-        const startingChars = post.content.substring(0, 50);
+    const postEls = searchResults.map((post: searchResultPost) => {
         return (
             <div key={post._id} className="results-posts-link-container">
                 <div className="results-inner-content-container">
@@ -44,17 +43,7 @@ export default function Search() {
                                 : "results-post-text-type"
                         }
                     >
-                        {post.postType === "Link" ? (
-                            <a
-                                href={post.content}
-                                target="_blank"
-                                rel="noreferrer"
-                            >
-                                {post.content}
-                            </a>
-                        ) : (
-                            `${startingChars}...`
-                        )}
+                        {post.previewText}
                     </p>
                 </div>
                 <div className="results-inner-image-container">
@@ -66,18 +55,11 @@ export default function Search() {
                         />
                     )}
                     {post.postType === "Link" && (
-                        <a
-                            href={post.content}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="link-result-image-link"
-                        >
-                            <img
-                                src={linkIconImg}
-                                alt={`A grey and blue chain link representing a hyperlink to ${post.content}`}
-                                className="results-link-post-image"
-                            />
-                        </a>
+                        <img
+                            src={linkIconImg}
+                            alt="A grey and blue chain link representing a hyperlink"
+                            className="results-link-post-image"
+                        />
                     )}
                 </div>
             </div>
@@ -101,6 +83,7 @@ export default function Search() {
                     type="search"
                     name="search"
                     className="input"
+                    pattern="[a-zA-Z0-9_]+"
                     maxLength={30}
                     required
                 />

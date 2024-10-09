@@ -29,7 +29,7 @@
 
 .text-post-text {
     white-space: pre-wrap;
-    word-break: break-all;
+    word-break: break-word;
     margin: 1.5em 1.5em 0.5em 1.5em;
 }
 

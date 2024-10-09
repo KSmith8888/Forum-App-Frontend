@@ -73,7 +73,7 @@ export default function UserDetails() {
                 <DetailsComment
                     key={comment.commentId}
                     commentId={comment.commentId}
-                    content={comment.content}
+                    previewText={comment.previewText}
                     relatedPost={comment.relatedPost}
                 />
             );
@@ -87,7 +87,7 @@ export default function UserDetails() {
                 <DetailsComment
                     key={comment.commentId}
                     commentId={comment.commentId}
-                    content={comment.content}
+                    previewText={comment.previewText}
                     relatedPost={comment.relatedPost}
                 />
             );

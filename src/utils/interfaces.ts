@@ -176,3 +176,10 @@ export interface innerContentProps {
     content: string;
     type: "Post" | "Comment";
 }
+
+export interface searchResultPost {
+    _id: string;
+    title: string;
+    previewText: string;
+    postType: string;
+}

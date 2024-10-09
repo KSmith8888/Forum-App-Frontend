@@ -25,7 +25,7 @@ export default async function postAction({ request }: loaderActionInterface) {
         }/api/v1/comments/create`;
         let dataMethod = "POST";
         let dataBody = {};
-        const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@\r\n-]+$");
+        const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@=%\r\n-]+$");
         if (
             content &&
             typeof content === "string" &&

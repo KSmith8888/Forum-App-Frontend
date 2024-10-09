@@ -76,7 +76,7 @@ export default function CreatePost() {
                 className="input textarea"
                 name="content"
                 minLength={typeOfPost === "Text" ? 50 : 12}
-                maxLength={typeOfPost === "Text" ? 900 : 90}
+                maxLength={typeOfPost === "Text" ? 900 : 200}
                 rows={typeOfPost === "Text" ? 12 : 1}
                 required
             ></textarea>
