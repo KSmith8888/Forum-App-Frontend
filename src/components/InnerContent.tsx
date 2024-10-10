@@ -29,11 +29,18 @@ export default function InnerContent({ content, type }: innerContentProps) {
                         const reg = new RegExp("^[a-zA-Z0-9.:/_-]+$");
                         const isValid = URL.canParse(word) && reg.test(word);
                         const validHref = isValid ? word : "#";
-                        const linkText = isValid ? word : "Invalid";
+                        const linkText = isValid ? word : "Link";
                         return (
                             <a
                                 href={validHref}
                                 className="content-link"
+                                title={
+                                    validHref.startsWith(
+                                        "https://4em.pages.dev"
+                                    )
+                                        ? "Opens in a new tab"
+                                        : "External link - Opens in a new tab"
+                                }
                                 target="_blank"
                                 rel="noreferrer"
                                 key={index}

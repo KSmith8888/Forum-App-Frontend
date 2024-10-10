@@ -239,6 +239,13 @@ export default function Post() {
                                     <a
                                         href={postData.content}
                                         target="_blank"
+                                        title={
+                                            postData.content.startsWith(
+                                                "https://4em.pages.dev"
+                                            )
+                                                ? "Opens in a new tab"
+                                                : "External link - Opens in a new tab"
+                                        }
                                         rel="noreferrer"
                                         className="link-post-anchor"
                                     >

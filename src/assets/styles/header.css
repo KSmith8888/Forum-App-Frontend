@@ -59,6 +59,7 @@
 
 .menu-top-profile-container {
     width: 100%;
+    max-width: 10em;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -77,6 +78,7 @@
 }
 
 .main-menu-username {
+    word-break: break-all;
     margin: 0.5em;
     font-size: 1.1rem;
 }
