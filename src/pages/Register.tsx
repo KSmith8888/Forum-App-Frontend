@@ -28,7 +28,7 @@ export default function Register() {
             <label htmlFor="register-password">
                 Password
                 <span className="block-label-text">
-                    (Between 8 and 18 characters)
+                    (Between 8 and 40 characters)
                 </span>
             </label>
             <input
@@ -37,7 +37,7 @@ export default function Register() {
                 type="password"
                 name="password"
                 minLength={8}
-                maxLength={18}
+                maxLength={40}
                 required
             />
             <label htmlFor="register-password-confirm">Confirm Password</label>
@@ -47,7 +47,7 @@ export default function Register() {
                 type="password"
                 name="password-confirm"
                 minLength={8}
-                maxLength={18}
+                maxLength={40}
                 required
             />
             <div id="terms-input-container">

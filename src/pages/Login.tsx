@@ -76,7 +76,7 @@ export default function Login() {
                     type="password"
                     name="password"
                     minLength={8}
-                    maxLength={18}
+                    maxLength={40}
                     required
                 />
 

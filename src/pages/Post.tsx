@@ -239,17 +239,17 @@ export default function Post() {
                                     <a
                                         href={postData.content}
                                         target="_blank"
-                                        title={
-                                            postData.content.startsWith(
-                                                "https://4em.pages.dev"
-                                            )
-                                                ? "Opens in a new tab"
-                                                : "External link - Opens in a new tab"
-                                        }
                                         rel="noreferrer"
                                         className="link-post-anchor"
                                     >
-                                        {postData.content}
+                                        {postData.content}{" "}
+                                        <span className="link-notice-text">
+                                            {postData.content.startsWith(
+                                                "https://4em.pages.dev"
+                                            )
+                                                ? "(Opens in a new tab)"
+                                                : "(External link - Opens in a new tab)"}
+                                        </span>
                                     </a>
                                 </p>
                             ) : (
@@ -372,7 +372,9 @@ export default function Post() {
                         </Form>
                     </dialog>
                     {!isUserLoggedIn && (
-                        <p>Log in or create an account to comment</p>
+                        <p className="account-to-comment-text">
+                            Log in or create an account to comment
+                        </p>
                     )}
                 </div>
                 <div className="column-info">

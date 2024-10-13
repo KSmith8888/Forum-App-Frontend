@@ -34,18 +34,18 @@ export default function InnerContent({ content, type }: innerContentProps) {
                             <a
                                 href={validHref}
                                 className="content-link"
-                                title={
-                                    validHref.startsWith(
-                                        "https://4em.pages.dev"
-                                    )
-                                        ? "Opens in a new tab"
-                                        : "External link - Opens in a new tab"
-                                }
                                 target="_blank"
                                 rel="noreferrer"
                                 key={index}
                             >
                                 {linkText}{" "}
+                                <span className="link-notice-text">
+                                    {validHref.startsWith(
+                                        "https://4em.pages.dev"
+                                    )
+                                        ? "(Opens in a new tab)"
+                                        : "(External link - Opens in a new tab)"}
+                                </span>{" "}
                             </a>
                         );
                     } else {
