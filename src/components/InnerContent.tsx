@@ -1,6 +1,8 @@
 import { Fragment } from "react/jsx-runtime";
 import { innerContentProps } from "../utils/interfaces.ts";
 
+import openIconImage from "../assets/images/open-link-icon.png";
+
 export default function InnerContent({ content, type }: innerContentProps) {
     const contentClass = type === "Post" ? "text-post-text" : "comment-text";
     function createSubstrings(content: string) {
@@ -38,14 +40,18 @@ export default function InnerContent({ content, type }: innerContentProps) {
                                 rel="noreferrer"
                                 key={index}
                             >
-                                {linkText}{" "}
-                                <span className="link-notice-text">
-                                    {validHref.startsWith(
-                                        "https://4em.pages.dev"
-                                    )
-                                        ? "(Opens in a new tab)"
-                                        : "(External link - Opens in a new tab)"}
-                                </span>{" "}
+                                {linkText}
+                                <img
+                                    src={openIconImage}
+                                    alt={
+                                        validHref.startsWith(
+                                            "https://4em.pages.dev"
+                                        )
+                                            ? "Opens in a new tab"
+                                            : "External link, opens in a new tab"
+                                    }
+                                    className="open-link-icon-image"
+                                ></img>
                             </a>
                         );
                     } else {

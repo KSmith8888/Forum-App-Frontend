@@ -40,25 +40,25 @@
     margin: 1.5em 1.5em 0.5em 1.5em;
 }
 
-.content-link {
-    word-break: break-word;
-}
-
 .link-post-text {
     text-align: center;
     margin: 0.5em 1em;
     padding: 0 1em;
 }
 
-.link-post-anchor {
-    display: block;
-    text-align: center;
+.content-link {
     word-break: break-word;
 }
 
-.link-notice-text {
-    color: black;
-    text-decoration: none;
+.link-post-anchor {
+    word-break: break-word;
+    font-size: 1.1rem;
+}
+
+.open-link-icon-image {
+    width: 17px;
+    height: 17px;
+    margin: 0 0.5em;
 }
 
 .account-to-comment-text {

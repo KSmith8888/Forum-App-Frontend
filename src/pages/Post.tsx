@@ -21,6 +21,7 @@ import {
 } from "../utils/interfaces.ts";
 import { createDateString } from "../utils/create-date-string.ts";
 
+import openIconImage from "../assets/images/open-link-icon.png";
 import "../assets/styles/post.css";
 
 export default function Post() {
@@ -243,13 +244,17 @@ export default function Post() {
                                         className="link-post-anchor"
                                     >
                                         {postData.content}{" "}
-                                        <span className="link-notice-text">
-                                            {postData.content.startsWith(
-                                                "https://4em.pages.dev"
-                                            )
-                                                ? "(Opens in a new tab)"
-                                                : "(External link - Opens in a new tab)"}
-                                        </span>
+                                        <img
+                                            src={openIconImage}
+                                            alt={
+                                                postData.content.startsWith(
+                                                    "https://4em.pages.dev"
+                                                )
+                                                    ? "Opens in a new tab"
+                                                    : "External link, opens in a new tab"
+                                            }
+                                            className="open-link-icon-image"
+                                        ></img>
                                     </a>
                                 </p>
                             ) : (
