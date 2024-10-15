@@ -31,6 +31,7 @@
     white-space: pre-wrap;
     word-break: break-word;
     margin: 1.5em 1.5em 0.5em 1.5em;
+    font-size: 1.1rem;
 }
 
 .comment-text {
@@ -47,7 +48,7 @@
 }
 
 .content-link {
-    word-break: break-word;
+    word-break: break-all;
 }
 
 .link-post-anchor {
@@ -57,8 +58,9 @@
 
 .open-link-icon-image {
     width: 17px;
-    height: 17px;
-    margin: 0 0.5em;
+    height: 20px;
+    margin: 0 0.5em 0 0.25em;
+    vertical-align: text-top;
 }
 
 .account-to-comment-text {
