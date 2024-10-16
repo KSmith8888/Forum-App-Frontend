@@ -12,9 +12,7 @@
 }
 
 .post-likes,
-.post-edited-time,
-.comment-likes,
-.comment-edited-time {
+.comment-likes {
     margin: 0.25em;
 }
 
@@ -39,6 +37,7 @@
     white-space: pre-wrap;
     word-break: break-word;
     margin: 1.5em 1.5em 0.5em 1.5em;
+    font-size: 1.1rem;
 }
 
 .link-post-text {
@@ -56,6 +55,13 @@
     font-size: 1.1rem;
 }
 
+.content-link:hover,
+.content-link:focus,
+.link-post-anchor:hover,
+.link-post-anchor:focus {
+    color: rgb(8, 7, 46);
+}
+
 .open-link-icon-image {
     width: 17px;
     height: 20px;
@@ -67,18 +73,14 @@
     margin: 0.5em 0;
 }
 
-.post-author,
-.comment-author {
-    margin: 0.25em 0;
-}
-
 .comment-time,
 .post-time,
 .post-edited-time,
-.comment-edited-time {
+.comment-edited-time,
+.post-author,
+.comment-author {
     font-family: "Times New Roman", Times, serif;
     margin: 0.25em 0;
-    font-size: 0.9em;
 }
 
 .post {
@@ -88,7 +90,6 @@
     flex-direction: row-reverse;
     justify-content: center;
     align-items: flex-start;
-    border-bottom: 1px solid #575454;
 }
 
 .comment {
@@ -97,7 +98,7 @@
     flex-direction: row-reverse;
     justify-content: center;
     align-items: flex-start;
-    border-bottom: 1px solid #575454;
+    border-top: 1px solid #575454;
 }
 
 .comments-container {
@@ -145,7 +146,7 @@
 .column-content {
     background-color: #f3f3f3;
     width: 65%;
-    margin: 2em 0.5em;
+    margin: 2em 1.5em 2em 0.5em;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -191,6 +192,7 @@
     padding: 1em;
     background-color: rgb(215, 231, 236);
     text-align: center;
+    border-top: 1px solid #575454;
 }
 
 .no-comments-text {
@@ -266,7 +268,7 @@
 .post-history-container,
 .comment-history-container {
     width: 100%;
-    border-bottom: 1px solid #575454;
+    border-top: 1px solid #575454;
     display: flex;
     flex-direction: column;
 }
