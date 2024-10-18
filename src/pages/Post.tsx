@@ -243,7 +243,7 @@ export default function Post() {
                                         rel="noreferrer"
                                         className="link-post-anchor"
                                     >
-                                        {postData.content}{" "}
+                                        {postData.content}
                                         <img
                                             src={openIconImage}
                                             alt={
