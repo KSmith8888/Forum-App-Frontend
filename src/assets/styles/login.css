@@ -1,0 +1,24 @@
+.login-section {
+    display: flex;
+    justify-content: center;
+}
+
+.login-form {
+    max-width: 25em;
+    text-align: center;
+    background-color: #f3f3f3;
+    border: 1px solid #575454;
+    border-radius: 5px;
+    margin: 1em 0;
+    padding: 0.5em;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-params-message {
+    margin: 0.5em 0;
+}
+
+.login-form-heading {
+    margin: 0.25em 0 0.5em 0;
+}

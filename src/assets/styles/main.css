@@ -123,31 +123,71 @@ img {
     background-color: rgb(173, 17, 17);
 }
 
-/* Login */
+/* Post Preview */
 
-.login-section {
+.post-preview-container {
+    width: 25em;
+    min-height: 9em;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-}
-
-.login-form {
-    max-width: 25em;
-    text-align: center;
     background-color: #f3f3f3;
     border: 1px solid #575454;
     border-radius: 5px;
-    margin: 1em 0;
-    padding: 0.5em;
-    display: flex;
-    flex-direction: column;
-}
-
-.login-params-message {
     margin: 0.5em 0;
 }
 
-.login-form-heading {
-    margin: 0.25em 0 0.5em 0;
+.post-preview-inner-container {
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post-preview-main-content {
+    text-align: center;
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5em 0.5em 0.5em 1em;
+}
+
+.post-preview-link {
+    font-size: 1rem;
+    margin: 0.5em 0;
+    color: rgb(19, 26, 128);
+    text-decoration: none;
+}
+
+.post-preview-link:hover,
+.post-preview-link:focus {
+    color: rgb(8, 7, 46);
+}
+
+.post-preview-title {
+    margin: 0;
+}
+
+.text-preview-text {
+    margin: 0.25em 0;
+}
+
+.link-preview-text {
+    word-break: break-all;
+    margin: 0.25em 0.5em;
+}
+
+.post-preview-image-container {
+    text-align: center;
+    width: 25%;
+}
+
+.link-preview-image,
+.text-preview-image {
+    margin: 0;
+    width: 55px;
+    height: 55px;
 }
 
 /* EditPost / EditComment */
@@ -248,7 +288,8 @@ img {
     .login-form,
     .edit-post-form,
     .edit-comment-form,
-    .terms-container {
+    .terms-container,
+    .post-preview-container {
         width: 95%;
     }
 }

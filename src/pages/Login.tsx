@@ -10,6 +10,8 @@ import {
 
 import { outletInterface } from "../utils/interfaces.ts";
 
+import "../assets/styles/login.css";
+
 export default function Login() {
     const loginData = useActionData();
     const loginForm = useRef<HTMLFormElement>(null);

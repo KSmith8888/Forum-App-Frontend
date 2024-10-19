@@ -60,13 +60,6 @@ export interface postInterface {
     profileImageAlt: string;
 }
 
-export interface homePostInfo {
-    _id: string;
-    title: string;
-    postType: string;
-    previewText: string;
-}
-
 export interface commentInterface {
     _id: string;
     content: string;
@@ -177,7 +170,7 @@ export interface innerContentProps {
     type: "Post" | "Comment";
 }
 
-export interface searchResultPost {
+export interface postPreviewInfo {
     _id: string;
     title: string;
     previewText: string;

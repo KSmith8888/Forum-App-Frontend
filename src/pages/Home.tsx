@@ -2,15 +2,14 @@ import { useEffect } from "react";
 import {
     useLoaderData,
     useSearchParams,
-    Link,
     useOutletContext,
 } from "react-router-dom";
 
-import { outletInterface, homePostInfo } from "../utils/interfaces.ts";
+import PostPreview from "../components/PostPreview.tsx";
+
+import { outletInterface, postPreviewInfo } from "../utils/interfaces.ts";
 
 import "../assets/styles/home.css";
-import textIconImg from "../assets/images/text-post-icon.png";
-import linkIconImg from "../assets/images/link-post-icon.png";
 
 export default function Home() {
     const [searchParams] = useSearchParams();
@@ -30,54 +29,22 @@ export default function Home() {
 
     const loaderData = useLoaderData();
 
-    function createPostElements(postEls: Array<homePostInfo>) {
-        return postEls.map((post: homePostInfo) => {
+    function createPostElements(postEls: Array<postPreviewInfo>) {
+        return postEls.map((post: postPreviewInfo) => {
             return (
-                <div key={post._id} className="trending-posts-link-container">
-                    <div className="trending-main-content-container">
-                        <div className="home-post-content-container">
-                            <Link
-                                to={`/posts/details/${post._id}`}
-                                className="trending-post-link"
-                            >
-                                <h3 className="trending-post-title">
-                                    {post.title}
-                                </h3>
-                            </Link>
-                            <p
-                                className={
-                                    post.postType === "Link"
-                                        ? "trending-post-link-type"
-                                        : "trending-post-text-type"
-                                }
-                            >
-                                {post.previewText}
-                            </p>
-                        </div>
-                        <div className="home-post-image-container">
-                            {post.postType === "Text" && (
-                                <img
-                                    src={textIconImg}
-                                    alt="A white sheet of paper with blue text representing a text post"
-                                    className="home-text-post-image"
-                                />
-                            )}
-                            {post.postType === "Link" && (
-                                <img
-                                    src={linkIconImg}
-                                    alt={`A grey and blue chain link representing a hyperlink to ${post.previewText}`}
-                                    className="home-link-post-image"
-                                />
-                            )}
-                        </div>
-                    </div>
-                </div>
+                <PostPreview
+                    key={post._id}
+                    _id={post._id}
+                    title={post.title}
+                    postType={post.postType}
+                    previewText={post.previewText}
+                ></PostPreview>
             );
         });
     }
 
-    let popularPosts: Array<homePostInfo> = [];
-    let newPosts: Array<homePostInfo> = [];
+    let popularPosts: Array<postPreviewInfo> = [];
+    let newPosts: Array<postPreviewInfo> = [];
     if (loaderData && typeof loaderData === "object") {
         if ("popular" in loaderData && Array.isArray(loaderData.popular)) {
             popularPosts = [...loaderData.popular];
