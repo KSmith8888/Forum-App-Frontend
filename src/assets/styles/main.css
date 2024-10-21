@@ -61,9 +61,10 @@ img {
     width: 25em;
     max-width: 90%;
     text-align: center;
+    border-radius: 5px;
     background-color: #f3f3f3;
     border: 1px solid #575454;
-    margin: 1em 0;
+    margin: 2em 0;
     padding: 0.5em 1em;
 }
 
@@ -73,6 +74,7 @@ img {
 
 .error-heading,
 .error-message {
+    margin: 0.5em 0;
     color: red;
 }
 
@@ -190,36 +192,6 @@ img {
     height: 55px;
 }
 
-/* EditPost / EditComment */
-
-.edit-post-form,
-.edit-comment-form {
-    display: flex;
-    flex-direction: column;
-    background-color: #f3f3f3;
-    border: 1px solid #575454;
-    border-radius: 5px;
-    padding: 2em;
-    margin: 1em 0;
-}
-
-.edit-post-title {
-    font-size: 1.2rem;
-    text-align: center;
-    margin: 0.5em 0;
-}
-
-.edit-post-form-heading {
-    margin: 0.5em 0;
-}
-
-.edit-error-message {
-    width: 20em;
-    margin: 0.5em 0;
-    color: red;
-    text-align: center;
-}
-
 /* Terms */
 
 .terms-container {
@@ -285,9 +257,6 @@ img {
 }
 
 @media (max-width: 650px) {
-    .login-form,
-    .edit-post-form,
-    .edit-comment-form,
     .terms-container,
     .post-preview-container {
         width: 95%;

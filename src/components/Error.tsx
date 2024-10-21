@@ -13,7 +13,7 @@ export default function ErrorElement() {
 
     return (
         <div className="error-message-container">
-            <h2 className="error-heading">Sorry, an error has occurred</h2>
+            <h2 className="error-heading">Sorry, there has been an error</h2>
             <p className="error-message">{message}</p>
         </div>
     );

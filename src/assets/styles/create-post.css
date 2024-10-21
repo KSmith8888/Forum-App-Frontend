@@ -5,7 +5,7 @@
     background-color: #ebf1f3;
     border: 1px solid #575454;
     border-radius: 5px;
-    padding: 2em;
+    padding: 1em 1.5em;
     margin: 1em 0;
 }
 
@@ -68,5 +68,6 @@
 @media (max-width: 650px) {
     .post-form {
         width: 95%;
+        padding: 0.5em 1em;
     }
 }

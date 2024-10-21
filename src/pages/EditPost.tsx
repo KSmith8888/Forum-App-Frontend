@@ -1,5 +1,7 @@
 import { useLoaderData, Form, useActionData } from "react-router-dom";
 
+import "../assets/styles/edit-content.css";
+
 export default function EditPost() {
     const loaderData = useLoaderData();
     const errorMessage = useActionData();
@@ -19,7 +21,7 @@ export default function EditPost() {
     }
 
     return (
-        <Form method="patch" className="edit-post-form">
+        <Form method="patch" className="edit-content-form">
             <h2 className="edit-post-form-heading">Edit Post</h2>
             <p className="edit-post-title">{postTitle}</p>
             <label htmlFor="content-input">Content:</label>

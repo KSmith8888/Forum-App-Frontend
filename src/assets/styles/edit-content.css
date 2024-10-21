@@ -1,0 +1,32 @@
+.edit-content-form {
+    display: flex;
+    flex-direction: column;
+    background-color: #f3f3f3;
+    border: 1px solid #575454;
+    border-radius: 5px;
+    padding: 2em;
+    margin: 1em 0;
+}
+
+.edit-post-title {
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 0.5em 0;
+}
+
+.edit-post-form-heading {
+    margin: 0.5em 0;
+}
+
+.edit-error-message {
+    width: 20em;
+    margin: 0.5em 0;
+    color: red;
+    text-align: center;
+}
+
+@media (max-width: 650px) {
+    .edit-content-form {
+        width: 95%;
+    }
+}

@@ -1,12 +1,14 @@
 import { useLoaderData, Form, useActionData } from "react-router-dom";
 
+import "../assets/styles/edit-content.css";
+
 export default function EditComment() {
     const loaderData = useLoaderData();
     const errorMessage = useActionData();
     const prevContent = typeof loaderData === "string" ? loaderData : "";
 
     return (
-        <Form method="POST" className="edit-comment-form">
+        <Form method="POST" className="edit-content-form">
             <h2>Edit Comment</h2>
             <label htmlFor="content-input">Content:</label>
             <textarea
