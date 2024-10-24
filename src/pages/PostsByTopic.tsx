@@ -21,14 +21,14 @@ export default function PostsByTopic() {
     }
     const loader = useLoaderData();
     const postData = Array.isArray(loader) ? loader : [];
-    const postEls = postData.map((post: postPreviewInfo) => {
+    const postEls = postData.map((preview: postPreviewInfo) => {
         return (
             <PostPreview
-                key={post._id}
-                _id={post._id}
-                title={post.title}
-                previewText={post.previewText}
-                postType={post.postType}
+                key={preview.postId}
+                postId={preview.postId}
+                title={preview.title}
+                previewText={preview.previewText}
+                postType={preview.postType}
             />
         );
     });

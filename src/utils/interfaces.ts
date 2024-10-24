@@ -171,7 +171,7 @@ export interface innerContentProps {
 }
 
 export interface postPreviewInfo {
-    _id: string;
+    postId: string;
     title: string;
     previewText: string;
     postType: string;

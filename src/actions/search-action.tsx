@@ -5,11 +5,10 @@ export default async function searchAction({ request }: loaderActionInterface) {
     try {
         const formData = await request.formData();
         const searchTerm = formData.get("search");
-        const reg = new RegExp("^[a-zA-Z0-9 _]+$");
+        const reg = new RegExp("^[a-zA-Z0-9_]+$");
         if (
             !searchTerm ||
             typeof searchTerm !== "string" ||
-            searchTerm === " " ||
             !reg.test(searchTerm)
         ) {
             throw new Error("Please enter a valid search term");

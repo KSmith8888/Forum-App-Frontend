@@ -25,14 +25,14 @@ export default function Search() {
             searchForm.current.reset();
         }
     }, [searchResults]);
-    const postEls = searchResults.map((post: postPreviewInfo) => {
+    const postEls = searchResults.map((preview: postPreviewInfo) => {
         return (
             <PostPreview
-                key={post._id}
-                _id={post._id}
-                title={post.title}
-                previewText={post.previewText}
-                postType={post.postType}
+                key={preview.postId}
+                postId={preview.postId}
+                title={preview.title}
+                previewText={preview.previewText}
+                postType={preview.postType}
             />
         );
     });

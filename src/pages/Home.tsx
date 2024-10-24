@@ -30,15 +30,15 @@ export default function Home() {
     const loaderData = useLoaderData();
 
     function createPostElements(postEls: Array<postPreviewInfo>) {
-        return postEls.map((post: postPreviewInfo) => {
+        return postEls.map((preview: postPreviewInfo) => {
             return (
                 <PostPreview
-                    key={post._id}
-                    _id={post._id}
-                    title={post.title}
-                    postType={post.postType}
-                    previewText={post.previewText}
-                ></PostPreview>
+                    key={preview.postId}
+                    postId={preview.postId}
+                    title={preview.title}
+                    postType={preview.postType}
+                    previewText={preview.previewText}
+                />
             );
         });
     }

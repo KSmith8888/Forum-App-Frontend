@@ -6,17 +6,17 @@ import textIconImg from "../assets/images/text-post-icon.png";
 import linkIconImg from "../assets/images/link-post-icon.png";
 
 export default function PostPreview({
-    _id,
+    postId,
     title,
     previewText,
     postType,
 }: postPreviewInfo) {
     return (
-        <div key={_id} className="post-preview-container">
+        <div key={postId} className="post-preview-container">
             <div className="post-preview-inner-container">
                 <div className="post-preview-main-content">
                     <Link
-                        to={`/posts/details/${_id}`}
+                        to={`/posts/details/${postId}`}
                         className="post-preview-link"
                     >
                         <h3 className="post-preview-title">{title}</h3>
