@@ -29,8 +29,8 @@ export default function EditPost() {
                 id="content-input"
                 className="input textarea"
                 name="content"
-                minLength={4}
-                maxLength={typeOfPost === "Text" ? 900 : 90}
+                minLength={typeOfPost === "Text" ? 50 : 12}
+                maxLength={typeOfPost === "Text" ? 900 : 200}
                 rows={typeOfPost === "Text" ? 12 : 1}
                 cols={50}
                 defaultValue={prevPostContent}
