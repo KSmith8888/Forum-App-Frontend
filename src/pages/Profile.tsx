@@ -105,6 +105,7 @@ export default function Profile() {
                 key={post.postId}
                 postId={post.postId}
                 title={post.title}
+                previewText={post.previewText}
             />
         );
     });
@@ -117,6 +118,7 @@ export default function Profile() {
                           key={post.postId}
                           postId={post.postId}
                           title={post.title}
+                          previewText={post.previewText}
                       />
                   );
               })
@@ -186,9 +188,10 @@ export default function Profile() {
                     key={notification._id}
                     _id={notification._id}
                     message={notification.message}
-                    replyMessageId={notification.replyMessageId}
+                    relatedPostId={notification.relatedPostId}
                     type={notification.type}
                     commentId={notification.commentId}
+                    createdAt={notification.createdAt}
                 />
             );
         }
@@ -202,9 +205,10 @@ export default function Profile() {
                           key={notification._id}
                           _id={notification._id}
                           message={notification.message}
-                          replyMessageId={notification.replyMessageId}
+                          relatedPostId={notification.relatedPostId}
                           type={notification.type}
                           commentId={notification.commentId}
+                          createdAt={notification.createdAt}
                       />
                   );
               })

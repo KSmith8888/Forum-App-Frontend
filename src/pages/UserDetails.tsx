@@ -49,6 +49,7 @@ export default function UserDetails() {
                 key={post.postId}
                 postId={post.postId}
                 title={post.title}
+                previewText={post.previewText}
             />
         );
     });
@@ -61,6 +62,7 @@ export default function UserDetails() {
                           key={post.postId}
                           postId={post.postId}
                           title={post.title}
+                          previewText={post.previewText}
                       />
                   );
               })

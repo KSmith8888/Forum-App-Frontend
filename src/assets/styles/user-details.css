@@ -76,7 +76,8 @@
     color: rgb(8, 7, 46);
 }
 
-.details-comment-text {
+.details-comment-text,
+.user-details-post-preview {
     margin: 0.5em 0;
     word-break: break-word;
 }

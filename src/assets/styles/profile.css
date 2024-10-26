@@ -243,11 +243,21 @@
     margin: 0.5em 0;
 }
 
-.profile-section-row,
-.notification-options {
+.profile-section-row {
     width: 100%;
     display: flex;
     justify-content: center;
+}
+
+.notification-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notification-date {
+    font-size: 0.8rem;
+    margin: 0.5em 0;
 }
 
 .profile-settings-section,

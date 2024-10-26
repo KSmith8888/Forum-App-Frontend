@@ -1,15 +1,19 @@
 import { Link, Form } from "react-router-dom";
 import { notificationInterface } from "../utils/interfaces.ts";
 
+import { createDateString } from "../utils/create-date-string.ts";
+
 export default function ProfileNotification({
     _id,
     type,
     message,
-    replyMessageId,
+    relatedPostId,
     commentId,
+    createdAt,
 }: notificationInterface) {
     const userRole = sessionStorage.getItem("role");
     const canDelete = type !== "Warning" || userRole === "admin";
+    const dateString = createDateString(createdAt, "Created");
     return (
         <div key={_id} className="profile-notification-container">
             <p
@@ -23,10 +27,18 @@ export default function ProfileNotification({
             <div className="notification-options">
                 {type === "Reply" && (
                     <Link
-                        to={`/posts/details/${replyMessageId}?commentId=${commentId}`}
+                        to={`/posts/details/${relatedPostId}?commentId=${commentId}`}
                         className="profile-notification-link"
                     >
-                        See Reply
+                        View Reply
+                    </Link>
+                )}
+                {type === "Achievement" && (
+                    <Link
+                        to={`/posts/details/${relatedPostId}`}
+                        className="profile-notification-link"
+                    >
+                        View Post
                     </Link>
                 )}
                 {canDelete && (
@@ -41,6 +53,7 @@ export default function ProfileNotification({
                     </Form>
                 )}
             </div>
+            <p className="notification-date">{dateString}</p>
         </div>
     );
 }

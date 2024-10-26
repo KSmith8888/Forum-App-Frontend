@@ -108,8 +108,9 @@ export interface notificationInterface {
     _id: string;
     message: string;
     type: string;
-    replyMessageId: string;
+    relatedPostId: string;
     commentId: string;
+    createdAt: string;
 }
 
 export interface savedPostInterface {
@@ -120,6 +121,7 @@ export interface savedPostInterface {
 export interface userProfilePost {
     postId: string;
     title: string;
+    previewText: string;
 }
 
 export interface userProfileComment {
