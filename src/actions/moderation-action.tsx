@@ -52,7 +52,8 @@ export default async function moderationAction({
                 import.meta.env.VITE_BACKEND_URL
             }/api/v1/moderation/ban/${banUser}`;
             fetchMethod = "POST";
-            const banTimestamp = new Date(banDate).getTime();
+            const banDateUTC = new Date(banDate).toUTCString();
+            const banTimestamp = new Date(banDateUTC).getTime();
             fetchBody = {
                 status: "Ban user",
                 banUser,
