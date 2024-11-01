@@ -14,6 +14,7 @@ export interface loaderActionInterface {
         id?: string;
         topic?: string;
         username?: string;
+        title?: string;
     };
 }
 

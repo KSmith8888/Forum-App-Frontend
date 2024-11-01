@@ -64,13 +64,13 @@ const router = createBrowserRouter(
             />
             <Route path="/posts">
                 <Route
-                    path=":topic"
+                    path="topics/:topic"
                     element={<PostsByTopic />}
                     loader={postsTopicLoader}
                     errorElement={<ErrorElement />}
                 />
                 <Route
-                    path="details/:id"
+                    path=":id/:title"
                     element={<Post />}
                     loader={postLoader}
                     action={postAction}

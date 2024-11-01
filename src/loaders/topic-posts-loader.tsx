@@ -5,7 +5,7 @@ export default async function postsTopicLoader({
 }: loaderActionInterface) {
     const topic = params.topic;
     const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/${topic}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/topics/${topic}`
     );
     if (!res.ok) {
         const errorData = await res.json();

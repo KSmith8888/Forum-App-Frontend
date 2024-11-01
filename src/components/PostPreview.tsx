@@ -16,7 +16,7 @@ export default function PostPreview({
             <div className="post-preview-inner-container">
                 <div className="post-preview-main-content">
                     <Link
-                        to={`/posts/details/${postId}`}
+                        to={`/posts/${postId}/default`}
                         className="post-preview-link"
                     >
                         <h3 className="post-preview-title">{title}</h3>

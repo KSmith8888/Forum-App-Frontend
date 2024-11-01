@@ -211,7 +211,7 @@ export default function Header({
                 <nav className="topics-links-nav">
                     <h2 className="topics-link-heading">Topics</h2>
                     <Link
-                        to="/posts/movies"
+                        to="/posts/topics/movies"
                         className="topic-link"
                         onClick={() => {
                             closeTopicModal();
@@ -221,7 +221,7 @@ export default function Header({
                         Movies
                     </Link>
                     <Link
-                        to="/posts/space"
+                        to="/posts/topics/space"
                         className="topic-link"
                         onClick={() => {
                             closeTopicModal();
@@ -230,7 +230,7 @@ export default function Header({
                         Space
                     </Link>
                     <Link
-                        to="/posts/politics"
+                        to="/posts/topics/politics"
                         className="topic-link"
                         onClick={() => {
                             closeTopicModal();
@@ -239,7 +239,7 @@ export default function Header({
                         Politics
                     </Link>
                     <Link
-                        to="/posts/books"
+                        to="/posts/topics/books"
                         className="topic-link"
                         onClick={() => {
                             closeTopicModal();
@@ -248,7 +248,7 @@ export default function Header({
                         Books
                     </Link>
                     <Link
-                        to="/posts/games"
+                        to="/posts/topics/games"
                         className="topic-link"
                         onClick={() => {
                             closeTopicModal();
@@ -257,7 +257,7 @@ export default function Header({
                         Games
                     </Link>
                     <Link
-                        to="/posts/news"
+                        to="/posts/topics/news"
                         className="topic-link"
                         onClick={() => {
                             closeTopicModal();
@@ -266,7 +266,7 @@ export default function Header({
                         News
                     </Link>
                     <Link
-                        to="/posts/programming"
+                        to="/posts/topics/programming"
                         className="topic-link"
                         onClick={() => {
                             closeTopicModal();
@@ -275,7 +275,7 @@ export default function Header({
                         Programming
                     </Link>
                     <Link
-                        to="/posts/other"
+                        to="/posts/topics/other"
                         className="topic-link"
                         onClick={() => {
                             closeTopicModal();

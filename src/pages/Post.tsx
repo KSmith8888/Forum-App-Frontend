@@ -197,7 +197,7 @@ export default function Post() {
                 <div className="column-content">
                     <div className="content-top-line">
                         <Link
-                            to={`/posts/${postData.topic}`}
+                            to={`/posts/topics/${postData.topic}`}
                             className="post-topic-link"
                         >
                             {postData.topic}

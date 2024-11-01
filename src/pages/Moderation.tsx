@@ -222,11 +222,6 @@ export default function Moderation() {
                         ref={banUserForm}
                     >
                         <h4 className="form-heading">Ban User</h4>
-                        <p className="ban-form-note">
-                            Note - After banning a user, send a notification
-                            telling them why they were banned and when it will
-                            end
-                        </p>
                         <label htmlFor="ban-user-input">
                             User to be banned:
                         </label>
