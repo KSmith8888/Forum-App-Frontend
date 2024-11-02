@@ -17,6 +17,7 @@ export default function Moderation() {
                 key={report._id}
                 _id={report._id}
                 messageId={report.messageId}
+                postUrlTitle={report.postUrlTitle}
                 messageType={report.messageType}
                 messageContent={report.messageContent}
                 reportedBy={report.reportedBy}

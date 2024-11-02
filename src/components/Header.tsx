@@ -111,7 +111,7 @@ export default function Header({
                         Home
                     </Link>
                     <Link
-                        to="/search"
+                        to="/search/"
                         className="main-menu-link"
                         onClick={() => {
                             closeNavModal();
@@ -122,7 +122,7 @@ export default function Header({
                     {isUserLoggedIn ? (
                         <>
                             <Link
-                                to="/profile"
+                                to="/profile/"
                                 className="main-menu-link"
                                 onClick={() => {
                                     closeNavModal();
@@ -131,7 +131,7 @@ export default function Header({
                                 Profile
                             </Link>
                             <Link
-                                to="/profile/create"
+                                to="/profile/create/"
                                 className="main-menu-link"
                                 onClick={() => {
                                     closeNavModal();
@@ -141,7 +141,7 @@ export default function Header({
                             </Link>
                             {isMod && (
                                 <Link
-                                    to="/moderation"
+                                    to="/moderation/"
                                     className="main-menu-link"
                                     onClick={() => {
                                         closeNavModal();
@@ -170,7 +170,7 @@ export default function Header({
                     ) : (
                         <>
                             <Link
-                                to="/register"
+                                to="/register/"
                                 className="main-menu-link"
                                 onClick={() => {
                                     closeNavModal();
@@ -179,7 +179,7 @@ export default function Header({
                                 Register
                             </Link>
                             <Link
-                                to="/login"
+                                to="/login/"
                                 className="main-menu-link"
                                 onClick={() => {
                                     closeNavModal();
@@ -211,7 +211,7 @@ export default function Header({
                 <nav className="topics-links-nav">
                     <h2 className="topics-link-heading">Topics</h2>
                     <Link
-                        to="/posts/topics/movies"
+                        to="/posts/topics/movies/"
                         className="topic-link"
                         onClick={() => {
                             closeTopicModal();
@@ -221,7 +221,7 @@ export default function Header({
                         Movies
                     </Link>
                     <Link
-                        to="/posts/topics/space"
+                        to="/posts/topics/space/"
                         className="topic-link"
                         onClick={() => {
                             closeTopicModal();
@@ -230,7 +230,7 @@ export default function Header({
                         Space
                     </Link>
                     <Link
-                        to="/posts/topics/politics"
+                        to="/posts/topics/politics/"
                         className="topic-link"
                         onClick={() => {
                             closeTopicModal();
@@ -239,7 +239,7 @@ export default function Header({
                         Politics
                     </Link>
                     <Link
-                        to="/posts/topics/books"
+                        to="/posts/topics/books/"
                         className="topic-link"
                         onClick={() => {
                             closeTopicModal();
@@ -248,7 +248,7 @@ export default function Header({
                         Books
                     </Link>
                     <Link
-                        to="/posts/topics/games"
+                        to="/posts/topics/games/"
                         className="topic-link"
                         onClick={() => {
                             closeTopicModal();
@@ -257,7 +257,7 @@ export default function Header({
                         Games
                     </Link>
                     <Link
-                        to="/posts/topics/news"
+                        to="/posts/topics/news/"
                         className="topic-link"
                         onClick={() => {
                             closeTopicModal();
@@ -266,7 +266,7 @@ export default function Header({
                         News
                     </Link>
                     <Link
-                        to="/posts/topics/programming"
+                        to="/posts/topics/programming/"
                         className="topic-link"
                         onClick={() => {
                             closeTopicModal();
@@ -275,7 +275,7 @@ export default function Header({
                         Programming
                     </Link>
                     <Link
-                        to="/posts/topics/other"
+                        to="/posts/topics/other/"
                         className="topic-link"
                         onClick={() => {
                             closeTopicModal();

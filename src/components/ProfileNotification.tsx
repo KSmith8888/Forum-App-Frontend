@@ -28,7 +28,7 @@ export default function ProfileNotification({
             <div className="notification-options">
                 {type === "Reply" && (
                     <Link
-                        to={`/posts/details/${relatedPostId}/${postUrlTitle}?commentId=${commentId}`}
+                        to={`/posts/${relatedPostId}/${postUrlTitle}/?commentId=${commentId}`}
                         className="profile-notification-link"
                     >
                         View Reply
@@ -36,7 +36,7 @@ export default function ProfileNotification({
                 )}
                 {type === "Achievement" && (
                     <Link
-                        to={`/posts/details/${relatedPostId}/${postUrlTitle}`}
+                        to={`/posts/${relatedPostId}/${postUrlTitle}/`}
                         className="profile-notification-link"
                     >
                         View Post

@@ -100,12 +100,12 @@ export default async function postAction({ request }: loaderActionInterface) {
             dataMethod = "PATCH";
             dataUrl = `${
                 import.meta.env.VITE_BACKEND_URL
-            }/api/v1/posts/save/${savePostId}`;
+            }/api/v1/posts/save/${savePostId}/`;
             dataBody = { postTitle: savePostTitle, urlTitle: saveUrlTitle };
         } else if (typeof likePostId === "string") {
             dataUrl = `${
                 import.meta.env.VITE_BACKEND_URL
-            }/api/v1/posts/likes/${likePostId}`;
+            }/api/v1/posts/likes/${likePostId}/`;
             dataMethod = "PATCH";
             dataBody = { status: "Update like count" };
         } else if (typeof likeCommentId === "string") {

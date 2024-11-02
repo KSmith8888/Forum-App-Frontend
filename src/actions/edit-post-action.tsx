@@ -7,6 +7,7 @@ export default async function editPostAction({
 }: loaderActionInterface) {
     try {
         const postId = params.id;
+        const postTitle = params.title;
         const postData = await request.formData();
         const content = postData.get("content");
         const postType = postData.get("post-type");
@@ -43,9 +44,7 @@ export default async function editPostAction({
             }
         }
         const res = await fetch(
-            `${
-                import.meta.env.VITE_BACKEND_URL
-            }/api/v1/posts/details/${postId}`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/${postId}/`,
             {
                 method: "PATCH",
                 body: JSON.stringify({ content }),
@@ -64,7 +63,7 @@ export default async function editPostAction({
                 throw new Error(`Response error: ${res.status}`);
             }
         }
-        return redirect(`/posts/details/${postId}`);
+        return redirect(`/posts/${postId}/${postTitle}/`);
     } catch (error) {
         let errorMsg = "There has been an error, please try again later";
         if (error instanceof Error) {

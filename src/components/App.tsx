@@ -51,7 +51,7 @@ const router = createBrowserRouter(
                 errorElement={<ErrorElement />}
             />
             <Route
-                path="/search"
+                path="/search/"
                 element={<Search />}
                 loader={resultsLoader}
                 action={searchAction}
@@ -64,20 +64,20 @@ const router = createBrowserRouter(
             />
             <Route path="/posts">
                 <Route
-                    path="topics/:topic"
+                    path="topics/:topic/"
                     element={<PostsByTopic />}
                     loader={postsTopicLoader}
                     errorElement={<ErrorElement />}
                 />
                 <Route
-                    path=":id/:title"
+                    path=":id/:title/"
                     element={<Post />}
                     loader={postLoader}
                     action={postAction}
                     errorElement={<ErrorElement />}
                 />
                 <Route
-                    path="edit/:id"
+                    path="edit/:id/:title/"
                     element={<EditPost />}
                     loader={editPostLoader}
                     action={editPostAction}
@@ -92,19 +92,19 @@ const router = createBrowserRouter(
                 />
             </Route>
             <Route
-                path="/register"
+                path="/register/"
                 element={<Register />}
                 action={registerAction}
                 errorElement={<ErrorElement />}
             />
             <Route
-                path="/login"
+                path="/login/"
                 element={<Login />}
                 action={loginAction}
                 errorElement={<ErrorElement />}
             />
             <Route
-                path="/users/details/:username"
+                path="/users/details/:username/"
                 element={<UserDetails />}
                 loader={userDetailsLoader}
                 errorElement={<ErrorElement />}
@@ -117,13 +117,13 @@ const router = createBrowserRouter(
                     action={profileAction}
                 />
                 <Route
-                    path="create"
+                    path="create/"
                     element={<CreatePost />}
                     action={createPostAction}
                 />
             </Route>
             <Route
-                path="/moderation"
+                path="/moderation/"
                 element={<Moderation />}
                 loader={moderationLoader}
                 action={moderationAction}

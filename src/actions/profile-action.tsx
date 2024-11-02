@@ -28,7 +28,7 @@ export default async function profileAction({
             throw new Error("You must log in before performing that action");
         }
         if (typeof post === "string" && typeof id === "string") {
-            reqUrl = `${reqUrl}${post}/details/${id}`;
+            reqUrl = `${reqUrl}${post}/${id}/`;
         } else if (typeof comment === "string" && typeof id === "string") {
             reqUrl = `${reqUrl}${comment}/details/${id}`;
         } else if (typeof notification === "string" && typeof id === "string") {

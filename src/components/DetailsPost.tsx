@@ -6,11 +6,12 @@ export default function DetailsPost({
     postId,
     title,
     previewText,
+    urlTitle,
 }: userProfilePost) {
     return (
         <div key={postId} className="user-details-post-container">
             <Link
-                to={`/posts/details/${postId}`}
+                to={`/posts/${postId}/${urlTitle}/`}
                 className="user-details-post-link"
             >
                 {title}

@@ -9,13 +9,16 @@ export default function ProfilePost({
     return (
         <div key={postId} className="post-link-container">
             <Link
-                to={`/posts/${postId}/${urlTitle}`}
+                to={`/posts/${postId}/${urlTitle}/`}
                 className="profile-post-link"
             >
                 {title}
             </Link>
             <div className="button-container">
-                <Link to={`/posts/edit/${postId}`} className="button-link">
+                <Link
+                    to={`/posts/edit/${postId}/${urlTitle}/`}
+                    className="button-link"
+                >
                     Edit
                 </Link>
                 <Form method="POST">

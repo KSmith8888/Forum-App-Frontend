@@ -98,6 +98,7 @@ export interface profilePicInterface {
 export interface reportInterface {
     _id: string;
     messageId: string;
+    postUrlTitle: String;
     messageType: string;
     messageContent: string;
     reportedBy: string;
@@ -133,6 +134,7 @@ export interface userProfileComment {
     commentId: string;
     previewText: string;
     relatedPost: string;
+    postUrlTitle: string;
 }
 
 export interface picSelectorBtnProps {

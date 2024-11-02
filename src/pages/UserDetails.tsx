@@ -50,6 +50,7 @@ export default function UserDetails() {
                 postId={post.postId}
                 title={post.title}
                 previewText={post.previewText}
+                urlTitle={post.urlTitle}
             />
         );
     });
@@ -63,6 +64,7 @@ export default function UserDetails() {
                           postId={post.postId}
                           title={post.title}
                           previewText={post.previewText}
+                          urlTitle={post.urlTitle}
                       />
                   );
               })
@@ -77,6 +79,7 @@ export default function UserDetails() {
                     commentId={comment.commentId}
                     previewText={comment.previewText}
                     relatedPost={comment.relatedPost}
+                    postUrlTitle={comment.postUrlTitle}
                 />
             );
         }
@@ -91,6 +94,7 @@ export default function UserDetails() {
                     commentId={comment.commentId}
                     previewText={comment.previewText}
                     relatedPost={comment.relatedPost}
+                    postUrlTitle={comment.postUrlTitle}
                 />
             );
         }

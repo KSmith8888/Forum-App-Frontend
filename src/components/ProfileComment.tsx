@@ -5,11 +5,12 @@ export default function ProfileComment({
     commentId,
     previewText,
     relatedPost,
+    postUrlTitle,
 }: userProfileComment) {
     return (
         <div key={commentId} className="comment-link-container">
             <Link
-                to={`/posts/details/${relatedPost}?commentId=${commentId}`}
+                to={`/posts/${relatedPost}/${postUrlTitle}/?commentId=${commentId}`}
                 className="related-post-link"
             >
                 {previewText}

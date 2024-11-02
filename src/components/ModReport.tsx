@@ -6,6 +6,7 @@ import clipboardImg from "../assets/images/clipboard-icon.png";
 
 export default function ModReport({
     messageId,
+    postUrlTitle,
     messageType,
     relatedPost,
     createdAt,
@@ -14,8 +15,8 @@ export default function ModReport({
 }: reportInterface) {
     const linkId =
         messageType === "Post"
-            ? messageId
-            : `${relatedPost}?commentId=${messageId}`;
+            ? `/posts/${messageId}/${postUrlTitle}/`
+            : `/posts/${relatedPost}/${postUrlTitle}/?commentId=${messageId}`;
     const reportDateString = createDateString(createdAt, "Reported");
     return (
         <div className="report-container" key={messageId}>
@@ -39,10 +40,7 @@ export default function ModReport({
             </div>
             <p className="report-text">{messageContent}</p>
             <div className="button-container">
-                <Link
-                    to={`/posts/details/${linkId}`}
-                    className="moderation-link"
-                >
+                <Link to={linkId} className="moderation-link">
                     Reported Message
                 </Link>
                 <Form action="/moderation" method="DELETE">

@@ -136,6 +136,7 @@ export default function Profile() {
                     commentId={comment.commentId}
                     previewText={comment.previewText}
                     relatedPost={comment.relatedPost}
+                    postUrlTitle={comment.postUrlTitle}
                 />
             );
         }
@@ -151,6 +152,7 @@ export default function Profile() {
                           commentId={comment.commentId}
                           previewText={comment.previewText}
                           relatedPost={comment.relatedPost}
+                          postUrlTitle={comment.postUrlTitle}
                       />
                   );
               })
