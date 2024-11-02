@@ -29,6 +29,7 @@ export default function PostsByTopic() {
                 title={preview.title}
                 previewText={preview.previewText}
                 postType={preview.postType}
+                urlTitle={preview.urlTitle}
             />
         );
     });

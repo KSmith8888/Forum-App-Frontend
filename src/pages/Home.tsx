@@ -38,6 +38,7 @@ export default function Home() {
                     title={preview.title}
                     postType={preview.postType}
                     previewText={preview.previewText}
+                    urlTitle={preview.urlTitle}
                 />
             );
         });

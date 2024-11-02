@@ -46,6 +46,7 @@ export interface postInterface {
     title: string;
     postType: string;
     content: string;
+    urlTitle: string;
     previewText: string;
     topic: string;
     likes: number;
@@ -110,6 +111,7 @@ export interface notificationInterface {
     message: string;
     type: string;
     relatedPostId: string;
+    postUrlTitle: string;
     commentId: string;
     createdAt: string;
 }
@@ -117,12 +119,14 @@ export interface notificationInterface {
 export interface savedPostInterface {
     postId: string;
     title: string;
+    urlTitle: string;
 }
 
 export interface userProfilePost {
     postId: string;
     title: string;
     previewText: string;
+    urlTitle: string;
 }
 
 export interface userProfileComment {
@@ -178,4 +182,5 @@ export interface postPreviewInfo {
     title: string;
     previewText: string;
     postType: string;
+    urlTitle: string;
 }

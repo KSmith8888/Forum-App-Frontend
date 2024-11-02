@@ -10,13 +10,14 @@ export default function PostPreview({
     title,
     previewText,
     postType,
+    urlTitle,
 }: postPreviewInfo) {
     return (
         <div key={postId} className="post-preview-container">
             <div className="post-preview-inner-container">
                 <div className="post-preview-main-content">
                     <Link
-                        to={`/posts/${postId}/default`}
+                        to={`/posts/${postId}/${urlTitle}`}
                         className="post-preview-link"
                     >
                         <h3 className="post-preview-title">{title}</h3>

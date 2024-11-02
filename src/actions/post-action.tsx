@@ -18,6 +18,7 @@ export default async function postAction({ request }: loaderActionInterface) {
         const reportContent = postForm.get("report-content");
         const savePostId = postForm.get("save-post-id");
         const savePostTitle = postForm.get("save-post-title");
+        const saveUrlTitle = postForm.get("save-url-title");
         const likePostId = postForm.get("like-post-id");
         const likeCommentId = postForm.get("like-comment-id");
         let dataUrl = `${
@@ -93,13 +94,14 @@ export default async function postAction({ request }: loaderActionInterface) {
             };
         } else if (
             typeof savePostId === "string" &&
-            typeof savePostTitle === "string"
+            typeof savePostTitle === "string" &&
+            typeof saveUrlTitle === "string"
         ) {
             dataMethod = "PATCH";
             dataUrl = `${
                 import.meta.env.VITE_BACKEND_URL
             }/api/v1/posts/save/${savePostId}`;
-            dataBody = { postTitle: savePostTitle };
+            dataBody = { postTitle: savePostTitle, urlTitle: saveUrlTitle };
         } else if (typeof likePostId === "string") {
             dataUrl = `${
                 import.meta.env.VITE_BACKEND_URL

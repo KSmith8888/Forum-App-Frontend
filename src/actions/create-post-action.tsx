@@ -86,7 +86,16 @@ export default async function createPostAction({
             }
         }
         const data = await res.json();
-        return redirect(`/posts/details/${data._id}`);
+        if (
+            data &&
+            typeof data === "object" &&
+            "_id" in data &&
+            "urlTitle" in data
+        ) {
+            return redirect(`/posts/${data._id}/${data.urlTitle}`);
+        } else {
+            throw new Error("Incorrect data returned from server");
+        }
     } catch (error) {
         let errorMsg = "There has been an error, please try again later";
         if (error instanceof Error) {

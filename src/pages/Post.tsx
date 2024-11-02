@@ -214,6 +214,11 @@ export default function Post() {
                                     name="save-post-title"
                                     value={postData.title}
                                 />
+                                <input
+                                    type="hidden"
+                                    name="save-url-title"
+                                    value={postData.urlTitle}
+                                />
                                 <button
                                     className={
                                         userSavedPost

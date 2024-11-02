@@ -9,6 +9,7 @@ export default function ProfileNotification({
     message,
     relatedPostId,
     commentId,
+    postUrlTitle,
     createdAt,
 }: notificationInterface) {
     const userRole = sessionStorage.getItem("role");
@@ -27,7 +28,7 @@ export default function ProfileNotification({
             <div className="notification-options">
                 {type === "Reply" && (
                     <Link
-                        to={`/posts/details/${relatedPostId}?commentId=${commentId}`}
+                        to={`/posts/details/${relatedPostId}/${postUrlTitle}?commentId=${commentId}`}
                         className="profile-notification-link"
                     >
                         View Reply
@@ -35,7 +36,7 @@ export default function ProfileNotification({
                 )}
                 {type === "Achievement" && (
                     <Link
-                        to={`/posts/details/${relatedPostId}`}
+                        to={`/posts/details/${relatedPostId}/${postUrlTitle}`}
                         className="profile-notification-link"
                     >
                         View Post

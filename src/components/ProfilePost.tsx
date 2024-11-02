@@ -1,10 +1,17 @@
 import { Link, Form } from "react-router-dom";
 import { userProfilePost } from "../utils/interfaces.ts";
 
-export default function ProfilePost({ postId, title }: userProfilePost) {
+export default function ProfilePost({
+    postId,
+    title,
+    urlTitle,
+}: userProfilePost) {
     return (
         <div key={postId} className="post-link-container">
-            <Link to={`/posts/details/${postId}`} className="profile-post-link">
+            <Link
+                to={`/posts/${postId}/${urlTitle}`}
+                className="profile-post-link"
+            >
                 {title}
             </Link>
             <div className="button-container">

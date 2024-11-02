@@ -3,7 +3,6 @@ import { loaderActionInterface } from "../utils/interfaces";
 export default async function postLoader({ params }: loaderActionInterface) {
     const postId = params.id;
     const postTitle = params.title || "default";
-    console.log(postTitle);
     const res = await fetch(
         `${
             import.meta.env.VITE_BACKEND_URL

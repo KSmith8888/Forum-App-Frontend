@@ -106,6 +106,7 @@ export default function Profile() {
                 postId={post.postId}
                 title={post.title}
                 previewText={post.previewText}
+                urlTitle={post.urlTitle}
             />
         );
     });
@@ -119,6 +120,7 @@ export default function Profile() {
                           postId={post.postId}
                           title={post.title}
                           previewText={post.previewText}
+                          urlTitle={post.urlTitle}
                       />
                   );
               })
@@ -162,6 +164,7 @@ export default function Profile() {
                     key={savedPost.postId}
                     postId={savedPost.postId}
                     title={savedPost.title}
+                    urlTitle={savedPost.urlTitle}
                 />
             );
         }
@@ -175,6 +178,7 @@ export default function Profile() {
                           key={savedPost.postId}
                           postId={savedPost.postId}
                           title={savedPost.title}
+                          urlTitle={savedPost.urlTitle}
                       />
                   );
               })
@@ -190,6 +194,7 @@ export default function Profile() {
                     message={notification.message}
                     relatedPostId={notification.relatedPostId}
                     type={notification.type}
+                    postUrlTitle={notification.postUrlTitle}
                     commentId={notification.commentId}
                     createdAt={notification.createdAt}
                 />
@@ -207,6 +212,7 @@ export default function Profile() {
                           message={notification.message}
                           relatedPostId={notification.relatedPostId}
                           type={notification.type}
+                          postUrlTitle={notification.postUrlTitle}
                           commentId={notification.commentId}
                           createdAt={notification.createdAt}
                       />
