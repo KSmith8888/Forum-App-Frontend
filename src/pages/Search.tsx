@@ -33,6 +33,7 @@ export default function Search() {
                 title={preview.title}
                 previewText={preview.previewText}
                 postType={preview.postType}
+                urlTitle={preview.urlTitle}
             />
         );
     });

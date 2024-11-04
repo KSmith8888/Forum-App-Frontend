@@ -58,7 +58,7 @@ const router = createBrowserRouter(
                 errorElement={<ErrorElement />}
             />
             <Route
-                path="/attribution"
+                path="/attribution/"
                 element={<Attribution />}
                 errorElement={<ErrorElement />}
             />
@@ -130,7 +130,7 @@ const router = createBrowserRouter(
                 errorElement={<ErrorElement />}
             />
             <Route
-                path="/terms"
+                path="/terms/"
                 element={<Terms />}
                 errorElement={<ErrorElement />}
             />

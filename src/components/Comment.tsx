@@ -144,7 +144,7 @@ export default function Comment({
                                 Author:{" "}
                                 {commentData.user !== "Deleted" ? (
                                     <Link
-                                        to={`/users/details/${commentData.user}`}
+                                        to={`/users/details/${commentData.user}/`}
                                         className="comment-author-link"
                                     >
                                         {commentData.user}
