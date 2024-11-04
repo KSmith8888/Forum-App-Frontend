@@ -5,15 +5,12 @@ export default async function editPostLoader({
     params,
 }: loaderActionInterface) {
     const userId = sessionStorage.getItem("_id");
-    const postTitle = params.title;
     if (!userId) {
         return redirect("/?message=Please log in");
     }
     const postId = params.id;
     const res = await fetch(
-        `${
-            import.meta.env.VITE_BACKEND_URL
-        }/api/v1/posts/${postId}/${postTitle}/`
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/${postId}`
     );
     if (!res.ok) {
         const errorData = await res.json();

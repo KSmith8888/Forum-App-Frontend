@@ -26,14 +26,15 @@ export default async function createPostAction({
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
         const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@=%\r\n-]+$");
+        const strictReg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@=%-]+$");
         if (!token || !userId) {
             throw new Error("You must log in before creating a post");
         }
         if (
-            !reg.test(title) ||
+            !strictReg.test(title) ||
             !reg.test(content) ||
-            !reg.test(topic) ||
-            !reg.test(postType) ||
+            !strictReg.test(topic) ||
+            !strictReg.test(postType) ||
             !reg.test(keywords) ||
             content.toLowerCase().includes("javascript:") ||
             content.toLowerCase().includes("data:")
@@ -92,7 +93,7 @@ export default async function createPostAction({
             "_id" in data &&
             "urlTitle" in data
         ) {
-            return redirect(`/posts/${data._id}/${data.urlTitle}`);
+            return redirect(`/posts/${data._id}/${data.urlTitle}/`);
         } else {
             throw new Error("Incorrect data returned from server");
         }

@@ -70,13 +70,6 @@ const router = createBrowserRouter(
                     errorElement={<ErrorElement />}
                 />
                 <Route
-                    path=":id/:title/"
-                    element={<Post />}
-                    loader={postLoader}
-                    action={postAction}
-                    errorElement={<ErrorElement />}
-                />
-                <Route
                     path="edit/:id/:title/"
                     element={<EditPost />}
                     loader={editPostLoader}
@@ -88,6 +81,13 @@ const router = createBrowserRouter(
                     element={<EditComment />}
                     loader={editCommentLoader}
                     action={editCommentAction}
+                    errorElement={<ErrorElement />}
+                />
+                <Route
+                    path=":id/:title/"
+                    element={<Post />}
+                    loader={postLoader}
+                    action={postAction}
                     errorElement={<ErrorElement />}
                 />
             </Route>

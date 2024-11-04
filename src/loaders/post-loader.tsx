@@ -2,11 +2,8 @@ import { loaderActionInterface } from "../utils/interfaces";
 
 export default async function postLoader({ params }: loaderActionInterface) {
     const postId = params.id;
-    const postTitle = params.title || "default";
     const res = await fetch(
-        `${
-            import.meta.env.VITE_BACKEND_URL
-        }/api/v1/posts/${postId}/${postTitle}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/${postId}`
     );
     if (!res.ok) {
         const errorData = await res.json();

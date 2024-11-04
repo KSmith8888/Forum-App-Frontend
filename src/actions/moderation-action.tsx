@@ -16,6 +16,7 @@ export default async function moderationAction({
         const notificationWarning = formData.get("notification-warning");
         const banUser = formData.get("ban-user");
         const banDate = formData.get("ban-date");
+        const banReason = formData.get("ban-reason");
         const deleteAccountUsername = formData.get("delete-account-username");
         const deletePostId = formData.get("delete-post-id");
         const deleteCommentId = formData.get("delete-comment-id");
@@ -47,7 +48,11 @@ export default async function moderationAction({
                 isWarning,
             };
         }
-        if (typeof banUser === "string" && typeof banDate === "string") {
+        if (
+            typeof banUser === "string" &&
+            typeof banDate === "string" &&
+            typeof banReason === "string"
+        ) {
             fetchUrl = `${
                 import.meta.env.VITE_BACKEND_URL
             }/api/v1/moderation/ban/${banUser}`;
@@ -57,6 +62,7 @@ export default async function moderationAction({
             fetchBody = {
                 status: "Ban user",
                 banUser,
+                banReason,
                 banTimestamp,
             };
         }

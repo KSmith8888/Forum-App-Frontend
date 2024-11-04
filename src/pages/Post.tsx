@@ -197,7 +197,7 @@ export default function Post() {
                 <div className="column-content">
                     <div className="content-top-line">
                         <Link
-                            to={`/posts/topics/${postData.topic}`}
+                            to={`/posts/topics/${postData.topic}/`}
                             className="post-topic-link"
                         >
                             {postData.topic}
@@ -399,7 +399,7 @@ export default function Post() {
                                 Author:{" "}
                                 {postData.user !== "Deleted" ? (
                                     <Link
-                                        to={`/users/details/${postData.user}`}
+                                        to={`/users/details/${postData.user}/`}
                                         className="post-author-link"
                                     >
                                         {postData.user}

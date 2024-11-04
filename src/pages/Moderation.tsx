@@ -235,6 +235,18 @@ export default function Moderation() {
                             maxLength={18}
                             required
                         />
+                        <label htmlFor="ban-reason-input">
+                            Reason for ban:
+                        </label>
+                        <input
+                            id="ban-reason-input"
+                            className="input moderation-input"
+                            name="ban-reason"
+                            type="text"
+                            pattern="[a-zA-Z0-9_ ]+"
+                            maxLength={30}
+                            required
+                        />
                         <label htmlFor="ban-date-input">Ban user until:</label>
                         <input
                             id="ban-date-input"

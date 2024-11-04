@@ -44,7 +44,7 @@ export default async function editPostAction({
             }
         }
         const res = await fetch(
-            `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/${postId}/`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/${postId}`,
             {
                 method: "PATCH",
                 body: JSON.stringify({ content }),
