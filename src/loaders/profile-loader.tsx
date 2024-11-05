@@ -4,7 +4,7 @@ export default async function profileLoader() {
     const token = sessionStorage.getItem("token");
     const userId = sessionStorage.getItem("_id");
     if (!userId || !token) {
-        return redirect("/?message=Please log in");
+        return redirect("/?message=Please_log_in");
     }
     const res = await fetch(
         `${

@@ -83,6 +83,7 @@ export interface commentProps {
     commentData: commentInterface;
     actionData: unknown;
     isUserLoggedIn: boolean;
+    postUrlTitle: string;
     openReportModal: (
         messageId: string,
         reportType: string,
@@ -154,6 +155,7 @@ export interface commentFormProps {
     type: "post" | "comment";
     postId: string;
     commentId?: string;
+    postUrlTitle: string;
 }
 
 export interface profileDeleteProps {

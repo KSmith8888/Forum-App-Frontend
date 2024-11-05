@@ -31,10 +31,10 @@ export default async function editPostAction({
         }
         if (postType === "Link") {
             const isValid = URL.canParse(content);
-            const reg = new RegExp("^[a-zA-Z0-9.:/_-]+$");
+            const linkReg = new RegExp("^[a-zA-Z0-9?&=@.:/_-]+$");
             if (
                 !isValid ||
-                !reg.test(content) ||
+                !linkReg.test(content) ||
                 !content.startsWith("https://") ||
                 !content.includes(".")
             ) {

@@ -43,7 +43,7 @@ export default function Header({
             name: "blank.png",
             alt: "A generic, blank outline of a mans upper body",
         });
-        navigate("/?message=You have logged out successfully");
+        navigate("/?message=You_have_logged_out_successfully");
     }
 
     return (

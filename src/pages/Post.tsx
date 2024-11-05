@@ -12,7 +12,6 @@ import {
 import Comment from "../components/Comment";
 import CommentForm from "../components/CommentForm.tsx";
 import PostHistory from "../components/PostHistory.tsx";
-import InnerContent from "../components/InnerContent.tsx";
 import {
     outletInterface,
     commentInterface,
@@ -144,6 +143,7 @@ export default function Post() {
                           key={comment._id}
                           commentData={comment}
                           actionData={actionData}
+                          postUrlTitle={postData.urlTitle}
                           isUserLoggedIn={isUserLoggedIn}
                           openReportModal={openReportModal}
                       />
@@ -159,6 +159,7 @@ export default function Post() {
                           key={comment._id}
                           commentData={comment}
                           actionData={actionData}
+                          postUrlTitle={postData.urlTitle}
                           isUserLoggedIn={isUserLoggedIn}
                           openReportModal={openReportModal}
                       />
@@ -263,10 +264,9 @@ export default function Post() {
                                     </a>
                                 </p>
                             ) : (
-                                <InnerContent
-                                    content={postData.content}
-                                    type="Post"
-                                />
+                                <p className="text-post-text">
+                                    {postData.content}
+                                </p>
                             )}
                         </div>
                     </div>
@@ -448,7 +448,11 @@ export default function Post() {
             )}
             {showCommentForm && (
                 <div className="comment-form-container">
-                    <CommentForm type={"post"} postId={postData._id} />
+                    <CommentForm
+                        type={"post"}
+                        postId={postData._id}
+                        postUrlTitle={postData.urlTitle}
+                    />
                 </div>
             )}
             <div className="comments-container">

@@ -13,6 +13,10 @@ export default function Terms() {
                     purpose or to encourage others to break the law
                 </li>
                 <li className="terms-list-item">
+                    You will not attempt to disrupt or damage the service or
+                    prevent others from using it
+                </li>
+                <li className="terms-list-item">
                     You will not attempt to hold this service or its operators
                     liable for content created by other users or third party
                     content linked to from within the service

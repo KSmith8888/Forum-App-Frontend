@@ -5,11 +5,12 @@ import { commentFormProps } from "../utils/interfaces.ts";
 export default function CommentForm({
     type,
     postId,
+    postUrlTitle,
     commentId = "none",
 }: commentFormProps) {
     return (
         <Form
-            action={`/posts/details/${postId}`}
+            action={`/posts/${postId}/${postUrlTitle}/`}
             className="comment-form"
             method="POST"
             autoComplete="off"

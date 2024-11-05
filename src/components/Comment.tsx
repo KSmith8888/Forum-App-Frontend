@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Link, Form } from "react-router-dom";
 
 import CommentForm from "./CommentForm.tsx";
-import InnerContent from "./InnerContent.tsx";
 import { commentHistoryInterface, commentProps } from "../utils/interfaces";
 import { createDateString } from "../utils/create-date-string";
 
@@ -10,6 +9,7 @@ export default function Comment({
     commentData,
     isUserLoggedIn,
     actionData,
+    postUrlTitle,
     openReportModal,
 }: commentProps) {
     const commentDateString = createDateString(commentData.createdAt, "Posted");
@@ -73,10 +73,7 @@ export default function Comment({
                 className={`comment ${commentData.commentReply ? "reply" : ""}`}
             >
                 <div className="column-content">
-                    <InnerContent
-                        content={commentData.content}
-                        type="Comment"
-                    />
+                    <p className="comment-text">{commentData.content}</p>
                     <div className="comment-likes-container">
                         <p className="comment-likes">Likes: {commentLikes}</p>
                         {isUserLoggedIn && (
@@ -194,6 +191,7 @@ export default function Comment({
                     <CommentForm
                         type="comment"
                         postId={commentData.relatedPost}
+                        postUrlTitle={postUrlTitle}
                         commentId={commentData._id}
                     />
                 </div>

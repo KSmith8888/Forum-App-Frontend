@@ -119,7 +119,7 @@ export default async function profileAction({
         const data = await res.json();
         if (data && typeof data === "object" && "message" in data) {
             if (data.message === "Account deleted successfully") {
-                return redirect("/?message=Account deleted successfully");
+                return redirect("/?message=Account_deleted_successfully");
             } else if (
                 "newProfilePicName" in data &&
                 "newProfilePicAlt" in data

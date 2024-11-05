@@ -20,7 +20,7 @@ export default function Home() {
         if (status === "loggedIn") {
             setIsUserLoggedIn(true);
         }
-        if (message === "Account deleted successfully") {
+        if (message === "Account_deleted_successfully") {
             sessionStorage.clear();
             setIsUserLoggedIn(false);
         }

@@ -25,11 +25,25 @@ export default async function createPostAction({
         }
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
-        const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@=%\r\n-]+$");
-        const strictReg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@=%-]+$");
         if (!token || !userId) {
             throw new Error("You must log in before creating a post");
         }
+        if (postType === "Link") {
+            const isValid = URL.canParse(content);
+            const linkReg = new RegExp("^[a-zA-Z0-9?&=@.:/_-]+$");
+            if (
+                !isValid ||
+                !linkReg.test(content) ||
+                !content.startsWith("https://") ||
+                !content.includes(".")
+            ) {
+                throw new Error(
+                    "Please do not include special characters in your message"
+                );
+            }
+        }
+        const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@=%\r\n-]+$");
+        const strictReg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@=%-]+$");
         if (
             !strictReg.test(title) ||
             !reg.test(content) ||
@@ -42,22 +56,6 @@ export default async function createPostAction({
             throw new Error(
                 "Please do not include special characters in your message"
             );
-        }
-        if (content.includes("https://")) {
-            const attemptedLinks: string[] = [];
-            const contentWords = content.split(" ");
-            const reg = new RegExp("^[a-zA-Z0-9.:/_-]+$");
-            contentWords.forEach((word) => {
-                if (word.startsWith("https://")) {
-                    attemptedLinks.push(word);
-                }
-            });
-            attemptedLinks.forEach((link) => {
-                const isValid = URL.canParse(link);
-                if (!isValid || !reg.test(link) || !link.includes(".")) {
-                    throw new Error("Invalid link provided");
-                }
-            });
         }
         const res = await fetch(
             `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/create`,
