@@ -15,6 +15,8 @@ export default function Home() {
     const [searchParams] = useSearchParams();
     const { setIsUserLoggedIn } = useOutletContext<outletInterface>();
     const message = searchParams.get("message");
+    const displayMsg =
+        typeof message === "string" ? message.replaceAll("_", " ") : "";
     const status = searchParams.get("status");
     useEffect(() => {
         if (status === "loggedIn") {
@@ -59,7 +61,7 @@ export default function Home() {
 
     return (
         <>
-            <p className="user-message">{message ? message : ""}</p>
+            <p className="user-message">{displayMsg}</p>
             <div className="home-container">
                 <section className="trending-posts-section">
                     <h2 className="popular-posts-heading">Popular Posts:</h2>
