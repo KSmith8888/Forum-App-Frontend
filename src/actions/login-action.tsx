@@ -24,7 +24,9 @@ export default async function loginAction({ request }: loaderActionInterface) {
             }
         );
         if (!res.ok) {
-            if (res.status === 401) {
+            if (res.status === 400) {
+                throw new Error("Too many login attempts, account frozen");
+            } else if (res.status === 401) {
                 throw new Error("Provided credentials do not match");
             } else {
                 throw new Error(`Status error ${res.status}`);
