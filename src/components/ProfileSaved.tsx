@@ -10,7 +10,7 @@ export default function ProfileSaved({
     return (
         <div className="saved-post-link-container">
             <Link
-                to={`/posts/${postId}/${urlTitle}`}
+                to={`/posts/${postId}/${urlTitle}/`}
                 className="profile-notification-link"
             >
                 {title}
