@@ -176,6 +176,11 @@ export interface updatePasswordProps {
     actionMessage: unknown;
 }
 
+export interface updateEmailProps {
+    accountHasEmail: boolean;
+    isEmailVerified: boolean;
+}
+
 export interface innerContentProps {
     content: string;
     type: "Post" | "Comment";

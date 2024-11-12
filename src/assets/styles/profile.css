@@ -62,7 +62,8 @@
 
 .profile-bio-modal[open],
 .profile-delete-modal[open],
-.profile-password-modal[open] {
+.profile-password-modal[open],
+.update-email-modal[open] {
     width: 22em;
     display: flex;
     flex-direction: column;
@@ -72,7 +73,8 @@
 }
 
 .update-bio-form,
-.update-password-form {
+.update-password-form,
+.update-email-form {
     display: flex;
     flex-direction: column;
 }
@@ -301,10 +303,6 @@
 
 .warning {
     color: #c70c0c;
-}
-
-.user-email {
-    margin: 0.5em 0;
 }
 
 .verified {

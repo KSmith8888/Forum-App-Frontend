@@ -8,6 +8,7 @@ import {
 
 import BioChangeForm from "../components/BioChangeForm";
 import UpdatePassword from "../components/UpdatePassword";
+import UpdateEmail from "../components/UpdateEmail";
 import DeleteAccountModal from "../components/DeleteAccountModal";
 import {
     outletInterface,
@@ -35,7 +36,7 @@ export default function Profile() {
     let profileBio = "";
     let pswdLastUpdated = "";
     let replySettingText = "";
-    let userEmail = "No email provided";
+    let accountHasEmail = false;
     let isEmailVerified = false;
     if (loaderData && typeof loaderData === "object") {
         if ("posts" in loaderData && Array.isArray(loaderData.posts)) {
@@ -76,7 +77,7 @@ export default function Profile() {
             typeof loaderData.email === "string" &&
             loaderData.email !== "4em@example.com"
         ) {
-            userEmail = loaderData.email;
+            accountHasEmail = true;
         }
         if (
             "verifiedEmail" in loaderData &&
@@ -266,28 +267,10 @@ export default function Profile() {
                             <h4 className="profile-security-heading">
                                 Account Security:
                             </h4>
-                            <h5 className="update-email-heading">
-                                Email{" "}
-                                <span className="email-verified-text">
-                                    {isEmailVerified
-                                        ? "(Verified):"
-                                        : "(Not verified):"}
-                                </span>
-                            </h5>
-                            <p
-                                className={
-                                    isEmailVerified
-                                        ? "user-email verified"
-                                        : "user-email warning"
-                                }
-                            >
-                                {userEmail}
-                            </p>
-                            <button className="button" type="button">
-                                {userEmail === "No email provided"
-                                    ? "Add"
-                                    : "Update"}
-                            </button>
+                            <UpdateEmail
+                                accountHasEmail={accountHasEmail}
+                                isEmailVerified={isEmailVerified}
+                            />
                             <UpdatePassword
                                 pswdLastUpdated={pswdLastUpdated}
                                 actionMessage={actionMessage}
