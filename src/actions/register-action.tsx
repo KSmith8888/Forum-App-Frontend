@@ -8,6 +8,8 @@ export default async function registerAction({
         const loginData = await request.formData();
         const username = loginData.get("username");
         const password = loginData.get("password");
+        const initEmail = loginData.get("email");
+        const email = initEmail ? initEmail : "none";
         const terms = loginData.get("terms");
         const passwordConfirm = loginData.get("password-confirm");
         const reg = new RegExp("^[a-zA-Z0-9.:,?/_'!@-]+$");
@@ -15,13 +17,18 @@ export default async function registerAction({
             typeof username !== "string" ||
             typeof password !== "string" ||
             typeof passwordConfirm !== "string" ||
+            typeof email !== "string" ||
             terms !== "terms"
         ) {
             throw new Error(
                 "You must provide a valid username and password and agree to the terms of service"
             );
         }
-        if (!reg.test(password) || !reg.test(passwordConfirm)) {
+        if (
+            !reg.test(password) ||
+            !reg.test(passwordConfirm) ||
+            !reg.test(email)
+        ) {
             throw new Error("Please do not include special characters");
         }
         if (password !== passwordConfirm) {
@@ -33,7 +40,7 @@ export default async function registerAction({
             `${import.meta.env.VITE_BACKEND_URL}/api/v1/users`,
             {
                 method: "POST",
-                body: JSON.stringify({ username, password, terms }),
+                body: JSON.stringify({ username, password, terms, email }),
                 headers: {
                     "Content-Type": "application/json",
                 },

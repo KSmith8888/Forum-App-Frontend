@@ -25,6 +25,21 @@ export default function Register() {
                 maxLength={18}
                 required
             />
+            <label htmlFor="register-email">
+                Email
+                <span className="block-label-text">
+                    (Optional - If you do not provide one, you will not be able
+                    to reset your password)
+                </span>
+            </label>
+            <input
+                id="register-email"
+                className="input"
+                type="email"
+                name="email"
+                minLength={6}
+                maxLength={40}
+            />
             <label htmlFor="register-password">
                 Password
                 <span className="block-label-text">

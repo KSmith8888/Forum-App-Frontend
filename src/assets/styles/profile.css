@@ -96,6 +96,7 @@
 .profile-bio-heading,
 .profile-delete-heading,
 .profile-security-heading,
+.update-email-heading,
 .notification-setting-heading,
 .reply-setting-text {
     margin: 0.5em 0;
@@ -300,6 +301,19 @@
 
 .warning {
     color: #c70c0c;
+}
+
+.user-email {
+    margin: 0.5em 0;
+}
+
+.verified {
+    color: green;
+}
+
+.email-verified-text {
+    font-size: 1em;
+    font-weight: 400;
 }
 
 @media (max-width: 650px) {

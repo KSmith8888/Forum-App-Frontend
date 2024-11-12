@@ -140,7 +140,8 @@ const router = createBrowserRouter(
                 errorElement={<ErrorElement />}
             />
         </Route>
-    )
+    ),
+    { future: { v7_normalizeFormMethod: true, v7_relativeSplatPath: true } }
 );
 
 export default function App() {

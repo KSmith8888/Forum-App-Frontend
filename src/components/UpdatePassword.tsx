@@ -34,7 +34,6 @@ export default function UpdatePassword({
     }, [actionMessage]);
     return (
         <>
-            <h4 className="profile-security-heading">Account Security:</h4>
             <h5 className="profile-password-heading">Password:</h5>
             <p className="update-password-text">{pswdLastUpdated}</p>
             <button
