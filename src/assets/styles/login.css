@@ -15,7 +15,9 @@
     flex-direction: column;
 }
 
-.login-params-message {
+.login-params-message,
+.forgot-password-text,
+.new-account-text {
     margin: 0.5em 0;
 }
 

@@ -38,6 +38,8 @@ import loginAction from "../actions/login-action.tsx";
 import Moderation from "../pages/Moderation.tsx";
 import moderationAction from "../actions/moderation-action.tsx";
 import moderationLoader from "../loaders/moderation-loader.tsx";
+import ResetPassword from "../pages/ResetPassword.tsx";
+import resetAction from "../actions/reset-action.tsx";
 import Terms from "../pages/Terms.tsx";
 import NotFound from "../pages/NotFound.tsx";
 
@@ -127,6 +129,12 @@ const router = createBrowserRouter(
                 element={<Moderation />}
                 loader={moderationLoader}
                 action={moderationAction}
+                errorElement={<ErrorElement />}
+            />
+            <Route
+                path="/reset/"
+                element={<ResetPassword />}
+                action={resetAction}
                 errorElement={<ErrorElement />}
             />
             <Route

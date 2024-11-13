@@ -54,7 +54,7 @@ export default function Login() {
         <section className="login-section">
             <Form
                 className="login-form"
-                method="post"
+                method="POST"
                 autoComplete="on"
                 ref={loginForm}
             >
@@ -89,8 +89,14 @@ export default function Login() {
                 <p className="login-form-message">{loginMessage}</p>
                 <p className="new-account-text">
                     Don{`'`}t have an account?{" "}
-                    <Link to="/register" className="link">
+                    <Link to="/register/" className="link">
                         Create a new account
+                    </Link>
+                </p>
+                <p className="forgot-password-text">
+                    Forgot your password?{" "}
+                    <Link to="/reset/" className="link">
+                        Reset it here
                     </Link>
                 </p>
             </Form>
