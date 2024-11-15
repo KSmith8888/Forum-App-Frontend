@@ -7,8 +7,14 @@ export default function ResetPassword() {
     const actionData = useActionData();
     const resetForm = useRef<HTMLFormElement>(null);
     useEffect(() => {
-        if (typeof actionData === "string" && resetForm.current) {
+        if (typeof actionData === "string") {
             console.log(actionData);
+        } else if (
+            actionData &&
+            typeof actionData === "object" &&
+            "token" in actionData &&
+            resetForm.current
+        ) {
             resetForm.current.reset();
         }
     }, [actionData]);
@@ -38,13 +44,14 @@ export default function ResetPassword() {
             <button type="submit" className="button">
                 Submit
             </button>
-            <p className="reset-form-text">
-                If the email on your account is not verified, check for the
-                verification message and verify it first.
-            </p>
-            <p className="reset-form-text">
-                You should receive a message soon with instructions for how to
-                reset your password.
+            <p
+                className={
+                    typeof actionData === "string"
+                        ? "error-message"
+                        : "reset-form-text"
+                }
+            >
+                {typeof actionData === "string" ? actionData : ""}
             </p>
         </Form>
     );

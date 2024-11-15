@@ -14,7 +14,26 @@ export default async function resetAction({ request }: loaderActionInterface) {
         ) {
             throw new Error("Please do not include special characters");
         }
-        return `You entered ${username} and ${email}`;
+        const res = await fetch(
+            `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/reset`,
+            {
+                method: "POST",
+                body: JSON.stringify({ username, email }),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            }
+        );
+        if (!res.ok) {
+            const errorData = await res.json();
+            if (errorData && errorData.message) {
+                throw new Error(errorData.message);
+            } else {
+                throw new Error(`Response error: ${res.status}`);
+            }
+        }
+        const data = await res.json();
+        return data;
     } catch (error) {
         let errorMsg = "There has been an error, please try again later";
         if (error instanceof Error) {
