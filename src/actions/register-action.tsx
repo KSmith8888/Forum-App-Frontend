@@ -8,8 +8,7 @@ export default async function registerAction({
         const loginData = await request.formData();
         const username = loginData.get("username");
         const password = loginData.get("password");
-        const initEmail = loginData.get("email");
-        const email = initEmail ? initEmail : "none";
+        const email = loginData.get("email");
         const terms = loginData.get("terms");
         const passwordConfirm = loginData.get("password-confirm");
         const reg = new RegExp("^[a-zA-Z0-9.:,?/_'!@-]+$");

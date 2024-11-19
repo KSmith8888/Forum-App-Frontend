@@ -6,7 +6,7 @@ export default function Register() {
     const registrationMessage = useActionData();
 
     return (
-        <Form className="register-form" method="post" autoComplete="off">
+        <Form className="register-form" method="POST" autoComplete="off">
             <h2>Create new account</h2>
             <label htmlFor="register-username">
                 Username
@@ -28,8 +28,7 @@ export default function Register() {
             <label htmlFor="register-email">
                 Email
                 <span className="block-label-text">
-                    (Optional - If you do not provide one, you will not be able
-                    to reset your password)
+                    (Will never be shown publicly)
                 </span>
             </label>
             <input
@@ -39,6 +38,7 @@ export default function Register() {
                 name="email"
                 minLength={6}
                 maxLength={40}
+                required
             />
             <label htmlFor="register-password">
                 Password

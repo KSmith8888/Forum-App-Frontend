@@ -177,7 +177,6 @@ export interface updatePasswordProps {
 }
 
 export interface updateEmailProps {
-    accountHasEmail: boolean;
     isEmailVerified: boolean;
 }
 

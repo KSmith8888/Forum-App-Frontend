@@ -36,7 +36,6 @@ export default function Profile() {
     let profileBio = "";
     let pswdLastUpdated = "";
     let replySettingText = "";
-    let accountHasEmail = false;
     let isEmailVerified = false;
     if (loaderData && typeof loaderData === "object") {
         if ("posts" in loaderData && Array.isArray(loaderData.posts)) {
@@ -71,13 +70,6 @@ export default function Profile() {
             typeof loaderData.replySetting === "boolean"
         ) {
             replySettingText = loaderData.replySetting ? "Turn Off" : "Turn On";
-        }
-        if (
-            "email" in loaderData &&
-            typeof loaderData.email === "string" &&
-            loaderData.email !== "4em@example.com"
-        ) {
-            accountHasEmail = true;
         }
         if (
             "verifiedEmail" in loaderData &&
@@ -267,10 +259,7 @@ export default function Profile() {
                             <h4 className="profile-security-heading">
                                 Account Security:
                             </h4>
-                            <UpdateEmail
-                                accountHasEmail={accountHasEmail}
-                                isEmailVerified={isEmailVerified}
-                            />
+                            <UpdateEmail isEmailVerified={isEmailVerified} />
                             <UpdatePassword
                                 pswdLastUpdated={pswdLastUpdated}
                                 actionMessage={actionMessage}

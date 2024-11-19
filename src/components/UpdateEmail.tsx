@@ -3,10 +3,7 @@ import { Form } from "react-router-dom";
 
 import { updateEmailProps } from "../utils/interfaces.ts";
 
-export default function UpdateEmail({
-    accountHasEmail,
-    isEmailVerified,
-}: updateEmailProps) {
+export default function UpdateEmail({ isEmailVerified }: updateEmailProps) {
     const emailModal = useRef<HTMLDialogElement>(null);
     const emailForm = useRef<HTMLFormElement>(null);
     const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
@@ -42,7 +39,7 @@ export default function UpdateEmail({
                     setIsEmailModalOpen(true);
                 }}
             >
-                {accountHasEmail ? "Update" : "Add"}
+                Update
             </button>
             <dialog ref={emailModal} className="update-email-modal">
                 <button
@@ -87,8 +84,8 @@ export default function UpdateEmail({
                         Submit
                     </button>
                     <p>
-                        A verification email will be sent to this address.
-                        Follow the instructions in it to verify the address.
+                        A verification email will be sent to this address,
+                        follow the instructions to verify the address.
                     </p>
                 </Form>
             </dialog>

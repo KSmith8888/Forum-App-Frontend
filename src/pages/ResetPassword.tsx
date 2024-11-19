@@ -51,7 +51,9 @@ export default function ResetPassword() {
                         : "reset-form-text"
                 }
             >
-                {typeof actionData === "string" ? actionData : ""}
+                {typeof actionData === "string"
+                    ? actionData
+                    : "An email will be sent with instructions for how to reset your password"}
             </p>
         </Form>
     );
