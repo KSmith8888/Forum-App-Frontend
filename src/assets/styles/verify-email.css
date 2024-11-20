@@ -1,4 +1,4 @@
-.reset-password-form {
+.verify-email-form {
     width: 25em;
     max-width: 95%;
     text-align: center;
@@ -11,10 +11,10 @@
     flex-direction: column;
 }
 
-.reset-password-heading {
+.verify-email-heading {
     margin: 0.25em 0 0.5em 0;
 }
 
-.reset-form-text {
+.verify-email-text {
     margin: 0.5em 0;
 }

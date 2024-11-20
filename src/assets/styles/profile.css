@@ -301,17 +301,8 @@
     border: 1px solid #575454;
 }
 
-.warning {
-    color: #c70c0c;
-}
-
-.verified {
-    color: green;
-}
-
-.email-verified-text {
-    font-size: 1em;
-    font-weight: 400;
+.user-email {
+    margin: 0.5em 0;
 }
 
 @media (max-width: 650px) {

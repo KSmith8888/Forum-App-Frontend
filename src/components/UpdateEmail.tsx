@@ -3,7 +3,7 @@ import { Form } from "react-router-dom";
 
 import { updateEmailProps } from "../utils/interfaces.ts";
 
-export default function UpdateEmail({ isEmailVerified }: updateEmailProps) {
+export default function UpdateEmail({ currentEmail }: updateEmailProps) {
     const emailModal = useRef<HTMLDialogElement>(null);
     const emailForm = useRef<HTMLFormElement>(null);
     const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
@@ -20,18 +20,8 @@ export default function UpdateEmail({ isEmailVerified }: updateEmailProps) {
     }, [isEmailModalOpen]);
     return (
         <>
-            <h5 className="update-email-heading">
-                Email:{" "}
-                <span
-                    className={
-                        isEmailVerified
-                            ? "email-verified-text verified"
-                            : "email-verified-text warning"
-                    }
-                >
-                    {isEmailVerified ? "(Verified)" : "(Not verified)"}
-                </span>
-            </h5>
+            <h5 className="update-email-heading">Email: </h5>
+            <p className="user-email">{currentEmail}</p>
             <button
                 className="button"
                 type="button"

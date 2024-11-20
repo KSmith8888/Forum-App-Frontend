@@ -21,6 +21,8 @@ import postsTopicLoader from "../loaders/topic-posts-loader.tsx";
 import CreatePost from "../pages/CreatePost.tsx";
 import createPostAction from "../actions/create-post-action.tsx";
 import Register from "../pages/Register.tsx";
+import VerifyEmail from "../pages/VerifyEmail.tsx";
+import verifyAction from "../actions/verify-action.tsx";
 import registerAction from "../actions/register-action.tsx";
 import Profile from "../pages/Profile.tsx";
 import profileAction from "../actions/profile-action.tsx";
@@ -97,6 +99,12 @@ const router = createBrowserRouter(
                 path="/register/"
                 element={<Register />}
                 action={registerAction}
+                errorElement={<ErrorElement />}
+            />
+            <Route
+                path="/verify/"
+                element={<VerifyEmail />}
+                action={verifyAction}
                 errorElement={<ErrorElement />}
             />
             <Route

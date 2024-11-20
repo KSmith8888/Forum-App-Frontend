@@ -36,7 +36,7 @@ export default function Profile() {
     let profileBio = "";
     let pswdLastUpdated = "";
     let replySettingText = "";
-    let isEmailVerified = false;
+    let userEmail = "";
     if (loaderData && typeof loaderData === "object") {
         if ("posts" in loaderData && Array.isArray(loaderData.posts)) {
             postsData = [...loaderData.posts];
@@ -71,11 +71,8 @@ export default function Profile() {
         ) {
             replySettingText = loaderData.replySetting ? "Turn Off" : "Turn On";
         }
-        if (
-            "verifiedEmail" in loaderData &&
-            loaderData.verifiedEmail === "true"
-        ) {
-            isEmailVerified = true;
+        if ("email" in loaderData && typeof loaderData.email === "string") {
+            userEmail = loaderData.email;
         }
     }
     const messageModal = useRef<HTMLDialogElement>(null);
@@ -257,9 +254,9 @@ export default function Profile() {
                         </div>
                         <div className="update-password-container">
                             <h4 className="profile-security-heading">
-                                Account Security:
+                                Account Information:
                             </h4>
-                            <UpdateEmail isEmailVerified={isEmailVerified} />
+                            <UpdateEmail currentEmail={userEmail} />
                             <UpdatePassword
                                 pswdLastUpdated={pswdLastUpdated}
                                 actionMessage={actionMessage}

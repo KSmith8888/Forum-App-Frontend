@@ -20,7 +20,7 @@ export default function ResetPassword() {
     }, [actionData]);
     return (
         <Form method="POST" className="reset-password-form" ref={resetForm}>
-            <h2 className="reser-password-heading">Reset Password</h2>
+            <h2 className="reset-password-heading">Reset Password</h2>
             <label htmlFor="reset-username">Username:</label>
             <input
                 id="reset-username"
