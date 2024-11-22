@@ -1,9 +1,11 @@
 import { useEffect } from "react";
-import { Form, useActionData } from "react-router-dom";
+import { Form, useActionData, useSearchParams } from "react-router-dom";
 
 import "../assets/styles/verify-email.css";
 
 export default function VerifyEmail() {
+    const [searchParams] = useSearchParams();
+    const pendingId = searchParams.get("pendingUser");
     const actionData = useActionData();
     useEffect(() => {
         if (typeof actionData === "string") {
@@ -22,6 +24,11 @@ export default function VerifyEmail() {
                 minLength={6}
                 maxLength={6}
                 required
+            />
+            <input
+                type="hidden"
+                name="pendingId"
+                value={typeof pendingId === "string" ? pendingId : ""}
             />
             <button type="submit" className="button">
                 Submit

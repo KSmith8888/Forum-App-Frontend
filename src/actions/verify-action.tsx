@@ -5,17 +5,21 @@ export default async function verifyAction({ request }: loaderActionInterface) {
     try {
         const verificationData = await request.formData();
         const code = verificationData.get("code");
+        const pendingId = verificationData.get("pendingId");
         const reg = new RegExp("^[0-9]+$");
+        if (!pendingId) {
+            throw new Error("Something went wrong, please try again later");
+        }
         if (typeof code !== "string" || !reg.test(code)) {
             throw new Error(
                 "Code is invalid. Please enter the code from the verification email that was sent"
             );
         }
         const res = await fetch(
-            `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/verify`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/register`,
             {
                 method: "POST",
-                body: JSON.stringify({ code }),
+                body: JSON.stringify({ code, pendingId }),
                 headers: {
                     "Content-Type": "application/json",
                 },

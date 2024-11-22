@@ -57,16 +57,14 @@ export default async function registerAction({
         if (
             !data ||
             typeof data !== "object" ||
-            !("message" in data) ||
-            data.message !== "New account created successfully"
+            !("pendingId" in data) ||
+            typeof data.pendingId !== "string"
         ) {
             throw new Error(
                 "There has been an error creating your account, please try again later"
             );
         }
-        return redirect(
-            "/login/?message=New account created successfully, please log in"
-        );
+        return redirect(`/verify/?pendingUser=${data.pendingId}`);
     } catch (error) {
         let errorMsg = "There has been an error, please try again later";
         if (error instanceof Error) {
