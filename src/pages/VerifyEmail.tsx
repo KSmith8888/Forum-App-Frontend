@@ -1,17 +1,12 @@
-import { useEffect } from "react";
 import { Form, useActionData, useSearchParams } from "react-router-dom";
 
 import "../assets/styles/verify-email.css";
 
 export default function VerifyEmail() {
     const [searchParams] = useSearchParams();
-    const pendingId = searchParams.get("pendingUser");
+    const pendingId = searchParams.get("id");
     const actionData = useActionData();
-    useEffect(() => {
-        if (typeof actionData === "string") {
-            console.log(actionData);
-        }
-    }, [actionData]);
+
     return (
         <Form method="POST" className="verify-email-form">
             <h2 className="verify-email-heading">Verify Email</h2>

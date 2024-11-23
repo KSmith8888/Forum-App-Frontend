@@ -60,15 +60,14 @@ export default function Login() {
             >
                 <p className="login-params-message">{paramsMessage}</p>
                 <h3 className="login-form-heading">Enter Credentials</h3>
-                <label htmlFor="username">Username:</label>
+                <label htmlFor="username">Username or Email:</label>
                 <input
                     id="username"
                     className="input"
                     type="text"
                     name="username"
                     minLength={4}
-                    maxLength={18}
-                    pattern="[a-zA-Z0-9_]+"
+                    maxLength={40}
                     required
                 />
                 <label htmlFor="password">Password:</label>

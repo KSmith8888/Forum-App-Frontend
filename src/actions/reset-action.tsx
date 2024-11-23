@@ -1,3 +1,4 @@
+import { redirect } from "react-router-dom";
 import { loaderActionInterface } from "../utils/interfaces";
 
 export default async function resetAction({ request }: loaderActionInterface) {
@@ -33,7 +34,17 @@ export default async function resetAction({ request }: loaderActionInterface) {
             }
         }
         const data = await res.json();
-        return data;
+        if (
+            !data ||
+            typeof data !== "object" ||
+            !("userId" in data) ||
+            typeof data.userId !== "string"
+        ) {
+            throw new Error(
+                "There has been an error resetting your password, please try again later"
+            );
+        }
+        return redirect(`/reset/complete/?id=${data.userId}`);
     } catch (error) {
         let errorMsg = "There has been an error, please try again later";
         if (error instanceof Error) {

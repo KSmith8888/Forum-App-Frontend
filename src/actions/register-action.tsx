@@ -64,7 +64,7 @@ export default async function registerAction({
                 "There has been an error creating your account, please try again later"
             );
         }
-        return redirect(`/verify/?pendingUser=${data.pendingId}`);
+        return redirect(`/verify/?id=${data.pendingId}`);
     } catch (error) {
         let errorMsg = "There has been an error, please try again later";
         if (error instanceof Error) {

@@ -21,9 +21,17 @@ export default function Terms() {
                     liable for content created by other users or third party
                     content linked to from within the service
                 </li>
+            </ul>
+            <p>In addition, if you create an account you agree that:</p>
+            <ul>
                 <li className="terms-list-item">
-                    If you create an account, you will use a strong password
-                    that is not used for any other service and keep it secured
+                    You will use a strong password that is not used for any
+                    other service and keep it secured
+                </li>
+                <li className="terms-list-item">
+                    This service may send emails to the address you provide for
+                    security and legal purposes such as: Password resets,
+                    verification and updates to the terms of service
                 </li>
                 <li className="terms-list-item">
                     If you break any site rule, the admins or moderators may

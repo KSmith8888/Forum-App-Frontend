@@ -5,10 +5,16 @@ export default async function loginAction({ request }: loaderActionInterface) {
         const loginData = await request.formData();
         const username = loginData.get("username");
         const password = loginData.get("password");
+        const reg = new RegExp("^[a-zA-Z0-9.:,?/_'!@-]+$");
         if (!username || !password) {
             throw new Error("No username or password present");
         }
-        if (typeof username !== "string" || typeof password !== "string") {
+        if (
+            typeof username !== "string" ||
+            typeof password !== "string" ||
+            !reg.test(username) ||
+            !reg.test(password)
+        ) {
             throw new Error(
                 "Please do not include special characters in your credentials"
             );
