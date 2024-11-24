@@ -9,7 +9,9 @@ export default function VerifyEmail() {
 
     return (
         <Form method="POST" className="verify-email-form">
-            <h2 className="verify-email-heading">Verify Email</h2>
+            <h2 className="verify-email-heading">
+                Enter the code that was sent to your email
+            </h2>
             <label htmlFor="code-input">Verification Code:</label>
             <input
                 id="code-input"
@@ -29,7 +31,8 @@ export default function VerifyEmail() {
                 Submit
             </button>
             <p className="verify-email-text">
-                Enter the code from the verification email that was sent
+                If the verification email is not in your inbox, please check the
+                spam or junk folder
             </p>
             <p className="error-message">
                 {typeof actionData === "string" ? actionData : ""}

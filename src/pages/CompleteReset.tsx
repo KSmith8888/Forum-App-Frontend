@@ -56,7 +56,10 @@ export default function CompleteReset() {
                 maxLength={40}
                 required
             />
-
+            <p>
+                If the reset email is not in your inbox, please check the spam
+                or junk folder
+            </p>
             <button type="submit" className="button">
                 Submit
             </button>
