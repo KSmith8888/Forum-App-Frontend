@@ -78,9 +78,12 @@ export default function Profile() {
     const messageModal = useRef<HTMLDialogElement>(null);
     const actionMessage = useActionData();
     const [modalMessage, setModalMessage] = useState("");
+    const [emailUpdateStep, setEmailUpdateStep] = useState(1);
     const { profilePic, setProfilePic } = useOutletContext<outletInterface>();
     useEffect(() => {
-        if (typeof actionMessage === "string" && messageModal.current) {
+        if (actionMessage === "Email update initiated successfully") {
+            setEmailUpdateStep(2);
+        } else if (typeof actionMessage === "string" && messageModal.current) {
             const splitMessage = actionMessage.split("-Target ID-");
             setModalMessage(splitMessage[0]);
             messageModal.current.showModal();
@@ -256,7 +259,10 @@ export default function Profile() {
                             <h4 className="profile-security-heading">
                                 Account Information:
                             </h4>
-                            <UpdateEmail currentEmail={userEmail} />
+                            <UpdateEmail
+                                currentEmail={userEmail}
+                                updateStep={emailUpdateStep}
+                            />
                             <UpdatePassword
                                 pswdLastUpdated={pswdLastUpdated}
                                 actionMessage={actionMessage}

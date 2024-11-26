@@ -18,6 +18,7 @@ export default async function profileAction({
         const newPass = formData.get("new-password");
         const confirmPass = formData.get("confirm-password");
         const email = formData.get("email");
+        const emailPass = formData.get("email-password");
         const deleteAccount = formData.get("delete-account");
         const pfpImage = formData.get("pfp");
         const pfpAlt = formData.get("pfp-alt");
@@ -80,12 +81,13 @@ export default async function profileAction({
                 reqCurrentPass: currentPass,
                 reqNewPass: newPass,
             };
-        } else if (typeof email === "string") {
+        } else if (typeof email === "string" && typeof emailPass === "string") {
             reqUrl = `${reqUrl}users/profile/${userId}/email`;
             reqMethod = "PATCH";
             reqBody = {
                 status: "Update email request",
                 email: email,
+                password: emailPass,
             };
         } else if (typeof replySetting === "string") {
             reqUrl = `${reqUrl}users/profile/${userId}/notifications`;

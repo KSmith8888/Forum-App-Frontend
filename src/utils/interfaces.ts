@@ -178,6 +178,7 @@ export interface updatePasswordProps {
 
 export interface updateEmailProps {
     currentEmail: string;
+    updateStep: number;
 }
 
 export interface innerContentProps {
