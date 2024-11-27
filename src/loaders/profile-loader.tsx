@@ -7,9 +7,7 @@ export default async function profileLoader() {
         return redirect("/?message=Please_log_in");
     }
     const res = await fetch(
-        `${
-            import.meta.env.VITE_BACKEND_URL
-        }/api/v1/users/profile/details/${userId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/profile/details`,
         {
             method: "GET",
             headers: {

@@ -76,15 +76,11 @@ export default function UpdateEmail({
                             minLength={6}
                             maxLength={40}
                             required
-                            autoFocus
                         />
                         <button type="submit" className="button">
                             Submit
                         </button>
-                        <p>
-                            A verification email will be sent to this address,
-                            follow the instructions to verify the address.
-                        </p>
+                        <p>A verification email will be sent to this address</p>
                     </Form>
                 ) : (
                     <Form method="POST" className="update-email-form">
@@ -99,9 +95,10 @@ export default function UpdateEmail({
                             type="number"
                             name="update-code"
                             autoComplete="off"
-                            minLength={6}
-                            maxLength={6}
+                            min={100000}
+                            max={999999}
                             required
+                            autoFocus
                         />
                         <button
                             type="submit"

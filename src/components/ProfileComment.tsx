@@ -23,8 +23,7 @@ export default function ProfileComment({
                     Edit
                 </Link>
                 <Form method="POST">
-                    <input type="hidden" name="comment" value="comments" />
-                    <input type="hidden" name="id" value={commentId} />
+                    <input type="hidden" name="commentId" value={commentId} />
                     <button type="submit" className="button">
                         Delete
                     </button>

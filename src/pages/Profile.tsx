@@ -83,6 +83,8 @@ export default function Profile() {
     useEffect(() => {
         if (actionMessage === "Email update initiated successfully") {
             setEmailUpdateStep(2);
+        } else if (actionMessage === "Email updated successfully") {
+            setEmailUpdateStep(1);
         } else if (typeof actionMessage === "string" && messageModal.current) {
             const splitMessage = actionMessage.split("-Target ID-");
             setModalMessage(splitMessage[0]);

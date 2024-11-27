@@ -46,10 +46,9 @@ export default function ProfileNotification({
                     <Form method="POST">
                         <input
                             type="hidden"
-                            name="notification"
-                            value="notifications"
+                            name="notificationId"
+                            value={_id}
                         />
-                        <input type="hidden" name="id" value={_id} />
                         <button className="button">Delete</button>
                     </Form>
                 )}

@@ -9,32 +9,35 @@ export default async function profileAction({
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
         const formData = await request.formData();
-        const id = formData.get("id");
-        const post = formData.get("post");
-        const comment = formData.get("comment");
-        const notification = formData.get("notification");
+        const postId = formData.get("postId");
+        const commentId = formData.get("commentId");
+        const notificationId = formData.get("notificationId");
         const bioContent = formData.get("bio-content");
         const currentPass = formData.get("current-password");
         const newPass = formData.get("new-password");
         const confirmPass = formData.get("confirm-password");
         const email = formData.get("email");
         const emailPass = formData.get("email-password");
+        const emailCode = formData.get("update-code");
         const deleteAccount = formData.get("delete-account");
         const pfpImage = formData.get("pfp");
         const pfpAlt = formData.get("pfp-alt");
         const replySetting = formData.get("notification-setting");
-        let reqMethod = "DELETE";
+        let reqMethod = "";
         let reqUrl = `${import.meta.env.VITE_BACKEND_URL}/api/v1/`;
         let reqBody = {};
         if (!token || !userId) {
             throw new Error("You must log in before performing that action");
         }
-        if (typeof post === "string" && typeof id === "string") {
-            reqUrl = `${reqUrl}${post}/${id}`;
-        } else if (typeof comment === "string" && typeof id === "string") {
-            reqUrl = `${reqUrl}${comment}/details/${id}`;
-        } else if (typeof notification === "string" && typeof id === "string") {
-            reqUrl = `${reqUrl}users/profile/notifications/${id}`;
+        if (typeof postId === "string") {
+            reqMethod = "DELETE";
+            reqUrl = `${reqUrl}posts/${postId}`;
+        } else if (typeof commentId === "string") {
+            reqMethod = "DELETE";
+            reqUrl = `${reqUrl}comments/details/${commentId}`;
+        } else if (typeof notificationId === "string") {
+            reqMethod = "DELETE";
+            reqUrl = `${reqUrl}users/profile/notifications/${notificationId}`;
         } else if (typeof bioContent === "string") {
             const bioReg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@=%\r\n-]+$");
             if (!bioReg.test(bioContent)) {
@@ -42,16 +45,17 @@ export default async function profileAction({
                     "Please do not include special characters in your message"
                 );
             }
-            reqUrl = `${reqUrl}users/profile/${userId}/bio`;
+            reqUrl = `${reqUrl}users/profile/bio`;
             reqMethod = "PATCH";
             reqBody = {
                 status: "Update user bio",
                 bioContent,
             };
         } else if (typeof deleteAccount === "string") {
-            reqUrl = `${reqUrl}users/profile/${userId}`;
+            reqMethod = "DELETE";
+            reqUrl = `${reqUrl}users/profile`;
         } else if (typeof pfpImage === "string" && typeof pfpAlt === "string") {
-            reqUrl = `${reqUrl}users/profile/${userId}/image`;
+            reqUrl = `${reqUrl}users/profile/image`;
             reqMethod = "PATCH";
             reqBody = {
                 status: "Update user pfp",
@@ -74,7 +78,7 @@ export default async function profileAction({
                     "Please do not include special characters in your message"
                 );
             }
-            reqUrl = `${reqUrl}users/profile/${userId}/password`;
+            reqUrl = `${reqUrl}users/profile/password`;
             reqMethod = "PATCH";
             reqBody = {
                 status: "Update password request",
@@ -82,15 +86,22 @@ export default async function profileAction({
                 reqNewPass: newPass,
             };
         } else if (typeof email === "string" && typeof emailPass === "string") {
-            reqUrl = `${reqUrl}users/profile/${userId}/email`;
+            reqUrl = `${reqUrl}users/profile/email`;
             reqMethod = "PATCH";
             reqBody = {
                 status: "Update email request",
                 email: email,
                 password: emailPass,
             };
+        } else if (typeof emailCode === "string") {
+            reqUrl = `${reqUrl}users/profile/email/complete`;
+            reqMethod = "PATCH";
+            reqBody = {
+                status: "Verify epdate email request",
+                code: emailCode,
+            };
         } else if (typeof replySetting === "string") {
-            reqUrl = `${reqUrl}users/profile/${userId}/notifications`;
+            reqUrl = `${reqUrl}users/profile/notifications`;
             reqMethod = "PATCH";
             reqBody = {
                 status: "Update notification setting request",
