@@ -4,7 +4,7 @@ import "../assets/styles/reset.css";
 
 export default function CompleteReset() {
     const [searchParams] = useSearchParams();
-    const userId = searchParams.get("id");
+    const user = searchParams.get("user");
     const actionData = useActionData();
 
     return (
@@ -26,8 +26,8 @@ export default function CompleteReset() {
             />
             <input
                 type="hidden"
-                value={typeof userId === "string" ? userId : ""}
-                name="userId"
+                value={typeof user === "string" ? user : ""}
+                name="username"
             />
             <label htmlFor="complete-reset-password">
                 New Password:

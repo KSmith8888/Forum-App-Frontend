@@ -8,7 +8,7 @@ export default function EditComment() {
     const prevContent = typeof loaderData === "string" ? loaderData : "";
 
     return (
-        <Form method="POST" className="edit-content-form">
+        <Form method="PATCH" className="edit-content-form">
             <h2>Edit Comment</h2>
             <label htmlFor="content-input">Content:</label>
             <textarea

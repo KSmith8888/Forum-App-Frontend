@@ -43,7 +43,7 @@ export default function ProfileNotification({
                     </Link>
                 )}
                 {canDelete && (
-                    <Form method="POST">
+                    <Form method="DELETE">
                         <input
                             type="hidden"
                             name="notificationId"

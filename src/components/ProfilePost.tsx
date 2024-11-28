@@ -21,7 +21,7 @@ export default function ProfilePost({
                 >
                     Edit
                 </Link>
-                <Form method="POST">
+                <Form method="DELETE">
                     <input type="hidden" name="postId" value={postId} />
                     <button className="button">Delete</button>
                 </Form>

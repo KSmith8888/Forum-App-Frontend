@@ -7,9 +7,7 @@ export default function ResetPassword() {
     const actionData = useActionData();
     const resetForm = useRef<HTMLFormElement>(null);
     useEffect(() => {
-        if (typeof actionData === "string") {
-            console.log(actionData);
-        } else if (
+        if (
             actionData &&
             typeof actionData === "object" &&
             "token" in actionData &&

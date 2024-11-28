@@ -7,17 +7,17 @@ export default async function completeResetAction({
     try {
         const resetData = await request.formData();
         const code = resetData.get("code");
-        const userId = resetData.get("userId");
+        const username = resetData.get("username");
         const password = resetData.get("password");
         const confirmPass = resetData.get("password-confirm");
         const reg = new RegExp("^[a-zA-Z0-9.:,?/_'!@-]+$");
         const codeReg = new RegExp("^[0-9]+$");
         if (
-            typeof userId !== "string" ||
+            typeof username !== "string" ||
             typeof password !== "string" ||
             typeof confirmPass !== "string" ||
             !reg.test(password) ||
-            !reg.test(userId)
+            !reg.test(username)
         ) {
             throw new Error("Please do not include special characters");
         }
@@ -33,7 +33,7 @@ export default async function completeResetAction({
             `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/reset/complete`,
             {
                 method: "POST",
-                body: JSON.stringify({ code, userId, password }),
+                body: JSON.stringify({ code, username, password }),
                 headers: {
                     "Content-Type": "application/json",
                 },

@@ -37,14 +37,14 @@ export default async function resetAction({ request }: loaderActionInterface) {
         if (
             !data ||
             typeof data !== "object" ||
-            !("userId" in data) ||
-            typeof data.userId !== "string"
+            !("username" in data) ||
+            typeof data.username !== "string"
         ) {
             throw new Error(
                 "There has been an error resetting your password, please try again later"
             );
         }
-        return redirect(`/reset/complete/?id=${data.userId}`);
+        return redirect(`/reset/complete/?user=${data.username}`);
     } catch (error) {
         let errorMsg = "There has been an error, please try again later";
         if (error instanceof Error) {
