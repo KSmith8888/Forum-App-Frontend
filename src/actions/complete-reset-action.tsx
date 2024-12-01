@@ -40,9 +40,8 @@ export default async function completeResetAction({
             }
         );
         if (!res.ok) {
-            const errorData = await res.json();
-            if (errorData && errorData.message) {
-                throw new Error(errorData.message);
+            if (res.status === 400) {
+                throw new Error("Too many attempts, account frozen");
             } else {
                 throw new Error(`Response error: ${res.status}`);
             }

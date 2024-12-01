@@ -1,5 +1,6 @@
 import { Form, useActionData, Link } from "react-router-dom";
 
+import openIconImage from "../assets/images/open-link-icon.png";
 import "../assets/styles/register.css";
 
 export default function Register() {
@@ -78,6 +79,11 @@ export default function Register() {
                     I agree to the{" "}
                     <Link to="/terms" target="_blank" className="link">
                         Terms of Service
+                        <img
+                            src={openIconImage}
+                            alt="Opens in a new tab"
+                            className="open-link-icon-image"
+                        ></img>
                     </Link>
                 </label>
             </div>
