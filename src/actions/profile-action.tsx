@@ -34,7 +34,7 @@ export default async function profileAction({
             reqUrl = `${reqUrl}posts/${postId}`;
         } else if (typeof commentId === "string") {
             reqMethod = "DELETE";
-            reqUrl = `${reqUrl}comments/details/${commentId}`;
+            reqUrl = `${reqUrl}comments/${commentId}`;
         } else if (typeof notificationId === "string") {
             reqMethod = "DELETE";
             reqUrl = `${reqUrl}users/profile/notifications/${notificationId}`;

@@ -28,9 +28,7 @@ export default async function editCommentAction({
             );
         }
         const res = await fetch(
-            `${
-                import.meta.env.VITE_BACKEND_URL
-            }/api/v1/comments/details/${commentId}`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/v1/comments/${commentId}`,
             {
                 method: "PATCH",
                 body: JSON.stringify({ content }),
@@ -50,7 +48,7 @@ export default async function editCommentAction({
             }
         }
         const data = await res.json();
-        return redirect(`/posts/details/${data.relatedPostId}`);
+        return redirect(`/posts/${data.relatedPostId}/url_title/`);
     } catch (error) {
         let errorMsg = "There has been an error, please try again later";
         if (error instanceof Error) {

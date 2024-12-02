@@ -10,9 +10,7 @@ export default async function editCommentLoader({
     }
     const commentId = params.id;
     const res = await fetch(
-        `${
-            import.meta.env.VITE_BACKEND_URL
-        }/api/v1/comments/details/${commentId}`
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/comments/${commentId}`
     );
     if (!res.ok) {
         const errorData = await res.json();
