@@ -20,7 +20,7 @@ export default async function loginAction({ request }: loaderActionInterface) {
             );
         }
         const res = await fetch(
-            `${import.meta.env.VITE_BACKEND_URL}/api/v1/login`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/login`,
             {
                 method: "POST",
                 body: JSON.stringify({ username, password }),
