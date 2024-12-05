@@ -48,7 +48,18 @@ export default async function editCommentAction({
             }
         }
         const data = await res.json();
-        return redirect(`/posts/${data.relatedPostId}/url_title/`);
+        if (
+            data &&
+            typeof data === "object" &&
+            "relatedPostId" in data &&
+            "postUrlTitle" in data
+        ) {
+            return redirect(
+                `/posts/${data.relatedPostId}/${data.postUrlTitle}/`
+            );
+        } else {
+            throw new Error("Incorrect data returned from server");
+        }
     } catch (error) {
         let errorMsg = "There has been an error, please try again later";
         if (error instanceof Error) {

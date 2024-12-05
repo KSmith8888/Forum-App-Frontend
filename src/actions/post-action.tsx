@@ -11,6 +11,7 @@ export default async function postAction({ request }: loaderActionInterface) {
         const content = postForm.get("content");
         const postId = postForm.get("postId");
         const commentId = postForm.get("commentId");
+        const postUrlTitle = postForm.get("postUrlTitle");
         const replyType = postForm.get("type");
         const reportRelated = postForm.get("report-related-id");
         const reportId = postForm.get("report-message-id");
@@ -32,7 +33,8 @@ export default async function postAction({ request }: loaderActionInterface) {
             typeof content === "string" &&
             typeof postId === "string" &&
             typeof replyType === "string" &&
-            typeof commentId === "string"
+            typeof commentId === "string" &&
+            typeof postUrlTitle === "string"
         ) {
             if (
                 !reg.test(content) ||
@@ -48,6 +50,7 @@ export default async function postAction({ request }: loaderActionInterface) {
                 postId,
                 commentId,
                 replyType,
+                postUrlTitle,
             };
         } else if (
             typeof reportId === "string" &&

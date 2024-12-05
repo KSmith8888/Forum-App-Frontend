@@ -27,6 +27,7 @@ export default function CommentForm({
             ></textarea>
             <input type="hidden" value={postId} name="postId" />
             <input type="hidden" value={commentId} name="commentId" />
+            <input type="hidden" value={postUrlTitle} name="postUrlTitle" />
             <input type="hidden" value={type} name="type" />
             <button type="submit" className="button">
                 Submit
