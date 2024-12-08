@@ -240,8 +240,12 @@ export default function Post() {
                     <div className="post-main-content-container">
                         <div className="post-inner-content-container">
                             <h2 className="post-title">{postData.title}</h2>
-
-                            {postData.postType === "Link" ? (
+                            {postData.postType === "Text" && (
+                                <p className="text-post-text">
+                                    {postData.content}
+                                </p>
+                            )}
+                            {postData.postType === "Link" && (
                                 <p className="link-post-text">
                                     <a
                                         href={postData.content}
@@ -263,11 +267,8 @@ export default function Post() {
                                         ></img>
                                     </a>
                                 </p>
-                            ) : (
-                                <p className="text-post-text">
-                                    {postData.content}
-                                </p>
                             )}
+                            {postData.postType === "Poll" && <p>Poll post</p>}
                         </div>
                     </div>
                     <div className="post-likes-container">

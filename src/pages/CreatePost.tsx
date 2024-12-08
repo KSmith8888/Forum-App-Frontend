@@ -39,6 +39,16 @@ export default function CreatePost() {
                 >
                     Link Post
                 </button>
+                <button
+                    type="button"
+                    className="post-type-button"
+                    disabled={typeOfPost === "Poll" ? true : false}
+                    onClick={() => {
+                        setTypeOfPost("Poll");
+                    }}
+                >
+                    Poll Post
+                </button>
             </div>
             <label htmlFor="topic-input">Topic:</label>
             <select
@@ -70,7 +80,13 @@ export default function CreatePost() {
                 maxLength={60}
                 required
             />
-            <label htmlFor="content-input">Content:</label>
+            {typeOfPost === "Poll" ? (
+                <label htmlFor="content-input">
+                    Poll Options (Up to four options, separated with a comma)
+                </label>
+            ) : (
+                <label htmlFor="content-input">Content:</label>
+            )}
             <textarea
                 id="content-input"
                 className="input textarea"
