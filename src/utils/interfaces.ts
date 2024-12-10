@@ -41,6 +41,15 @@ export interface likeInterface {
     didUserLike: boolean;
 }
 
+export interface pollOption {
+    option: string;
+    votes: number;
+}
+
+export interface pollData {
+    options: Array<pollOption>;
+}
+
 export interface postInterface {
     _id: string;
     title: string;
@@ -52,6 +61,7 @@ export interface postInterface {
     likes: number;
     user: string;
     keywords: string[];
+    pollData: Array<pollOption>;
     comments: string[];
     hasBeenEdited: boolean;
     lastEditedAt: string;

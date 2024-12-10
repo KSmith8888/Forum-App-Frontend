@@ -12,6 +12,7 @@ import {
 import Comment from "../components/Comment";
 import CommentForm from "../components/CommentForm.tsx";
 import PostHistory from "../components/PostHistory.tsx";
+import PollForm from "../components/PollForm.tsx";
 import {
     outletInterface,
     commentInterface,
@@ -268,7 +269,9 @@ export default function Post() {
                                     </a>
                                 </p>
                             )}
-                            {postData.postType === "Poll" && <p>Poll post</p>}
+                            {postData.postType === "Poll" && (
+                                <PollForm options={postData.pollData} />
+                            )}
                         </div>
                     </div>
                     <div className="post-likes-container">

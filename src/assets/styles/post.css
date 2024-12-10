@@ -371,6 +371,34 @@
     align-self: center;
 }
 
+.poll-form {
+    border: 1px solid #575454;
+    padding: 1em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.poll-options-container {
+    display: flex;
+}
+
+.poll-option {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.poll-vote-text {
+    margin: 0.5em 1em;
+    color: rgb(15, 17, 129);
+}
+
+.poll-option-label {
+    margin: 0.5em 1em;
+    cursor: pointer;
+}
+
 @media (max-width: 650px) {
     .link-post-image {
         margin-top: 0.5em;
