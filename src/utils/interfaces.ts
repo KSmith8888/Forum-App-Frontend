@@ -48,6 +48,7 @@ export interface pollOption {
 
 export interface pollData {
     options: Array<pollOption>;
+    postId: string;
 }
 
 export interface postInterface {

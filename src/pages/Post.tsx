@@ -270,7 +270,10 @@ export default function Post() {
                                 </p>
                             )}
                             {postData.postType === "Poll" && (
-                                <PollForm options={postData.pollData} />
+                                <PollForm
+                                    options={postData.pollData}
+                                    postId={postData._id}
+                                />
                             )}
                         </div>
                     </div>

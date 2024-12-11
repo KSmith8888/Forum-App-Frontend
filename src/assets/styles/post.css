@@ -371,12 +371,14 @@
     align-self: center;
 }
 
-.poll-form {
+.poll-form,
+.poll-guest-container {
     border: 1px solid #575454;
+    margin: 1em;
     padding: 1em;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .poll-options-container {
@@ -397,6 +399,15 @@
 .poll-option-label {
     margin: 0.5em 1em;
     cursor: pointer;
+}
+
+.poll-guest-text {
+    margin: 0.5em 0;
+    color: rgb(15, 17, 129);
+}
+
+.poll-guest-votes {
+    display: block;
 }
 
 @media (max-width: 650px) {

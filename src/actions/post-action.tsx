@@ -5,7 +5,7 @@ export default async function postAction({ request }: loaderActionInterface) {
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
         if (!token || !userId) {
-            throw new Error("You must log in before creating a post");
+            throw new Error("You must log in before performing that action");
         }
         const postForm = await request.formData();
         const content = postForm.get("content");
@@ -22,6 +22,8 @@ export default async function postAction({ request }: loaderActionInterface) {
         const saveUrlTitle = postForm.get("save-url-title");
         const likePostId = postForm.get("like-post-id");
         const likeCommentId = postForm.get("like-comment-id");
+        const pollVote = postForm.get("poll-vote");
+        const pollPostId = postForm.get("poll-post-id");
         let dataUrl = `${
             import.meta.env.VITE_BACKEND_URL
         }/api/v1/comments/create`;
@@ -97,6 +99,15 @@ export default async function postAction({ request }: loaderActionInterface) {
             }/api/v1/comments/likes/${likeCommentId}`;
             dataMethod = "PATCH";
             dataBody = { status: "Update like count" };
+        } else if (
+            typeof pollVote === "string" &&
+            typeof pollPostId === "string"
+        ) {
+            dataUrl = `${
+                import.meta.env.VITE_BACKEND_URL
+            }/api/v1/posts/vote/${pollPostId}`;
+            dataMethod = "PATCH";
+            dataBody = { pollVote };
         } else {
             throw new Error("Proper data not provided");
         }
