@@ -383,6 +383,8 @@
 
 .poll-options-container {
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .poll-option {
@@ -396,6 +398,10 @@
     color: rgb(15, 17, 129);
 }
 
+.poll-option-input {
+    cursor: pointer;
+}
+
 .poll-option-label {
     margin: 0.5em 1em;
     cursor: pointer;
@@ -403,11 +409,16 @@
 
 .poll-guest-text {
     margin: 0.5em 0;
-    color: rgb(15, 17, 129);
 }
 
 .poll-guest-votes {
+    margin: 0.5em 0;
     display: block;
+    color: rgb(15, 17, 129);
+}
+
+#poll-submit-button {
+    align-self: center;
 }
 
 @media (max-width: 650px) {
@@ -444,5 +455,8 @@
     }
     .comment-form {
         width: 95%;
+    }
+    .poll-option {
+        flex-direction: column;
     }
 }

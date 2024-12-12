@@ -12,12 +12,14 @@ export default function PollForm({ options, postId }: pollData) {
                     <div className="poll-options-container">
                         <div className="poll-option">
                             <label className="poll-option-label">
-                                {options[0].option}
                                 <input
+                                    className="poll-option-input"
                                     type="radio"
                                     name="poll-vote"
                                     value="0"
+                                    required
                                 />
+                                {options[0].option}
                             </label>
                             <p className="poll-vote-text">
                                 Total: {options[0].votes}
@@ -25,12 +27,13 @@ export default function PollForm({ options, postId }: pollData) {
                         </div>
                         <div className="poll-option">
                             <label className="poll-option-label">
-                                {options[1].option}
                                 <input
+                                    className="poll-option-input"
                                     type="radio"
                                     name="poll-vote"
                                     value="1"
                                 />
+                                {options[1].option}
                             </label>
                             <p className="poll-vote-text">
                                 Total: {options[1].votes}
@@ -39,12 +42,13 @@ export default function PollForm({ options, postId }: pollData) {
                         {options.length >= 3 && (
                             <div className="poll-option">
                                 <label className="poll-option-label">
-                                    {options[2].option}
                                     <input
+                                        className="poll-option-input"
                                         type="radio"
                                         name="poll-vote"
                                         value="2"
                                     />
+                                    {options[2].option}
                                 </label>
                                 <p className="poll-vote-text">
                                     Total: {options[2].votes}
@@ -54,12 +58,13 @@ export default function PollForm({ options, postId }: pollData) {
                         {options.length === 4 && (
                             <div className="poll-option">
                                 <label className="poll-option-label">
-                                    {options[3].option}
                                     <input
+                                        className="poll-option-input"
                                         type="radio"
                                         name="poll-vote"
                                         value="3"
                                     />
+                                    {options[3].option}
                                 </label>
                                 <p className="poll-vote-text">
                                     Total: {options[3].votes}
@@ -67,7 +72,11 @@ export default function PollForm({ options, postId }: pollData) {
                             </div>
                         )}
                     </div>
-                    <button type="submit" className="button">
+                    <button
+                        type="submit"
+                        className="button"
+                        id="poll-submit-button"
+                    >
                         Vote
                     </button>
                 </Form>
@@ -76,20 +85,20 @@ export default function PollForm({ options, postId }: pollData) {
                     <p className="poll-guest-text">
                         {options[0].option}
                         <span className="poll-guest-votes">
-                            Votes: {options[0].votes}
+                            Total: {options[0].votes}
                         </span>
                     </p>
                     <p className="poll-guest-text">
                         {options[1].option}
                         <span className="poll-guest-votes">
-                            Votes: {options[1].votes}
+                            Total: {options[1].votes}
                         </span>
                     </p>
                     {options.length >= 3 && (
                         <p className="poll-guest-text">
                             {options[2].option}
                             <span className="poll-guest-votes">
-                                Votes: {options[2].votes}
+                                Total: {options[2].votes}
                             </span>
                         </p>
                     )}
@@ -97,7 +106,7 @@ export default function PollForm({ options, postId }: pollData) {
                         <p className="poll-guest-text">
                             {options[3].option}
                             <span className="poll-guest-votes">
-                                Votes: {options[3].votes}
+                                Total: {options[3].votes}
                             </span>
                         </p>
                     )}
