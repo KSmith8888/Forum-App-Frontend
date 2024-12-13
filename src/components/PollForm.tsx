@@ -4,6 +4,12 @@ import { pollData, outletInterface } from "../utils/interfaces";
 
 export default function PollForm({ options, postId }: pollData) {
     const { isUserLoggedIn } = useOutletContext<outletInterface>();
+    let highestTotal = 1;
+    options.forEach((option) => {
+        if (option.votes > highestTotal) {
+            highestTotal = option.votes;
+        }
+    });
     return (
         <>
             {isUserLoggedIn ? (
@@ -21,9 +27,19 @@ export default function PollForm({ options, postId }: pollData) {
                                 />
                                 {options[0].option}
                             </label>
-                            <p className="poll-vote-text">
-                                Total: {options[0].votes}
-                            </p>
+                            <div className="poll-vote-text-container">
+                                <p className="poll-vote-text">
+                                    Total: {options[0].votes}
+                                </p>
+                                <meter
+                                    className="poll-meter"
+                                    min={0}
+                                    max={highestTotal}
+                                    value={options[0].votes}
+                                >
+                                    {options[0].votes}
+                                </meter>
+                            </div>
                         </div>
                         <div className="poll-option">
                             <label className="poll-option-label">
@@ -35,9 +51,19 @@ export default function PollForm({ options, postId }: pollData) {
                                 />
                                 {options[1].option}
                             </label>
-                            <p className="poll-vote-text">
-                                Total: {options[1].votes}
-                            </p>
+                            <div className="poll-vote-text-container">
+                                <p className="poll-vote-text">
+                                    Total: {options[1].votes}
+                                </p>
+                                <meter
+                                    className="poll-meter"
+                                    min={0}
+                                    max={highestTotal}
+                                    value={options[1].votes}
+                                >
+                                    {options[1].votes}
+                                </meter>
+                            </div>
                         </div>
                         {options.length >= 3 && (
                             <div className="poll-option">
@@ -50,9 +76,19 @@ export default function PollForm({ options, postId }: pollData) {
                                     />
                                     {options[2].option}
                                 </label>
-                                <p className="poll-vote-text">
-                                    Total: {options[2].votes}
-                                </p>
+                                <div className="poll-vote-text-container">
+                                    <p className="poll-vote-text">
+                                        Total: {options[2].votes}
+                                    </p>
+                                    <meter
+                                        className="poll-meter"
+                                        min={0}
+                                        max={highestTotal}
+                                        value={options[2].votes}
+                                    >
+                                        {options[2].votes}
+                                    </meter>
+                                </div>
                             </div>
                         )}
                         {options.length === 4 && (
@@ -66,9 +102,19 @@ export default function PollForm({ options, postId }: pollData) {
                                     />
                                     {options[3].option}
                                 </label>
-                                <p className="poll-vote-text">
-                                    Total: {options[3].votes}
-                                </p>
+                                <div className="poll-vote-text-container">
+                                    <p className="poll-vote-text">
+                                        Total: {options[3].votes}
+                                    </p>
+                                    <meter
+                                        className="poll-meter"
+                                        min={0}
+                                        max={highestTotal}
+                                        value={options[3].votes}
+                                    >
+                                        {options[3].votes}
+                                    </meter>
+                                </div>
                             </div>
                         )}
                     </div>
@@ -81,34 +127,78 @@ export default function PollForm({ options, postId }: pollData) {
                     </button>
                 </Form>
             ) : (
-                <div className="poll-guest-container">
-                    <p className="poll-guest-text">
-                        {options[0].option}
-                        <span className="poll-guest-votes">
-                            Total: {options[0].votes}
-                        </span>
-                    </p>
-                    <p className="poll-guest-text">
-                        {options[1].option}
-                        <span className="poll-guest-votes">
-                            Total: {options[1].votes}
-                        </span>
-                    </p>
+                <div className="poll-options-guest-container">
+                    <div className="poll-option">
+                        <p className="poll-guest-text">{options[0].option}</p>
+                        <div className="poll-vote-text-container">
+                            <p className="poll-vote-text">
+                                Total: {options[0].votes}
+                            </p>
+                            <meter
+                                className="poll-meter"
+                                min={0}
+                                max={highestTotal}
+                                value={options[0].votes}
+                            >
+                                {options[0].votes}
+                            </meter>
+                        </div>
+                    </div>
+                    <div className="poll-option">
+                        <p className="poll-guest-text">{options[1].option}</p>
+                        <div className="poll-vote-text-container">
+                            <p className="poll-vote-text">
+                                Total: {options[1].votes}
+                            </p>
+                            <meter
+                                className="poll-meter"
+                                min={0}
+                                max={highestTotal}
+                                value={options[1].votes}
+                            >
+                                {options[1].votes}
+                            </meter>
+                        </div>
+                    </div>
                     {options.length >= 3 && (
-                        <p className="poll-guest-text">
-                            {options[2].option}
-                            <span className="poll-guest-votes">
-                                Total: {options[2].votes}
-                            </span>
-                        </p>
+                        <div className="poll-option">
+                            <p className="poll-guest-text">
+                                {options[2].option}
+                            </p>
+                            <div className="poll-vote-text-container">
+                                <p className="poll-vote-text">
+                                    Total: {options[2].votes}
+                                </p>
+                                <meter
+                                    className="poll-meter"
+                                    min={0}
+                                    max={highestTotal}
+                                    value={options[2].votes}
+                                >
+                                    {options[2].votes}
+                                </meter>
+                            </div>
+                        </div>
                     )}
                     {options.length === 4 && (
-                        <p className="poll-guest-text">
-                            {options[3].option}
-                            <span className="poll-guest-votes">
-                                Total: {options[3].votes}
-                            </span>
-                        </p>
+                        <div className="poll-option">
+                            <p className="poll-guest-text">
+                                {options[3].option}
+                            </p>
+                            <div className="poll-vote-text-container">
+                                <p className="poll-vote-text">
+                                    Total: {options[3].votes}
+                                </p>
+                                <meter
+                                    className="poll-meter"
+                                    min={0}
+                                    max={highestTotal}
+                                    value={options[3].votes}
+                                >
+                                    {options[3].votes}
+                                </meter>
+                            </div>
+                        </div>
                     )}
                 </div>
             )}
