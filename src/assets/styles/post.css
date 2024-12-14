@@ -461,7 +461,11 @@
     .comment-form {
         width: 95%;
     }
-    .poll-option {
-        flex-direction: column;
+    .poll-form,
+    .poll-options-guest-container {
+        width: 90%;
+    }
+    .poll-meter {
+        width: 50%;
     }
 }

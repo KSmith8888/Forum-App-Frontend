@@ -4,6 +4,7 @@ import { postPreviewInfo } from "../utils/interfaces.ts";
 
 import textIconImg from "../assets/images/text-post-icon.png";
 import linkIconImg from "../assets/images/link-post-icon.png";
+import pollIconImg from "../assets/images/poll-post-icon.png";
 
 export default function PostPreview({
     postId,
@@ -44,6 +45,13 @@ export default function PostPreview({
                         <img
                             src={linkIconImg}
                             alt="A grey and blue chain link representing a hyperlink"
+                            className="link-preview-image"
+                        />
+                    )}
+                    {postType === "Poll" && (
+                        <img
+                            src={pollIconImg}
+                            alt="Horizontal blue bars representing a poll"
                             className="link-preview-image"
                         />
                     )}
