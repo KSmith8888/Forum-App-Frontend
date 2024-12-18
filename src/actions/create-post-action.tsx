@@ -5,28 +5,33 @@ export default async function createPostAction({
     request,
 }: loaderActionInterface) {
     try {
+        const token = sessionStorage.getItem("token");
+        const userId = sessionStorage.getItem("_id");
+        if (!token || !userId) {
+            throw new Error("You must log in before creating a post");
+        }
         const postData = await request.formData();
         const topic = postData.get("topic");
-        const title = postData.get("title");
+        const initTitle = postData.get("title");
         const postType = postData.get("post-type");
-        const content = postData.get("content");
+        const initContent = postData.get("content");
         const initKeywords = postData.get("keywords");
         const keywords = initKeywords ? initKeywords : "none";
         const pinned = postData.get("pinned-post");
         const isPinned = pinned ? "pinned" : "not-pinned";
         if (
             typeof topic !== "string" ||
-            typeof title !== "string" ||
-            typeof content !== "string" ||
+            typeof initTitle !== "string" ||
+            typeof initContent !== "string" ||
             typeof postType !== "string" ||
             typeof keywords !== "string"
         ) {
             throw new Error("There has been an error");
         }
-        const token = sessionStorage.getItem("token");
-        const userId = sessionStorage.getItem("_id");
-        if (!token || !userId) {
-            throw new Error("You must log in before creating a post");
+        const title = initTitle.trim();
+        const content = initContent.trim();
+        if (title.length < 8 || content.length < 12) {
+            throw new Error("Title or content is not in correct format");
         }
         if (postType === "Link") {
             const isValid = URL.canParse(content);
@@ -44,6 +49,11 @@ export default async function createPostAction({
         }
         const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@=%\r\n-]+$");
         const strictReg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@=%-]+$");
+        if (postType === "Poll" && !strictReg.test(content)) {
+            throw new Error(
+                "Please do not include special characters in your message"
+            );
+        }
         if (
             !strictReg.test(title) ||
             !reg.test(content) ||

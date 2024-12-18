@@ -82,7 +82,7 @@ export default function CreatePost() {
             />
             {typeOfPost === "Poll" ? (
                 <label htmlFor="content-input">
-                    Poll Options (2-4 options, separated with a comma)
+                    Poll Options (2-6 options, separated with a comma)
                 </label>
             ) : (
                 <label htmlFor="content-input">Content:</label>
