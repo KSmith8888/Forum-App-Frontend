@@ -1,9 +1,4 @@
-import {
-    Route,
-    createBrowserRouter,
-    createRoutesFromElements,
-    RouterProvider,
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import MainLayout from "./MainLayout.tsx";
 import ErrorElement from "./Error.tsx";
@@ -48,123 +43,140 @@ import Terms from "../pages/Terms.tsx";
 import NotFound from "../pages/NotFound.tsx";
 
 const router = createBrowserRouter(
-    createRoutesFromElements(
-        <Route element={<MainLayout />} errorElement={<ErrorElement />}>
-            <Route
-                path="/"
-                element={<Home />}
-                loader={homeLoader}
-                errorElement={<ErrorElement />}
-            />
-            <Route
-                path="/search/"
-                element={<Search />}
-                loader={resultsLoader}
-                action={searchAction}
-                errorElement={<ErrorElement />}
-            />
-            <Route
-                path="/attribution/"
-                element={<Attribution />}
-                errorElement={<ErrorElement />}
-            />
-            <Route path="/posts">
-                <Route
-                    path="topics/:topic/"
-                    element={<PostsByTopic />}
-                    loader={postsTopicLoader}
-                    errorElement={<ErrorElement />}
-                />
-                <Route
-                    path="edit/:id/:title/"
-                    element={<EditPost />}
-                    loader={editPostLoader}
-                    action={editPostAction}
-                    errorElement={<ErrorElement />}
-                />
-                <Route
-                    path="comments/edit/:id"
-                    element={<EditComment />}
-                    loader={editCommentLoader}
-                    action={editCommentAction}
-                    errorElement={<ErrorElement />}
-                />
-                <Route
-                    path=":id/:title/"
-                    element={<Post />}
-                    loader={postLoader}
-                    action={postAction}
-                    errorElement={<ErrorElement />}
-                />
-            </Route>
-            <Route
-                path="/register/"
-                element={<Register />}
-                action={registerAction}
-                errorElement={<ErrorElement />}
-            />
-            <Route
-                path="/verify/"
-                element={<VerifyEmail />}
-                action={verifyAction}
-                errorElement={<ErrorElement />}
-            />
-            <Route
-                path="/login/"
-                element={<Login />}
-                action={loginAction}
-                errorElement={<ErrorElement />}
-            />
-            <Route
-                path="/users/details/:username/"
-                element={<UserDetails />}
-                loader={userDetailsLoader}
-                errorElement={<ErrorElement />}
-            />
-            <Route path="/profile" errorElement={<ErrorElement />}>
-                <Route
-                    index
-                    element={<Profile />}
-                    loader={profileLoader}
-                    action={profileAction}
-                />
-                <Route
-                    path="create/"
-                    element={<CreatePost />}
-                    action={createPostAction}
-                />
-            </Route>
-            <Route
-                path="/moderation/"
-                element={<Moderation />}
-                loader={moderationLoader}
-                action={moderationAction}
-                errorElement={<ErrorElement />}
-            />
-            <Route
-                path="/reset/"
-                element={<ResetPassword />}
-                action={resetAction}
-                errorElement={<ErrorElement />}
-            />
-            <Route
-                path="/reset/complete/"
-                element={<CompleteReset />}
-                action={completeResetAction}
-                errorElement={<ErrorElement />}
-            />
-            <Route
-                path="/terms/"
-                element={<Terms />}
-                errorElement={<ErrorElement />}
-            />
-            <Route
-                path="*"
-                element={<NotFound />}
-                errorElement={<ErrorElement />}
-            />
-        </Route>
-    ),
+    [
+        {
+            path: "/",
+            element: <MainLayout />,
+            errorElement: <ErrorElement />,
+            children: [
+                {
+                    path: "/",
+                    index: true,
+                    element: <Home />,
+                    loader: homeLoader,
+                    errorElement: <ErrorElement />,
+                },
+                {
+                    path: "/search/",
+                    element: <Search />,
+                    loader: resultsLoader,
+                    action: searchAction,
+                    errorElement: <ErrorElement />,
+                },
+                {
+                    path: "/attribution/",
+                    element: <Attribution />,
+                    errorElement: <ErrorElement />,
+                },
+                {
+                    path: "/posts",
+                    children: [
+                        {
+                            path: "topics/:topic/",
+                            element: <PostsByTopic />,
+                            loader: postsTopicLoader,
+                            errorElement: <ErrorElement />,
+                        },
+                        {
+                            path: "edit/:id/:title/",
+                            element: <EditPost />,
+                            loader: editPostLoader,
+                            action: editPostAction,
+                            errorElement: <ErrorElement />,
+                        },
+                        {
+                            path: "comments/edit/:id",
+                            element: <EditComment />,
+                            loader: editCommentLoader,
+                            action: editCommentAction,
+                            errorElement: <ErrorElement />,
+                        },
+                        {
+                            path: ":id/:title/",
+                            element: <Post />,
+                            loader: postLoader,
+                            action: postAction,
+                            errorElement: <ErrorElement />,
+                        },
+                    ],
+                },
+                {
+                    path: "/register/",
+                    element: <Register />,
+                    action: registerAction,
+                    errorElement: <ErrorElement />,
+                },
+                {
+                    path: "/verify/",
+                    element: <VerifyEmail />,
+                    action: verifyAction,
+                    errorElement: <ErrorElement />,
+                },
+                {
+                    path: "/login/",
+                    element: <Login />,
+                    action: loginAction,
+                    errorElement: <ErrorElement />,
+                },
+                {
+                    path: "/users/details/:username/",
+                    element: <UserDetails />,
+                    loader: userDetailsLoader,
+                    errorElement: <ErrorElement />,
+                },
+                {
+                    path: "/profile",
+                    errorElement: <ErrorElement />,
+                    children: [
+                        {
+                            index: true,
+                            element: <Profile />,
+                            loader: profileLoader,
+                            action: profileAction,
+                        },
+                        {
+                            path: "create/",
+                            element: <CreatePost />,
+                            action: createPostAction,
+                        },
+                    ],
+                },
+                {
+                    path: "/moderation/",
+                    element: <Moderation />,
+                    loader: moderationLoader,
+                    action: moderationAction,
+                    errorElement: <ErrorElement />,
+                },
+                {
+                    path: "/reset",
+                    errorElement: <ErrorElement />,
+                    children: [
+                        {
+                            index: true,
+                            element: <ResetPassword />,
+                            action: resetAction,
+                        },
+                        {
+                            path: "complete/",
+                            element: <CompleteReset />,
+                            action: completeResetAction,
+                        },
+                    ],
+                },
+                {
+                    path: "/terms/",
+                    element: <Terms />,
+                    errorElement: <ErrorElement />,
+                },
+                {
+                    path: "*",
+                    element: <NotFound />,
+                    errorElement: <ErrorElement />,
+                },
+            ],
+        },
+    ],
     {
         future: {
             v7_normalizeFormMethod: true,
@@ -177,6 +189,15 @@ const router = createBrowserRouter(
 
 export default function App() {
     return (
-        <RouterProvider router={router} future={{ v7_startTransition: true }} />
+        <RouterProvider
+            router={router}
+            fallbackElement={
+                <div id="loading-area">
+                    <div id="loading-spinner"></div>
+                    <p id="loading-text">Loading</p>
+                </div>
+            }
+            future={{ v7_startTransition: true }}
+        />
     );
 }
