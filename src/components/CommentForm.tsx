@@ -1,4 +1,4 @@
-import { Form } from "react-router-dom";
+import { Form } from "react-router";
 
 import { commentFormProps } from "../utils/interfaces.ts";
 

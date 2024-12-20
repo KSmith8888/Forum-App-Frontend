@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Form } from "react-router-dom";
+import { Form } from "react-router";
 
 export default function DeleteAccountModal({}) {
     const deleteModal = useRef<HTMLDialogElement>(null);

@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Form } from "react-router-dom";
+import { Form } from "react-router";
 
 import { profileBioProps } from "../utils/interfaces.ts";
 

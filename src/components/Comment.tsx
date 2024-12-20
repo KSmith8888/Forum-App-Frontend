@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, Form } from "react-router-dom";
+import { Link, Form } from "react-router";
 
 import CommentForm from "./CommentForm.tsx";
 import { commentHistoryInterface, commentProps } from "../utils/interfaces";

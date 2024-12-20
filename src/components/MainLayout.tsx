@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Outlet, useNavigation } from "react-router-dom";
+import { Outlet, useNavigation } from "react-router";
 import Header from "./Header.tsx";
 import Footer from "./Footer.tsx";
 
