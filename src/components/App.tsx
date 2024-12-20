@@ -42,162 +42,147 @@ import resetAction from "../actions/reset-action.tsx";
 import Terms from "../pages/Terms.tsx";
 import NotFound from "../pages/NotFound.tsx";
 
-const router = createBrowserRouter(
-    [
-        {
-            path: "/",
-            element: <MainLayout />,
-            errorElement: <ErrorElement />,
-            children: [
-                {
-                    path: "/",
-                    index: true,
-                    element: <Home />,
-                    loader: homeLoader,
-                    errorElement: <ErrorElement />,
-                },
-                {
-                    path: "/search/",
-                    element: <Search />,
-                    loader: resultsLoader,
-                    action: searchAction,
-                    errorElement: <ErrorElement />,
-                },
-                {
-                    path: "/attribution/",
-                    element: <Attribution />,
-                    errorElement: <ErrorElement />,
-                },
-                {
-                    path: "/posts",
-                    children: [
-                        {
-                            path: "topics/:topic/",
-                            element: <PostsByTopic />,
-                            loader: postsTopicLoader,
-                            errorElement: <ErrorElement />,
-                        },
-                        {
-                            path: "edit/:id/:title/",
-                            element: <EditPost />,
-                            loader: editPostLoader,
-                            action: editPostAction,
-                            errorElement: <ErrorElement />,
-                        },
-                        {
-                            path: "comments/edit/:id",
-                            element: <EditComment />,
-                            loader: editCommentLoader,
-                            action: editCommentAction,
-                            errorElement: <ErrorElement />,
-                        },
-                        {
-                            path: ":id/:title/",
-                            element: <Post />,
-                            loader: postLoader,
-                            action: postAction,
-                            errorElement: <ErrorElement />,
-                        },
-                    ],
-                },
-                {
-                    path: "/register/",
-                    element: <Register />,
-                    action: registerAction,
-                    errorElement: <ErrorElement />,
-                },
-                {
-                    path: "/verify/",
-                    element: <VerifyEmail />,
-                    action: verifyAction,
-                    errorElement: <ErrorElement />,
-                },
-                {
-                    path: "/login/",
-                    element: <Login />,
-                    action: loginAction,
-                    errorElement: <ErrorElement />,
-                },
-                {
-                    path: "/users/details/:username/",
-                    element: <UserDetails />,
-                    loader: userDetailsLoader,
-                    errorElement: <ErrorElement />,
-                },
-                {
-                    path: "/profile",
-                    errorElement: <ErrorElement />,
-                    children: [
-                        {
-                            index: true,
-                            element: <Profile />,
-                            loader: profileLoader,
-                            action: profileAction,
-                        },
-                        {
-                            path: "create/",
-                            element: <CreatePost />,
-                            action: createPostAction,
-                        },
-                    ],
-                },
-                {
-                    path: "/moderation/",
-                    element: <Moderation />,
-                    loader: moderationLoader,
-                    action: moderationAction,
-                    errorElement: <ErrorElement />,
-                },
-                {
-                    path: "/reset",
-                    errorElement: <ErrorElement />,
-                    children: [
-                        {
-                            index: true,
-                            element: <ResetPassword />,
-                            action: resetAction,
-                        },
-                        {
-                            path: "complete/",
-                            element: <CompleteReset />,
-                            action: completeResetAction,
-                        },
-                    ],
-                },
-                {
-                    path: "/terms/",
-                    element: <Terms />,
-                    errorElement: <ErrorElement />,
-                },
-                {
-                    path: "*",
-                    element: <NotFound />,
-                    errorElement: <ErrorElement />,
-                },
-            ],
-        },
-    ],
+const router = createBrowserRouter([
     {
-        future: {
-            v7_normalizeFormMethod: true,
-            v7_relativeSplatPath: true,
-            v7_skipActionErrorRevalidation: true,
-            v7_fetcherPersist: true,
-        },
-    }
-);
+        path: "/",
+        element: <MainLayout />,
+        errorElement: <ErrorElement />,
+        hydrateFallbackElement: (
+            <div id="loading-area">
+                <div id="loading-spinner"></div>
+                <p id="loading-text">Loading</p>
+            </div>
+        ),
+        children: [
+            {
+                path: "/",
+                index: true,
+                element: <Home />,
+                loader: homeLoader,
+                errorElement: <ErrorElement />,
+            },
+            {
+                path: "/search/",
+                element: <Search />,
+                loader: resultsLoader,
+                action: searchAction,
+                errorElement: <ErrorElement />,
+            },
+            {
+                path: "/attribution/",
+                element: <Attribution />,
+                errorElement: <ErrorElement />,
+            },
+            {
+                path: "/posts",
+                children: [
+                    {
+                        path: "topics/:topic/",
+                        element: <PostsByTopic />,
+                        loader: postsTopicLoader,
+                        errorElement: <ErrorElement />,
+                    },
+                    {
+                        path: "edit/:id/:title/",
+                        element: <EditPost />,
+                        loader: editPostLoader,
+                        action: editPostAction,
+                        errorElement: <ErrorElement />,
+                    },
+                    {
+                        path: "comments/edit/:id",
+                        element: <EditComment />,
+                        loader: editCommentLoader,
+                        action: editCommentAction,
+                        errorElement: <ErrorElement />,
+                    },
+                    {
+                        path: ":id/:title/",
+                        element: <Post />,
+                        loader: postLoader,
+                        action: postAction,
+                        errorElement: <ErrorElement />,
+                    },
+                ],
+            },
+            {
+                path: "/register/",
+                element: <Register />,
+                action: registerAction,
+                errorElement: <ErrorElement />,
+            },
+            {
+                path: "/verify/",
+                element: <VerifyEmail />,
+                action: verifyAction,
+                errorElement: <ErrorElement />,
+            },
+            {
+                path: "/login/",
+                element: <Login />,
+                action: loginAction,
+                errorElement: <ErrorElement />,
+            },
+            {
+                path: "/users/details/:username/",
+                element: <UserDetails />,
+                loader: userDetailsLoader,
+                errorElement: <ErrorElement />,
+            },
+            {
+                path: "/profile",
+                errorElement: <ErrorElement />,
+                children: [
+                    {
+                        index: true,
+                        element: <Profile />,
+                        loader: profileLoader,
+                        action: profileAction,
+                    },
+                    {
+                        path: "create/",
+                        element: <CreatePost />,
+                        action: createPostAction,
+                    },
+                ],
+            },
+            {
+                path: "/moderation/",
+                element: <Moderation />,
+                loader: moderationLoader,
+                action: moderationAction,
+                errorElement: <ErrorElement />,
+            },
+            {
+                path: "/reset",
+                errorElement: <ErrorElement />,
+                children: [
+                    {
+                        index: true,
+                        element: <ResetPassword />,
+                        action: resetAction,
+                    },
+                    {
+                        path: "complete/",
+                        element: <CompleteReset />,
+                        action: completeResetAction,
+                    },
+                ],
+            },
+            {
+                path: "/terms/",
+                element: <Terms />,
+                errorElement: <ErrorElement />,
+            },
+            {
+                path: "*",
+                element: <NotFound />,
+                errorElement: <ErrorElement />,
+            },
+        ],
+    },
+]);
 
 export default function App() {
-    return (
-        <RouterProvider
-            router={router}
-            fallbackElement={
-                <div id="loading-area">
-                    <div id="loading-spinner"></div>
-                    <p id="loading-text">Loading</p>
-                </div>
-            }
-            future={{ v7_startTransition: true }}
-        />
-    );
+    return <RouterProvider router={router} />;
 }
