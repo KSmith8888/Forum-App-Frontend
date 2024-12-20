@@ -299,6 +299,7 @@
 .previous-post-content,
 .previous-comment-content {
     word-break: break-word;
+    white-space: pre-wrap;
 }
 
 .post-history-container-heading,

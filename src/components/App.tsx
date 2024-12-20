@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router";
 
 import MainLayout from "./MainLayout.tsx";
 import ErrorElement from "./Error.tsx";
