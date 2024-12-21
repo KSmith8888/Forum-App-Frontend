@@ -1,4 +1,4 @@
-import { Link, Form } from "react-router-dom";
+import { Link, Form } from "react-router";
 
 import { reportInterface } from "../utils/interfaces.ts";
 import { createDateString } from "../utils/create-date-string.ts";

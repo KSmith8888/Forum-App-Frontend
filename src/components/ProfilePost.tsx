@@ -1,4 +1,4 @@
-import { Link, Form } from "react-router-dom";
+import { Link, Form } from "react-router";
 import { userProfilePost } from "../utils/interfaces.ts";
 
 export default function ProfilePost({

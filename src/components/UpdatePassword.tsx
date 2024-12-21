@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import { Form } from "react-router-dom";
+import { Form } from "react-router";
 
 import { updatePasswordProps } from "../utils/interfaces.ts";
 
