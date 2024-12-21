@@ -1,4 +1,4 @@
-import { Form, useActionData, Link } from "react-router-dom";
+import { Form, useActionData, Link } from "react-router";
 
 import openIconImage from "../assets/images/open-link-icon.png";
 import "../assets/styles/register.css";

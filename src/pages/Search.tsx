@@ -4,7 +4,7 @@ import {
     useLoaderData,
     useSearchParams,
     useActionData,
-} from "react-router-dom";
+} from "react-router";
 
 import PostPreview from "../components/PostPreview.tsx";
 

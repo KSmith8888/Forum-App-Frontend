@@ -6,7 +6,7 @@ import {
     useNavigate,
     useOutletContext,
     useSearchParams,
-} from "react-router-dom";
+} from "react-router";
 
 import { outletInterface } from "../utils/interfaces.ts";
 

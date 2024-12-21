@@ -4,7 +4,7 @@ import {
     useActionData,
     useOutletContext,
     Form,
-} from "react-router-dom";
+} from "react-router";
 
 import BioChangeForm from "../components/BioChangeForm";
 import UpdatePassword from "../components/UpdatePassword";

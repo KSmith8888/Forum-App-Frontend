@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Form, useActionData, useLoaderData } from "react-router-dom";
+import { Form, useActionData, useLoaderData } from "react-router";
 
 import { reportInterface, notificationInterface } from "../utils/interfaces.ts";
 import { createDateString } from "../utils/create-date-string.ts";

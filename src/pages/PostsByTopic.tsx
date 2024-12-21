@@ -1,9 +1,4 @@
-import {
-    useLoaderData,
-    useParams,
-    Link,
-    useOutletContext,
-} from "react-router-dom";
+import { useLoaderData, useParams, Link, useOutletContext } from "react-router";
 
 import PostPreview from "../components/PostPreview";
 

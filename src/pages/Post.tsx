@@ -7,7 +7,7 @@ import {
     Link,
     Form,
     useSubmit,
-} from "react-router-dom";
+} from "react-router";
 
 import Comment from "../components/Comment";
 import CommentForm from "../components/CommentForm.tsx";

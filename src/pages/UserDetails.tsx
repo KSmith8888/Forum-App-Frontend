@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router";
 
 import DetailsPost from "../components/DetailsPost.tsx";
 import DetailsComment from "../components/DetailsComment.tsx";
