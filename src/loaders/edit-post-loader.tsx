@@ -1,4 +1,4 @@
-import { redirect } from "react-router-dom";
+import { redirect } from "react-router";
 import { loaderActionInterface } from "../utils/interfaces";
 
 export default async function editPostLoader({

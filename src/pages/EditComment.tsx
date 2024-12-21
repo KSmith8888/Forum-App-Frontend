@@ -1,4 +1,4 @@
-import { useLoaderData, Form, useActionData } from "react-router-dom";
+import { useLoaderData, Form, useActionData } from "react-router";
 
 import "../assets/styles/edit-content.css";
 

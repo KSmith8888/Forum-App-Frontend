@@ -1,9 +1,5 @@
 import { useEffect } from "react";
-import {
-    useLoaderData,
-    useSearchParams,
-    useOutletContext,
-} from "react-router-dom";
+import { useLoaderData, useSearchParams, useOutletContext } from "react-router";
 
 import PostPreview from "../components/PostPreview.tsx";
 

@@ -1,4 +1,4 @@
-import { redirect } from "react-router-dom";
+import { redirect } from "react-router";
 
 export default async function moderationLoader() {
     const userId = sessionStorage.getItem("_id");
