@@ -1,14 +1,13 @@
-import { redirect } from "react-router";
-import { loaderActionInterface } from "../utils/interfaces";
+import { loaderActionInterface } from "../../utils/interfaces";
 
-export default async function homeLoader({ request }: loaderActionInterface) {
+export default async function searchLoader({ request }: loaderActionInterface) {
     const url = new URL(request.url);
-    const redirectRoute = url.searchParams.get("route");
-    if (redirectRoute) {
-        return redirect(redirectRoute);
+    const query = url.searchParams.get("query");
+    if (!query) {
+        return [];
     }
     const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/home`
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/posts/search/${query}`
     );
     if (!res.ok) {
         const errorData = await res.json();

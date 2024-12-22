@@ -6,11 +6,13 @@ import {
     useActionData,
 } from "react-router";
 
-import PostPreview from "../components/PostPreview.tsx";
+import searchLoader from "./search-loader.tsx";
+import searchAction from "./search-action.tsx";
+import PostPreview from "../../components/PostPreview.tsx";
 
-import { postPreviewInfo } from "../utils/interfaces.ts";
+import { postPreviewInfo } from "../../utils/interfaces.ts";
 
-import "../assets/styles/search.css";
+import "../../assets/styles/search.css";
 
 export default function Search() {
     const loader = useLoaderData();
@@ -74,3 +76,6 @@ export default function Search() {
         </div>
     );
 }
+
+Search.loader = searchLoader;
+Search.action = searchAction;

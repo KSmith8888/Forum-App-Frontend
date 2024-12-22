@@ -2,12 +2,9 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 
 import MainLayout from "./MainLayout.tsx";
 import ErrorElement from "./Error.tsx";
-import Home from "../pages/Home.tsx";
-import homeLoader from "../loaders/home-loader.tsx";
+import Home from "../routes/home-route/Home.tsx";
 import Attribution from "../pages/Attribution.tsx";
-import Search from "../pages/Search.tsx";
-import searchAction from "../actions/search-action.tsx";
-import resultsLoader from "../loaders/search-loader.tsx";
+import Search from "../routes/search-route/Search.tsx";
 import Post from "../pages/Post.tsx";
 import postAction from "../actions/post-action.tsx";
 import postLoader from "../loaders/post-loader.tsx";
@@ -44,9 +41,8 @@ import NotFound from "../pages/NotFound.tsx";
 
 const router = createBrowserRouter([
     {
-        path: "/",
-        element: <MainLayout />,
-        errorElement: <ErrorElement />,
+        Component: MainLayout,
+        ErrorBoundary: ErrorElement,
         hydrateFallbackElement: (
             <div id="loading-area">
                 <div id="loading-spinner"></div>
@@ -57,16 +53,16 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 index: true,
-                element: <Home />,
-                loader: homeLoader,
-                errorElement: <ErrorElement />,
+                Component: Home,
+                loader: Home.loader,
+                ErrorBoundary: ErrorElement,
             },
             {
                 path: "/search/",
-                element: <Search />,
-                loader: resultsLoader,
-                action: searchAction,
-                errorElement: <ErrorElement />,
+                Component: Search,
+                loader: Search.loader,
+                action: Search.action,
+                ErrorBoundary: ErrorElement,
             },
             {
                 path: "/attribution/",

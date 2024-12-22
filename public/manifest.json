@@ -1,7 +1,7 @@
 {
-    "name": "4em-App",
-    "short_name": "4em",
-    "start_url": ".",
+    "name": "the-4em-app",
+    "short_name": "the-4em-app",
+    "start_url": "/",
     "display": "standalone",
     "background_color": "rgb(215, 231, 236)",
     "theme_color": "rgb(215, 231, 236)",
