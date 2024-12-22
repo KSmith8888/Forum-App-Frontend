@@ -1,10 +1,11 @@
 import { useLoaderData, useParams, Link, useOutletContext } from "react-router";
 
-import PostPreview from "../components/PostPreview";
+import postsByTopicLoader from "./posts-by-topic-loader";
+import PostPreview from "../../components/PostPreview";
 
-import { outletInterface, postPreviewInfo } from "../utils/interfaces";
+import { outletInterface, postPreviewInfo } from "../../utils/interfaces";
 
-import "../assets/styles/search.css";
+import "../../assets/styles/search.css";
 
 export default function PostsByTopic() {
     const { isUserLoggedIn } = useOutletContext<outletInterface>();
@@ -50,3 +51,5 @@ export default function PostsByTopic() {
         </>
     );
 }
+
+PostsByTopic.loader = postsByTopicLoader;

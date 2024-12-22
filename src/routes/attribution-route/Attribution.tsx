@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { Link } from "react-router";
 
-import "../assets/styles/attribution.css";
+import "../../assets/styles/attribution.css";
 
 export default function Attribution() {
     useEffect(() => {

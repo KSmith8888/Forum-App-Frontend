@@ -3,13 +3,13 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import MainLayout from "./MainLayout.tsx";
 import ErrorElement from "./Error.tsx";
 import Home from "../routes/home-route/Home.tsx";
-import Attribution from "../pages/Attribution.tsx";
 import Search from "../routes/search-route/Search.tsx";
+import Attribution from "../routes/attribution-route/Attribution.tsx";
+import PostsByTopic from "../routes/posts-by-topic-route/PostsByTopic.tsx";
+import EditPost from "../routes/edit-post-route/EditPost.tsx";
 import Post from "../pages/Post.tsx";
 import postAction from "../actions/post-action.tsx";
 import postLoader from "../loaders/post-loader.tsx";
-import PostsByTopic from "../pages/PostsByTopic.tsx";
-import postsTopicLoader from "../loaders/topic-posts-loader.tsx";
 import CreatePost from "../pages/CreatePost.tsx";
 import createPostAction from "../actions/create-post-action.tsx";
 import Register from "../pages/Register.tsx";
@@ -21,9 +21,6 @@ import profileAction from "../actions/profile-action.tsx";
 import profileLoader from "../loaders/profile-loader.tsx";
 import UserDetails from "../pages/UserDetails.tsx";
 import userDetailsLoader from "../loaders/user-details-loader.tsx";
-import EditPost from "../pages/EditPost.tsx";
-import editPostAction from "../actions/edit-post-action.tsx";
-import editPostLoader from "../loaders/edit-post-loader.tsx";
 import EditComment from "../pages/EditComment.tsx";
 import editCommentAction from "../actions/edit-comment-action.tsx";
 import editCommentLoader from "../loaders/edit-comment-loader.tsx";
@@ -66,24 +63,24 @@ const router = createBrowserRouter([
             },
             {
                 path: "/attribution/",
-                element: <Attribution />,
-                errorElement: <ErrorElement />,
+                Component: Attribution,
+                ErrorBoundary: ErrorElement,
             },
             {
                 path: "/posts",
                 children: [
                     {
                         path: "topics/:topic/",
-                        element: <PostsByTopic />,
-                        loader: postsTopicLoader,
-                        errorElement: <ErrorElement />,
+                        Component: PostsByTopic,
+                        loader: PostsByTopic.loader,
+                        ErrorBoundary: ErrorElement,
                     },
                     {
                         path: "edit/:id/:title/",
-                        element: <EditPost />,
-                        loader: editPostLoader,
-                        action: editPostAction,
-                        errorElement: <ErrorElement />,
+                        Component: EditPost,
+                        loader: EditPost.loader,
+                        action: EditPost.action,
+                        ErrorBoundary: ErrorElement,
                     },
                     {
                         path: "comments/edit/:id",
