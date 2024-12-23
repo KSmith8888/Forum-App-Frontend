@@ -7,9 +7,8 @@ import Search from "../routes/search-route/Search.tsx";
 import Attribution from "../routes/attribution-route/Attribution.tsx";
 import PostsByTopic from "../routes/posts-by-topic-route/PostsByTopic.tsx";
 import EditPost from "../routes/edit-post-route/EditPost.tsx";
-import Post from "../pages/Post.tsx";
-import postAction from "../actions/post-action.tsx";
-import postLoader from "../loaders/post-loader.tsx";
+import EditComment from "../routes/edit-comment-route/EditComment.tsx";
+import Post from "../routes/post-route/Post.tsx";
 import CreatePost from "../pages/CreatePost.tsx";
 import createPostAction from "../actions/create-post-action.tsx";
 import Register from "../pages/Register.tsx";
@@ -21,9 +20,6 @@ import profileAction from "../actions/profile-action.tsx";
 import profileLoader from "../loaders/profile-loader.tsx";
 import UserDetails from "../pages/UserDetails.tsx";
 import userDetailsLoader from "../loaders/user-details-loader.tsx";
-import EditComment from "../pages/EditComment.tsx";
-import editCommentAction from "../actions/edit-comment-action.tsx";
-import editCommentLoader from "../loaders/edit-comment-loader.tsx";
 import Login from "../pages/Login.tsx";
 import loginAction from "../actions/login-action.tsx";
 import Moderation from "../pages/Moderation.tsx";
@@ -84,17 +80,17 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "comments/edit/:id",
-                        element: <EditComment />,
-                        loader: editCommentLoader,
-                        action: editCommentAction,
-                        errorElement: <ErrorElement />,
+                        Component: EditComment,
+                        loader: EditComment.loader,
+                        action: EditComment.action,
+                        ErrorBoundary: ErrorElement,
                     },
                     {
                         path: ":id/:title/",
-                        element: <Post />,
-                        loader: postLoader,
-                        action: postAction,
-                        errorElement: <ErrorElement />,
+                        Component: Post,
+                        loader: Post.loader,
+                        action: Post.action,
+                        ErrorBoundary: ErrorElement,
                     },
                 ],
             },

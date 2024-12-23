@@ -9,20 +9,23 @@ import {
     useSubmit,
 } from "react-router";
 
-import Comment from "../components/Comment";
-import CommentForm from "../components/CommentForm.tsx";
-import PostHistory from "../components/PostHistory.tsx";
-import PollForm from "../components/PollForm.tsx";
+import Comment from "../../components/Comment";
+import CommentForm from "../../components/CommentForm.tsx";
+import PostHistory from "../../components/PostHistory.tsx";
+import PollForm from "../../components/PollForm.tsx";
+import postLoader from "./post-loader.tsx";
+import postAction from "./post-action.tsx";
+
 import {
     outletInterface,
     commentInterface,
     postHistoryInterface,
     postRelatedComments,
-} from "../utils/interfaces.ts";
-import { createDateString } from "../utils/create-date-string.ts";
+} from "../../utils/interfaces.ts";
+import { createDateString } from "../../utils/create-date-string.ts";
 
 import openIconImage from "../assets/images/open-link-icon.png";
-import "../assets/styles/post.css";
+import "../../assets/styles/post.css";
 
 export default function Post() {
     const loaderData = useLoaderData() as postRelatedComments;
@@ -492,3 +495,6 @@ export default function Post() {
         </div>
     );
 }
+
+Post.loader = postLoader;
+Post.action = postAction;

@@ -1,4 +1,4 @@
-import { loaderActionInterface } from "../utils/interfaces";
+import { loaderActionInterface } from "../../utils/interfaces";
 
 export default async function postLoader({ params }: loaderActionInterface) {
     const postId = params.id;
