@@ -1,8 +1,5 @@
 import { useLoaderData, Form, useActionData } from "react-router";
 
-import editPostLoader from "./edit-post-loader";
-import editPostAction from "./edit-post-action";
-
 import "../../assets/styles/edit-content.css";
 
 export default function EditPost() {
@@ -49,6 +46,3 @@ export default function EditPost() {
         </Form>
     );
 }
-
-EditPost.loader = editPostLoader;
-EditPost.action = editPostAction;

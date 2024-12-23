@@ -11,10 +11,9 @@ import {
 
 import Comment from "../../components/Comment";
 import CommentForm from "../../components/CommentForm.tsx";
+import PostMainContent from "../../components/PostMainContent.tsx";
 import PostHistory from "../../components/PostHistory.tsx";
-import PollForm from "../../components/PollForm.tsx";
-import postLoader from "./post-loader.tsx";
-import postAction from "./post-action.tsx";
+import SavePostForm from "../../components/SavePostForm.tsx";
 
 import {
     outletInterface,
@@ -24,7 +23,6 @@ import {
 } from "../../utils/interfaces.ts";
 import { createDateString } from "../../utils/create-date-string.ts";
 
-import openIconImage from "../assets/images/open-link-icon.png";
 import "../../assets/styles/post.css";
 
 export default function Post() {
@@ -208,78 +206,22 @@ export default function Post() {
                             {postData.topic}
                         </Link>
                         {isUserLoggedIn && (
-                            <Form method="POST" id="save-post-form">
-                                <input
-                                    type="hidden"
-                                    name="save-post-id"
-                                    value={postData._id}
-                                />
-                                <input
-                                    type="hidden"
-                                    name="save-post-title"
-                                    value={postData.title}
-                                />
-                                <input
-                                    type="hidden"
-                                    name="save-url-title"
-                                    value={postData.urlTitle}
-                                />
-                                <button
-                                    className={
-                                        userSavedPost
-                                            ? "save-post-button-selected"
-                                            : "save-post-button"
-                                    }
-                                    aria-label={
-                                        userSavedPost
-                                            ? "Save post"
-                                            : "Unsave post"
-                                    }
-                                    title="Save or unsave post"
-                                    type="submit"
-                                ></button>
-                            </Form>
+                            <SavePostForm
+                                _id={postData._id}
+                                title={postData.title}
+                                urlTitle={postData.urlTitle}
+                                userSavedPost={userSavedPost}
+                            />
                         )}
                     </div>
-                    <div className="post-main-content-container">
-                        <div className="post-inner-content-container">
-                            <h2 className="post-title">{postData.title}</h2>
-                            {postData.postType === "Text" && (
-                                <p className="text-post-text">
-                                    {postData.content}
-                                </p>
-                            )}
-                            {postData.postType === "Link" && (
-                                <p className="link-post-text">
-                                    <a
-                                        href={postData.content}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="link-post-anchor"
-                                    >
-                                        {postData.content}
-                                        <img
-                                            src={openIconImage}
-                                            alt={
-                                                postData.content.startsWith(
-                                                    "https://4em.pages.dev"
-                                                )
-                                                    ? "Opens in a new tab"
-                                                    : "External link, opens in a new tab"
-                                            }
-                                            className="open-link-icon-image"
-                                        ></img>
-                                    </a>
-                                </p>
-                            )}
-                            {postData.postType === "Poll" && (
-                                <PollForm
-                                    options={postData.pollData}
-                                    postId={postData._id}
-                                />
-                            )}
-                        </div>
-                    </div>
+                    <PostMainContent
+                        _id={postData._id}
+                        title={postData.title}
+                        content={postData.content}
+                        postType={postData.postType}
+                        pollData={postData.pollData}
+                    />
+
                     <div className="post-likes-container">
                         <p className="post-likes">Likes: {postLikes}</p>
                         {isUserLoggedIn && (
@@ -495,6 +437,3 @@ export default function Post() {
         </div>
     );
 }
-
-Post.loader = postLoader;
-Post.action = postAction;

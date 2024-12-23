@@ -3,12 +3,22 @@ import { createBrowserRouter, RouterProvider } from "react-router";
 import MainLayout from "./MainLayout.tsx";
 import ErrorElement from "./Error.tsx";
 import Home from "../routes/home-route/Home.tsx";
+import homeLoader from "../routes/home-route/home-loader.tsx";
 import Search from "../routes/search-route/Search.tsx";
+import searchLoader from "../routes/search-route/search-loader.tsx";
+import searchAction from "../routes/search-route/search-action.tsx";
 import Attribution from "../routes/attribution-route/Attribution.tsx";
 import PostsByTopic from "../routes/posts-by-topic-route/PostsByTopic.tsx";
+import postsByTopicLoader from "../routes/posts-by-topic-route/posts-by-topic-loader.tsx";
 import EditPost from "../routes/edit-post-route/EditPost.tsx";
+import editPostLoader from "../routes/edit-post-route/edit-post-loader.tsx";
+import editPostAction from "../routes/edit-post-route/edit-post-action.tsx";
 import EditComment from "../routes/edit-comment-route/EditComment.tsx";
+import editCommentLoader from "../routes/edit-comment-route/edit-comment-loader.tsx";
+import editCommentAction from "../routes/edit-comment-route/edit-comment-action.tsx";
 import Post from "../routes/post-route/Post.tsx";
+import postLoader from "../routes/post-route/post-loader.tsx";
+import postAction from "../routes/post-route/post-action.tsx";
 import CreatePost from "../pages/CreatePost.tsx";
 import createPostAction from "../actions/create-post-action.tsx";
 import Register from "../pages/Register.tsx";
@@ -34,8 +44,8 @@ import NotFound from "../pages/NotFound.tsx";
 
 const router = createBrowserRouter([
     {
-        Component: MainLayout,
-        ErrorBoundary: ErrorElement,
+        element: <MainLayout />,
+        errorElement: <ErrorElement />,
         hydrateFallbackElement: (
             <div id="loading-area">
                 <div id="loading-spinner"></div>
@@ -46,51 +56,51 @@ const router = createBrowserRouter([
             {
                 path: "/",
                 index: true,
-                Component: Home,
-                loader: Home.loader,
-                ErrorBoundary: ErrorElement,
+                element: <Home />,
+                loader: homeLoader,
+                errorElement: <ErrorElement />,
             },
             {
                 path: "/search/",
-                Component: Search,
-                loader: Search.loader,
-                action: Search.action,
-                ErrorBoundary: ErrorElement,
+                element: <Search />,
+                loader: searchLoader,
+                action: searchAction,
+                errorElement: <ErrorElement />,
             },
             {
                 path: "/attribution/",
-                Component: Attribution,
-                ErrorBoundary: ErrorElement,
+                element: <Attribution />,
+                errorElement: <ErrorElement />,
             },
             {
                 path: "/posts",
                 children: [
                     {
                         path: "topics/:topic/",
-                        Component: PostsByTopic,
-                        loader: PostsByTopic.loader,
-                        ErrorBoundary: ErrorElement,
+                        element: <PostsByTopic />,
+                        loader: postsByTopicLoader,
+                        errorElement: <ErrorElement />,
                     },
                     {
                         path: "edit/:id/:title/",
-                        Component: EditPost,
-                        loader: EditPost.loader,
-                        action: EditPost.action,
-                        ErrorBoundary: ErrorElement,
+                        element: <EditPost />,
+                        loader: editPostLoader,
+                        action: editPostAction,
+                        errorElement: <ErrorElement />,
                     },
                     {
                         path: "comments/edit/:id",
-                        Component: EditComment,
-                        loader: EditComment.loader,
-                        action: EditComment.action,
-                        ErrorBoundary: ErrorElement,
+                        element: <EditComment />,
+                        loader: editCommentLoader,
+                        action: editCommentAction,
+                        errorElement: <ErrorElement />,
                     },
                     {
                         path: ":id/:title/",
-                        Component: Post,
-                        loader: Post.loader,
-                        action: Post.action,
-                        ErrorBoundary: ErrorElement,
+                        element: <Post />,
+                        loader: postLoader,
+                        action: postAction,
+                        errorElement: <ErrorElement />,
                     },
                 ],
             },

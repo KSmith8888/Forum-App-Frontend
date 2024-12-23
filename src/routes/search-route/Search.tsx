@@ -6,8 +6,6 @@ import {
     useActionData,
 } from "react-router";
 
-import searchLoader from "./search-loader.tsx";
-import searchAction from "./search-action.tsx";
 import PostPreview from "../../components/PostPreview.tsx";
 
 import { postPreviewInfo } from "../../utils/interfaces.ts";
@@ -76,6 +74,3 @@ export default function Search() {
         </div>
     );
 }
-
-Search.loader = searchLoader;
-Search.action = searchAction;

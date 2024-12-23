@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useLoaderData, useSearchParams, useOutletContext } from "react-router";
 
-import homeLoader from "./home-loader.tsx";
 import PostPreview from "../../components/PostPreview.tsx";
 
 import { outletInterface, postPreviewInfo } from "../../utils/interfaces.ts";
@@ -82,5 +81,3 @@ export default function Home() {
         </>
     );
 }
-
-Home.loader = homeLoader;

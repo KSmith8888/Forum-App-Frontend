@@ -204,3 +204,18 @@ export interface postPreviewInfo {
     postType: string;
     urlTitle: string;
 }
+
+export interface savePostFormProps {
+    _id: string;
+    title: string;
+    urlTitle: string;
+    userSavedPost: boolean;
+}
+
+export interface postMainContentprops {
+    _id: string;
+    title: string;
+    content: string;
+    postType: string;
+    pollData: Array<pollOption>;
+}

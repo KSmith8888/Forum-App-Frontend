@@ -1,6 +1,5 @@
 import { useLoaderData, useParams, Link, useOutletContext } from "react-router";
 
-import postsByTopicLoader from "./posts-by-topic-loader";
 import PostPreview from "../../components/PostPreview";
 
 import { outletInterface, postPreviewInfo } from "../../utils/interfaces";
@@ -51,5 +50,3 @@ export default function PostsByTopic() {
         </>
     );
 }
-
-PostsByTopic.loader = postsByTopicLoader;
