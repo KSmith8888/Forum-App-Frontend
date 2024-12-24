@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import { Form, useActionData, useLoaderData } from "react-router";
 
-import { reportInterface, notificationInterface } from "../utils/interfaces.ts";
-import { createDateString } from "../utils/create-date-string.ts";
+import {
+    reportInterface,
+    notificationInterface,
+} from "../../utils/interfaces.ts";
+import { createDateString } from "../../utils/create-date-string.ts";
 
-import ModReport from "../components/ModReport.tsx";
+import ModReport from "../../components/ModReport.tsx";
 
-import "../assets/styles/moderation.css";
+import "../../assets/styles/moderation.css";
 
 export default function Moderation() {
     const loader = useLoaderData();

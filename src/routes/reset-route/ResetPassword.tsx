@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Form, useActionData } from "react-router";
 
-import "../assets/styles/reset.css";
+import "../../assets/styles/reset.css";
 
 export default function ResetPassword() {
     const actionData = useActionData();

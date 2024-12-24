@@ -1,6 +1,6 @@
 import { Form, useActionData, useSearchParams } from "react-router";
 
-import "../assets/styles/reset.css";
+import "../../assets/styles/reset.css";
 
 export default function CompleteReset() {
     const [searchParams] = useSearchParams();

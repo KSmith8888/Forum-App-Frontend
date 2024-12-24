@@ -20,7 +20,7 @@ import Post from "./routes/post-route/Post.tsx";
 import postLoader from "./routes/post-route/post-loader.tsx";
 import postAction from "./routes/post-route/post-action.tsx";
 import CreatePost from "./routes/create-post-route/CreatePost.tsx";
-import createPostAction from "./routes/create-post-route/CreatePost.tsx";
+import createPostAction from "./routes/create-post-route/create-post-action.tsx";
 import Register from "./routes/register-route/Register.tsx";
 import VerifyEmail from "./routes/verify-route/VerifyEmail.tsx";
 import verifyAction from "./routes/verify-route/verify-action.tsx";
@@ -32,6 +32,13 @@ import userDetailsLoader from "./routes/user-details-route/user-details-loader.t
 import Profile from "./routes/profile-route/Profile.tsx";
 import profileLoader from "./routes/profile-route/profile-loader.tsx";
 import profileAction from "./routes/profile-route/profile-action.tsx";
+import Moderation from "./routes/moderation-route/Moderation.tsx";
+import moderationLoader from "./routes/moderation-route/moderation-loader.tsx";
+import moderationAction from "./routes/moderation-route/moderation-action.tsx";
+import ResetPassword from "./routes/reset-route/ResetPassword.tsx";
+import resetAction from "./routes/reset-route/reset-action.tsx";
+import CompleteReset from "./routes/complete-reset-route/CompleteReset.tsx";
+import completeResetAction from "./routes/complete-reset-route/complete-reset-action.tsx";
 
 const router = createBrowserRouter([
     {
@@ -68,6 +75,11 @@ const router = createBrowserRouter([
                 errorElement: <ErrorElement />,
                 children: [
                     {
+                        path: "create/",
+                        element: <CreatePost />,
+                        action: createPostAction,
+                    },
+                    {
                         path: "topics/:topic/",
                         element: <PostsByTopic />,
                         loader: postsByTopicLoader,
@@ -83,11 +95,6 @@ const router = createBrowserRouter([
                         element: <EditComment />,
                         loader: editCommentLoader,
                         action: editCommentAction,
-                    },
-                    {
-                        path: "create/",
-                        element: <CreatePost />,
-                        action: createPostAction,
                     },
                     {
                         path: ":id/:title/",
@@ -127,6 +134,29 @@ const router = createBrowserRouter([
                 loader: profileLoader,
                 action: profileAction,
                 errorElement: <ErrorElement />,
+            },
+            {
+                path: "/moderation/",
+                element: <Moderation />,
+                loader: moderationLoader,
+                action: moderationAction,
+                errorElement: <ErrorElement />,
+            },
+            {
+                path: "/reset",
+                errorElement: <ErrorElement />,
+                children: [
+                    {
+                        index: true,
+                        element: <ResetPassword />,
+                        action: resetAction,
+                    },
+                    {
+                        path: "complete/",
+                        element: <CompleteReset />,
+                        action: completeResetAction,
+                    },
+                ],
             },
         ],
     },

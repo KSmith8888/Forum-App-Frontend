@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { Form, useActionData, useSearchParams } from "react-router";
 
-import createPostAction from "./create-post-action";
-
 import "../../assets/styles/create-post.css";
 
 export default function CreatePost() {
@@ -13,12 +11,7 @@ export default function CreatePost() {
     const userRole = sessionStorage.getItem("role");
 
     return (
-        <Form
-            action="/profile/create"
-            method="post"
-            autoComplete="off"
-            className="post-form"
-        >
+        <Form method="post" autoComplete="off" className="post-form">
             <h2 className="create-post-form-heading">Create a new post</h2>
             <div className="post-type-container">
                 <button
@@ -125,5 +118,3 @@ export default function CreatePost() {
         </Form>
     );
 }
-
-export { createPostAction };
