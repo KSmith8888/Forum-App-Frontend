@@ -6,24 +6,24 @@ import {
     Form,
 } from "react-router";
 
-import BioChangeForm from "../components/BioChangeForm";
-import UpdatePassword from "../components/UpdatePassword";
-import UpdateEmail from "../components/UpdateEmail";
-import DeleteAccountModal from "../components/DeleteAccountModal";
+import BioChangeForm from "../../components/BioChangeForm";
+import UpdatePassword from "../../components/UpdatePassword";
+import UpdateEmail from "../../components/UpdateEmail";
+import DeleteAccountModal from "../../components/DeleteAccountModal";
 import {
     outletInterface,
     notificationInterface,
     userProfilePost,
     savedPostInterface,
     userProfileComment,
-} from "../utils/interfaces";
-import ProfilePicSelector from "../components/ProfilePicSelector";
-import ProfileComment from "../components/ProfileComment";
-import ProfilePost from "../components/ProfilePost";
-import ProfileSaved from "../components/ProfileSaved";
-import ProfileNotification from "../components/ProfileNotification";
+} from "../../utils/interfaces";
+import ProfilePicSelector from "../../components/ProfilePicSelector";
+import ProfileComment from "../../components/ProfileComment";
+import ProfilePost from "../../components/ProfilePost";
+import ProfileSaved from "../../components/ProfileSaved";
+import ProfileNotification from "../../components/ProfileNotification";
 
-import "../assets/styles/profile.css";
+import "../../assets/styles/profile.css";
 
 export default function Profile() {
     const username = sessionStorage.getItem("username");

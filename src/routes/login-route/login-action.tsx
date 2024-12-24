@@ -1,4 +1,7 @@
-import { loaderActionInterface, savedPostInterface } from "../utils/interfaces";
+import {
+    loaderActionInterface,
+    savedPostInterface,
+} from "../../utils/interfaces";
 
 export default async function loginAction({ request }: loaderActionInterface) {
     try {

@@ -1,6 +1,6 @@
 import { redirect } from "react-router";
 
-import { loaderActionInterface } from "../utils/interfaces";
+import { loaderActionInterface } from "../../utils/interfaces";
 
 export default async function profileAction({
     request,

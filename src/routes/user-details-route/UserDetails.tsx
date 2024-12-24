@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLoaderData } from "react-router";
 
-import DetailsPost from "../components/DetailsPost.tsx";
-import DetailsComment from "../components/DetailsComment.tsx";
-import { userProfilePost, userProfileComment } from "../utils/interfaces.ts";
-import "../assets/styles/user-details.css";
+import DetailsPost from "../../components/DetailsPost.tsx";
+import DetailsComment from "../../components/DetailsComment.tsx";
+import { userProfilePost, userProfileComment } from "../../utils/interfaces.ts";
+import "../../assets/styles/user-details.css";
 
 export default function UserDetails() {
     const loaderData = useLoaderData();

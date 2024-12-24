@@ -8,9 +8,9 @@ import {
     useSearchParams,
 } from "react-router";
 
-import { outletInterface } from "../utils/interfaces.ts";
+import { outletInterface } from "../../utils/interfaces.ts";
 
-import "../assets/styles/login.css";
+import "../../assets/styles/login.css";
 
 export default function Login() {
     const loginData = useActionData();
