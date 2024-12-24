@@ -1,7 +1,7 @@
 import { Form, useActionData, Link } from "react-router";
 
-import openIconImage from "../assets/images/open-link-icon.png";
-import "../assets/styles/register.css";
+import openIconImage from "../../assets/images/open-link-icon.png";
+import "../../assets/styles/register.css";
 
 export default function Register() {
     const registrationMessage = useActionData();

@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { Form, useActionData, useSearchParams } from "react-router";
 
-import "../assets/styles/create-post.css";
+import createPostAction from "./create-post-action";
+
+import "../../assets/styles/create-post.css";
 
 export default function CreatePost() {
     const errorMessage = useActionData();
@@ -123,3 +125,5 @@ export default function CreatePost() {
         </Form>
     );
 }
+
+export { createPostAction };

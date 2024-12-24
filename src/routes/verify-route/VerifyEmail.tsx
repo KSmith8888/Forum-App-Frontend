@@ -1,6 +1,6 @@
 import { Form, useActionData, useSearchParams } from "react-router";
 
-import "../assets/styles/verify-email.css";
+import "../../assets/styles/verify-email.css";
 
 export default function VerifyEmail() {
     const [searchParams] = useSearchParams();

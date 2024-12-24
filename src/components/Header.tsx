@@ -131,7 +131,7 @@ export default function Header({
                                 Profile
                             </Link>
                             <Link
-                                to="/profile/create/"
+                                to="/posts/create/"
                                 className="main-menu-link"
                                 onClick={() => {
                                     closeNavModal();
