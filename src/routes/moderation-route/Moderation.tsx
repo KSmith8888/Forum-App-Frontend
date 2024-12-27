@@ -11,7 +11,10 @@ import ModReport from "../../components/ModReport.tsx";
 
 import "../../assets/styles/moderation.css";
 
-export default function Moderation() {
+import moderationLoader from "./moderation-loader.tsx";
+import moderationAction from "./moderation-action.tsx";
+
+export function Component() {
     const loader = useLoaderData();
     const reportedMessages = Array.isArray(loader) ? loader : [];
     const reportElements = reportedMessages.map((report: reportInterface) => {
@@ -387,3 +390,6 @@ export default function Moderation() {
         </>
     );
 }
+
+export { moderationLoader as loader };
+export { moderationAction as action };

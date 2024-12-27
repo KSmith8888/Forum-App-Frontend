@@ -30,7 +30,7 @@ export default function Attribution() {
                     >
                         https://github.com/facebook/react
                     </Link>
-                    <p className="attribution-text">react-router-dom:</p>
+                    <p className="attribution-text">react-router:</p>
                     <Link
                         to="https://github.com/remix-run/react-router"
                         className="attribution-link"

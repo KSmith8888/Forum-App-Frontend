@@ -16,9 +16,6 @@ import editPostAction from "./routes/edit-post-route/edit-post-action.tsx";
 import EditComment from "./routes/edit-comment-route/EditComment.tsx";
 import editCommentLoader from "./routes/edit-comment-route/edit-comment-loader.tsx";
 import editCommentAction from "./routes/edit-comment-route/edit-comment-action.tsx";
-import Post from "./routes/post-route/Post.tsx";
-import postLoader from "./routes/post-route/post-loader.tsx";
-import postAction from "./routes/post-route/post-action.tsx";
 import CreatePost from "./routes/create-post-route/CreatePost.tsx";
 import createPostAction from "./routes/create-post-route/create-post-action.tsx";
 import Register from "./routes/register-route/Register.tsx";
@@ -29,12 +26,6 @@ import Login from "./routes/login-route/Login.tsx";
 import loginAction from "./routes/login-route/login-action.tsx";
 import UserDetails from "./routes/user-details-route/UserDetails.tsx";
 import userDetailsLoader from "./routes/user-details-route/user-details-loader.tsx";
-import Profile from "./routes/profile-route/Profile.tsx";
-import profileLoader from "./routes/profile-route/profile-loader.tsx";
-import profileAction from "./routes/profile-route/profile-action.tsx";
-import Moderation from "./routes/moderation-route/Moderation.tsx";
-import moderationLoader from "./routes/moderation-route/moderation-loader.tsx";
-import moderationAction from "./routes/moderation-route/moderation-action.tsx";
 import ResetPassword from "./routes/reset-route/ResetPassword.tsx";
 import resetAction from "./routes/reset-route/reset-action.tsx";
 import CompleteReset from "./routes/complete-reset-route/CompleteReset.tsx";
@@ -100,9 +91,7 @@ const router = createBrowserRouter([
                     },
                     {
                         path: ":id/:title/",
-                        element: <Post />,
-                        loader: postLoader,
-                        action: postAction,
+                        lazy: () => import("./routes/post-route/Post.tsx"),
                     },
                 ],
             },
@@ -132,16 +121,12 @@ const router = createBrowserRouter([
             },
             {
                 path: "/profile",
-                element: <Profile />,
-                loader: profileLoader,
-                action: profileAction,
+                lazy: () => import("./routes/profile-route/Profile.tsx"),
                 errorElement: <ErrorElement />,
             },
             {
                 path: "/moderation/",
-                element: <Moderation />,
-                loader: moderationLoader,
-                action: moderationAction,
+                lazy: () => import("./routes/moderation-route/Moderation.tsx"),
                 errorElement: <ErrorElement />,
             },
             {

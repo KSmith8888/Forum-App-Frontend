@@ -8,7 +8,7 @@ The frontend of a forum/social media app made with the MERN stack
 
 react and react-dom:  
 https://github.com/facebook/react  
-react-router-dom:  
+react-router:  
 https://github.com/remix-run/react-router  
 typescript:  
 https://github.com/Microsoft/TypeScript  

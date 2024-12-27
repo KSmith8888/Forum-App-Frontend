@@ -25,7 +25,11 @@ import { createDateString } from "../../utils/create-date-string.ts";
 
 import "../../assets/styles/post.css";
 
-export default function Post() {
+import postLoader from "./post-loader.tsx";
+
+import postAction from "./post-action.tsx";
+
+export function Component() {
     const loaderData = useLoaderData() as postRelatedComments;
     const postData = loaderData.post;
     const commentData = loaderData.comments;
@@ -437,3 +441,6 @@ export default function Post() {
         </div>
     );
 }
+
+export { postLoader as loader };
+export { postAction as action };

@@ -25,7 +25,10 @@ import ProfileNotification from "../../components/ProfileNotification";
 
 import "../../assets/styles/profile.css";
 
-export default function Profile() {
+import profileLoader from "./profile-loader";
+import profileAction from "./profile-action";
+
+export function Component() {
     const username = sessionStorage.getItem("username");
 
     const loaderData = useLoaderData();
@@ -428,3 +431,6 @@ export default function Profile() {
         </>
     );
 }
+
+export { profileLoader as loader };
+export { profileAction as action };
