@@ -39,6 +39,8 @@ import ResetPassword from "./routes/reset-route/ResetPassword.tsx";
 import resetAction from "./routes/reset-route/reset-action.tsx";
 import CompleteReset from "./routes/complete-reset-route/CompleteReset.tsx";
 import completeResetAction from "./routes/complete-reset-route/complete-reset-action.tsx";
+import Terms from "./routes/terms-route/Terms.tsx";
+import NotFound from "./routes/not-found-route/NotFound.tsx";
 
 const router = createBrowserRouter([
     {
@@ -157,6 +159,16 @@ const router = createBrowserRouter([
                         action: completeResetAction,
                     },
                 ],
+            },
+            {
+                path: "/terms/",
+                element: <Terms />,
+                errorElement: <ErrorElement />,
+            },
+            {
+                path: "*",
+                element: <NotFound />,
+                errorElement: <ErrorElement />,
             },
         ],
     },
