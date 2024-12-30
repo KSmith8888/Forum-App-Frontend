@@ -28,7 +28,7 @@ import "../../assets/styles/profile.css";
 import profileLoader from "./profile-loader";
 import profileAction from "./profile-action";
 
-export function Component() {
+function Profile() {
     const username = sessionStorage.getItem("username");
 
     const loaderData = useLoaderData();
@@ -432,5 +432,6 @@ export function Component() {
     );
 }
 
+export { Profile as Component };
 export { profileLoader as loader };
 export { profileAction as action };

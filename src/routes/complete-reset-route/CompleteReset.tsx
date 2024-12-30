@@ -1,8 +1,10 @@
 import { Form, useActionData, useSearchParams } from "react-router";
 
+import completeResetAction from "./complete-reset-action";
+
 import "../../assets/styles/reset.css";
 
-export default function CompleteReset() {
+function CompleteReset() {
     const [searchParams] = useSearchParams();
     const user = searchParams.get("user");
     const actionData = useActionData();
@@ -70,3 +72,6 @@ export default function CompleteReset() {
         </Form>
     );
 }
+
+export { CompleteReset as Component };
+export { completeResetAction as action };

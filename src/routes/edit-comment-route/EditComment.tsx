@@ -1,8 +1,11 @@
 import { useLoaderData, Form, useActionData } from "react-router";
 
+import editCommentLoader from "./edit-comment-loader";
+import editCommentAction from "./edit-comment-action";
+
 import "../../assets/styles/edit-content.css";
 
-export default function EditComment() {
+function EditComment() {
     const loaderData = useLoaderData();
     const errorMessage = useActionData();
     const prevContent = typeof loaderData === "string" ? loaderData : "";
@@ -31,3 +34,7 @@ export default function EditComment() {
         </Form>
     );
 }
+
+export { EditComment as Component };
+export { editCommentLoader as loader };
+export { editCommentAction as action };

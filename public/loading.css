@@ -35,6 +35,11 @@ body {
     color: rgb(19, 26, 128);
 }
 
+#fallback-text {
+    font-size: 1.2rem;
+    color: red;
+}
+
 @keyframes rotate-loader {
     from {
         transform: rotate(0deg);

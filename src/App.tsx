@@ -1,4 +1,5 @@
-import { createBrowserRouter, RouterProvider } from "react-router";
+import { RouterProvider } from "react-router/dom";
+import { createBrowserRouter } from "react-router";
 
 import MainLayout from "./components/MainLayout.tsx";
 import ErrorElement from "./components/Error.tsx";
@@ -10,12 +11,6 @@ import searchAction from "./routes/search-route/search-action.tsx";
 import Attribution from "./routes/attribution-route/Attribution.tsx";
 import PostsByTopic from "./routes/posts-by-topic-route/PostsByTopic.tsx";
 import postsByTopicLoader from "./routes/posts-by-topic-route/posts-by-topic-loader.tsx";
-import EditPost from "./routes/edit-post-route/EditPost.tsx";
-import editPostLoader from "./routes/edit-post-route/edit-post-loader.tsx";
-import editPostAction from "./routes/edit-post-route/edit-post-action.tsx";
-import EditComment from "./routes/edit-comment-route/EditComment.tsx";
-import editCommentLoader from "./routes/edit-comment-route/edit-comment-loader.tsx";
-import editCommentAction from "./routes/edit-comment-route/edit-comment-action.tsx";
 import CreatePost from "./routes/create-post-route/CreatePost.tsx";
 import createPostAction from "./routes/create-post-route/create-post-action.tsx";
 import Register from "./routes/register-route/Register.tsx";
@@ -26,10 +21,6 @@ import Login from "./routes/login-route/Login.tsx";
 import loginAction from "./routes/login-route/login-action.tsx";
 import UserDetails from "./routes/user-details-route/UserDetails.tsx";
 import userDetailsLoader from "./routes/user-details-route/user-details-loader.tsx";
-import ResetPassword from "./routes/reset-route/ResetPassword.tsx";
-import resetAction from "./routes/reset-route/reset-action.tsx";
-import CompleteReset from "./routes/complete-reset-route/CompleteReset.tsx";
-import completeResetAction from "./routes/complete-reset-route/complete-reset-action.tsx";
 import Terms from "./routes/terms-route/Terms.tsx";
 import NotFound from "./routes/not-found-route/NotFound.tsx";
 
@@ -40,7 +31,7 @@ const router = createBrowserRouter([
         hydrateFallbackElement: (
             <div id="loading-area">
                 <div id="loading-spinner"></div>
-                <p id="loading-text">Loading</p>
+                <p id="fallback-text">Loading</p>
             </div>
         ),
         children: [
@@ -79,15 +70,15 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "edit/:id/:title/",
-                        element: <EditPost />,
-                        loader: editPostLoader,
-                        action: editPostAction,
+                        lazy: () =>
+                            import("./routes/edit-post-route/EditPost.tsx"),
                     },
                     {
                         path: "comments/edit/:id",
-                        element: <EditComment />,
-                        loader: editCommentLoader,
-                        action: editCommentAction,
+                        lazy: () =>
+                            import(
+                                "./routes/edit-comment-route/EditComment.tsx"
+                            ),
                     },
                     {
                         path: ":id/:title/",
@@ -135,13 +126,15 @@ const router = createBrowserRouter([
                 children: [
                     {
                         index: true,
-                        element: <ResetPassword />,
-                        action: resetAction,
+                        lazy: () =>
+                            import("./routes/reset-route/ResetPassword.tsx"),
                     },
                     {
                         path: "complete/",
-                        element: <CompleteReset />,
-                        action: completeResetAction,
+                        lazy: () =>
+                            import(
+                                "./routes/complete-reset-route/CompleteReset.tsx"
+                            ),
                     },
                 ],
             },

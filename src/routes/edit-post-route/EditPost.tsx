@@ -1,8 +1,11 @@
 import { useLoaderData, Form, useActionData } from "react-router";
 
+import editPostLoader from "./edit-post-loader";
+import editPostAction from "./edit-post-action";
+
 import "../../assets/styles/edit-content.css";
 
-export default function EditPost() {
+function EditPost() {
     const loaderData = useLoaderData();
     const errorMessage = useActionData();
     let postTitle = "";
@@ -15,8 +18,11 @@ export default function EditPost() {
         if ("content" in loaderData && typeof loaderData.content === "string") {
             prevPostContent = loaderData.content;
         }
-        if ("postType" in loaderData && loaderData.postType === "Link") {
-            typeOfPost = "Link";
+        if (
+            "postType" in loaderData &&
+            typeof loaderData.postType === "string"
+        ) {
+            typeOfPost = loaderData.postType;
         }
     }
 
@@ -46,3 +52,7 @@ export default function EditPost() {
         </Form>
     );
 }
+
+export { EditPost as Component };
+export { editPostLoader as loader };
+export { editPostAction as action };

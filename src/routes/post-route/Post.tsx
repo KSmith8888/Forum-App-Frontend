@@ -29,7 +29,7 @@ import postLoader from "./post-loader.tsx";
 
 import postAction from "./post-action.tsx";
 
-export function Component() {
+function Post() {
     const loaderData = useLoaderData() as postRelatedComments;
     const postData = loaderData.post;
     const commentData = loaderData.comments;
@@ -442,5 +442,6 @@ export function Component() {
     );
 }
 
+export { Post as Component };
 export { postLoader as loader };
 export { postAction as action };

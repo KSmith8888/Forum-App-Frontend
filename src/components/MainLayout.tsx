@@ -27,7 +27,7 @@ export default function Layout() {
                 setProfilePic={setProfilePic}
             />
             <main className="main-section">
-                {navState.state !== "idle" && (
+                {navState.state === "loading" && (
                     <div id="outlet-loading-area">
                         <div id="outlet-loading-background">
                             <div id="outlet-loading-spinner"></div>

@@ -1,9 +1,11 @@
 import { useEffect, useRef } from "react";
 import { Form, useActionData } from "react-router";
 
+import resetAction from "./reset-action";
+
 import "../../assets/styles/reset.css";
 
-export default function ResetPassword() {
+function ResetPassword() {
     const actionData = useActionData();
     const resetForm = useRef<HTMLFormElement>(null);
     useEffect(() => {
@@ -56,3 +58,6 @@ export default function ResetPassword() {
         </Form>
     );
 }
+
+export { ResetPassword as Component };
+export { resetAction as action };

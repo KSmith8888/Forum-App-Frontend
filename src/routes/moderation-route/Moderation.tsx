@@ -14,7 +14,7 @@ import "../../assets/styles/moderation.css";
 import moderationLoader from "./moderation-loader.tsx";
 import moderationAction from "./moderation-action.tsx";
 
-export function Component() {
+function Moderation() {
     const loader = useLoaderData();
     const reportedMessages = Array.isArray(loader) ? loader : [];
     const reportElements = reportedMessages.map((report: reportInterface) => {
@@ -391,5 +391,6 @@ export function Component() {
     );
 }
 
+export { Moderation as Component };
 export { moderationLoader as loader };
 export { moderationAction as action };
