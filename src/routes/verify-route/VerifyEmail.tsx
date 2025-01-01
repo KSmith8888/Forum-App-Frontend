@@ -1,8 +1,10 @@
 import { Form, useActionData, useSearchParams } from "react-router";
 
+import verifyAction from "./verify-action";
+
 import "../../assets/styles/verify-email.css";
 
-export default function VerifyEmail() {
+function VerifyEmail() {
     const [searchParams] = useSearchParams();
     const pendingId = searchParams.get("id");
     const actionData = useActionData();
@@ -40,3 +42,6 @@ export default function VerifyEmail() {
         </Form>
     );
 }
+
+export { VerifyEmail as Component };
+export { verifyAction as action };

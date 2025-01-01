@@ -11,18 +11,14 @@ import searchAction from "./routes/search-route/search-action.tsx";
 import Attribution from "./routes/attribution-route/Attribution.tsx";
 import PostsByTopic from "./routes/posts-by-topic-route/PostsByTopic.tsx";
 import postsByTopicLoader from "./routes/posts-by-topic-route/posts-by-topic-loader.tsx";
-import CreatePost from "./routes/create-post-route/CreatePost.tsx";
-import createPostAction from "./routes/create-post-route/create-post-action.tsx";
 import Register from "./routes/register-route/Register.tsx";
-import VerifyEmail from "./routes/verify-route/VerifyEmail.tsx";
-import verifyAction from "./routes/verify-route/verify-action.tsx";
 import registerAction from "./routes/register-route/register-action.tsx";
 import Login from "./routes/login-route/Login.tsx";
 import loginAction from "./routes/login-route/login-action.tsx";
-import UserDetails from "./routes/user-details-route/UserDetails.tsx";
-import userDetailsLoader from "./routes/user-details-route/user-details-loader.tsx";
 import Terms from "./routes/terms-route/Terms.tsx";
 import NotFound from "./routes/not-found-route/NotFound.tsx";
+
+import "./assets/styles/fallback.css";
 
 const router = createBrowserRouter([
     {
@@ -31,7 +27,7 @@ const router = createBrowserRouter([
         hydrateFallbackElement: (
             <div id="loading-area">
                 <div id="loading-spinner"></div>
-                <p id="fallback-text">Loading</p>
+                <p id="loading-text">Loading</p>
             </div>
         ),
         children: [
@@ -60,8 +56,8 @@ const router = createBrowserRouter([
                 children: [
                     {
                         path: "create/",
-                        element: <CreatePost />,
-                        action: createPostAction,
+                        lazy: () =>
+                            import("./routes/create-post-route/CreatePost.tsx"),
                     },
                     {
                         path: "topics/:topic/",
@@ -94,8 +90,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/verify/",
-                element: <VerifyEmail />,
-                action: verifyAction,
+                lazy: () => import("./routes/verify-route/VerifyEmail.tsx"),
                 errorElement: <ErrorElement />,
             },
             {
@@ -106,8 +101,8 @@ const router = createBrowserRouter([
             },
             {
                 path: "/users/details/:username/",
-                element: <UserDetails />,
-                loader: userDetailsLoader,
+                lazy: () =>
+                    import("./routes/user-details-route/UserDetails.tsx"),
                 errorElement: <ErrorElement />,
             },
             {
