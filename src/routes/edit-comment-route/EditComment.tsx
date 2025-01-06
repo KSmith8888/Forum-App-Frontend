@@ -6,9 +6,8 @@ import editCommentAction from "./edit-comment-action";
 import "../../assets/styles/edit-content.css";
 
 function EditComment() {
-    const loaderData = useLoaderData();
+    const loaderData = useLoaderData() as string;
     const errorMessage = useActionData();
-    const prevContent = typeof loaderData === "string" ? loaderData : "";
 
     return (
         <Form method="PATCH" className="edit-content-form">
@@ -22,7 +21,7 @@ function EditComment() {
                 maxLength={300}
                 rows={6}
                 cols={40}
-                defaultValue={prevContent}
+                defaultValue={loaderData}
                 required
             ></textarea>
             <button type="submit" className="button">

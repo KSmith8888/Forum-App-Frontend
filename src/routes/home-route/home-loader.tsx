@@ -19,5 +19,15 @@ export default async function homeLoader({ request }: loaderActionInterface) {
         }
     }
     const data = await res.json();
+    if (
+        !data ||
+        typeof data !== "object" ||
+        !("popular" in data) ||
+        !("new" in data) ||
+        !Array.isArray(data.popular) ||
+        !Array.isArray(data.new)
+    ) {
+        throw new Error("Something went wrong, please try again later");
+    }
     return data;
 }

@@ -21,8 +21,29 @@ export default async function editPostLoader({
         }
     }
     const data = await res.json();
-    if (!data || typeof data !== "object" || !("post" in data)) {
+    if (
+        !data ||
+        typeof data !== "object" ||
+        !("post" in data) ||
+        typeof data.post !== "object"
+    ) {
         throw new Error("Something went wrong, please try again later");
     }
-    return data.post;
+    const fullPost = data.post;
+    if (
+        !("title" in fullPost) ||
+        !("content" in fullPost) ||
+        !("postType" in fullPost) ||
+        typeof fullPost.title !== "string" ||
+        typeof fullPost.content !== "string" ||
+        fullPost.postType !== "strin"
+    ) {
+        throw new Error("Something went wrong, please try again later");
+    }
+    const postData = {
+        title: fullPost.title,
+        content: fullPost.content,
+        postType: fullPost.postType,
+    };
+    return postData;
 }

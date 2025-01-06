@@ -55,7 +55,7 @@ export default async function editCommentAction({
             "postUrlTitle" in data
         ) {
             return redirect(
-                `/posts/${data.relatedPostId}/${data.postUrlTitle}/`
+                `/posts/${data.relatedPostId}/${data.postUrlTitle}/?commentId=${commentId}`
             );
         } else {
             throw new Error("Incorrect data returned from server");

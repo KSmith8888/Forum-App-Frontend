@@ -219,3 +219,28 @@ export interface postMainContentprops {
     postType: string;
     pollData: Array<pollOption>;
 }
+
+export interface createPostLoaderTypes {
+    title: string;
+    content: string;
+    postType: string;
+}
+
+export interface homeLoaderTypes {
+    new: Array<postPreviewInfo>;
+    popular: Array<postPreviewInfo>;
+}
+
+export interface loginActionTypes {
+    status: string;
+    role: string;
+    _id: string;
+    username: string;
+    displayName: string;
+    profileImageName: string;
+    profileImageAlt: string;
+    savedPosts: Array<savedPostInterface>;
+    likedPosts: Array<string>;
+    likedComments: Array<string>;
+    token: string;
+}

@@ -3,46 +3,30 @@ import { useLoaderData, Form, useActionData } from "react-router";
 import editPostLoader from "./edit-post-loader";
 import editPostAction from "./edit-post-action";
 
+import { createPostLoaderTypes } from "../../utils/interfaces";
 import "../../assets/styles/edit-content.css";
 
 function EditPost() {
-    const loaderData = useLoaderData();
+    const loaderData = useLoaderData() as createPostLoaderTypes;
     const errorMessage = useActionData();
-    let postTitle = "";
-    let prevPostContent = "";
-    let typeOfPost = "Text";
-    if (loaderData && typeof loaderData === "object") {
-        if ("title" in loaderData && typeof loaderData.title === "string") {
-            postTitle = loaderData.title;
-        }
-        if ("content" in loaderData && typeof loaderData.content === "string") {
-            prevPostContent = loaderData.content;
-        }
-        if (
-            "postType" in loaderData &&
-            typeof loaderData.postType === "string"
-        ) {
-            typeOfPost = loaderData.postType;
-        }
-    }
 
     return (
         <Form method="PATCH" className="edit-content-form">
             <h2 className="edit-post-form-heading">Edit Post</h2>
-            <p className="edit-post-title">{postTitle}</p>
+            <p className="edit-post-title">{loaderData.title}</p>
             <label htmlFor="content-input">Content:</label>
             <textarea
                 id="content-input"
                 className="input textarea"
                 name="content"
-                minLength={typeOfPost === "Text" ? 50 : 12}
-                maxLength={typeOfPost === "Text" ? 900 : 200}
-                rows={typeOfPost === "Text" ? 12 : 1}
+                minLength={loaderData.postType === "Text" ? 50 : 12}
+                maxLength={loaderData.postType === "Text" ? 900 : 200}
+                rows={loaderData.postType === "Text" ? 12 : 1}
                 cols={50}
-                defaultValue={prevPostContent}
+                defaultValue={loaderData.content}
                 required
             ></textarea>
-            <input type="hidden" name="post-type" value={typeOfPost} />
+            <input type="hidden" name="post-type" value={loaderData.postType} />
             <button type="submit" className="button">
                 Update
             </button>

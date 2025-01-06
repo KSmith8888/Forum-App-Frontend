@@ -21,7 +21,12 @@ export default async function editCommentLoader({
         }
     }
     const data = await res.json();
-    if (!data || typeof data !== "object" || !("content" in data)) {
+    if (
+        !data ||
+        typeof data !== "object" ||
+        !("content" in data) ||
+        typeof data.content !== "string"
+    ) {
         throw new Error("Something went wrong, please try again later");
     }
     return data.content;

@@ -3,7 +3,11 @@ import { useLoaderData, useSearchParams, useOutletContext } from "react-router";
 
 import PostPreview from "../../components/PostPreview.tsx";
 
-import { outletInterface, postPreviewInfo } from "../../utils/interfaces.ts";
+import {
+    outletInterface,
+    postPreviewInfo,
+    homeLoaderTypes,
+} from "../../utils/interfaces.ts";
 
 import "../../assets/styles/home.css";
 
@@ -25,7 +29,7 @@ export default function Home() {
         window.scrollTo(0, 0);
     }, []);
 
-    const loaderData = useLoaderData();
+    const loaderData = useLoaderData() as homeLoaderTypes;
 
     function createPostElements(postEls: Array<postPreviewInfo>) {
         return postEls.map((preview: postPreviewInfo) => {
@@ -42,16 +46,8 @@ export default function Home() {
         });
     }
 
-    let popularPosts: Array<postPreviewInfo> = [];
-    let newPosts: Array<postPreviewInfo> = [];
-    if (loaderData && typeof loaderData === "object") {
-        if ("popular" in loaderData && Array.isArray(loaderData.popular)) {
-            popularPosts = [...loaderData.popular];
-        }
-        if ("new" in loaderData && Array.isArray(loaderData.new)) {
-            newPosts = [...loaderData.new];
-        }
-    }
+    let popularPosts: Array<postPreviewInfo> = loaderData.popular;
+    let newPosts: Array<postPreviewInfo> = loaderData.new;
     const popularPostEls = createPostElements(popularPosts);
     const newPostEls = createPostElements(newPosts);
 

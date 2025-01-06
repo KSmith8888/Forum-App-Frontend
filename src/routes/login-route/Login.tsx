@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import {
     Link,
     Form,
@@ -8,34 +8,42 @@ import {
     useSearchParams,
 } from "react-router";
 
-import { outletInterface } from "../../utils/interfaces.ts";
+import {
+    outletInterface,
+    loginActionTypes,
+    savedPostInterface,
+} from "../../utils/interfaces.ts";
 
 import "../../assets/styles/login.css";
 
 export default function Login() {
-    const loginData = useActionData();
+    const loginData = useActionData() as loginActionTypes;
     const loginForm = useRef<HTMLFormElement>(null);
     const [searchParams] = useSearchParams();
     const paramsMessage = searchParams.get("message");
     const navigate = useNavigate();
-    const [loginMessage, setLoginMessage] = useState("");
     const { setIsUserLoggedIn, setProfilePic } =
         useOutletContext<outletInterface>();
 
     useEffect(() => {
-        if (
-            loginData &&
-            typeof loginData === "object" &&
-            !Array.isArray(loginData) &&
-            "status" in loginData &&
-            typeof loginData.status === "string" &&
-            "profileImageName" in loginData &&
-            "profileImageAlt" in loginData &&
-            typeof loginData.profileImageName === "string" &&
-            typeof loginData.profileImageAlt === "string" &&
-            loginData.status === "Login successful" &&
-            sessionStorage.getItem("username")
-        ) {
+        if (loginData && typeof loginData === "object") {
+            sessionStorage.setItem("role", loginData.role);
+            sessionStorage.setItem("username", loginData.displayName);
+            sessionStorage.setItem("_id", loginData._id);
+            sessionStorage.setItem("token", loginData.token);
+            const savedPosts: string[] = [];
+            loginData.savedPosts.forEach((post: savedPostInterface) => {
+                savedPosts.push(post.postId);
+            });
+            sessionStorage.setItem("saved-posts", JSON.stringify(savedPosts));
+            sessionStorage.setItem(
+                "likedPosts",
+                JSON.stringify(loginData.likedPosts)
+            );
+            sessionStorage.setItem(
+                "likedComments",
+                JSON.stringify(loginData.likedComments)
+            );
             if (loginForm.current) {
                 loginForm.current.reset();
             }
@@ -45,8 +53,6 @@ export default function Login() {
             });
             setIsUserLoggedIn(true);
             navigate("/profile");
-        } else if (typeof loginData === "string") {
-            setLoginMessage(loginData);
         }
     }, [loginData]);
 
@@ -84,8 +90,6 @@ export default function Login() {
                 <button type="submit" className="button">
                     Submit
                 </button>
-
-                <p className="login-form-message">{loginMessage}</p>
                 <p className="new-account-text">
                     Don{`'`}t have an account?{" "}
                     <Link to="/register/" className="link">
