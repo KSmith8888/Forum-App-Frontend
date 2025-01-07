@@ -22,5 +22,23 @@ export default async function userDetailsLoader({
         }
     }
     const data = await res.json();
+    if (
+        !data ||
+        typeof data !== "object" ||
+        !("username" in data) ||
+        typeof data.username !== "string" ||
+        !("bio" in data) ||
+        typeof data.bio !== "string" ||
+        !("posts" in data) ||
+        !Array.isArray(data.posts) ||
+        !("comments" in data) ||
+        !Array.isArray(data.comments) ||
+        !("image" in data) ||
+        typeof data.image !== "string" ||
+        !("alt" in data) ||
+        typeof data.alt !== "string"
+    ) {
+        throw new Error("Something went wrong, please try again later");
+    }
     return data;
 }

@@ -4,47 +4,24 @@ import { useLoaderData } from "react-router";
 import userDetailsLoader from "./user-details-loader.tsx";
 import DetailsPost from "../../components/DetailsPost.tsx";
 import DetailsComment from "../../components/DetailsComment.tsx";
-import { userProfilePost, userProfileComment } from "../../utils/interfaces.ts";
+import {
+    userProfilePost,
+    userProfileComment,
+    userDetailsLoaderData,
+} from "../../utils/interfaces.ts";
 
 import "../../assets/styles/user-details.css";
 
 function UserDetails() {
-    const loaderData = useLoaderData();
+    const loaderData = useLoaderData() as userDetailsLoaderData;
     const [showRemainingPosts, setShowRemainingPosts] = useState(false);
     const [showRemainingComments, setShowRemainingComments] = useState(false);
-    let username = "";
-    let postsData = [];
-    let commentsData = [];
-    let bio = "";
-    let profileImg = "";
-    let profileAlt = "";
-    if (loaderData && typeof loaderData === "object") {
-        if (
-            "username" in loaderData &&
-            typeof loaderData.username === "string"
-        ) {
-            username = loaderData.username;
-        }
-        if ("bio" in loaderData && typeof loaderData.bio === "string") {
-            bio = loaderData.bio;
-        }
-        if ("posts" in loaderData && Array.isArray(loaderData.posts)) {
-            postsData = loaderData.posts;
-        }
-        if ("comments" in loaderData && Array.isArray(loaderData.comments)) {
-            commentsData = loaderData.comments;
-        }
-        if ("image" in loaderData && typeof loaderData.image === "string") {
-            profileImg = loaderData.image;
-        }
-        if ("alt" in loaderData && typeof loaderData.alt === "string") {
-            profileAlt = loaderData.alt;
-        }
-    }
+
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
-    const firstTenPosts = postsData.length > 0 ? postsData.slice(0, 10) : [];
+    const firstTenPosts =
+        loaderData.posts.length > 0 ? loaderData.posts.slice(0, 10) : [];
     const firstTenPostEls = firstTenPosts.map((post: userProfilePost) => {
         return (
             <DetailsPost
@@ -56,7 +33,8 @@ function UserDetails() {
             />
         );
     });
-    const remainingPosts = postsData.length > 10 ? postsData.slice(10) : [];
+    const remainingPosts =
+        loaderData.posts.length > 10 ? loaderData.posts.slice(10) : [];
     const remainingPostEls =
         remainingPosts.length > 0
             ? remainingPosts.map((post: userProfilePost) => {
@@ -72,7 +50,7 @@ function UserDetails() {
               })
             : [];
     const firstTenComments =
-        commentsData.length > 0 ? commentsData.slice(0, 10) : [];
+        loaderData.comments.length > 0 ? loaderData.comments.slice(0, 10) : [];
     const firstTenCommentEls = firstTenComments.map(
         (comment: userProfileComment) => {
             return (
@@ -87,7 +65,7 @@ function UserDetails() {
         }
     );
     const remainingComments =
-        commentsData.length > 10 ? commentsData.slice(10) : [];
+        loaderData.comments.length > 10 ? loaderData.comments.slice(10) : [];
     const remainingCommentEls = remainingComments.map(
         (comment: userProfileComment) => {
             return (
@@ -106,12 +84,14 @@ function UserDetails() {
         <div className="user-details-container">
             <div className="user-details-bio-container">
                 <div className="details-bio-inner-container">
-                    <h2 className="user-details-username">{username}</h2>
-                    <p className="user-details-bio">{bio}</p>
+                    <h2 className="user-details-username">
+                        {loaderData.username}
+                    </h2>
+                    <p className="user-details-bio">{loaderData.bio}</p>
                 </div>
                 <img
-                    src={`/profile-images/${profileImg}`}
-                    alt={profileAlt}
+                    src={`/profile-images/${loaderData.image}`}
+                    alt={loaderData.alt}
                     className="menu-profile-image"
                 />
             </div>

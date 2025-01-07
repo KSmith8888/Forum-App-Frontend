@@ -26,5 +26,27 @@ export default async function profileLoader() {
         }
     }
     const data = await res.json();
+    if (
+        !data ||
+        typeof data !== "object" ||
+        !("posts" in data) ||
+        !Array.isArray(data.posts) ||
+        !("comments" in data) ||
+        !Array.isArray(data.comments) ||
+        !("savedPosts" in data) ||
+        !Array.isArray(data.savedPosts) ||
+        !("notifications" in data) ||
+        !Array.isArray(data.notifications) ||
+        !("bio" in data) ||
+        typeof data.bio !== "string" ||
+        !("pswdLastUpdated" in data) ||
+        typeof data.pswdLastUpdated !== "string" ||
+        !("replySetting" in data) ||
+        typeof data.replySetting !== "boolean" ||
+        !("email" in data) ||
+        typeof data.email !== "string"
+    ) {
+        throw new Error("Something went wrong, please try again later");
+    }
     return data;
 }

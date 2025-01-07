@@ -220,18 +220,18 @@ export interface postMainContentprops {
     pollData: Array<pollOption>;
 }
 
-export interface createPostLoaderTypes {
+export interface editPostLoaderData {
     title: string;
     content: string;
     postType: string;
 }
 
-export interface homeLoaderTypes {
+export interface homeLoaderData {
     new: Array<postPreviewInfo>;
     popular: Array<postPreviewInfo>;
 }
 
-export interface loginActionTypes {
+export interface loginActionData {
     status: string;
     role: string;
     _id: string;
@@ -243,4 +243,25 @@ export interface loginActionTypes {
     likedPosts: Array<string>;
     likedComments: Array<string>;
     token: string;
+}
+
+export interface profileLoaderData {
+    posts: Array<userProfilePost>;
+    comments: Array<userProfileComment>;
+    savedPosts: Array<savedPostInterface>;
+    notifications: Array<notificationInterface>;
+    bio: string;
+    pswdLastUpdated: string;
+    replySetting: boolean;
+    email: string;
+    verifiedEmail: boolean;
+}
+
+export interface userDetailsLoaderData {
+    username: string;
+    posts: Array<userProfilePost>;
+    comments: Array<userProfileComment>;
+    bio: string;
+    image: string;
+    alt: string;
 }

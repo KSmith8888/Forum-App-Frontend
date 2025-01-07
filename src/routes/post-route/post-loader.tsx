@@ -14,5 +14,15 @@ export default async function postLoader({ params }: loaderActionInterface) {
         }
     }
     const data = await res.json();
+    if (
+        !data ||
+        typeof data !== "object" ||
+        !("post" in data) ||
+        typeof data.post !== "object" ||
+        !("comments" in data) ||
+        !Array.isArray(data.comments)
+    ) {
+        throw new Error("Something went wrong, please try again later");
+    }
     return data;
 }

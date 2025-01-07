@@ -3,11 +3,11 @@ import { useLoaderData, Form, useActionData } from "react-router";
 import editPostLoader from "./edit-post-loader";
 import editPostAction from "./edit-post-action";
 
-import { createPostLoaderTypes } from "../../utils/interfaces";
+import { editPostLoaderData } from "../../utils/interfaces";
 import "../../assets/styles/edit-content.css";
 
 function EditPost() {
-    const loaderData = useLoaderData() as createPostLoaderTypes;
+    const loaderData = useLoaderData() as editPostLoaderData;
     const errorMessage = useActionData();
 
     return (

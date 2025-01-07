@@ -10,14 +10,14 @@ import {
 
 import {
     outletInterface,
-    loginActionTypes,
+    loginActionData,
     savedPostInterface,
 } from "../../utils/interfaces.ts";
 
 import "../../assets/styles/login.css";
 
 export default function Login() {
-    const loginData = useActionData() as loginActionTypes;
+    const loginData = useActionData() as loginActionData;
     const loginForm = useRef<HTMLFormElement>(null);
     const [searchParams] = useSearchParams();
     const paramsMessage = searchParams.get("message");

@@ -16,6 +16,7 @@ import {
     userProfilePost,
     savedPostInterface,
     userProfileComment,
+    profileLoaderData,
 } from "../../utils/interfaces";
 import ProfilePicSelector from "../../components/ProfilePicSelector";
 import ProfileComment from "../../components/ProfileComment";
@@ -31,53 +32,8 @@ import profileAction from "./profile-action";
 function Profile() {
     const username = sessionStorage.getItem("username");
 
-    const loaderData = useLoaderData();
-    let postsData: Array<userProfilePost> = [];
-    let commentsData: Array<userProfileComment> = [];
-    let savedPostsData = [];
-    let notificationsData = [];
-    let profileBio = "";
-    let pswdLastUpdated = "";
-    let replySettingText = "";
-    let userEmail = "";
-    if (loaderData && typeof loaderData === "object") {
-        if ("posts" in loaderData && Array.isArray(loaderData.posts)) {
-            postsData = [...loaderData.posts];
-        }
-        if ("comments" in loaderData && Array.isArray(loaderData.comments)) {
-            commentsData = [...loaderData.comments];
-        }
-        if (
-            "savedPosts" in loaderData &&
-            Array.isArray(loaderData.savedPosts)
-        ) {
-            savedPostsData = loaderData.savedPosts;
-        }
-        if (
-            "notifications" in loaderData &&
-            Array.isArray(loaderData.notifications)
-        ) {
-            notificationsData = loaderData.notifications;
-        }
-        if ("bio" in loaderData && typeof loaderData.bio === "string") {
-            profileBio = loaderData.bio;
-        }
-        if (
-            "pswdLastUpdated" in loaderData &&
-            typeof loaderData.pswdLastUpdated === "string"
-        ) {
-            pswdLastUpdated = loaderData.pswdLastUpdated;
-        }
-        if (
-            "replySetting" in loaderData &&
-            typeof loaderData.replySetting === "boolean"
-        ) {
-            replySettingText = loaderData.replySetting ? "Turn Off" : "Turn On";
-        }
-        if ("email" in loaderData && typeof loaderData.email === "string") {
-            userEmail = loaderData.email;
-        }
-    }
+    const loaderData = useLoaderData() as profileLoaderData;
+
     const messageModal = useRef<HTMLDialogElement>(null);
     const actionMessage = useActionData();
     const [modalMessage, setModalMessage] = useState("");
@@ -110,7 +66,7 @@ function Profile() {
     const [showRemainingComments, setShowRemainingComments] = useState(false);
     const [showRemainingSaved, setShowRemainingSaved] = useState(false);
     const [showRemainingNotes, setShowRemainingNotes] = useState(false);
-    const allPosts = postsData.length > 0 ? postsData : [];
+    const allPosts = loaderData.posts.length > 0 ? loaderData.posts : [];
     const firstFivePosts = allPosts.length > 0 ? allPosts.slice(0, 5) : [];
     const firstFivePostEls = firstFivePosts.map((post: userProfilePost) => {
         return (
@@ -138,7 +94,8 @@ function Profile() {
                   );
               })
             : [];
-    const allComments = commentsData.length > 0 ? commentsData : [];
+    const allComments =
+        loaderData.comments.length > 0 ? loaderData.comments : [];
     const firstFiveComments =
         allComments.length > 0 ? allComments.slice(0, 5) : [];
     const firstFiveCommentEls = firstFiveComments.map(
@@ -170,7 +127,8 @@ function Profile() {
                   );
               })
             : [];
-    const allSaved = savedPostsData.length > 0 ? savedPostsData : [];
+    const allSaved =
+        loaderData.savedPosts.length > 0 ? loaderData.savedPosts : [];
     const firstTenSaved = allSaved.length > 0 ? allSaved.slice(0, 10) : [];
     const firstTenSavedEls = firstTenSaved.map(
         (savedPost: savedPostInterface) => {
@@ -198,7 +156,8 @@ function Profile() {
                   );
               })
             : [];
-    const allNotes = notificationsData.length > 0 ? notificationsData : [];
+    const allNotes =
+        loaderData.notifications.length > 0 ? loaderData.notifications : [];
     const firstFiveNotes = allNotes.length > 0 ? allNotes.slice(0, 5) : [];
     const firstFiveNoteEls = firstFiveNotes.map(
         (notification: notificationInterface) => {
@@ -258,18 +217,18 @@ function Profile() {
                             <ProfilePicSelector />
                         </div>
                         <div className="profile-bio-container">
-                            <BioChangeForm profileBio={profileBio} />
+                            <BioChangeForm profileBio={loaderData.bio} />
                         </div>
                         <div className="update-password-container">
                             <h4 className="profile-security-heading">
                                 Account Information:
                             </h4>
                             <UpdateEmail
-                                currentEmail={userEmail}
+                                currentEmail={loaderData.email}
                                 updateStep={emailUpdateStep}
                             />
                             <UpdatePassword
-                                pswdLastUpdated={pswdLastUpdated}
+                                pswdLastUpdated={loaderData.pswdLastUpdated}
                                 actionMessage={actionMessage}
                             />
                         </div>
@@ -291,7 +250,9 @@ function Profile() {
                                     value="update"
                                 />
                                 <button type="submit" className="button">
-                                    {replySettingText}
+                                    {loaderData.replySetting
+                                        ? "Turn Off"
+                                        : "Turn On"}
                                 </button>
                             </Form>
                         </div>
@@ -325,7 +286,7 @@ function Profile() {
                 </section>
                 <section className="profile-notifications-section">
                     <h3 className="notifications-heading">
-                        Notifications ({notificationsData.length}):
+                        Notifications ({loaderData.notifications.length}):
                     </h3>
                     {firstFiveNoteEls.length > 0 ? (
                         <div className="notifications-container">

@@ -6,7 +6,7 @@ import PostPreview from "../../components/PostPreview.tsx";
 import {
     outletInterface,
     postPreviewInfo,
-    homeLoaderTypes,
+    homeLoaderData,
 } from "../../utils/interfaces.ts";
 
 import "../../assets/styles/home.css";
@@ -29,7 +29,7 @@ export default function Home() {
         window.scrollTo(0, 0);
     }, []);
 
-    const loaderData = useLoaderData() as homeLoaderTypes;
+    const loaderData = useLoaderData() as homeLoaderData;
 
     function createPostElements(postEls: Array<postPreviewInfo>) {
         return postEls.map((preview: postPreviewInfo) => {
