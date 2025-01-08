@@ -110,7 +110,7 @@ export interface profilePicInterface {
 export interface reportInterface {
     _id: string;
     messageId: string;
-    postUrlTitle: String;
+    postUrlTitle: string;
     messageType: string;
     messageContent: string;
     reportedBy: string;

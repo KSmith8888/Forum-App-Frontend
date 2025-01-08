@@ -11,7 +11,7 @@ export default async function editCommentAction({
         const userId = sessionStorage.getItem("_id");
         const commentData = await request.formData();
         const content = commentData.get("content");
-        const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@=%\r\n-]+$");
+        const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@=%\\r\\n-]+$");
         if (!token || !userId) {
             throw new Error("You must log in before creating a post");
         }

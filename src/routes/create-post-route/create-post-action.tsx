@@ -47,7 +47,7 @@ export default async function createPostAction({
                 );
             }
         }
-        const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@=%\r\n-]+$");
+        const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@=%\\r\\n-]+$");
         const strictReg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@=%-]+$");
         if (postType === "Poll" && !strictReg.test(content)) {
             throw new Error(

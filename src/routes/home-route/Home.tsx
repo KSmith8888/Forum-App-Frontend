@@ -46,8 +46,8 @@ export default function Home() {
         });
     }
 
-    let popularPosts: Array<postPreviewInfo> = loaderData.popular;
-    let newPosts: Array<postPreviewInfo> = loaderData.new;
+    const popularPosts: Array<postPreviewInfo> = loaderData.popular;
+    const newPosts: Array<postPreviewInfo> = loaderData.new;
     const popularPostEls = createPostElements(popularPosts);
     const newPostEls = createPostElements(newPosts);
 

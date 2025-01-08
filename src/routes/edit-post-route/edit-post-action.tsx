@@ -13,7 +13,7 @@ export default async function editPostAction({
         const postType = postData.get("post-type");
         const token = sessionStorage.getItem("token");
         const userId = sessionStorage.getItem("_id");
-        const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@=%\r\n-]+$");
+        const reg = new RegExp("^[a-zA-Z0-9 .:,?/_'!@=%\\r\\n-]+$");
         if (!token || !userId) {
             throw new Error("You must log in before creating a post");
         }

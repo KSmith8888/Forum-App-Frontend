@@ -4,7 +4,7 @@ import { useOutletContext, Form } from "react-router";
 import { outletInterface } from "../utils/interfaces.ts";
 import PicSelectorButton from "./PicSelectorButton.tsx";
 
-export default function ProfilePicSelector({}) {
+export default function ProfilePicSelector() {
     const { profilePic } = useOutletContext<outletInterface>();
     const [currentImage, setCurrentImage] = useState(profilePic.name);
     const [currentAlt, setCurrentAlt] = useState(profilePic.alt);

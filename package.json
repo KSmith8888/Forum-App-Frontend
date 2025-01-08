@@ -5,7 +5,7 @@
     "type": "module",
     "license": "MIT",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "lint": "eslint .",
         "dev": "vite",
         "preview": "vite preview --port 5173",
         "build": "tsc && vite build"
@@ -25,14 +25,15 @@
         "react-router": "^7.1.1"
     },
     "devDependencies": {
+        "@eslint/js": "^9.17.0",
         "@types/react": "^19.0.2",
         "@types/react-dom": "^19.0.2",
-        "@typescript-eslint/eslint-plugin": "^8.18.2",
-        "@typescript-eslint/parser": "^8.18.2",
         "@vitejs/plugin-react": "^4.3.4",
         "eslint": "^9.17.0",
         "eslint-plugin-react": "^7.37.3",
+        "globals": "^15.14.0",
         "typescript": "^5.7.2",
+        "typescript-eslint": "^8.19.1",
         "vite": "^6.0.6"
     }
 }

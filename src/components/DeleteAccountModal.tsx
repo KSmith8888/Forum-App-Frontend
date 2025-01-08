@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Form } from "react-router";
 
-export default function DeleteAccountModal({}) {
+export default function DeleteAccountModal() {
     const deleteModal = useRef<HTMLDialogElement>(null);
     const deleteForm = useRef<HTMLFormElement>(null);
     const deleteCloseBtn = useRef<HTMLButtonElement>(null);

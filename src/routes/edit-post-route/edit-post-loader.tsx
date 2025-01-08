@@ -36,7 +36,7 @@ export default async function editPostLoader({
         !("postType" in fullPost) ||
         typeof fullPost.title !== "string" ||
         typeof fullPost.content !== "string" ||
-        fullPost.postType !== "strin"
+        typeof fullPost.postType !== "string"
     ) {
         throw new Error("Something went wrong, please try again later");
     }
