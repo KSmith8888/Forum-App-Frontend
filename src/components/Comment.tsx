@@ -10,7 +10,7 @@ export default function Comment({
     isUserLoggedIn,
     actionData,
     postUrlTitle,
-    openReportModal,
+    setReportInfo,
 }: commentProps) {
     const commentDateString = createDateString(commentData.createdAt, "Posted");
     const commentHasBeenEdited = commentData.hasBeenEdited;
@@ -109,17 +109,12 @@ export default function Comment({
                                     <button
                                         className="button"
                                         onClick={async () => {
-                                            try {
-                                                openReportModal(
-                                                    commentData._id,
-                                                    "Comment",
-                                                    commentData.relatedPost
-                                                );
-                                            } catch (error) {
-                                                if (error instanceof Error) {
-                                                    console.log(error.message);
-                                                }
-                                            }
+                                            setReportInfo({
+                                                messageId: commentData._id,
+                                                messageType: "Comment",
+                                                messageRelated:
+                                                    commentData.relatedPost,
+                                            });
                                         }}
                                     >
                                         Report

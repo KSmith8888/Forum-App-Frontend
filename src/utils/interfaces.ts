@@ -95,11 +95,11 @@ export interface commentProps {
     actionData: unknown;
     isUserLoggedIn: boolean;
     postUrlTitle: string;
-    openReportModal: (
-        messageId: string,
-        reportType: string,
-        relatedId: string
-    ) => void;
+    setReportInfo: (reportInfo: {
+        messageId: string;
+        messageType: string;
+        messageRelated: string;
+    }) => void;
 }
 
 export interface profilePicInterface {
@@ -218,6 +218,15 @@ export interface postMainContentprops {
     content: string;
     postType: string;
     pollData: Array<pollOption>;
+}
+
+export interface reportModalProps {
+    reportInfo: {
+        messageId: string;
+        messageType: string;
+        messageRelated: string;
+    };
+    actionData: unknown;
 }
 
 export interface editPostLoaderData {

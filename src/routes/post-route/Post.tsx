@@ -6,7 +6,6 @@ import {
     useSearchParams,
     Link,
     Form,
-    useSubmit,
 } from "react-router";
 
 import Comment from "../../components/Comment";
@@ -14,6 +13,7 @@ import CommentForm from "../../components/CommentForm.tsx";
 import PostMainContent from "../../components/PostMainContent.tsx";
 import PostHistory from "../../components/PostHistory.tsx";
 import SavePostForm from "../../components/SavePostForm.tsx";
+import ReportModal from "../../components/ReportModal.tsx";
 
 import {
     outletInterface,
@@ -60,9 +60,12 @@ function Post() {
     const [postLikes, setPostLikes] = useState(postData.likes);
     const [showHistory, setShowHistory] = useState(false);
     const [showCommentForm, setShowCommentForm] = useState(false);
-    const [reportId, setReportId] = useState("none");
-    const [reportType, setReportType] = useState("none");
-    const [reportRelated, setReportRelated] = useState("none");
+    const [reportInfo, setReportInfo] = useState({
+        messageId: "none",
+        messageType: "none",
+        messageRelated: "none",
+    });
+
     const historyElements = postData.history.map(
         (prevVersion: postHistoryInterface) => {
             return (
@@ -100,16 +103,8 @@ function Post() {
                 setPostLikes(actionData.likes);
                 setUserLikedPost(actionData.didUserLike);
             }
-            if (
-                "message" in actionData &&
-                actionData.message === "Message reported successfully" &&
-                reportModal.current
-            ) {
-                reportModal.current.close();
-            }
         }
     }, [actionData]);
-    const formSubmit = useSubmit();
     const [searchParams] = useSearchParams();
     const commentId = searchParams.get("commentId");
     useEffect(() => {
@@ -124,20 +119,6 @@ function Post() {
             window.scrollTo(0, 0);
         }
     }, []);
-    const reportModal = useRef<HTMLDialogElement>(null);
-    const reportForm = useRef<HTMLFormElement>(null);
-    function openReportModal(
-        messageId: string,
-        reportType: string,
-        relatedId: string
-    ) {
-        if (reportModal.current) {
-            setReportId(messageId);
-            setReportType(reportType);
-            setReportRelated(relatedId);
-            reportModal.current.showModal();
-        }
-    }
 
     const [showRemainingComments, setShowRemainingComments] = useState(false);
     const firstTenComments = commentData.slice(0, 10);
@@ -151,7 +132,7 @@ function Post() {
                           actionData={actionData}
                           postUrlTitle={postData.urlTitle}
                           isUserLoggedIn={isUserLoggedIn}
-                          openReportModal={openReportModal}
+                          setReportInfo={setReportInfo}
                       />
                   );
               })
@@ -167,7 +148,7 @@ function Post() {
                           actionData={actionData}
                           postUrlTitle={postData.urlTitle}
                           isUserLoggedIn={isUserLoggedIn}
-                          openReportModal={openReportModal}
+                          setReportInfo={setReportInfo}
                       />
                   );
               })
@@ -260,18 +241,12 @@ function Post() {
                                 </button>
                                 <button
                                     className="button"
-                                    onClick={async () => {
-                                        try {
-                                            openReportModal(
-                                                postData._id,
-                                                "Post",
-                                                "none"
-                                            );
-                                        } catch (error) {
-                                            if (error instanceof Error) {
-                                                console.log(error.message);
-                                            }
-                                        }
+                                    onClick={() => {
+                                        setReportInfo({
+                                            messageId: postData._id,
+                                            messageType: "Post",
+                                            messageRelated: "none",
+                                        });
                                     }}
                                 >
                                     Report
@@ -279,64 +254,10 @@ function Post() {
                             </div>
                         )}
                     </div>
-                    <dialog className="report-modal" ref={reportModal}>
-                        <Form method="POST" ref={reportForm} id="report-form">
-                            <button
-                                className="close-modal-button"
-                                type="button"
-                                aria-label="Close report form"
-                                onClick={() => {
-                                    if (reportModal.current) {
-                                        reportModal.current.close();
-                                    }
-                                }}
-                            >
-                                X
-                            </button>
-                            <h3 className="report-modal-heading">
-                                Report to the moderation team?
-                            </h3>
-                            <label htmlFor="report-message-input">
-                                Message:
-                            </label>
-                            <textarea
-                                id="report-message-input"
-                                className="input textarea"
-                                name="report-content"
-                                minLength={4}
-                                maxLength={120}
-                                rows={6}
-                                required
-                                onKeyDown={(e) => {
-                                    if (
-                                        e.key === "Enter" &&
-                                        reportForm.current
-                                    ) {
-                                        e.preventDefault();
-                                        formSubmit(reportForm.current);
-                                    }
-                                }}
-                            ></textarea>
-                            <input
-                                type="hidden"
-                                name="report-related-id"
-                                value={reportRelated}
-                            />
-                            <input
-                                type="hidden"
-                                name="report-message-id"
-                                value={reportId}
-                            />
-                            <input
-                                type="hidden"
-                                name="report-type"
-                                value={reportType}
-                            />
-                            <button className="button" type="submit">
-                                Submit
-                            </button>
-                        </Form>
-                    </dialog>
+                    <ReportModal
+                        reportInfo={reportInfo}
+                        actionData={actionData}
+                    />
                     {!isUserLoggedIn && (
                         <p className="account-to-comment-text">
                             Log in or create an account to comment

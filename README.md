@@ -2,6 +2,8 @@
 
 The frontend of a forum/social media app made with the MERN stack
 
+![A header section with options for menu and topics above sections of new and popular posts on a light blue background](/public/the-4em-app-screenshot.png)
+
 ## Attribution
 
 ### Dependencies
