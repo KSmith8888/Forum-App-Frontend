@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import { Link, Form } from "react-router";
 
 import CommentForm from "./CommentForm.tsx";
-import { commentHistoryInterface, commentProps } from "../utils/interfaces";
-import { createDateString } from "../utils/create-date-string";
+import {
+    commentHistoryInterface,
+    commentProps,
+} from "../../utils/interfaces.ts";
+import { createDateString } from "../../utils/create-date-string.ts";
 
 export default function Comment({
     commentData,

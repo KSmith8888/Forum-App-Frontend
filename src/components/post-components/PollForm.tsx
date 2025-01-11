@@ -1,6 +1,6 @@
 import { Form, useOutletContext } from "react-router";
 
-import { pollData, outletInterface } from "../utils/interfaces";
+import { pollData, outletInterface } from "../../utils/interfaces";
 
 export default function PollForm({ options, postId }: pollData) {
     const { isUserLoggedIn } = useOutletContext<outletInterface>();

@@ -8,10 +8,10 @@ import {
     Form,
 } from "react-router";
 
-import Comment from "../../components/Comment";
-import CommentForm from "../../components/CommentForm.tsx";
-import PostMainContent from "../../components/PostMainContent.tsx";
-import PostHistory from "../../components/PostHistory.tsx";
+import Comment from "../../components/post-components/Comment.tsx";
+import CommentForm from "../../components/post-components/CommentForm.tsx";
+import PostMainContent from "../../components/post-components/PostMainContent.tsx";
+import PostHistory from "../../components/post-components/PostHistory.tsx";
 import SavePostForm from "../../components/SavePostForm.tsx";
 import ReportModal from "../../components/ReportModal.tsx";
 

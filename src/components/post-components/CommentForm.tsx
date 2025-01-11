@@ -1,6 +1,6 @@
 import { Form } from "react-router";
 
-import { commentFormProps } from "../utils/interfaces.ts";
+import { commentFormProps } from "../../utils/interfaces.ts";
 
 export default function CommentForm({
     type,

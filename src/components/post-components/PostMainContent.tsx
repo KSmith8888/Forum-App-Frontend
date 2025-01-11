@@ -1,7 +1,7 @@
 import PollForm from "./PollForm";
-import openLinkIcon from "../assets/images/open-link-icon.png";
+import openLinkIcon from "../../assets/images/open-link-icon.png";
 
-import { postMainContentprops } from "../utils/interfaces";
+import { postMainContentprops } from "../../utils/interfaces";
 
 export default function PostMainContent({
     _id,

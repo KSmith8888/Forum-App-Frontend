@@ -1,6 +1,6 @@
-import { createDateString } from "../utils/create-date-string.ts";
+import { createDateString } from "../../utils/create-date-string.ts";
 
-import { postHistoryInterface } from "../utils/interfaces.ts";
+import { postHistoryInterface } from "../../utils/interfaces.ts";
 
 export default function PostHistory({
     timestamp,
