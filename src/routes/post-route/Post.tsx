@@ -12,8 +12,8 @@ import Comment from "../../components/post-components/Comment.tsx";
 import CommentForm from "../../components/post-components/CommentForm.tsx";
 import PostMainContent from "../../components/post-components/PostMainContent.tsx";
 import PostHistory from "../../components/post-components/PostHistory.tsx";
-import SavePostForm from "../../components/SavePostForm.tsx";
-import ReportModal from "../../components/ReportModal.tsx";
+import SavePostForm from "../../components/post-components/SavePostForm.tsx";
+import ReportModal from "../../components/post-components/ReportModal.tsx";
 
 import {
     outletInterface,

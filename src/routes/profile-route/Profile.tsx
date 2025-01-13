@@ -6,10 +6,10 @@ import {
     Form,
 } from "react-router";
 
-import BioChangeForm from "../../components/BioChangeForm";
-import UpdatePassword from "../../components/UpdatePassword";
-import UpdateEmail from "../../components/UpdateEmail";
-import DeleteAccountModal from "../../components/DeleteAccountModal";
+import BioChangeForm from "../../components/profile-components/BioChangeForm";
+import UpdatePassword from "../../components/profile-components/UpdatePassword";
+import UpdateEmail from "../../components/profile-components/UpdateEmail";
+import DeleteAccountModal from "../../components/profile-components/DeleteAccountModal";
 import {
     outletInterface,
     notificationInterface,
@@ -18,11 +18,11 @@ import {
     userProfileComment,
     profileLoaderData,
 } from "../../utils/interfaces";
-import ProfilePicSelector from "../../components/ProfilePicSelector";
-import ProfileComment from "../../components/ProfileComment";
-import ProfilePost from "../../components/ProfilePost";
-import ProfileSaved from "../../components/ProfileSaved";
-import ProfileNotification from "../../components/ProfileNotification";
+import ProfilePicSelector from "../../components/profile-components/ProfilePicSelector";
+import ProfileComment from "../../components/profile-components/ProfileComment";
+import ProfilePost from "../../components/profile-components/ProfilePost";
+import ProfileSaved from "../../components/profile-components/ProfileSaved";
+import ProfileNotification from "../../components/profile-components/ProfileNotification";
 
 import "../../assets/styles/profile.css";
 

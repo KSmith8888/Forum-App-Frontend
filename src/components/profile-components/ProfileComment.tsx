@@ -1,5 +1,5 @@
 import { Link, Form } from "react-router";
-import { userProfileComment } from "../utils/interfaces.ts";
+import { userProfileComment } from "../../utils/interfaces.ts";
 
 export default function ProfileComment({
     commentId,

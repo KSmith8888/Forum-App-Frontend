@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { Form } from "react-router";
 
-import { updateEmailProps } from "../utils/interfaces.ts";
+import { updateEmailProps } from "../../utils/interfaces.ts";
 
 export default function UpdateEmail({
     currentEmail,

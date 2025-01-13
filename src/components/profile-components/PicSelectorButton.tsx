@@ -1,4 +1,4 @@
-import { picSelectorBtnProps } from "../utils/interfaces.ts";
+import { picSelectorBtnProps } from "../../utils/interfaces.ts";
 
 export default function PicSelectorButton({
     currentImage,

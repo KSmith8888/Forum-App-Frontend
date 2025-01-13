@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import { Form } from "react-router";
 
-import { reportModalProps } from "../utils/interfaces";
+import { reportModalProps } from "../../utils/interfaces";
 
 export default function ReportModal({
     reportInfo,

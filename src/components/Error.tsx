@@ -1,7 +1,8 @@
-import { useRouteError } from "react-router";
+import { useRouteError, useNavigate } from "react-router";
 
 export default function ErrorElement() {
     const error = useRouteError();
+    const navigate = useNavigate();
     let message = "Please try again later";
     if (error instanceof Error) {
         if (error.message === "Failed to fetch") {
@@ -15,6 +16,15 @@ export default function ErrorElement() {
         <div className="error-message-container">
             <h2 className="error-heading">Sorry, there has been an error</h2>
             <p className="error-message">{message}</p>
+            <button
+                className="button"
+                type="button"
+                onClick={() => {
+                    navigate(-1);
+                }}
+            >
+                Go Back
+            </button>
         </div>
     );
 }

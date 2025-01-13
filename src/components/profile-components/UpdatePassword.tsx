@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState } from "react";
 import { Form } from "react-router";
 
-import { updatePasswordProps } from "../utils/interfaces.ts";
+import { updatePasswordProps } from "../../utils/interfaces.ts";
 
 export default function UpdatePassword({
     pswdLastUpdated,

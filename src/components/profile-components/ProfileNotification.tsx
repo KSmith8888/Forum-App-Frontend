@@ -1,7 +1,7 @@
 import { Link, Form } from "react-router";
-import { notificationInterface } from "../utils/interfaces.ts";
+import { notificationInterface } from "../../utils/interfaces.ts";
 
-import { createDateString } from "../utils/create-date-string.ts";
+import { createDateString } from "../../utils/create-date-string.ts";
 
 export default function ProfileNotification({
     _id,

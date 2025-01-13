@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 
-import { savedPostInterface } from "../utils/interfaces";
+import { savedPostInterface } from "../../utils/interfaces";
 
 export default function ProfileSaved({
     postId,

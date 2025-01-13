@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Form } from "react-router";
 
-import { profileBioProps } from "../utils/interfaces.ts";
+import { profileBioProps } from "../../utils/interfaces.ts";
 
 export default function BioChangeForm({ profileBio }: profileBioProps) {
     const bioModal = useRef<HTMLDialogElement>(null);
