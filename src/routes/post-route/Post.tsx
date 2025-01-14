@@ -79,6 +79,7 @@ function Post() {
         }
     );
     const actionData = useActionData();
+    const nsfwModal = useRef<HTMLDialogElement>(null);
     const errorModal = useRef<HTMLDialogElement>(null);
     const [errorMessage, setErrorMessage] = useState("");
     useEffect(() => {
@@ -108,15 +109,19 @@ function Post() {
     const [searchParams] = useSearchParams();
     const commentId = searchParams.get("commentId");
     useEffect(() => {
-        if (commentId) {
-            const commentEl = document.getElementById(commentId);
-            if (commentEl) {
-                commentEl.scrollIntoView({ behavior: "smooth" });
+        if (postData.isNSFW && nsfwModal.current) {
+            nsfwModal.current.showModal();
+        } else {
+            if (commentId) {
+                const commentEl = document.getElementById(commentId);
+                if (commentEl) {
+                    commentEl.scrollIntoView({ behavior: "smooth" });
+                } else {
+                    window.scrollTo(0, 0);
+                }
             } else {
                 window.scrollTo(0, 0);
             }
-        } else {
-            window.scrollTo(0, 0);
         }
     }, []);
 
@@ -156,6 +161,32 @@ function Post() {
 
     return (
         <div id={postData._id} className="post-container">
+            <dialog className="nsfw-modal" ref={nsfwModal}>
+                <p className="nsfw-modal-text">
+                    This post is marked NSFW and may contain mature or
+                    potentially objectionable content.
+                </p>
+                <p className="nsfw-modal-text">
+                    Are you over 18 and do you still want to view this content?
+                </p>
+                <div className="button-row">
+                    <button
+                        type="button"
+                        className="button"
+                        autoFocus
+                        onClick={() => {
+                            if (nsfwModal.current) {
+                                nsfwModal.current.close();
+                            }
+                        }}
+                    >
+                        Yes
+                    </button>
+                    <Link to="/" className="button-link">
+                        No
+                    </Link>
+                </div>
+            </dialog>
             <dialog
                 className="error-modal"
                 ref={errorModal}

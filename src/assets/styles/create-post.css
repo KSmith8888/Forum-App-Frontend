@@ -55,13 +55,14 @@
     margin: 0.5em 0;
 }
 
-.pinned-input-container {
+.checkbox-input-container {
     margin: 0.5em 0;
     display: flex;
     align-items: flex-end;
 }
 
-#pinned-input {
+#pinned-input,
+#nsfw-input {
     cursor: pointer;
 }
 

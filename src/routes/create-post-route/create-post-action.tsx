@@ -17,6 +17,8 @@ export default async function createPostAction({
         const initContent = postData.get("content");
         const initKeywords = postData.get("keywords");
         const keywords = initKeywords ? initKeywords : "none";
+        const nsfw = postData.get("nsfw-post");
+        const isNSFW = nsfw ? "nsfw" : "sfw";
         const pinned = postData.get("pinned-post");
         const isPinned = pinned ? "pinned" : "not-pinned";
         if (
@@ -77,6 +79,7 @@ export default async function createPostAction({
                     postType,
                     content,
                     keywords,
+                    isNSFW,
                     isPinned,
                 }),
                 headers: {

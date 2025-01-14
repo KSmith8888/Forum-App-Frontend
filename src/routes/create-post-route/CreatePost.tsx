@@ -101,9 +101,13 @@ function CreatePost() {
                 name="keywords"
                 maxLength={60}
             />
+            <div className="checkbox-input-container">
+                <label htmlFor="nsfw-input">NSFW Content:</label>
+                <input id="nsfw-input" type="checkbox" name="nsfw-post" />
+            </div>
             {userRole === "admin" && (
-                <div className="pinned-input-container">
-                    <label htmlFor="pinned-input">Pinned:</label>
+                <div className="checkbox-input-container">
+                    <label htmlFor="pinned-input">Pinned Post:</label>
                     <input
                         id="pinned-input"
                         type="checkbox"

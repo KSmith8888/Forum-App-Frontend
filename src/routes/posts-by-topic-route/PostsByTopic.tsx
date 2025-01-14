@@ -34,7 +34,7 @@ export default function PostsByTopic() {
             <h2 className="posts-topic-heading">{topic} Posts</h2>
             {isUserLoggedIn && (
                 <Link
-                    to={`/profile/create${
+                    to={`/posts/create/${
                         topic !== "" ? `?topic=${topic}` : ""
                     }`}
                     className="button-link"

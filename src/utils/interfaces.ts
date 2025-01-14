@@ -64,6 +64,8 @@ export interface postInterface {
     keywords: string[];
     pollData: Array<pollOption>;
     comments: string[];
+    isNSFW: boolean;
+    isPinned: boolean;
     hasBeenEdited: boolean;
     lastEditedAt: string;
     history: Array<postHistoryInterface>;

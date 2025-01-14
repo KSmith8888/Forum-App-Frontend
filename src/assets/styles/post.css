@@ -171,22 +171,11 @@
     align-items: center;
 }
 
-.save-post-button {
+.save-unsave-post-button {
     align-self: flex-end;
     width: 30px;
     height: 32px;
     cursor: pointer;
-    border: none;
-    background: url("../images/save-post-icon.png");
-}
-
-.save-post-button-selected {
-    align-self: flex-end;
-    width: 30px;
-    height: 32px;
-    cursor: pointer;
-    border: none;
-    background: url("../images/unsave-post-icon.png");
 }
 
 .no-comments-text-container {
@@ -325,7 +314,8 @@
     padding: 1.5em 2em;
 }
 
-.error-modal[open] {
+.error-modal[open],
+.nsfw-modal[open] {
     width: 25em;
     max-width: 95%;
     background-color: #ebf1f3;
@@ -335,7 +325,13 @@
     align-items: center;
 }
 
-.error-modal-text {
+.nsfw-modal::backdrop {
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.error-modal-text,
+.nsfw-modal-text {
     text-align: center;
     font-size: 1.2rem;
     font-weight: 600;
