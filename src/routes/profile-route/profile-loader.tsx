@@ -41,8 +41,8 @@ export default async function profileLoader() {
         typeof data.bio !== "string" ||
         !("pswdLastUpdated" in data) ||
         typeof data.pswdLastUpdated !== "string" ||
-        !("replySetting" in data) ||
-        typeof data.replySetting !== "boolean" ||
+        !("profileSettings" in data) ||
+        typeof data.profileSettings !== "object" ||
         !("email" in data) ||
         typeof data.email !== "string"
     ) {

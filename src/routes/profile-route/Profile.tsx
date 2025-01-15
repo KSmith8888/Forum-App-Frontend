@@ -48,6 +48,11 @@ function Profile() {
             const splitMessage = actionMessage.split("-Target ID-");
             setModalMessage(splitMessage[0]);
             messageModal.current.showModal();
+            if (actionMessage === "View NSFW setting is now turned Off") {
+                sessionStorage.removeItem("view-nsfw");
+            } else if (actionMessage === "View NSFW setting is now turned On") {
+                sessionStorage.setItem("view-nsfw", "true");
+            }
         } else if (actionMessage && typeof actionMessage === "object") {
             if (
                 "newProfilePicName" in actionMessage &&
@@ -202,7 +207,7 @@ function Profile() {
             <div className="profile-section-row">
                 <section className="profile-settings-section">
                     <h3 className="account-settings-heading">
-                        Account Settings:
+                        Account Options:
                     </h3>
                     <div className="account-settings-container">
                         <div className="profile-image-info">
@@ -234,7 +239,7 @@ function Profile() {
                         </div>
                         <div className="notification-setting-container">
                             <h4 className="notification-setting-heading">
-                                Notifications:
+                                Content Settings:
                             </h4>
                             <p className="reply-setting-text">
                                 Get notifications when a user replies to your
@@ -250,7 +255,21 @@ function Profile() {
                                     value="update"
                                 />
                                 <button type="submit" className="button">
-                                    {loaderData.replySetting
+                                    {loaderData.profileSettings
+                                        .getReplyNotifications
+                                        ? "Turn Off"
+                                        : "Turn On"}
+                                </button>
+                            </Form>
+                            <p>View NSFW content</p>
+                            <Form method="POST" className="nsfw-setting-form">
+                                <input
+                                    type="hidden"
+                                    name="nsfw-setting"
+                                    value="update"
+                                />
+                                <button type="submit" className="button">
+                                    {loaderData.profileSettings.viewNSFW
                                         ? "Turn Off"
                                         : "Turn On"}
                                 </button>

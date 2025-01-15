@@ -23,6 +23,7 @@ export default async function profileAction({
         const pfpImage = formData.get("pfp");
         const pfpAlt = formData.get("pfp-alt");
         const replySetting = formData.get("notification-setting");
+        const nsfwSetting = formData.get("nsfw-setting");
         let reqMethod = "";
         let reqUrl = `${import.meta.env.VITE_BACKEND_URL}/api/v1/`;
         let reqBody = {};
@@ -105,6 +106,12 @@ export default async function profileAction({
             reqMethod = "PATCH";
             reqBody = {
                 status: "Update notification setting request",
+            };
+        } else if (typeof nsfwSetting === "string") {
+            reqUrl = `${reqUrl}users/profile/nsfw`;
+            reqMethod = "PATCH";
+            reqBody = {
+                status: "Update nsfw setting request",
             };
         } else {
             throw new Error("No profile action selected");

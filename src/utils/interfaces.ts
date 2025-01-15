@@ -253,6 +253,7 @@ export interface loginActionData {
     savedPosts: Array<savedPostInterface>;
     likedPosts: Array<string>;
     likedComments: Array<string>;
+    viewNSFW: boolean;
     token: string;
 }
 
@@ -263,7 +264,7 @@ export interface profileLoaderData {
     notifications: Array<notificationInterface>;
     bio: string;
     pswdLastUpdated: string;
-    replySetting: boolean;
+    profileSettings: { getReplyNotifications: boolean; viewNSFW: boolean };
     email: string;
     verifiedEmail: boolean;
 }

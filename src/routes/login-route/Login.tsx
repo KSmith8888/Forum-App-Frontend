@@ -44,6 +44,9 @@ export default function Login() {
                 "likedComments",
                 JSON.stringify(loginData.likedComments)
             );
+            if (loginData.viewNSFW) {
+                sessionStorage.setItem("view-nsfw", "true");
+            }
             if (loginForm.current) {
                 loginForm.current.reset();
             }

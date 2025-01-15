@@ -44,6 +44,10 @@ export default function Terms() {
                     If you provide any content to this service, you grant it a
                     nonexclusive, royalty-free right to use that content
                 </li>
+                <li className="terms-list-item">
+                    If you create a post that includes mature or potentially
+                    objectionable content, you will mark it as NSFW
+                </li>
             </ul>
         </div>
     );
