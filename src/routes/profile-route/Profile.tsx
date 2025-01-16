@@ -1,15 +1,11 @@
 import { useRef, useState, useEffect } from "react";
-import {
-    useLoaderData,
-    useActionData,
-    useOutletContext,
-    Form,
-} from "react-router";
+import { useLoaderData, useActionData, useOutletContext } from "react-router";
 
 import BioChangeForm from "../../components/profile-components/BioChangeForm";
 import UpdatePassword from "../../components/profile-components/UpdatePassword";
 import UpdateEmail from "../../components/profile-components/UpdateEmail";
 import DeleteAccountModal from "../../components/profile-components/DeleteAccountModal";
+import ContentSettings from "../../components/profile-components/ContentSettings";
 import {
     outletInterface,
     notificationInterface,
@@ -237,44 +233,12 @@ function Profile() {
                                 actionMessage={actionMessage}
                             />
                         </div>
-                        <div className="notification-setting-container">
-                            <h4 className="notification-setting-heading">
-                                Content Settings:
-                            </h4>
-                            <p className="reply-setting-text">
-                                Get notifications when a user replies to your
-                                post or comment
-                            </p>
-                            <Form
-                                method="POST"
-                                className="notification-setting-form"
-                            >
-                                <input
-                                    type="hidden"
-                                    name="notification-setting"
-                                    value="update"
-                                />
-                                <button type="submit" className="button">
-                                    {loaderData.profileSettings
-                                        .getReplyNotifications
-                                        ? "Turn Off"
-                                        : "Turn On"}
-                                </button>
-                            </Form>
-                            <p>View NSFW content</p>
-                            <Form method="POST" className="nsfw-setting-form">
-                                <input
-                                    type="hidden"
-                                    name="nsfw-setting"
-                                    value="update"
-                                />
-                                <button type="submit" className="button">
-                                    {loaderData.profileSettings.viewNSFW
-                                        ? "Turn Off"
-                                        : "Turn On"}
-                                </button>
-                            </Form>
-                        </div>
+                        <ContentSettings
+                            getReplyNotifications={
+                                loaderData.profileSettings.getReplyNotifications
+                            }
+                            viewNSFW={loaderData.profileSettings.viewNSFW}
+                        />
                         <div className="delete-account-container">
                             <DeleteAccountModal />
                         </div>

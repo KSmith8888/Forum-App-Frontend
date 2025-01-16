@@ -277,3 +277,8 @@ export interface userDetailsLoaderData {
     image: string;
     alt: string;
 }
+
+export interface contentSettingsProps {
+    getReplyNotifications: boolean;
+    viewNSFW: boolean;
+}

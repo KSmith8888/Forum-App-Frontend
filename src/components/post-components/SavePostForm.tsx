@@ -20,17 +20,17 @@ export default function SavePostForm({
                 <input
                     type="image"
                     className="save-unsave-post-button"
-                    src={savePostIcon}
-                    alt="A grey floppy disk indicating that the post is not saved, click to save it"
-                    title="Save post"
+                    src={unsavePostIcon}
+                    alt="A blue floppy disk indicating that the post has been saved, click to unsave it"
+                    title="Unsave post"
                 />
             ) : (
                 <input
                     type="image"
                     className="save-unsave-post-button"
-                    src={unsavePostIcon}
-                    alt="A blue floppy disk indicating that the post has been saved, click to unsave it"
-                    title="Unsave post"
+                    src={savePostIcon}
+                    alt="A grey floppy disk indicating that the post is not saved, click to save it"
+                    title="Save post"
                 />
             )}
         </Form>

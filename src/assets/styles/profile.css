@@ -89,7 +89,7 @@
 
 .profile-bio-container,
 .update-password-container,
-.notification-setting-container {
+.content-settings-container {
     padding: 1em;
     border-bottom: 1px solid black;
 }
@@ -99,8 +99,8 @@
 .profile-delete-heading,
 .profile-security-heading,
 .update-email-heading,
-.notification-setting-heading,
-.reply-setting-text {
+.content-settings-heading,
+.content-settings-text {
     margin: 0.5em 0;
 }
 
