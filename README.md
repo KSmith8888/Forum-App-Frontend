@@ -1,8 +1,10 @@
 # Forum-App-Frontend
 
-The frontend of a forum/social media app made with the MERN stack
+A forum/social media app made with the MERN stack. Users are able to create accounts, create posts and comments within different topics and save, like, and report posts. From the profile page, logged in users can manage their created content, control various settings such as picture, bio and content visibility and view notifications. Passwords are hashed using Bcrypt and user actions are authenticated with JWT. During account creation, a verification email with a OTP is sent to confirm that the email is valid before the account creation is completed. Accounts have permission levels of either User, Mod or Admin. Mods and admins have access to the moderation page, which allows them to delete content, send notifications to users or temporarily ban user accounts.
 
 ![A header section with options for menu and topics above sections of new and popular posts on a light blue background](/public/the-4em-app-screenshot.png)
+
+![The profile page with options to update the profile image and bio, a list of saved posts that have been bookmarked and new notifications](/public/the-4em-app-profile.png)
 
 ## Attribution
 
