@@ -33,7 +33,12 @@ export default function BioChangeForm({ profileBio }: profileBioProps) {
                 >
                     X
                 </button>
-                <Form method="POST" className="update-bio-form" ref={bioForm}>
+                <Form
+                    method="POST"
+                    className="update-bio-form"
+                    ref={bioForm}
+                    autoComplete="off"
+                >
                     <h3 className="update-bio-form-heading">
                         Update Profile Bio:
                     </h3>

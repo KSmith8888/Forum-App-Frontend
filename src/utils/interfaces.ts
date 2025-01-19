@@ -152,9 +152,8 @@ export interface userProfileComment {
 }
 
 export interface picSelectorBtnProps {
-    currentImage: string;
-    setCurrentImage: (image: string) => void;
-    setCurrentAlt: (alt: string) => void;
+    currentInfo: { name: string; alt: string };
+    setCurrentInfo: ({ name, alt }: { name: string; alt: string }) => void;
     imageName: string;
     imageAlt: string;
     labelText: string;

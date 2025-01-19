@@ -7,15 +7,13 @@ import { profilePicInterface } from "../utils/interfaces.ts";
 import "../assets/styles/main.css";
 
 export default function Layout() {
-    const navState = useNavigation();
+    const navigate = useNavigation();
     const [isUserLoggedIn, setIsUserLoggedIn] = useState<boolean>(false);
     const [numOfNotifications, setNumOfNotifications] = useState(0);
-    const initialProfilePic = {
+    const [profilePic, setProfilePic] = useState<profilePicInterface>({
         name: "blank.png",
         alt: "A generic, blank outline of a mans upper body",
-    };
-    const [profilePic, setProfilePic] =
-        useState<profilePicInterface>(initialProfilePic);
+    });
 
     return (
         <div className="top-level-container">
@@ -27,7 +25,7 @@ export default function Layout() {
                 setProfilePic={setProfilePic}
             />
             <main className="main-section">
-                {navState.state === "loading" && (
+                {navigate.state === "loading" && (
                     <div id="outlet-loading-area">
                         <div id="outlet-loading-background">
                             <div id="outlet-loading-spinner"></div>

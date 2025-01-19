@@ -1,9 +1,8 @@
 import { picSelectorBtnProps } from "../../utils/interfaces.ts";
 
 export default function PicSelectorButton({
-    currentImage,
-    setCurrentImage,
-    setCurrentAlt,
+    currentInfo,
+    setCurrentInfo,
     imageName,
     imageAlt,
     labelText,
@@ -12,15 +11,16 @@ export default function PicSelectorButton({
         <label
             className="pfp-image-label"
             onClick={() => {
-                setCurrentImage(imageName);
-                setCurrentAlt(imageAlt);
+                setCurrentInfo({ name: imageName, alt: imageAlt });
             }}
         >
             <img
                 src={`/profile-images/${imageName}`}
                 alt={imageAlt}
                 className={`profile-image-grid-item ${
-                    currentImage === imageName ? "profile-image-selected" : ""
+                    currentInfo.name === imageName
+                        ? "profile-image-selected"
+                        : ""
                 }`}
             />
             <input

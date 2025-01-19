@@ -40,6 +40,7 @@ export default function DeleteAccountModal() {
                     method="DELETE"
                     className="delete-profile-form"
                     ref={deleteForm}
+                    autoComplete="off"
                 >
                     <h3 className="profile-delete-heading">Delete Account</h3>
                     <p className="delete-profile-form-text">

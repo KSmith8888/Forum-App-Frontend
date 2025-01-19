@@ -31,10 +31,9 @@ export default function Login() {
             sessionStorage.setItem("username", loginData.displayName);
             sessionStorage.setItem("_id", loginData._id);
             sessionStorage.setItem("token", loginData.token);
-            const savedPosts: string[] = [];
-            loginData.savedPosts.forEach((post: savedPostInterface) => {
-                savedPosts.push(post.postId);
-            });
+            const savedPosts: string[] = loginData.savedPosts.map(
+                (post: savedPostInterface) => post.postId
+            );
             sessionStorage.setItem("saved-posts", JSON.stringify(savedPosts));
             sessionStorage.setItem(
                 "likedPosts",

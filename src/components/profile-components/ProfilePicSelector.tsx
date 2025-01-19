@@ -6,8 +6,7 @@ import PicSelectorButton from "./PicSelectorButton.tsx";
 
 export default function ProfilePicSelector() {
     const { profilePic } = useOutletContext<outletInterface>();
-    const [currentImage, setCurrentImage] = useState(profilePic.name);
-    const [currentAlt, setCurrentAlt] = useState(profilePic.alt);
+    const [currentInfo, setCurrentInfo] = useState(profilePic);
     const picModal = useRef<HTMLDialogElement>(null);
 
     return (
@@ -30,8 +29,10 @@ export default function ProfilePicSelector() {
                     onClick={() => {
                         if (picModal.current) {
                             picModal.current.close();
-                            setCurrentImage(profilePic.name);
-                            setCurrentAlt(profilePic.alt);
+                            setCurrentInfo({
+                                name: profilePic.name,
+                                alt: profilePic.alt,
+                            });
                         }
                     }}
                 >
@@ -49,25 +50,22 @@ export default function ProfilePicSelector() {
                             <PicSelectorButton
                                 imageName="blank.png"
                                 imageAlt="A generic, blank outline of a mans upper body"
-                                currentImage={currentImage}
-                                setCurrentImage={setCurrentImage}
-                                setCurrentAlt={setCurrentAlt}
+                                currentInfo={currentInfo}
+                                setCurrentInfo={setCurrentInfo}
                                 labelText="Default"
                             />
                             <PicSelectorButton
                                 imageName="apple.jpg"
                                 imageAlt="A red apple with sunlit trees in the background"
-                                currentImage={currentImage}
-                                setCurrentImage={setCurrentImage}
-                                setCurrentAlt={setCurrentAlt}
+                                currentInfo={currentInfo}
+                                setCurrentInfo={setCurrentInfo}
                                 labelText="Apple"
                             />
                             <PicSelectorButton
                                 imageName="coffee.jpg"
                                 imageAlt="A white mug filled with coffee, surrounded by coffee beans"
-                                currentImage={currentImage}
-                                setCurrentImage={setCurrentImage}
-                                setCurrentAlt={setCurrentAlt}
+                                currentInfo={currentInfo}
+                                setCurrentInfo={setCurrentInfo}
                                 labelText="Coffee"
                             />
                         </div>
@@ -75,25 +73,22 @@ export default function ProfilePicSelector() {
                             <PicSelectorButton
                                 imageName="tree.jpg"
                                 imageAlt="A green tree in an open field of grass, with hazy sky in the background"
-                                currentImage={currentImage}
-                                setCurrentImage={setCurrentImage}
-                                setCurrentAlt={setCurrentAlt}
+                                currentInfo={currentInfo}
+                                setCurrentInfo={setCurrentInfo}
                                 labelText="Tree"
                             />
                             <PicSelectorButton
                                 imageName="guitar.jpg"
                                 imageAlt="A black, brown and white electric guitar, tilted diagonally"
-                                currentImage={currentImage}
-                                setCurrentImage={setCurrentImage}
-                                setCurrentAlt={setCurrentAlt}
+                                currentInfo={currentInfo}
+                                setCurrentInfo={setCurrentInfo}
                                 labelText="Guitar"
                             />
                             <PicSelectorButton
                                 imageName="iced-tea.jpg"
                                 imageAlt="A clear glass filled with iced tea, with two lemons next to it"
-                                currentImage={currentImage}
-                                setCurrentImage={setCurrentImage}
-                                setCurrentAlt={setCurrentAlt}
+                                currentInfo={currentInfo}
+                                setCurrentInfo={setCurrentInfo}
                                 labelText="Iced Tea"
                             />
                         </div>
@@ -101,30 +96,31 @@ export default function ProfilePicSelector() {
                             <PicSelectorButton
                                 imageName="laptop.jpg"
                                 imageAlt="A grey and black laptop computer, displaying various charts and graphs"
-                                currentImage={currentImage}
-                                setCurrentImage={setCurrentImage}
-                                setCurrentAlt={setCurrentAlt}
+                                currentInfo={currentInfo}
+                                setCurrentInfo={setCurrentInfo}
                                 labelText="Laptop"
                             />
                             <PicSelectorButton
                                 imageName="boat.jpg"
                                 imageAlt="A white yacht on a blue body of water with clear sky in the background"
-                                currentImage={currentImage}
-                                setCurrentImage={setCurrentImage}
-                                setCurrentAlt={setCurrentAlt}
+                                currentInfo={currentInfo}
+                                setCurrentInfo={setCurrentInfo}
                                 labelText="Boat"
                             />
                             <PicSelectorButton
                                 imageName="globe.jpg"
                                 imageAlt="A globe of the Earth sitting on a dark brown desk"
-                                currentImage={currentImage}
-                                setCurrentImage={setCurrentImage}
-                                setCurrentAlt={setCurrentAlt}
+                                currentInfo={currentInfo}
+                                setCurrentInfo={setCurrentInfo}
                                 labelText="Globe"
                             />
                         </div>
                     </div>
-                    <input type="hidden" name="pfp-alt" value={currentAlt} />
+                    <input
+                        type="hidden"
+                        name="pfp-alt"
+                        value={currentInfo.alt}
+                    />
                     <button
                         type="submit"
                         className="button"

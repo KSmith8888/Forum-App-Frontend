@@ -73,6 +73,7 @@ export default function UpdateEmail({
                             className="input"
                             type="email"
                             name="email"
+                            autoComplete="off"
                             minLength={6}
                             maxLength={40}
                             required
@@ -83,7 +84,11 @@ export default function UpdateEmail({
                         <p>A verification email will be sent to this address</p>
                     </Form>
                 ) : (
-                    <Form method="POST" className="update-email-form">
+                    <Form
+                        method="POST"
+                        className="update-email-form"
+                        autoComplete="off"
+                    >
                         <h2 className="update-email-form-heading">
                             Enter the code that was sent to your new email
                             address
