@@ -91,7 +91,7 @@ export default function PollForm({ options, postId }: pollData) {
                                 </div>
                             </div>
                         )}
-                        {options.length === 4 && (
+                        {options.length >= 4 && (
                             <div className="poll-option">
                                 <label className="poll-option-label">
                                     <input
@@ -113,6 +113,58 @@ export default function PollForm({ options, postId }: pollData) {
                                         value={options[3].votes}
                                     >
                                         {options[3].votes}
+                                    </meter>
+                                </div>
+                            </div>
+                        )}
+                        {options.length >= 5 && (
+                            <div className="poll-option">
+                                <label className="poll-option-label">
+                                    <input
+                                        className="poll-option-input"
+                                        type="radio"
+                                        name="poll-vote"
+                                        value="4"
+                                    />
+                                    {options[4].option}
+                                </label>
+                                <div className="poll-vote-text-container">
+                                    <p className="poll-vote-text">
+                                        Total: {options[4].votes}
+                                    </p>
+                                    <meter
+                                        className="poll-meter"
+                                        min={0}
+                                        max={highestTotal}
+                                        value={options[4].votes}
+                                    >
+                                        {options[4].votes}
+                                    </meter>
+                                </div>
+                            </div>
+                        )}
+                        {options.length === 6 && (
+                            <div className="poll-option">
+                                <label className="poll-option-label">
+                                    <input
+                                        className="poll-option-input"
+                                        type="radio"
+                                        name="poll-vote"
+                                        value="5"
+                                    />
+                                    {options[5].option}
+                                </label>
+                                <div className="poll-vote-text-container">
+                                    <p className="poll-vote-text">
+                                        Total: {options[5].votes}
+                                    </p>
+                                    <meter
+                                        className="poll-meter"
+                                        min={0}
+                                        max={highestTotal}
+                                        value={options[5].votes}
+                                    >
+                                        {options[5].votes}
                                     </meter>
                                 </div>
                             </div>
@@ -180,7 +232,7 @@ export default function PollForm({ options, postId }: pollData) {
                             </div>
                         </div>
                     )}
-                    {options.length === 4 && (
+                    {options.length >= 4 && (
                         <div className="poll-option">
                             <p className="poll-guest-text">
                                 {options[3].option}
@@ -196,6 +248,46 @@ export default function PollForm({ options, postId }: pollData) {
                                     value={options[3].votes}
                                 >
                                     {options[3].votes}
+                                </meter>
+                            </div>
+                        </div>
+                    )}
+                    {options.length >= 5 && (
+                        <div className="poll-option">
+                            <p className="poll-guest-text">
+                                {options[4].option}
+                            </p>
+                            <div className="poll-vote-text-container">
+                                <p className="poll-vote-text">
+                                    Total: {options[4].votes}
+                                </p>
+                                <meter
+                                    className="poll-meter"
+                                    min={0}
+                                    max={highestTotal}
+                                    value={options[4].votes}
+                                >
+                                    {options[4].votes}
+                                </meter>
+                            </div>
+                        </div>
+                    )}
+                    {options.length === 6 && (
+                        <div className="poll-option">
+                            <p className="poll-guest-text">
+                                {options[5].option}
+                            </p>
+                            <div className="poll-vote-text-container">
+                                <p className="poll-vote-text">
+                                    Total: {options[5].votes}
+                                </p>
+                                <meter
+                                    className="poll-meter"
+                                    min={0}
+                                    max={highestTotal}
+                                    value={options[5].votes}
+                                >
+                                    {options[5].votes}
                                 </meter>
                             </div>
                         </div>
