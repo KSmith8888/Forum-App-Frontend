@@ -265,7 +265,6 @@ export interface profileLoaderData {
     pswdLastUpdated: string;
     profileSettings: { getReplyNotifications: boolean; viewNSFW: boolean };
     email: string;
-    verifiedEmail: boolean;
 }
 
 export interface userDetailsLoaderData {
@@ -280,4 +279,11 @@ export interface userDetailsLoaderData {
 export interface contentSettingsProps {
     getReplyNotifications: boolean;
     viewNSFW: boolean;
+}
+
+export interface pollOptionProps {
+    index: number;
+    highestTotal: number;
+    option: string;
+    votes: number;
 }
