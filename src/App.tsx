@@ -56,8 +56,10 @@ const router = createBrowserRouter([
                 children: [
                     {
                         path: "create/",
-                        lazy: () =>
-                            import("./routes/create-post-route/CreatePost.tsx"),
+                        lazy: async () =>
+                            await import(
+                                "./routes/create-post-route/CreatePost.tsx"
+                            ),
                     },
                     {
                         path: "topics/:topic/",
@@ -66,19 +68,22 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "edit/:id/:title/",
-                        lazy: () =>
-                            import("./routes/edit-post-route/EditPost.tsx"),
+                        lazy: async () =>
+                            await import(
+                                "./routes/edit-post-route/EditPost.tsx"
+                            ),
                     },
                     {
                         path: "comments/edit/:id",
-                        lazy: () =>
-                            import(
+                        lazy: async () =>
+                            await import(
                                 "./routes/edit-comment-route/EditComment.tsx"
                             ),
                     },
                     {
                         path: ":id/:title/",
-                        lazy: () => import("./routes/post-route/Post.tsx"),
+                        lazy: async () =>
+                            await import("./routes/post-route/Post.tsx"),
                     },
                 ],
             },
@@ -90,7 +95,8 @@ const router = createBrowserRouter([
             },
             {
                 path: "/verify/",
-                lazy: () => import("./routes/verify-route/VerifyEmail.tsx"),
+                lazy: async () =>
+                    await import("./routes/verify-route/VerifyEmail.tsx"),
                 errorElement: <ErrorElement />,
             },
             {
@@ -101,18 +107,20 @@ const router = createBrowserRouter([
             },
             {
                 path: "/users/details/:username/",
-                lazy: () =>
-                    import("./routes/user-details-route/UserDetails.tsx"),
+                lazy: async () =>
+                    await import("./routes/user-details-route/UserDetails.tsx"),
                 errorElement: <ErrorElement />,
             },
             {
-                path: "/profile",
-                lazy: () => import("./routes/profile-route/Profile.tsx"),
+                path: "/profile/",
+                lazy: async () =>
+                    await import("./routes/profile-route/Profile.tsx"),
                 errorElement: <ErrorElement />,
             },
             {
                 path: "/moderation/",
-                lazy: () => import("./routes/moderation-route/Moderation.tsx"),
+                lazy: async () =>
+                    await import("./routes/moderation-route/Moderation.tsx"),
                 errorElement: <ErrorElement />,
             },
             {
@@ -121,13 +129,15 @@ const router = createBrowserRouter([
                 children: [
                     {
                         index: true,
-                        lazy: () =>
-                            import("./routes/reset-route/ResetPassword.tsx"),
+                        lazy: async () =>
+                            await import(
+                                "./routes/reset-route/ResetPassword.tsx"
+                            ),
                     },
                     {
                         path: "complete/",
-                        lazy: () =>
-                            import(
+                        lazy: async () =>
+                            await import(
                                 "./routes/complete-reset-route/CompleteReset.tsx"
                             ),
                     },
