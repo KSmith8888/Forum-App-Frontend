@@ -258,6 +258,7 @@ function Post() {
                     </div>
                     <ReportModal
                         reportInfo={reportInfo}
+                        postUrlTitle={postData.urlTitle}
                         actionData={actionData}
                     />
                     {!isUserLoggedIn && (

@@ -227,6 +227,7 @@ export interface reportModalProps {
         messageType: string;
         messageRelated: string;
     };
+    postUrlTitle: string;
     actionData: unknown;
 }
 

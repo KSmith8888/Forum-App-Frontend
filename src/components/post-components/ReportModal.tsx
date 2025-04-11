@@ -5,6 +5,7 @@ import { reportModalProps } from "../../utils/interfaces";
 
 export default function ReportModal({
     reportInfo,
+    postUrlTitle,
     actionData,
 }: reportModalProps) {
     const reportModal = useRef<HTMLDialogElement>(null);
@@ -70,6 +71,11 @@ export default function ReportModal({
                     type="hidden"
                     name="report-type"
                     value={reportInfo.messageType}
+                />
+                <input
+                    type="hidden"
+                    name="report-url-title"
+                    value={postUrlTitle}
                 />
                 <button className="button" type="submit">
                     Submit

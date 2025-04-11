@@ -54,7 +54,7 @@ export default function Login() {
                 alt: loginData.profileImageAlt,
             });
             setIsUserLoggedIn(true);
-            navigate("/profile");
+            navigate("/profile/");
         }
     }, [loginData]);
 

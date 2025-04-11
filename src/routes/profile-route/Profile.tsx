@@ -22,8 +22,8 @@ import ProfileNotification from "../../components/profile-components/ProfileNoti
 
 import "../../assets/styles/profile.css";
 
-import profileLoader from "./profile-loader";
-import profileAction from "./profile-action";
+import profileLoader from "./profile-loader.tsx";
+import profileAction from "./profile-action.tsx";
 
 function Profile() {
     const username = sessionStorage.getItem("username");

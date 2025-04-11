@@ -17,6 +17,7 @@ export default async function postAction({ request }: loaderActionInterface) {
         const reportId = postForm.get("report-message-id");
         const reportType = postForm.get("report-type");
         const reportContent = postForm.get("report-content");
+        const reportUrlTitle = postForm.get("report-url-title");
         const savePostId = postForm.get("save-post-id");
         const savePostTitle = postForm.get("save-post-title");
         const saveUrlTitle = postForm.get("save-url-title");
@@ -58,7 +59,8 @@ export default async function postAction({ request }: loaderActionInterface) {
             typeof reportId === "string" &&
             typeof reportRelated === "string" &&
             typeof reportType === "string" &&
-            typeof reportContent === "string"
+            typeof reportContent === "string" &&
+            typeof reportUrlTitle === "string"
         ) {
             if (reportId === "none" || reportType === "none") {
                 throw new Error("Report information not provided");
@@ -76,6 +78,7 @@ export default async function postAction({ request }: loaderActionInterface) {
                 reportType,
                 reportRelated,
                 reportContent,
+                reportUrlTitle,
             };
         } else if (
             typeof savePostId === "string" &&
