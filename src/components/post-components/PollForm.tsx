@@ -1,7 +1,7 @@
 import { Form, useOutletContext } from "react-router";
 
 import PollOption from "./PollOption";
-import GuestOption from "./GuestOption";
+import PollResults from "./PollResults";
 
 import { pollData, outletInterface } from "../../utils/interfaces";
 
@@ -25,9 +25,9 @@ export default function PollForm({ options, postId }: pollData) {
             />
         );
     });
-    const guestOptions = options.map((data, index) => {
+    const pollResults = options.map((data, index) => {
         return (
-            <GuestOption
+            <PollResults
                 key={index}
                 index={index}
                 highestTotal={highestTotal}
@@ -38,7 +38,8 @@ export default function PollForm({ options, postId }: pollData) {
     });
     return (
         <>
-            {isUserLoggedIn ? (
+            <div className="poll-results-container">{pollResults}</div>
+            {isUserLoggedIn && (
                 <Form method="POST" className="poll-form">
                     <input type="hidden" value={postId} name="poll-post-id" />
                     <div className="poll-options-container">{pollOptions}</div>
@@ -50,10 +51,6 @@ export default function PollForm({ options, postId }: pollData) {
                         Vote
                     </button>
                 </Form>
-            ) : (
-                <div className="poll-options-guest-container">
-                    {guestOptions}
-                </div>
             )}
         </>
     );
