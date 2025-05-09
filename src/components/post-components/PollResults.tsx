@@ -8,7 +8,8 @@ export default function PollResults({
     return (
         <div className="poll-result-text-container">
             <p className="poll-result-text">
-                {option}: {votes}
+                {option}
+                <span className="poll-result-total">Total: {votes}</span>
             </p>
             <meter
                 className="poll-meter"
