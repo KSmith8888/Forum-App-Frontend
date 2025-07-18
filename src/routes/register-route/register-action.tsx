@@ -36,7 +36,7 @@ export default async function registerAction({
             );
         }
         const res = await fetch(
-            `${import.meta.env.VITE_BACKEND_URL}/api/v1/users`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/v1/users/create`,
             {
                 method: "POST",
                 body: JSON.stringify({ username, password, terms, email }),

@@ -27,7 +27,9 @@ https://github.com/DefinitelyTyped/DefinitelyTyped
 @typescript-eslint/eslint-plugin and @typescript-eslint/parser:  
 https://github.com/typescript-eslint/typescript-eslint  
 @vitejs/plugin-react:  
-https://github.com/vitejs/vite-plugin-react
+https://github.com/vitejs/vite-plugin-react  
+globals:  
+https://github.com/sindresorhus/globals
 
 ### Images
 
