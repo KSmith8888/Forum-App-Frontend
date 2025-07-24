@@ -6,6 +6,44 @@ A forum/social media app made with the MERN stack. Users are able to create acco
 
 ![The profile page with options to update the profile image and bio, a list of saved posts that have been bookmarked and new notifications](/public/the-4em-app-profile.png)
 
+## Running locally
+
+[!IMPORTANT]
+This repo is intended to be run in combination with https://github.com/KSmith8888/Forum-App-Backend in separate terminal windows
+
+To run the project locally, you will need Node.js installed. If you don't already have it, download the LTS version at https://nodejs.org/en
+
+First, run the following command in the terminal to clone the repo:
+
+```
+git clone https://github.com/KSmith8888/Forum-App-Frontend.git
+```
+
+(If you don't already have git installed, download it at https://git-scm.com/downloads)
+
+Navigate into the root of the project by running:
+
+```
+cd Forum-App-Frontend
+```
+
+Install the project's dependencies with:
+
+```
+npm install
+```
+
+Run the development server with:
+
+```
+npm run dev
+```
+
+Finally, navigate to http://localhost:5173/ in your browser to view the project. Changes will be reflected automatically whenever you save.
+
+[!NOTE]
+You should create a .env file with the variable named VITE_BACKEND_URL and set the value to http://127.0.0.1:3000 during development.
+
 ## Attribution
 
 ### Dependencies
