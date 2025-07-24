@@ -8,8 +8,8 @@ A forum/social media app made with the MERN stack. Users are able to create acco
 
 ## Running locally
 
-[!IMPORTANT]
-This repo is intended to be run in combination with https://github.com/KSmith8888/Forum-App-Backend in separate terminal windows
+> [!IMPORTANT]
+> This repo is intended to be run in combination with https://github.com/KSmith8888/Forum-App-Backend in separate terminal windows
 
 To run the project locally, you will need Node.js installed. If you don't already have it, download the LTS version at https://nodejs.org/en
 
@@ -41,8 +41,8 @@ npm run dev
 
 Finally, navigate to http://localhost:5173/ in your browser to view the project. Changes will be reflected automatically whenever you save.
 
-[!NOTE]
-You should create a .env file with the variable named VITE_BACKEND_URL and set the value to http://127.0.0.1:3000 during development.
+> [!NOTE]
+> You should create a .env file with the variable named VITE_BACKEND_URL and set the value to http://127.0.0.1:3000 during development.
 
 ## Attribution
 
