@@ -35,18 +35,21 @@ export default function Comment({
     const [showReplyForm, setShowReplyForm] = useState(false);
 
     useEffect(() => {
-        if (
-            actionData &&
-            typeof actionData === "object" &&
-            "didLikeComment" in actionData &&
-            typeof actionData.didLikeComment === "boolean" &&
-            "commentLikes" in actionData &&
-            typeof actionData.commentLikes === "number" &&
-            "likeCommentId" in actionData
-        ) {
-            if (actionData.likeCommentId === commentData._id) {
+        if (actionData) {
+            if (
+                typeof actionData === "object" &&
+                "didLikeComment" in actionData &&
+                typeof actionData.didLikeComment === "boolean" &&
+                "commentLikes" in actionData &&
+                typeof actionData.commentLikes === "number" &&
+                "likeCommentId" in actionData &&
+                actionData.likeCommentId === commentData._id
+            ) {
                 setUserLikedComment(actionData.didLikeComment);
                 setCommentLikes(actionData.commentLikes);
+            }
+            if (Array.isArray(actionData)) {
+                setShowReplyForm(false);
             }
         }
     }, [actionData]);
